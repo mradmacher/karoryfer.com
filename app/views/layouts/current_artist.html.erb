@@ -1,0 +1,8 @@
+<% content_for :sidebar do %>
+  <%=	render :partial => 'artists/sidebar' %>
+<% end %>
+<% content_for :current_artist do %>
+  <%= yield %>
+<% end %>
+<%= render :template => 'layouts/application' %>
+

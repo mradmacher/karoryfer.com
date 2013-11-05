@@ -1,0 +1,26 @@
+<%= render_title t( 'helpers.title.user.edit' ), @user.login, t( 'helpers.title.user.index' ) %>
+<h1><%= t 'helpers.title.user.index'  %></h1>
+<h2><%= @user.login %></h2>
+<h3><%= t 'helpers.title.user.edit' %></h3>
+<% content_for :actions do %>
+	<ul>
+		<li><%= link_to t( 'helpers.action.cancel_edit' ), admin_user_path( @user ) %></li>
+	</ul>
+<% end %>
+<%= form_for [:admin, @user] do |f| %>
+	<%= f.error_messages %>
+	<fieldset>
+		<legend><%= t( 'helpers.legend.user' ) %></legend>
+		<%= f.label :login, t( 'helpers.label.user.login' ) %>
+		<%= f.text_field :login %><br />
+		<%= f.label :email, t( 'helpers.label.user.email' ) %>
+		<%= f.text_field :email %><br />
+		<% if can? :manage, User %>
+			<%= f.label :admin, t( 'helpers.label.user.admin' ) %>
+			<%= f.check_box :admin %><br />
+		<% end %>
+		<%= f.submit t( 'helpers.action.save' ) %>
+	</fieldset>
+<% end %>
+
+

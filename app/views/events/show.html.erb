@@ -1,0 +1,25 @@
+<%= render_title @event.title %>
+<% content_for :actions do %>
+  <% if can? :create, Post %>
+    <%= link_to_action t( 'helpers.action.event.new' ), new_event_path %>
+  <% end %>
+  <% if can? :update, @event %>
+    <%= link_to_action t( 'helpers.action.event.edit' ), edit_event_path( @event ) %>
+  <% end %>
+  <% if can? :destroy, @event %>
+    <%= link_to_action t( 'helpers.action.event.destroy' ), event_path( @event ), :method => :delete,
+      :confirm => t( 'helpers.action.destroy_confirmation' ) %>
+  <% end %>
+<% end %>
+
+<%= render :partial => 'header', :locals => { :event => @event } %>
+<div class="long-text">
+  <%= render_text @event.body %>
+</div>
+<br />
+<div class="well">
+  <%= render partial: 'embeds/facebook', locals: { url: event_url( @event ) } %>
+  <br />
+  <%= render partial: 'embeds/twitter' %>
+</div>
+

@@ -1,0 +1,16 @@
+<%= form_for @artist, :html => {:multipart => true} do |f| %>
+	<%= f.error_messages %>
+  <%= f.label :name, t( 'helpers.label.artist.name' ) %>
+  <%= f.text_field :name %>
+  <%= f.label :reference %>
+  <%= f.text_field :reference, :disabled => (@artist.new_record?? false : true ) %>
+  <%= f.label :image %>
+  <%= f.file_field :image %>
+  <%= f.label :summary, t( 'helpers.label.artist.summary' ) %>
+  <%= f.text_field :summary %> 
+  <%= f.label :description, t( 'helpers.label.artist.description' ) %>
+  <%= f.text_area :description, :class => 'span8' %> 
+  <br />
+  <%= f.submit t( 'helpers.action.save' ), :class => 'btn' %>
+<% end %>
+

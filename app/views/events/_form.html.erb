@@ -1,0 +1,54 @@
+<%= form_for @event do |f| %>
+	<%= f.error_messages %>
+  <%= f.label :published do %>
+    <%= f.check_box :published %>
+    <%= t( "helpers.label.event.published" ) %>
+  <% end %>
+
+  <%= f.label :artist_id, t( "helpers.label.event.artist_id" ) %>
+  <%= f.collection_select :artist_id, Artist.all, :id, :name %>
+
+  <%= f.label :title, t( "helpers.label.event.title" ) %>
+  <%= f.text_field :title %>
+
+  <%= f.label :location, t( 'helpers.label.event.location' ) %>
+  <%= f.text_field :location %>
+
+  <%= f.label :address, t( 'helpers.label.event.address' ) %>
+  <%= f.text_field :address %>
+
+  <%= f.label :event_date, t( 'helpers.label.event.event_date' ) %>
+  <%= f.date_select :event_date, :order => [:day, :month, :year], :include_blank => true %>
+
+  <%= f.label :event_time, t( 'helpers.label.event.event_time' ) %>
+  <%= f.text_field :event_time %>
+
+  <%= f.label :duration, t( 'helpers.label.event.duration' ) %>
+  <%= f.select :duration, (0..14).to_a.map{ |i| ["+#{i}", i] } %>
+
+  <%= f.label :free_entrance do %>
+    <%= f.check_box :free_entrance %>
+    <%= t( "helpers.label.event.free_entrance" ) %>
+  <% end %>
+
+  <%= f.label :price, t( 'helpers.label.event.price' ) %>
+  <%= f.text_field :price %>
+
+  <br />
+  <% unless @event.poster_file_name.nil? %>
+    <%= image_tag( @event.poster.url( :thumb ), :alt => @event.title ) %>
+  <% end %>
+  <%= f.label :poster, t( 'helpers.label.event.poster' ) %>
+  <%= f.file_field :poster %>
+  <%= f.label :poster_url, t( "helpers.label.event.poster_url" ) %>
+  <%= f.text_field :poster_url %>
+
+  <%= f.label :body, t( "helpers.label.event.body" ) %>
+  <%= f.text_area :body, :class => 'span8' %>
+
+  <%= f.label :external_urls, t( "helpers.label.event.external_urls" ) %>
+  <%= f.text_area :external_urls, :class => 'span6', :rows => 4 %> 
+  <br />
+
+  <%= f.submit t( 'helpers.action.save' ), :class => 'btn' %>
+<% end %>

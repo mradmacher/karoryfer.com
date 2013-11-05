@@ -9,10 +9,14 @@ capybara-*.html
 /log/*
 /tmp/*
 /db/*.sqlite3
+/db/tracks/
 /public/system/*
 /coverage/
 /spec/tmp/*
+/config/database.yml
 **.orig
+*~
+*.swp
 rerun.txt
 pickle-email-*.html
 .project

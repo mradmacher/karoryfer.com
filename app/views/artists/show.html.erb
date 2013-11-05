@@ -1,0 +1,25 @@
+<%= render_title %>
+<% content_for :actions do %>
+  <% if can? :update, @artist %>
+    <%= link_to_action t( 'helpers.action.artist.edit' ), edit_artist_path %>
+  <% end %>
+  <% if can? :create, Event %>
+    <%= link_to_action t( 'helpers.action.event.new' ), new_event_path %>
+  <% end %>
+  <% if can? :create, Post %>
+    <%= link_to_action t( 'helpers.action.post.new' ), new_post_path %>
+  <% end %>
+<% end %>
+
+<div class="media">
+  <%= link_to image_tag( current_artist.image.url( :normal ), :alt => current_artist.name, :class => 'media-object' ),
+    artist_path( current_artist ), :class => 'pull-left' %>
+  <div class="media-body">
+    <h1 class="media-heading"><%= current_artist.name %></h1>
+    <p class="lead"><%= @artist.summary %></p>
+  </div>
+</div>
+<br />
+<div class="long-text">
+<%= render_textile @artist.description %>
+</div>

@@ -1,0 +1,27 @@
+<%= render_title t( 'helpers.title.user.new' ), t( 'helpers.title.user.index' ) %>
+<h1><%= t 'helpers.title.user.index' %></h1>
+<h2><%= t 'helpers.title.user.new' %></h2>
+<% content_for :actions do %>
+	<ul>
+		<li><%= link_to t( 'helpers.action.cancel_new' ), admin_users_path %></li>
+	</ul>
+<% end %>
+<%= form_for [:admin, @user] do |f| %>
+	<%= f.error_messages %>
+	<fieldset>
+		<legend><%= t( 'helpers.legend.user' ) %></legend>
+		<%= f.label :login, t( 'helpers.label.user.login' ) %>
+		<%= f.text_field :login %>
+		<%= f.label :email, t( 'helpers.label.user.email' ) %>
+		<%= f.text_field :email %><br />
+		<%= f.label :admin, t( 'helpers.label.user.admin' ) %>
+		<%= f.check_box :admin %>
+		<%= f.label :password, t( 'helpers.label.user.password' ) %>
+		<%= f.password_field :password %> <br />
+		<%= f.label :password_confirmation, t( 'helpers.label.user.password_confirmation' ) %>
+		<%= f.password_field :password_confirmation %> <br />
+		<%= f.submit t( 'helpers.action.save' ) %>
+	</fieldset>
+<% end %>
+
+

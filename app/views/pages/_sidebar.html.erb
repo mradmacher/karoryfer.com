@@ -1,0 +1,8 @@
+<% content_for :sidebar do %>
+	<div class="sidebar-section">
+    <% @pages.each do |page| %>
+      <%= link_to page.title, page_path( page ) %><br />
+    <% end %>
+	</div>
+<% end %>
+

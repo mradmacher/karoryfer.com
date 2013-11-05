@@ -1,0 +1,25 @@
+<%= render_title @post.title %>
+<% content_for :actions do %>
+  <% if can? :create, Post %>
+    <%= link_to_action t( 'helpers.action.post.new' ), new_post_path %>
+  <% end %>
+  <% if can? :update, @post %>
+    <%= link_to_action t( 'helpers.action.post.edit' ), edit_post_path %>
+  <% end %>
+  <% if can? :destroy, @post %>
+    <%= link_to_action t( 'helpers.action.post.destroy' ), post_path( @post ), :method => :delete,
+      :confirm => t( 'helpers.action.destroy_confirmation' ) %>
+  <% end %>
+<% end %>
+
+<%= render :partial => 'header', :locals => { :post => @post } %>
+<div class="long-text">
+  <%= render_text @post.body %>
+</div>
+<br />
+<div class="well">
+  <%= render partial: 'embeds/facebook', locals: { url: post_url( @post ) } %>
+  <br />
+  <%= render partial: 'embeds/twitter' %>
+</div>
+

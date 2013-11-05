@@ -1,0 +1,59 @@
+class AlbumsController < ApplicationController
+	before_filter :require_user, :except => [:index, :show]
+  layout :set_layout
+
+  def index
+		@albums = current_artist ? current_artist.albums.published.all : Album.published.all
+  end
+
+  def show
+		@album = Album.find( params[:id] )
+    redirect_to( artist_album_url( @album.artist, @album ), :status => 301 ) unless current_artist?
+		authorize!( :read, @album )
+		@artist = current_artist
+  end
+
+  def edit
+		@album = Album.find( params[:id] )
+    redirect_to( edit_artist_album_url( @album.artist, @album ), :status => 301 ) unless current_artist?
+		authorize! :update, @album
+  end
+
+  def new
+		authorize! :create, Album 
+		@album = Album.new
+		@album.artist = current_artist if current_artist?
+  end
+
+	def create
+		@album = Album.new( params[:album] )
+		authorize! :create, @album
+		if @album.save
+			redirect_to artist_album_url( @album.artist, @album )
+		else
+			render :action => 'new'
+		end
+	end
+
+	def update
+		@album = Album.find( params[:id] )
+		authorize! :update, @album
+		if @album.update_attributes( params[:album] )
+			redirect_to artist_album_url( @album.artist, @album )
+		else
+			render :action => 'edit'
+		end
+	end
+
+	def destroy
+		@album = Album.find( params[:id] )
+		authorize! :destroy, @album
+		@album.destroy
+		redirect_to albums_url
+	end
+
+  private
+  def set_layout
+    current_artist?? 'current_artist' : 'application'
+  end
+end

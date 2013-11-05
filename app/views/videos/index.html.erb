@@ -1,0 +1,25 @@
+<%= render_title t( 'helpers.title.video.index' ) %>
+<% content_for :actions do %>
+  <% if can? :create, Video %>
+    <%= link_to_action t( 'helpers.action.video.new' ), new_video_path %>
+  <% end %>
+<% end %>
+
+<% if current_artist? %>
+  <h1><%= current_artist.name %></h1>
+  <h2><%= t 'helpers.title.video.index' %></h2>
+<% else %>
+  <h1 class="hidden"><%= t 'helpers.title.video.index' %></h1>
+<% end %>
+
+<% if @videos.empty? %>
+  <%= t( 'helpers.label.nothing_here_yet' ) %>
+<% end %>
+<ul class="thumbnails">
+<% @videos.each do |video| %>
+  <li class="span2">
+    <div class="thumbnail text-center"><%= render video %></div>
+  </li>
+<% end %>
+</ul>
+
