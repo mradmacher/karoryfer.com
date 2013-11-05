@@ -1,0 +1,41 @@
+<%= render_title t( 'helpers.title.album.index') %>
+<% if current_artist? %>
+  <h1><%= current_artist.name %></h1>
+  <h2><%= t 'helpers.title.album.index' %></h2>
+<% else %>
+  <h1 class="hidden"><%= t 'helpers.title.album.index' %></h1>
+<% end %>
+<% content_for :actions do %>
+  <% if can? :manage, Album %>
+    <%= link_to_action t( "helpers.action.album.new" ), new_album_path %>
+  <% end %>
+<% end %>
+<ul class="thumbnails">
+<% @albums.each do |album| %>
+  <li class="span2">
+    <div class="thumbnail text-center"><%= render album %></div>
+  </li>
+<% end %>
+</ul>
+
+<% unless current_artist? %>
+  <% if current_user? %>
+    <h2><%= t 'helpers.label.unpublished' %></h2>
+    <ul class="thumbnails">
+    <% current_user.unpublished_albums.each do |album| %>
+      <li class="span2">
+        <div class="thumbnail text-center">
+          <a href="<%= artist_album_path( album.artist, album ) %>">
+            <%= image_tag( album.image.url( :thumb ), :alt => album.title, :class => 'img-rounded img-polaroid' ) %>
+          </a>
+          <h5><a href="<%= artist_album_path( album.artist, album ) %>"><%= album.title %></a></h5>
+          <% unless current_artist? %>
+            <p><%= album.artist.name %></p>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
+<% end %>
+

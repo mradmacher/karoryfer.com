@@ -1,0 +1,7 @@
+<%= render_title t( 'helpers.title.post.new' ) %>
+<% content_for :actions do %>
+  <%= link_to_action t( "helpers.action.cancel_new" ), current_artist? ? artist_path( current_artist ) : posts_path %>
+<% end %>
+<h1><%= t 'helpers.title.post.index'  %></h1>
+<h2><%= t 'helpers.title.post.new' %></h2>
+<%= render :partial => 'form' %>

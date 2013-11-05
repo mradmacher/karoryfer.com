@@ -1,0 +1,390 @@
+pl:
+  license:
+    cc-by-3-0: Creative Commons Uznanie autorstwa 3.0 Unported
+    cc-by-sa-3-0: Creative Commons Uznanie autorstwa-Na tych samych warunkach 3.0 Unported
+    cc-by-nc-sa-3-0: Creative Commons Uznanie autorstwa-Użycie niekomercyjne-Na tych samych warunkach 3.0 Unported
+  datetime:
+    formats:
+      default: "%Y-%m-%d"
+    prompts:
+      day: Dzień
+      month: Miesiąc
+      year: Rok
+      hour: Godzina
+      minute: Minuta
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M"
+      date: "%Y-%m-%d"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+    month_names: [styczeń, luty, marzec, kwiecień, maj, czerwiec, lipiec, sierpień, wrzesień, październik, listopad, grudzień]
+    order: [day, month, year]
+
+  errors:
+    messages:
+      #carrierwave_processing_error: "Cannot resize image."
+      #carrierwave_integrity_error: "Not an image."
+      #carrierwave_download_error: "Couldn't download image."
+      extension_white_list_error: "^Nie możesz przesłać pliku typu %{extension}. Poprawne typy plików: %{allowed_types}."
+      #extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
+
+  activerecord:
+    models:
+      album: Album
+      artist: Artysta
+      post: Wiadomość
+      event: Wydarzenie
+      page: Informacja
+      video: Film
+    errors:
+      messages:
+        record_invalid: Nieprawidłowy wpis
+      template:
+        header:
+          one: Nie można zapisać danych z powodu błędu.
+          few: Nie można zapisać danych z powodu %{count} błędów.
+          other: Nie można zapisać danych z powodu %{count} błędów.
+        body: "Proszę poprawić następujące pola:"
+      models:
+        license:
+          attributes:
+            name:
+              blank: ^proszę podać nazwę
+            symbol:
+              blank: ^proszę podać symbol
+            version:
+              blank: ^proszę określić wersję
+        album:
+          attributes:
+            reference:
+              blank: ^proszę podać identyfikator
+              too_long: ^podany identyfikator jest za długi (dopuszczalne jest 40 znaków) 
+              exclusion: ^podana nazwa identyfikatora jest zastrzeżona
+              invalid: ^proszę podać poprawny identyfikator (wyrazy rozdzielone "-" bez polskich znaków)
+              taken: ^proszę podać unikalny identyfikator
+            title:
+              blank: ^proszę podać tytuł
+              taken: ^proszę podać niepowtarzalny tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne są 32 znaki)
+            artist_id: 
+              blank: ^proszę wybrać artystę
+            year:
+              wrong_length: ^rok wydania powinien być czterocyfrowy
+              not_a_number: ^rok wydania powinien zawierać tylko cyfry
+            license:
+              inclusion: ^podana licencja nie jest akceptowana
+            published:
+              inclusion: ^proszę zaznaczyć czy opublikować album
+        attachment:
+          attributes:
+            album_id:
+              blank: ^proszę wybrać album
+            file:
+              blank: ^proszę załączyć plik
+              taken: ^nazwa pliku powinna być unikalna dla albumu
+        track:
+          attributes:
+            album_id:
+              blank: ^proszę wybrać album
+            title:
+              blank: ^proszę podać tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne jest 30 znaków)
+            rank:
+              blank: ^proszę podać numer utworu
+              taken: ^numer utworu powinien być unikalny dla albumu
+            comment:
+              too_long: ^podany komentarz jest za długi (dopuszczalne jest 255 znaków)
+        release:
+          album_or_track:
+            both: ^proszę wybrać album albo utwór
+            none: ^proszę wybrać album albo utwór
+            missing_files: ^co najmniej jedna ścieżka nie ma przypisanego pliku
+          attributes:
+            album_id:
+              blank: ^proszę wybrać album
+            format:
+              blank: ^proszę wybrać format
+              inclusion: ^podany format nie jest akceptowany
+        artist:
+          attributes:
+            name:
+              blank: ^proszę podać nazwę
+              too_long: ^długość nazwy nie może przekroczyć 32 znaków
+            reference:
+              blank: ^proszę podać identyfikator
+              too_long: ^podany identyfikator jest za długi (dopuszczalne jest 16 znaków) 
+              exclusion: ^podana nazwa identyfikatora jest zastrzeżona
+              invalid: ^proszę podać poprawny identyfikator (wyrazy rozdzielone "-" lub "_"  bez polskich znaków)
+              taken: ^proszę podać unikalny identyfikator
+        post:
+          attributes:
+            poster_url:
+              invalid: ^proszę podać poprawny adres URL
+            title:
+              blank: ^proszę podać tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
+            artist_id: 
+              blank: ^proszę wybrać artystę
+            published:
+              inclusion: ^proszę zaznaczyć czy opublikować wiadomości
+        event:
+          attributes:
+            poster_url:
+              invalid: ^proszę podać poprawny adres URL
+            event_date:
+              blank: ^proszę podać datę wydarzenia
+            title:
+              blank: ^proszę podać tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
+            artist_id: 
+              blank: ^proszę wybrać artystę
+            published:
+              inclusion: ^proszę zaznaczyć czy opublikować wiadomości
+            free_entrance:
+              inclusion: ^proszę zaznaczyć czy wstęp jest wolny
+        video:
+          attributes:
+            title:
+              blank: ^proszę podać tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
+            url:
+              blank: ^proszę podać URL
+            artist_id: 
+              blank: ^proszę wybrać artystę
+        article:
+          attributes:
+            title:
+              blank: ^proszę podać tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne jest 50 znaków)
+            artist_id: 
+              blank: ^proszę wybrać artystę
+        page:
+          attributes:
+            title:
+              blank: ^proszę podać tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne jest 40 znaków)
+            reference:
+              blank: ^proszę podać identyfikator
+              taken: ^proszę podać unikalny identyfikator
+              invalid: ^proszę podać poprawny identyfikator (wyrazy rozdzielone "-" bez polskich znaków)
+        user:
+          attributes:
+            login:
+              too_short: ^podany login jest za krótki
+              taken: ^podany login jest już zajęty
+            password:
+              too_short: ^podane hasło jest za krótkie
+              confirmation: ^podane hasło i jego potwierdzenie są różne
+            password_confirmation:
+              too_short: ^podane potwierdzenie hasła jest za krótkie
+            admin:
+              inclusion: ^proszę określić, czy użytkownik jest administratorem
+        setting:
+          attributes:
+            name:
+              blank: ^proszę podać nazwę
+              taken: ^proszę podać unikalną nazwę
+              invalid: ^proszę podać poprawną nazwę
+  helpers:
+    action:
+      post:
+        new: Dodaj wiadomość
+        edit: Zmień wiadomość
+        destroy: Usuń wiadomość
+      event:
+        new: Dodaj wydarzenie
+        edit: Zmień wydarzenie
+        destroy: Usuń wydarzenie
+      video:
+        new: Dodaj film
+        edit: Zmień film
+        destroy: Usuń film
+      article:
+        new: Dodaj informację
+        edit: Zmień informację
+        destroy: Usuń informację
+      artist:
+        new: Dodaj artystę
+        edit: Zmień artystę
+        destroy: Usuń artystę
+      album:
+        new: Dodaj wydawnictwo
+        edit: Zmień wydawnictwo
+        destroy: Usuń wydawnictwo
+      user:
+        new: Dodaj użytkownika
+        edit: Zmień dane
+        edit_password: Zmień hasło
+        destroy: Usuń konto
+      page:
+        new: Dodaj informację
+        edit: Zmień informację
+        destroy: Usuń informację
+      save: Zapisz
+      edit: Zmień
+      new: Dodaj
+      destroy: Usuń
+      cancel_edit: Zostaw jak było
+      cancel_new: Odpuść sobie
+      destroy_confirmation: Czy na pewno to usunąć?
+      more: Pokaż...
+      see_more: Zobacz więcej...
+    title:
+      user_session:
+        new: Logowanie
+      album:
+        index: Wydawnictwa
+        new: Nowe wydawnictwo
+        edit: Zmiana danych
+      artist:
+        index: Artyści
+        new: Nowy artysta
+        edit: Zmiana danych
+      page:
+        index: Opisy
+        new: Nowy opis
+        edit: Zmiana opisu
+      post:
+        index: Wiadomości
+        new: Nowa wiadomość
+        edit: Zmiana danych
+      event:
+        index: Wydarzenia
+        new: Nowe wydarzenie
+        edit: Zmiana danych
+      video:
+        index: Filmy
+        new: Nowy film
+        edit: Zmiana danych
+      article:
+        index: Informacje
+        new: Nowa informacja
+        edit: Zmiana danych
+      user:
+        index: Użytkownicy
+        new: Nowy użytkownik
+        edit: Zmiana danych
+        edit_password: Zmiana hasła
+      site:
+        home: Karoryfer Lecolds
+      track:
+        index: Lista utworów
+    legend:
+      artist: Artysta
+      page: Opis
+      post: Wiadomość
+      event: Wydarzenie
+      video: Film
+      article: Informacje
+      album: Wydawnictwo
+      user: Użytkownik
+    label:
+      nothing_here_yet: Nic tu jeszcze nie ma.
+      unpublished: Szkice
+      true_value: tak
+      false_value: nie
+      download: Pobierz
+      post: Wiadomość
+      event: Wydarzenie
+      posts: Wiadomości
+      events: Wydarzenia
+      drafts: Szkice
+      user_session:
+        login: "Użytkownik"
+        password: "Hasło"
+        submit: "Wpuść mnie"
+      artist:
+        name: Nazwa
+        image: Obrazek
+        reference: Identyfikator
+        summary: W skrócie
+        description: Dokładniej
+      page:
+        title: Tytuł
+        reference: Identyfikator
+        content: Opis
+      event:
+        all: ...
+        drafts: Szkice wydarzeń
+        title: Tytuł
+        poster: Plakat
+        poster_url: URL plakatu
+        status: Status
+        artist_id: Artysta
+        location: Miejsce wydarzenia
+        address: Adres
+        event_date: Data wydarzenia
+        event_time: Godzina
+        duration: Dni ważności
+        free_entrance: Wstęp wolny
+        price: Cena
+        body: Treść
+        unpublished: Szkic
+        published: Opublikowane
+        external_urls: URL stron zewnętrznych
+      post:
+        all: ...
+        drafts: Szkice wiadomości
+        tags: Tagi
+        title: Tytuł
+        poster: Plakat
+        poster_url: URL plakatu
+        status: Status
+        artist_id: Artysta
+        location: Miejsce wydarzenia
+        event_date: Data wydarzenia
+        event_duration: Dni ważności
+        body: Treść
+        unpublished: Szkic
+        published: Opublikowane
+      video:
+        all: ...
+        title: Tytuł
+        url: URL
+        artist_id: Artysta
+        body: Opis
+      article:
+        title: Tytuł
+        body: Treść
+      album:
+        title: Tytuł
+        reference: Indentyfikator
+        artist_id: Artysta
+        unpublished: Szkic
+        published: Opublikowany
+        year: Rok
+        media: Media
+        image: Okładka
+        license_id: Licencja
+        donation: Darowizny
+        description: Opis
+      site:
+        name: Karoryfer Lecolds
+        desc: Wirtualna wytwórnia płytowa
+      user:
+        login: Login
+        email: E-mail
+        password: Hasło
+        password_confirmation: Potwierdzenie hasła
+        admin: Administrator
+        created_at: Utworzono
+        updated_at: Zmodyfikowano
+        last_login_at: Ostatnie logowanie
+        login_count: Ilość logowań
+        failed_login_count: Ilość nieudanych logowań
+    sidebar:
+      title:
+        home: Profil
+        page: Opisy
+        post: Wiadomości
+        event: Wydarzenia
+        video: Filmy
+        article: Informacje
+        artist: Artysta
+        album: Wydawnictwa
+        related: Zobacz też
+        also: Oraz
+        others: Inne
+        latest: Ostatnio dodane

@@ -1,0 +1,7 @@
+<%= render_actions :video, :cancel_edit => video_path( @video ) %>
+<%= render_title t( 'helpers.title.video.edit' ) %>
+<h1><%= @video.artist.name %></h1>
+<h2><%= t 'helpers.title.video.index'  %></h2>
+<h3><%= t 'helpers.title.video.edit' %></h3>
+<%= render :partial => 'form' %>
+

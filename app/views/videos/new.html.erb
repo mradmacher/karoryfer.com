@@ -1,0 +1,8 @@
+<%= render_title t( 'helpers.title.video.new' ) %>
+<% content_for :actions do %>
+  <%= link_to_action t( "helpers.action.cancel_new" ), current_artist? ? artist_path( current_artist ) : videos_path %>
+<% end %>
+<h1><%= t 'helpers.title.video.index'  %></h1>
+<h2><%= t 'helpers.title.video.new' %></h2>
+<%= render :partial => 'form' %>
+

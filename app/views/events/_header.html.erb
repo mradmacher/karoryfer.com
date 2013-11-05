@@ -1,0 +1,51 @@
+<h1><%= current_artist.name %></h1>
+<h2><%= t 'helpers.title.event.index' %>
+	<% unless event.published? %>
+		<span class="status">(<%= t('helpers.label.event.unpublished') %>)</span>
+	<% end %>
+</h2>
+
+<div class="media">
+  <% if event.poster_url.nil? %>
+    <% unless event.poster_file_name.nil? %>
+      <%= link_to image_tag( event.poster.url( :normal ), :alt => event.title, :class => 'media-object media-object-normal' ), 
+        event.poster.url( :original ), :class => 'pull-left' %>
+    <% end %>
+  <% else %>
+    <%= link_to image_tag( event.poster_url, :alt => event.title, :class => 'media-object media-object-normal' ), 
+      event.poster_url, :class => 'pull-left' %>
+  <% end %>
+  <div class="media-body">
+    <h3 class="media-heading"><%= event_icon( event.expired? ) %><%= event.title %></h3>
+    <p class="lead">
+      <%= event_date( event ) %><br />
+      <%= event.location %>
+      <% if event.address.present? %>
+        <br />
+        <small><%= event.address %></small>
+      <% end %>
+    </p>
+  </div>
+  <p>
+  <% if event.event_time.present? %>
+    <strong><%=t 'helpers.label.event.event_time' %>:</strong> <%= event.event_time %>
+  <% end %>
+  <% if event.free_entrance? %>
+    <br />
+    <strong><%=t 'helpers.label.event.free_entrance' %></strong>
+  <% elsif event.price.present? %>
+    <br />
+    <strong><%=t 'helpers.label.event.price' %>:</strong> <%= event.price %>
+  <% end %>
+  </p>
+  <p>
+  <% @event.recognized_external_urls.each do |url, service| %>
+    <% if service == :facebook %>
+      <%= link_to image_tag( 'social/facebook.png', :alt => 'Facebook', :title => 'Facebook' ), url, 
+        :target => '_blank', :class => 'social' -%>
+    <% end %>
+  <% end %>
+  </p>
+</div>
+<br />
+

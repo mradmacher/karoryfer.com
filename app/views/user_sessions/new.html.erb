@@ -1,0 +1,13 @@
+<h1><%= t( 'helpers.title.user_session.new' ) %></h1>
+<%= form_for [:admin, @user_session] do |f| %>
+	<% if not @user_session.errors[:login].empty? or not @user_session.errors[:password].empty? %>
+		<p>Nieprawidłowy login/hasło!</p>
+	<% end %>
+	<%= f.label :login, t( 'helpers.label.user_session.login' ) %>
+	<%= f.text_field :login %>
+	<%= f.label :password, t( 'helpers.label.user_session.password' ) %>
+	<%= f.password_field :password %>
+  <br />
+	<%= f.submit t( 'helpers.label.user_session.submit' ), :class => 'btn' %>
+<% end %>
+

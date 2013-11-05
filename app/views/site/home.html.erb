@@ -1,0 +1,31 @@
+<%= render partial: 'news/index_actions' %>
+<%= render partial: 'news/sidebar' %>
+
+<div class="hero-unit">
+  <h1><%=t 'helpers.label.site.name' %></h1>
+  <p><%=t 'helpers.label.site.desc' %></p>
+</div>
+
+<h4><%= t( 'helpers.title.album.index' ) %></h4>
+<ul class="thumbnails">
+<% @albums.each do |album| %>
+  <li class="span2">
+    <div class="thumbnail text-center"><%= render album %></div>
+  </li>
+<% end %>
+</ul>
+<%= link_to t( 'helpers.action.see_more' ), albums_url %>
+
+<hr />
+<h4><%= t( 'helpers.title.video.index' ) %></h4>
+<ul class="thumbnails">
+<% @videos.each do |video| %>
+  <li class="span2">
+    <div class="thumbnail text-center"><%= render video %></div>
+  </li>
+<% end %>
+</ul>
+<%= link_to t( 'helpers.action.see_more' ), videos_url %>
+
+<%= render :partial => 'events/calendar_js' %>
+

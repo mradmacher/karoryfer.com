@@ -1,0 +1,14 @@
+<%= render_title t( 'helpers.title.user.index' ) %>
+<h1><%=t 'helpers.title.user.index' %></h1>
+<% content_for :actions do %>
+	<ul>
+		<% if can? :create, User %>
+			<li><%= link_to t( 'helpers.action.user.new' ), new_admin_user_path %></li>
+		<% end %>
+	</ul>
+<% end %>
+<ul>
+	<% @users.each do |user| %>
+		<li><%= link_to user.login, admin_user_path( user ) %></li>
+	<% end %>
+</ul>

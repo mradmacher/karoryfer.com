@@ -1,0 +1,50 @@
+.hero-unit {
+  background: url("/images/splash.jpg") no-repeat left;
+  color: white;
+  height: 240px;
+}
+.thumbnail {
+  background: #eee;
+}
+.thumbnail img {
+  max-height: 110px;
+}
+img.media-object-thumbnail {
+  max-height: 110px;
+}
+img.media-object-normal {
+  max-height: 400px;
+  max-width: 300px;
+}
+.media-list .media {
+  background: #eee;
+  padding: 5px;
+}
+
+.menu-link {
+  color: #000;
+}
+.main-menu-link {
+  color: #000;
+  text-transform: uppercase;
+}
+
+.hidden {
+  display: none;
+}
+.long-text {
+  text-align: justify;
+  text-justify: newspaper;
+}
+
+.donations a, .donations iframe, .donations form {
+  display: inline;
+}
+
+.download-button {
+  text-transform: uppercase;
+  background: url("/images/download.png") no-repeat bottom;
+  width: 90px;
+  height: 50px;
+}
+

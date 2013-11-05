@@ -1,0 +1,13 @@
+<%= form_for @page do |f| %>
+	<%= f.error_messages %>
+  <%= f.label :title, t( 'helpers.label.page.title' ) %>
+  <%= f.text_field :title %>
+  <%= f.label :reference, t( 'helpers.label.page.reference' ) %>
+  <%= f.text_field :reference, :disabled => !@page.new_record? %>
+  <%= f.label :content, t( 'helpers.label.page.content' ) %>
+  <%= f.text_area :content, :class => 'span8' %>
+  <br />
+  <%= f.submit t( 'helpers.action.save' ), :class => 'btn' %>
+<% end %>
+
+
