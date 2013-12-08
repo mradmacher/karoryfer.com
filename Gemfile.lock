@@ -92,7 +92,6 @@ GEM
       json (~> 1.4)
     sequel (3.46.0)
     sham (1.1.0)
-    shoulda-context (1.1.1)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -121,5 +120,4 @@ DEPENDENCIES
   rdiscount
   sequel
   sham
-  shoulda-context
   taglib-ruby
