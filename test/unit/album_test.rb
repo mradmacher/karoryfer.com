@@ -6,7 +6,7 @@ class AlbumTest < ActiveSupport::TestCase
 		album = Album.sham! :build
 		album.title = nil
 		assert !album.valid? && album.invalid?( :title )
-		assert album.errors[:title].include? I18n.t( 
+		assert album.errors[:title].include? I18n.t(
       'activerecord.errors.models.album.attributes.title.blank' )
 	end
 
@@ -14,7 +14,7 @@ class AlbumTest < ActiveSupport::TestCase
 		album = Album.sham! :build
 		album.artist_id = nil
 		refute album.valid?
-		assert album.errors[:artist_id].include? I18n.t( 
+		assert album.errors[:artist_id].include? I18n.t(
       'activerecord.errors.models.album.attributes.artist_id.blank' )
 	end
 
@@ -22,13 +22,13 @@ class AlbumTest < ActiveSupport::TestCase
 		album = Album.sham! :build
 		album.reference = nil
 		refute album.valid?
-		assert album.errors[:reference].include? I18n.t( 
+		assert album.errors[:reference].include? I18n.t(
       'activerecord.errors.models.album.attributes.reference.blank' )
   end
 
   def test_rejects_reference_with_invalid_format
 		album = Album.sham! :build
-		[ 'invalid reference', 
+		[ 'invalid reference',
       'invalid () char@cter$',
       '-invalid',
       '_invalid',
@@ -37,11 +37,11 @@ class AlbumTest < ActiveSupport::TestCase
       'InvalidName',
       'valid_name',
       'val-id_na-me',
-      'invalid-_invalid' 
+      'invalid-_invalid'
     ].each do |reference|
 			album.reference = reference
 			refute album.valid?, reference
-			assert album.errors[ :reference ].include? I18n.t( 
+			assert album.errors[:reference].include? I18n.t(
         'activerecord.errors.models.album.attributes.reference.invalid' )
 		end
 	end
@@ -50,7 +50,7 @@ class AlbumTest < ActiveSupport::TestCase
 		album = Album.sham! :build
 		[ 'validname', 'valid-name', '5nizza' ].each do |reference|
 			album.reference = reference
-			assert album.valid?, reference 
+			assert album.valid?, reference
 		end
 	end
 
@@ -58,7 +58,7 @@ class AlbumTest < ActiveSupport::TestCase
 		album = Album.sham! :build
 		album.reference = 'a'*(Album::REFERENCE_MAX_LENGTH+1)
 		refute album.valid?
-		assert album.errors[:reference].include? I18n.t( 
+		assert album.errors[:reference].include? I18n.t(
       'activerecord.errors.models.album.attributes.reference.too_long' )
 
 		album.reference = 'a'*(Album::REFERENCE_MAX_LENGTH)
@@ -75,7 +75,7 @@ class AlbumTest < ActiveSupport::TestCase
     ].each do |u|
 			album.reference = u
 			refute album.valid?, u
-			assert album.errors[:reference].include? I18n.t( 
+			assert album.errors[:reference].include? I18n.t(
         'activerecord.errors.models.album.attributes.reference.taken' )
 		end
   end
@@ -84,7 +84,7 @@ class AlbumTest < ActiveSupport::TestCase
 		album = Album.sham! :build
 		album.title = 'a' * (Album::TITLE_MAX_LENGTH+1)
 		refute album.valid?
-		assert album.errors[:title].include? I18n.t( 
+		assert album.errors[:title].include? I18n.t(
       'activerecord.errors.models.album.attributes.title.too_long' )
 		album.title = 'a' * (Album::TITLE_MAX_LENGTH)
 		assert album.valid?
@@ -95,7 +95,7 @@ class AlbumTest < ActiveSupport::TestCase
 		['12345', '123'].each do |year|
 			album.year = year
 			refute album.valid?
-			assert album.errors[:year].include? I18n.t( 
+			assert album.errors[:year].include? I18n.t(
         'activerecord.errors.models.album.attributes.year.wrong_length' )
 		end
 
@@ -107,7 +107,7 @@ class AlbumTest < ActiveSupport::TestCase
 		album = Album.sham! :build
 		album.year = '1a34'
 		refute album.valid?
-		assert album.errors[:year].include? I18n.t( 
+		assert album.errors[:year].include? I18n.t(
       'activerecord.errors.models.album.attributes.year.not_a_number' )
 	end
 
@@ -125,7 +125,7 @@ class AlbumTest < ActiveSupport::TestCase
 		end
 		album.published = nil
 		refute album.valid?
-		assert album.errors[:published].include? I18n.t( 
+		assert album.errors[:published].include? I18n.t(
       'activerecord.errors.models.album.attributes.published.inclusion' )
 	end
 
@@ -133,7 +133,7 @@ class AlbumTest < ActiveSupport::TestCase
     5.times { assert Album.sham!( :published ).valid? }
     5.times { assert Album.sham!( :unpublished ).valid? }
     assert_equal 10, Album.count
-    assert_equal 5, Album.published.count 
+    assert_equal 5, Album.published.count
     Album.published.each do |album|
       assert album.published?
     end
@@ -143,7 +143,7 @@ class AlbumTest < ActiveSupport::TestCase
     5.times { assert Album.sham!( :published ).valid? }
     5.times { assert Album.sham!( :unpublished ).valid? }
     assert_equal 10, Album.count
-    assert_equal 5, Album.unpublished.count 
+    assert_equal 5, Album.unpublished.count
     Album.unpublished.each do |album|
       refute album.published?
     end

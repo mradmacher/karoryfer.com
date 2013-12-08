@@ -17,6 +17,5 @@ gem 'cancan'
 group :test do
   gem 'sham'
   gem 'faker'
-	gem 'shoulda-context'
   gem 'sequel'
 end
