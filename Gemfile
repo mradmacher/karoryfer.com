@@ -11,9 +11,6 @@ gem 'taglib-ruby'
 gem 'authlogic'
 gem 'cancan'
 
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
 group :test do
   gem 'sham'
   gem 'faker'

@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 		c.validate_email_field = false
 	end
 
+  has_many :memberships
+
 	attr_accessible :login, :email, :password, :password_confirmation, :as => [:default, :admin]
 	attr_accessible :admin, :as => :admin
 	validates :admin, :inclusion => { :in => [true, false] }
@@ -21,6 +23,6 @@ class User < ActiveRecord::Base
   end
 
 	def to_param
-		"#{id},#{login.parameterize}" 
+		"#{id},#{login.parameterize}"
 	end
 end
