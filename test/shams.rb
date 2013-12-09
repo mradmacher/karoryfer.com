@@ -23,14 +23,14 @@ def next_integer
 end
 
 Sham.config( Artist ) do |c|
-  c.attributes do 
+  c.attributes do
     name = Faker::Name.name
-    { :name => name, :reference => name.parameterize } 
+    { :name => name, :reference => name.parameterize }
   end
 end
 
 Sham.config( License ) do |c|
-  c.attributes do { 
+  c.attributes do {
     :symbol => ['by', 'by-sa', 'by-nc-sa'].sample,
     :version => '3.0',
     :name => Faker::Lorem.word
@@ -38,15 +38,15 @@ Sham.config( License ) do |c|
 end
 
 Sham.config( Album ) do |c|
-  c.attributes do 
+  c.attributes do
     title = Faker::Name.name
-    { 
+    {
       :artist => Sham::Nested.new( Artist ),
       :year => (2000..2020).to_a.sample,
       :reference => title.parameterize,
       :title => title,
       :license => Sham::Nested.new( License )
-    } 
+    }
   end
 end
 
@@ -60,7 +60,7 @@ Sham.config( Album, :published ) do |c|
       :reference => title.parameterize,
       :title => title,
       :license => Sham::Nested.new( License )
-    } 
+    }
     end
 end
 
@@ -74,7 +74,7 @@ Sham.config( Album, :unpublished ) do |c|
       :reference => title.parameterize,
       :title => title,
       :license => Sham::Nested.new( License )
-    } 
+    }
     end
 end
 
@@ -183,3 +183,11 @@ Sham.config( User, :admin ) do |c|
     persistence_token: Authlogic::Random.hex_token
   } end
 end
+
+Sham.config( Membership ) do |c|
+  c.assign do {
+    artist: Sham::Nested.new( Artist ),
+    user: Sham::Nested.new( User )
+  } end
+end
+

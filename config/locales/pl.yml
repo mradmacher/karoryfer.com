@@ -60,7 +60,7 @@ pl:
           attributes:
             reference:
               blank: ^proszę podać identyfikator
-              too_long: ^podany identyfikator jest za długi (dopuszczalne jest 40 znaków) 
+              too_long: ^podany identyfikator jest za długi (dopuszczalne jest 40 znaków)
               exclusion: ^podana nazwa identyfikatora jest zastrzeżona
               invalid: ^proszę podać poprawny identyfikator (wyrazy rozdzielone "-" bez polskich znaków)
               taken: ^proszę podać unikalny identyfikator
@@ -68,7 +68,7 @@ pl:
               blank: ^proszę podać tytuł
               taken: ^proszę podać niepowtarzalny tytuł
               too_long: ^podany tytuł jest za długi (dopuszczalne są 32 znaki)
-            artist_id: 
+            artist_id:
               blank: ^proszę wybrać artystę
             year:
               wrong_length: ^rok wydania powinien być czterocyfrowy
@@ -114,7 +114,7 @@ pl:
               too_long: ^długość nazwy nie może przekroczyć 32 znaków
             reference:
               blank: ^proszę podać identyfikator
-              too_long: ^podany identyfikator jest za długi (dopuszczalne jest 16 znaków) 
+              too_long: ^podany identyfikator jest za długi (dopuszczalne jest 16 znaków)
               exclusion: ^podana nazwa identyfikatora jest zastrzeżona
               invalid: ^proszę podać poprawny identyfikator (wyrazy rozdzielone "-" lub "_"  bez polskich znaków)
               taken: ^proszę podać unikalny identyfikator
@@ -125,7 +125,7 @@ pl:
             title:
               blank: ^proszę podać tytuł
               too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
-            artist_id: 
+            artist_id:
               blank: ^proszę wybrać artystę
             published:
               inclusion: ^proszę zaznaczyć czy opublikować wiadomości
@@ -138,7 +138,7 @@ pl:
             title:
               blank: ^proszę podać tytuł
               too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
-            artist_id: 
+            artist_id:
               blank: ^proszę wybrać artystę
             published:
               inclusion: ^proszę zaznaczyć czy opublikować wiadomości
@@ -151,14 +151,14 @@ pl:
               too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
             url:
               blank: ^proszę podać URL
-            artist_id: 
+            artist_id:
               blank: ^proszę wybrać artystę
         article:
           attributes:
             title:
               blank: ^proszę podać tytuł
               too_long: ^podany tytuł jest za długi (dopuszczalne jest 50 znaków)
-            artist_id: 
+            artist_id:
               blank: ^proszę wybrać artystę
         page:
           attributes:
@@ -187,6 +187,12 @@ pl:
               blank: ^proszę podać nazwę
               taken: ^proszę podać unikalną nazwę
               invalid: ^proszę podać poprawną nazwę
+        membership:
+          attributes:
+            artist_id:
+              blank: ^proszę wybrać artystę
+            user_id:
+              blank: ^proszę wybrać użytkownika
   helpers:
     action:
       post:
