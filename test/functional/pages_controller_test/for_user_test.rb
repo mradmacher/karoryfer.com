@@ -19,31 +19,31 @@ module PagesControllerTest
     end
 
     def test_get_edit_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :edit, :id => Page.sham!.to_param
       end
     end
 
     def test_get_new_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :new
       end
     end
 
     def test_put_update_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         put :update, :id => Page.sham!.to_param, :page => {}
       end
     end
 
     def test_post_create_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         post :create, :page => {}
       end
     end
 
     def test_delete_destroy_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         delete :destroy, :id => Page.sham!.to_param
       end
     end

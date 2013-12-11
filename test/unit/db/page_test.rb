@@ -33,7 +33,7 @@ class PageDBTest < ActiveSupport::TestCase
   end
 
   def test_complains_about_invalid_reference
-    ['invalid ref name', 'invalid()char@cter$','invalid.name', 'invalid-na_me', 
+    ['invalid ref name', 'invalid()char@cter$','invalid.name', 'invalid-na_me',
       'invalid.na-me', 'Invalid', 'invalid_name'].each do |reference|
       exception = assert_raises Sequel::CheckConstraintViolation, reference do
         DB[:pages].insert( title: 'Title', reference: reference, content: 'Content' )

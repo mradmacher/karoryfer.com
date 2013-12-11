@@ -9,7 +9,7 @@ gem 'carrierwave'
 gem 'dynamic_form'
 gem 'taglib-ruby'
 gem 'authlogic'
-gem 'cancan'
+gem 'six'
 
 group :test do
   gem 'sham'

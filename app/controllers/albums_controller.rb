@@ -9,25 +9,25 @@ class AlbumsController < ApplicationController
   def show
 		@album = Album.find( params[:id] )
     redirect_to( artist_album_url( @album.artist, @album ), :status => 301 ) unless current_artist?
-		authorize!( :read, @album )
+		authorize! :read_album, @album
 		@artist = current_artist
   end
 
   def edit
 		@album = Album.find( params[:id] )
     redirect_to( edit_artist_album_url( @album.artist, @album ), :status => 301 ) unless current_artist?
-		authorize! :update, @album
+		authorize! :write_album, @album
   end
 
   def new
-		authorize! :create, Album 
+		authorize! :write_album, Album
 		@album = Album.new
 		@album.artist = current_artist if current_artist?
   end
 
 	def create
 		@album = Album.new( params[:album] )
-		authorize! :create, @album
+		authorize! :write_album, @album
 		if @album.save
 			redirect_to artist_album_url( @album.artist, @album )
 		else
@@ -37,7 +37,7 @@ class AlbumsController < ApplicationController
 
 	def update
 		@album = Album.find( params[:id] )
-		authorize! :update, @album
+		authorize! :write_album, @album
 		if @album.update_attributes( params[:album] )
 			redirect_to artist_album_url( @album.artist, @album )
 		else
@@ -47,7 +47,7 @@ class AlbumsController < ApplicationController
 
 	def destroy
 		@album = Album.find( params[:id] )
-		authorize! :destroy, @album
+		authorize! :write_album, @album
 		@album.destroy
 		redirect_to albums_url
 	end

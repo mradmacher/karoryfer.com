@@ -10,25 +10,25 @@ module ArtistsControllerTest
     end
 
     def test_get_new_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :new
       end
     end
 
     def test_get_edit_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :edit, :id => Artist.sham!.to_param
       end
     end
 
     def test_post_create_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         post :create, :artist => {}
       end
     end
 
     def test_put_update_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         put :update, :id => Artist.sham!.to_param, :artist => {}
       end
     end

@@ -9,24 +9,24 @@ class VideosController < ApplicationController
   def show
 		@video = Video.find( params[:id] )
     redirect_to( artist_video_url( @video.artist, @video ), :status => 301 ) unless current_artist?
-		authorize!( :read, @video )
+		authorize! :read_video, @video
   end
 
   def new
 		@video = Video.new
 		@video.artist = current_artist if current_artist?
-		authorize! :create, @video
+		authorize! :write_video, @video
   end
 
   def edit
 		@video = Video.find( params[:id] )
     redirect_to( edit_artist_video_url( @video.artist, @video ), :status => 301 ) unless current_artist?
-		authorize! :update, @video
+		authorize! :write_video, @video
   end
 
 	def create
 		@video = Video.new( params[:video] )
-		authorize! :create, @video
+		authorize! :write_video, @video
 		if @video.save
 			redirect_to artist_video_url( @video.artist, @video )
 		else
@@ -36,7 +36,7 @@ class VideosController < ApplicationController
 
 	def update
 		@video = Video.find( params[:id] )
-		authorize! :update, @video
+		authorize! :write_video, @video
 		if @video.update_attributes( params[:video] )
 			redirect_to artist_video_url( @video.artist, @video )
 		else
@@ -46,7 +46,7 @@ class VideosController < ApplicationController
 
 	def destroy
 		@video = Video.find( params[:id] )
-		authorize! :destroy, @video
+		authorize! :write_video, @video
 		@video.destroy
     redirect_to artist_videos_url( @video.artist )
 	end
@@ -55,6 +55,5 @@ class VideosController < ApplicationController
   def set_layout
     current_artist?? 'current_artist' : 'application'
   end
-
 end
 

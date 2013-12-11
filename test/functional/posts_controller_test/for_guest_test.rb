@@ -40,7 +40,7 @@ module PostsControllerTest
     end
 
     def test_get_drafts_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :drafts
       end
     end
@@ -61,37 +61,37 @@ module PostsControllerTest
 
     def test_get_show_unpublished_is_denied
       post = Post.sham!( published: false )
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :show, :id => post.to_param
       end
     end
 
     def test_get_edit_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :edit, :id => Post.sham!.to_param
       end
     end
 
     def test_get_new_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :new
       end
     end
 
     def test_put_update_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         put :update, :id => Post.sham!.id, :post => {}
       end
     end
 
     def test_post_create_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         post :create, :post => {}
       end
     end
 
     def test_delete_destroy_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         delete :destroy, :id => Post.sham!.to_param
       end
     end

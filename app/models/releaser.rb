@@ -18,7 +18,7 @@ module Releaser
     end
 
     def copyright_description
-      "Licensed to the public under #{@license_name} verify at #{@contact_url}" 
+      "Licensed to the public under #{@license_name} verify at #{@contact_url}"
     end
 
     def apply_to( file_path )
@@ -85,7 +85,7 @@ module Releaser
         tag.add_field( 'COPYRIGHT', self.copyright, true )
       end
     end
-    
+
     def apply_id3v2_specific( tag )
       tag.genre = 'Other'
 

@@ -36,6 +36,6 @@ class TrackReleaser < Releaser::Base
   def track_file_basename( track )
     track.id.to_s
   end
-    
+
 end
 

@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
 	belongs_to :artist
-	has_attached_file :poster, 
+	has_attached_file :poster,
 		:path => ':rails_root/public/system/:class/:attachment/:id_partition/:style.:extension',
 		:url => '/system/:class/:attachment/:id_partition/:style.:extension',
 		:styles => { :normal => ["300x400>", :png], :thumb => ["110x110", :png] },

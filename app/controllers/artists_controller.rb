@@ -9,21 +9,21 @@ class ArtistsController < ApplicationController
   def index
 		@artists = Artist.all( :order => 'name' )
   end
-	
+
   def new
-		authorize! :create, Artist
+		authorize! :write_artist, Artist
 		@artist = Artist.new
   end
 
   def edit
 		@artist = Artist.find( params[:id] )
-		authorize! :update, @artist
+		authorize! :write_artist, @artist
   end
 
 	def create
-		authorize! :create, Artist
+		authorize! :write_artist, Artist
 		@artist = Artist.new( params[:artist] )
-		if @artist.save 
+		if @artist.save
 			redirect_to artist_url( @artist )
 		else
 			render :action => "new"
@@ -32,7 +32,7 @@ class ArtistsController < ApplicationController
 
 	def update
 		@artist = Artist.find( params[:id] )
-		authorize! :update, @artist
+		authorize! :write_artist, @artist
 
 		if @artist.update_attributes( params[:artist] )
 			redirect_to artist_url( @artist )

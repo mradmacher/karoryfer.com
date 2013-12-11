@@ -35,7 +35,7 @@ module AlbumsControllerTest
 
     def test_get_show_is_denied_for_unpublished_album
       album = Album.sham!( :unpublished )
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :show, :artist_id => album.artist.to_param, :id => album.to_param
       end
     end
@@ -64,32 +64,32 @@ module AlbumsControllerTest
     end
 
     def test_get_new_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :new
       end
     end
 
     def test_get_edit_is_denied
       album = Album.sham!
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         get :edit, :artist_id => album.artist.to_param, :id => album.to_param
       end
     end
 
     def test_post_create_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         post :create, :album => {}
       end
     end
 
     def test_put_update_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         put :update, :id => Album.sham!.to_param, :album => {}
       end
     end
 
     def test_delete_destroy_is_denied
-      assert_raises CanCan::AccessDenied do
+      assert_raises User::AccessDenied do
         delete :destroy, :id => Album.sham!.to_param
       end
     end

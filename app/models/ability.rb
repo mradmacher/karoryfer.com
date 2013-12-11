@@ -1,46 +1,37 @@
 class Ability
-  include CanCan::Ability
 
-  def initialize(user)
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user permission to do.
-    # If you pass :manage it will apply to every action. Other common actions here are
-    # :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on. If you pass
-    # :all it will apply to every resource. Otherwise pass a Ruby class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
-		
-		user ||= User.new
-
-		if user.admin?
-			can :manage, :all
-			can :manage, Post, :published => false
-			can :manage, Event, :published => false
-			can :manage, Album, :published => false
-		end
-
-		can :read, User, :login => user.login
-		can :update, User, :login => user.login
-		can :destroy, User, :login => user.login
-    can :read, Post, :published => true
-    can :read, Event, :published => true
-    can :read, Album, :published => true
-    can :read, Video
-
+	def self.allowed( user, subject )
+    if user && user.admin?
+      rules = [
+        :read_post, :write_post,
+        :read_event, :write_event,
+        :read_video, :write_video,
+        :read_artist, :write_artist,
+        :read_album, :write_album,
+        :read_user, :write_user,
+        :read_page, :write_page
+      ]
+    else
+      case subject.class.to_s
+        when 'Post'
+          rules = [:read_post] if subject.published?
+        when 'Event'
+          rules = [:read_event] if subject.published?
+        when 'Video'
+          rules = [:read_video]
+        when 'Artist'
+          rules = [:read_artist]
+        when 'Album'
+          rules = [:read_album] if subject.published?
+        when 'Page'
+          rules = [:read_page]
+        when 'User'
+          rules = [:read_user, :write_user] if user.id == subject.id
+        else
+          rules = []
+        end
+    end
+    rules
   end
 end
+
