@@ -10,7 +10,7 @@ class ArtistTest < ActiveSupport::TestCase
 		artist = Artist.sham! :build
 		artist.name = nil
 		refute artist.valid?
-		assert artist.errors[:name].include? I18n.t( 
+		assert artist.errors[:name].include? I18n.t(
       'activerecord.errors.models.artist.attributes.name.blank' )
 	end
 
@@ -18,8 +18,8 @@ class ArtistTest < ActiveSupport::TestCase
 		artist = Artist.sham! :build
 		artist.name = 'a'*(Artist::NAME_MAX_LENGTH+1)
 		refute artist.valid?
-		assert artist.errors[:name].include? I18n.t( 
-      'activerecord.errors.models.artist.attributes.name.too_long' ) 
+		assert artist.errors[:name].include? I18n.t(
+      'activerecord.errors.models.artist.attributes.name.too_long' )
 
 		artist.name = 'a'*(Artist::NAME_MAX_LENGTH)
 		assert artist.valid?
@@ -29,7 +29,7 @@ class ArtistTest < ActiveSupport::TestCase
 		artist = Artist.sham! :build
 		artist.reference = nil
 		refute artist.valid?
-		assert artist.errors[:reference].include? I18n.t( 
+		assert artist.errors[:reference].include? I18n.t(
       'activerecord.errors.models.artist.attributes.reference.blank' )
 	end
 
@@ -42,22 +42,22 @@ class ArtistTest < ActiveSupport::TestCase
       'invalid-',
       'invalid_',
       'InvalidName',
-      'invalid-_invalid' 
+      'invalid-_invalid'
     ].each do |reference|
 			artist.reference = reference
 			refute artist.valid?, reference
-			assert artist.errors[ :reference ].include? I18n.t( 
+			assert artist.errors[ :reference ].include? I18n.t(
         'activerecord.errors.models.artist.attributes.reference.invalid' )
 		end
 	end
 
   def test_accepts_valid_reference_formats
 		artist = Artist.sham! :build
-		[ 'validname', 
-      'valid-name', 
-      'valid_name', 
-      '5nizza', 
-      'val-id_na-me' 
+		[ 'validname',
+      'valid-name',
+      'valid_name',
+      '5nizza',
+      'val-id_na-me'
     ].each do |reference|
 			artist.reference = reference
 			assert artist.valid?, reference
@@ -68,7 +68,7 @@ class ArtistTest < ActiveSupport::TestCase
 		artist = Artist.sham! :build
 		artist.reference = 'a'*(Artist::REFERENCE_MAX_LENGTH+1)
 		refute artist.valid?
-		assert artist.errors[:reference].include? I18n.t( 
+		assert artist.errors[:reference].include? I18n.t(
       'activerecord.errors.models.artist.attributes.reference.too_long' )
 
 		artist.reference = 'a'*(Artist::REFERENCE_MAX_LENGTH)
@@ -77,17 +77,17 @@ class ArtistTest < ActiveSupport::TestCase
 
   def test_validates_reference_exclusion
 		artist = Artist.sham! :build
-		[ 'aktualnosci', 
-      'wydarzenia', 
-      'wiadomosci', 
-      'filmy', 
-      'informacje', 
-      'artysci', 
+		[ 'aktualnosci',
+      'wydarzenia',
+      'wiadomosci',
+      'filmy',
+      'informacje',
+      'artysci',
       'wydawnictwa'
     ].each do |reserved|
 			artist.reference = reserved
 			refute artist.valid?, reserved
-			assert artist.errors[:reference].include?  I18n.t( 
+			assert artist.errors[:reference].include?  I18n.t(
         'activerecord.errors.models.artist.attributes.reference.exclusion' )
 		end
 	end
@@ -98,11 +98,11 @@ class ArtistTest < ActiveSupport::TestCase
     [ existing.reference,
       existing.reference.upcase,
       existing.reference.capitalize,
-      existing.reference.swapcase 
+      existing.reference.swapcase
     ].each do |ref|
 			artist.reference = ref
       refute artist.valid?
-			assert artist.errors[:reference].include? I18n.t( 
+			assert artist.errors[:reference].include? I18n.t(
         'activerecord.errors.models.artist.attributes.reference.taken' )
 		end
 	end

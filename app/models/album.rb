@@ -12,11 +12,11 @@ class Album < ActiveRecord::Base
 
   before_destroy do
     unless self.releases.empty?
-      return false 
+      return false
     end
   end
 
-	has_attached_file :image, 
+	has_attached_file :image,
 		:path => ':rails_root/public/system/:class/:attachment/:id_partition/:style.:extension',
 		:url => '/system/:class/:attachment/:id_partition/:style.:extension',
 		:styles => { :normal => ["300x400>", :png], :thumb => ["110x110", :png] },
@@ -43,7 +43,7 @@ class Album < ActiveRecord::Base
 			find_by_reference( args.delete_at( 0 ).downcase, args )
 		else
 			super( *args )
-		end 
+		end
 	end
 
 	def to_param

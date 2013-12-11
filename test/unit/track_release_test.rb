@@ -6,14 +6,14 @@ class TrackReleaseTest < ActiveSupport::TestCase
   FIXTURES_DIR = File.expand_path('../../fixtures', __FILE__)
   include ReleaseHelper
 
-  def setup 
+  def setup
     @tmp_dir = Dir.mktmpdir
     Release::Uploader.track_store_dir = File.join( @tmp_dir, 'storage' )
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
     @track = Track.sham! file: File.open( File.join( FIXTURES_DIR, 'tracks', "1.wav" ) )
   end
 
-  def teardown 
+  def teardown
     FileUtils.remove_entry_secure @tmp_dir
   end
 

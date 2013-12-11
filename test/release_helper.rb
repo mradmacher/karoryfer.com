@@ -73,7 +73,7 @@ module ReleaseHelper
         assert_equal release.release_url, found.to_s
         found = tag.frame_list('TCOP').first
         assert found.kind_of? TagLib::ID3v2::TextIdentificationFrame
-        assert_equal "#{track.album.year} #{track.artist.name}. Licensed to the public under " + 
+        assert_equal "#{track.album.year} #{track.artist.name}. Licensed to the public under " +
           "#{track.license.name} verify at #{release.release_url}", found.to_s
       else
         assert tag.frame_list('WCOP').empty?
@@ -108,7 +108,7 @@ module ReleaseHelper
   def check_album_release( release )
     artist_reference = release.album.artist.reference
     album_reference = release.album.reference
-    archive_file_path = File.join( Release::Uploader.album_store_dir, artist_reference, 
+    archive_file_path = File.join( Release::Uploader.album_store_dir, artist_reference,
       "#{artist_reference}-#{album_reference}-#{release.format}.zip" )
 
     puts archive_file_path
@@ -119,7 +119,7 @@ module ReleaseHelper
 
       album_path = File.join( tmp_dir, artist_reference, album_reference )
       assert File.exists? album_path
-      
+
       assert File.exists? File.join( album_path, 'okladka.jpg' )
       assert File.exists? File.join( album_path, 'att1.jpg' )
       assert File.exists? File.join( album_path, 'att2.pdf' )

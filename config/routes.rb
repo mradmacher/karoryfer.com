@@ -32,7 +32,7 @@ Karoryfer::Application.routes.draw do
         get :drafts, :path => 'szkice'
       end
 		end
-		resources :artists, :path => 'artysci' 
+		resources :artists, :path => 'artysci'
 		resources :albums, :path => 'wydawnictwa'
 	end
 

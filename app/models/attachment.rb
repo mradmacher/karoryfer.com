@@ -18,14 +18,14 @@ class Attachment < ActiveRecord::Base
   private
   def validate_file
     if self.file.identifier.nil?
-      errors.add(:file, I18n.t( 'activerecord.errors.models.attachment.attributes.file.blank' ) ) 
+      errors.add(:file, I18n.t( 'activerecord.errors.models.attachment.attributes.file.blank' ) )
     end
     if self.album_id
       similar = Attachment.where( album_id: self.album_id, file: self.file.identifier )
       similar = similar.where('id <> ?', self.id) if self.id
 
       if similar.exists?
-        errors.add(:file, I18n.t( 'activerecord.errors.models.attachment.attributes.file.taken' ) ) 
+        errors.add(:file, I18n.t( 'activerecord.errors.models.attachment.attributes.file.taken' ) )
       end
     end
   end

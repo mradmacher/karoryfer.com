@@ -1,7 +1,7 @@
 class License < ActiveRecord::Base
   validates_presence_of :symbol, :version, :name
   has_many :albums
-  
+
   def url
     "http://creativecommons.org/licenses/#{symbol}/#{version}/deed.pl"
   end

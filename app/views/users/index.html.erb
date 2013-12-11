@@ -2,7 +2,7 @@
 <h1><%=t 'helpers.title.user.index' %></h1>
 <% content_for :actions do %>
 	<ul>
-		<% if can? :create, User %>
+		<% if can? :write_user, User %>
 			<li><%= link_to t( 'helpers.action.user.new' ), new_admin_user_path %></li>
 		<% end %>
 	</ul>

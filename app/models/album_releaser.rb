@@ -1,11 +1,11 @@
 class AlbumReleaser < Releaser::Base
 
   def ogg_quality
-    6 
+    6
   end
 
   def mp3_quality
-    1 
+    1
   end
 
   def initialize( album, format )
@@ -13,8 +13,8 @@ class AlbumReleaser < Releaser::Base
     @format = format
   end
 
-  def cover_basename 
-    'okladka' 
+  def cover_basename
+    'okladka'
   end
 
   def release_url
@@ -71,6 +71,6 @@ class AlbumReleaser < Releaser::Base
   def track_file_basename( track )
     "#{sprintf( '%02d', track.rank )}-#{underscore(track.title)}"
   end
-    
+
 end
 

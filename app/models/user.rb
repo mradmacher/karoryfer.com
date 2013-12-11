@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  class AccessDenied < Exception
+  end
+
 	acts_as_authentic do |c|
 		c.validate_email_field = false
 	end

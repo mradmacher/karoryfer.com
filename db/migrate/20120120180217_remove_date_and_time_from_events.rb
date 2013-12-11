@@ -7,7 +7,7 @@ class RemoveDateAndTimeFromEvents < ActiveRecord::Migration
 
   def down
 		change_table :events do |t|
-			t.date :date 
+			t.date :date
 			t.time :time
 		end
   end
