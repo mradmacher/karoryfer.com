@@ -17,7 +17,7 @@ module AlbumsControllerTest
       5.times { Album.sham!( :unpublished ) }
       get :index
       Album.unpublished.each do |a|
-        assert_select a.title, 0
+        assert_select '*', { text: a.title, count: 0 }
       end
     end
 
