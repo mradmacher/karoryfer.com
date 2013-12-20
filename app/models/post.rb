@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
 	validates :artist_id, :presence => true
   validates :poster_url, :format => /^https?:\/\/.*$/, :allow_nil => true
 
-  default_scope order( 'date(created_at) - current_date DESC' )
+  default_scope order( 'date(posts.created_at) - current_date DESC' )
 	scope :published, where( :published => true )
 	scope :unpublished, where( :published => false )
   scope :some, limit( SOME_LIMIT )

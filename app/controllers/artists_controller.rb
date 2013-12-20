@@ -40,5 +40,5 @@ class ArtistsController < ApplicationController
 			render :action => "edit"
 		end
 	end
-
 end
+
