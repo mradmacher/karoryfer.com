@@ -19,7 +19,7 @@ class EventsController < ApplicationController
   end
 
   def drafts
-		raise User::AccessDenied unless current_user.admin?
+		raise User::AccessDenied unless current_user?
     @category = :drafts
     @events = current_user.unpublished_events
     render :index

@@ -43,4 +43,9 @@ class ActiveSupport::TestCase
 		assert_select 'title', build_title( args )
 	end
 
+  def login(user)
+    activate_authlogic
+    UserSession.create user
+  end
 end
+

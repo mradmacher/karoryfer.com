@@ -12,14 +12,17 @@ class User < ActiveRecord::Base
 	attr_accessible :admin, :as => :admin
 	validates :admin, :inclusion => { :in => [true, false] }
 
+  def artists
+    Artist.joins( :memberships ).where( 'memberships.user_id' => self.id )
+  end
+
 	def unpublished_posts
-		self.admin? ? Post.unpublished.all : []
+    Post.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'posts.published' => false )
 	end
 
 	def unpublished_events
-		self.admin? ? Event.unpublished.all : []
+    Event.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'events.published' => false )
 	end
-
 
   def unpublished_albums
     self.admin? ? Album.unpublished.all : []

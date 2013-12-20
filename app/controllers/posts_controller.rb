@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   end
 
   def drafts
-		raise User::AccessDenied unless current_user.admin?
+		raise User::AccessDenied unless current_user?
     @category = :drafts
     @posts = current_user.unpublished_posts
     render :index
