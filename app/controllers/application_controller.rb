@@ -3,8 +3,23 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_subdomain
 	before_filter :set_current_artist
   protect_from_forgery
-  if Rails.env != 'test'
-    rescue_from CanCan::AccessDenied, :with => Proc.new { redirect_to admin_login_url }
+  rescue_from User::AccessDenied, :with => Proc.new { redirect_to admin_login_url } if Rails.env != 'test'
+
+  helper_method :abilities, :can?
+
+  protected
+
+  def abilities
+    @abilities ||= Six.new( default: Ability )
+  end
+
+  # simple delegate method for controller & view
+  def can?( action, subject)
+    abilities.allowed?( current_user, action, subject )
+  end
+
+  def authorize!( action, subject )
+    raise User::AccessDenied unless abilities.allowed?( current_user, action, subject )
   end
 
 	private
@@ -14,7 +29,7 @@ class ApplicationController < ActionController::Base
         url = "#{request.protocol}www"
         url << request.host_with_port.gsub( "#{request.subdomain}", '' )
         url << "/#{request.subdomains.first}"
-        url << request.fullpath unless request.fullpath == '/' 
+        url << request.fullpath unless request.fullpath == '/'
         redirect_to url, :status => 301
       end
     elsif Rails.env != 'test'
@@ -23,7 +38,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def set_current_artist
-		@current_artist = if params[:controller] == 'artists' 
+		@current_artist = if params[:controller] == 'artists'
 			params[:id] ? Artist.find( params[:id] ) : nil
 		else
 			params[:artist_id] ? Artist.find( params[:artist_id] ) : nil
@@ -53,9 +68,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def require_user
-		unless current_user
-			raise CanCan::AccessDenied #redirect_to admin_login_url
-		end
+    raise User::AccessDenied unless current_user
 	end
 
 	def require_no_user

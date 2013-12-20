@@ -6,7 +6,7 @@
   <% end %>
 
   <%= f.label :artist_id, t( "helpers.label.event.artist_id" ) %>
-  <%= f.collection_select :artist_id, Artist.all, :id, :name %>
+  <%= f.collection_select :artist_id, current_user.artists, :id, :name %>
 
   <%= f.label :title, t( "helpers.label.event.title" ) %>
   <%= f.text_field :title %>
@@ -47,7 +47,7 @@
   <%= f.text_area :body, :class => 'span8' %>
 
   <%= f.label :external_urls, t( "helpers.label.event.external_urls" ) %>
-  <%= f.text_area :external_urls, :class => 'span6', :rows => 4 %> 
+  <%= f.text_area :external_urls, :class => 'span6', :rows => 4 %>
   <br />
 
   <%= f.submit t( 'helpers.action.save' ), :class => 'btn' %>

@@ -1,7 +1,7 @@
 <% content_for :sidebar do %>
   <p>
-    <h4><%= link_to t( 'helpers.label.events' ), events_url, :class => 'menu-link' %></h4>
     <div id="calendar"><div style="display:none"><%= @current_date %></div></div>
+    <h4><%= link_to t( 'helpers.label.events' ), events_url, :class => 'menu-link' %></h4>
     <dl>
     <% if @current_events %>
       <% @current_events.each_with_index do |event, i| %>
@@ -13,11 +13,6 @@
   </p>
   <p>
     <h4><%= link_to t( 'helpers.label.posts' ), posts_url, :class => 'menu-link' %></h4>
-    <ul class="unstyled">
-      <% (2012..Date.today.year).to_a.reverse.each do |year| %>
-        <li><%= link_to year, posts_from_path( :year => year ), :style => year.to_s == @selected_year ? 'color: red' : nil %></li>
-      <% end %>
-    </ul>
     <dl>
     <% if @current_posts %>
       <% @current_posts.each_with_index do |post, i| %>

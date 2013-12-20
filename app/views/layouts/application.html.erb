@@ -97,12 +97,12 @@
       <div class="span12">
         <ul class="inline">
           <% if current_user? -%>
-            <li><a href="<%= admin_logout_url %>" class="btn btn-mini">Pa!</a></li>
+            <li><a href="<%= admin_logout_url %>" class="btn btn-mini">Pa</a></li>
             <li><a href="<%= admin_user_path( current_user ) %>" class="btn btn-mini">Moje konto</a></li>
           <% else -%>
             <li><a href="<%= admin_login_url %>" class="btn btn-mini">Zaloguj się</a></li>
           <% end %>
-          <% if can? :manage, User %>
+          <% if can? :write_user, User %>
             <li><a  href="<%= admin_users_path %>" class="btn btn-mini"><%= t( 'helpers.title.user.index' ) %></a></li>
           <% end %>
         </ul>

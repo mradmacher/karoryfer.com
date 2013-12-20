@@ -11,7 +11,7 @@ class Release < ActiveRecord::Base
 
   before_save :generate
   after_destroy :remove_file!
-  
+
   validate :if_album_or_track
   #validate :if_all_tracks_with_files
   validates :format, presence: true, inclusion: { in: FORMATS }

@@ -1,12 +1,12 @@
 <%= render_title @page.title %>
 <% content_for :actions do %>
-  <% if can? :create, Page %>
+  <% if can? :write_page, Page %>
     <%= link_to_action t( 'helpers.action.page.new' ), new_page_path %>
   <% end %>
-  <% if can? :update, @page %>
+  <% if can? :write_page, @page %>
     <%= link_to_action t( 'helpers.action.page.edit' ), edit_page_path( @page ) %>
   <% end %>
-  <% if can? :destroy, @post %>
+  <% if can? :write_page, @page %>
     <%= link_to_action t( 'helpers.action.page.destroy' ), page_path( @page ), :method => :delete,
       :confirm => t( 'helpers.action.destroy_confirmation' ) %>
   <% end %>

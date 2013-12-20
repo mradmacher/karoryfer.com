@@ -9,11 +9,11 @@
  */
 
 $.fn.bic_calendar = function(options) {
-    
+
     var opts = $.extend({}, $.fn.bic_calendar.defaults, options);
-    
+
     this.each(function(){
-        
+
         var calendario;
         var capaDiasMes;
         var capaTextoMesAnoActual = $('<div class="visualmesano"></div>');
@@ -21,7 +21,7 @@ $.fn.bic_calendar = function(options) {
         var id_calendari = "bic_cal_" + Math.floor(Math.random()*99999).toString(36);
 
         var events = opts.events;
-        
+
         var dias;
         if ( typeof opts.dias != "undefined" )
             dias = opts.dias;
@@ -33,7 +33,7 @@ $.fn.bic_calendar = function(options) {
             nombresMes = opts.nombresMes;
         else
             nombresMes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        
+
         var show_days;
         if ( typeof opts.show_days != "undefined" )
             show_days = opts.show_days;
@@ -59,17 +59,17 @@ $.fn.bic_calendar = function(options) {
             req_ajax = false;
 
 
-		
+
         //element llamado
         var elem = $(this);
-                
+
         //mostrem el calendari
         mostrarCalendario();
-        
-        
-        
+
+
+
         /*** functions ***/
-        
+
         //funció para mostrar el calendari
         function mostrarCalendario(){
 
@@ -77,7 +77,7 @@ $.fn.bic_calendar = function(options) {
             capaDiasMes = $('<table class="diasmes table table">');
 
             llistar_literals_setmana();
-				
+
             //un objeto de la clase date para calculo de fechas
             var objFecha = new Date();
             //miro si en el campo INPUT tengo alguna fecha escrita
@@ -97,14 +97,14 @@ $.fn.bic_calendar = function(options) {
                     objFecha = new Date(arrayFechaEscrita[2], arrayFechaEscrita[1]-1, arrayFechaEscrita[0])
                 }
             }
-				
+
             //mes y año actuales
             var mes = objFecha.getMonth();
             var ano = objFecha.getFullYear();
             //muestro los días del mes y año dados
             muestraDiasMes(mes, ano);
-				
-				
+
+
             //controles para ir al mes siguiente / anterior
             var botonMesSiguiente = $('<td><a href="#" class="botonmessiguiente"><i class="icon-arrow-right" ></i></a></td>');
             botonMesSiguiente.click(function(e){
@@ -121,10 +121,10 @@ $.fn.bic_calendar = function(options) {
                 if (mes==-1){
                     ano--;
                     mes = 11;
-                }	
+                }
                 canvi_mes(mes, ano);
             })
-			
+
             //capa para mostrar el texto del mes y ano actual
             var capaTextoMesAno = $('<table class="table header"><tr></tr></table>');
             var capaTextoMesAnoControl = $('<td colspan=5 class="mesyano span6"></td>');
@@ -132,26 +132,26 @@ $.fn.bic_calendar = function(options) {
             capaTextoMesAno.append(capaTextoMesAnoControl);
             capaTextoMesAno.append(botonMesSiguiente);
             capaTextoMesAnoControl.append(capaTextoMesAnoActual);
-				
+
             //calendario y el borde
             calendario = $('<div class="bic_calendar" id="' +id_calendari +'" ></div>');
             calendario.prepend(capaTextoMesAno);
             //calendario.append(capaDiasSemana);
             //capaDiasMes.prepend(capaDiasSemana);
             calendario.append(capaDiasMes);
-				
+
             //inserto el calendario en el documento
             elem.append(calendario);
-            
+
             check_events(mes, ano);
         }
-		
+
         function canvi_mes(mes, ano){
             capaDiasMes.empty();
             llistar_literals_setmana();
             muestraDiasMes(mes, ano);
             check_events(mes, ano);
-        }       
+        }
 
         //funció mostra literals setmana
         function llistar_literals_setmana(){
@@ -174,24 +174,24 @@ $.fn.bic_calendar = function(options) {
                 capaDiasMes.append(capaDiasSemana);
             }
         }
-                
+
         function muestraDiasMes(mes, ano){
             //console.log("muestro (mes, ano): ", mes, " ", ano)
             //muestro en la capaTextoMesAno el mes y ano que voy a dibujar
             capaTextoMesAnoActual.text(nombresMes[mes] + " " + ano);
-			
+
             //muestro los días del mes
             var contadorDias = 1;
-			
+
             //calculo la fecha del primer día de este mes
             var primerDia = calculaNumeroDiaSemana(1, mes, ano);
             //calculo el último día del mes
             var ultimoDiaMes = ultimoDia(mes,ano);
-            
+
             var n_mes = mes + 1;
-            
+
             var capaDiasMes_string = "";
-			
+
             //escribo la primera fila de la semana
             for (var i=0; i<7; i++){
                 if (i < primerDia){
@@ -219,7 +219,7 @@ $.fn.bic_calendar = function(options) {
                 }
                 capaDiasMes_string += codigoDia
             }
-			
+
             //recorro todos los demás días hasta el final del mes
             var diaActualSemana = 1;
             while (contadorDias <= ultimoDiaMes){
@@ -240,7 +240,7 @@ $.fn.bic_calendar = function(options) {
                 diaActualSemana++;
                 capaDiasMes_string += codigoDia
             }
-			
+
             //compruebo que celdas me faltan por escribir vacias de la última semana del mes
             diaActualSemana--;
             if (diaActualSemana%7!=0){
@@ -256,36 +256,36 @@ $.fn.bic_calendar = function(options) {
                     capaDiasMes_string += codigoDia
                 }
             }
-            
+
             capaDiasMes.append( capaDiasMes_string );
         }
         //función para calcular el número de un día de la semana
         function calculaNumeroDiaSemana(dia,mes,ano){
             var objFecha = new Date(ano, mes, dia);
             var numDia = objFecha.getDay();
-            if (numDia == 0) 
+            if (numDia == 0)
                 numDia = 6;
             else
                 numDia--;
             return numDia;
         }
-		
+
         //función para ver si una fecha es correcta
         function checkdate ( m, d, y ) {
             // función por http://kevin.vanzonneveld.net
             // extraida de las librerías phpjs.org manual en http://www.desarrolloweb.com/manuales/manual-librerias-phpjs.html
             return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
         }
-		
+
         //funcion que devuelve el último día de un mes y año dados
-        function ultimoDia(mes,ano){ 
-            var ultimo_dia=28; 
-            while (checkdate(mes+1,ultimo_dia + 1,ano)){ 
-                ultimo_dia++; 
-            } 
-            return ultimo_dia; 
-        } 
-		
+        function ultimoDia(mes,ano){
+            var ultimo_dia=28;
+            while (checkdate(mes+1,ultimo_dia + 1,ano)){
+                ultimo_dia++;
+            }
+            return ultimo_dia;
+        }
+
         function validarFechaEscrita(fecha){
             var arrayFecha = fecha.split("/");
             if (arrayFecha.length!=3)
@@ -316,22 +316,22 @@ $.fn.bic_calendar = function(options) {
                 marcarEventos(mes, ano);
             }
         }
-        
+
         function marcarEventos(mes, ano){
             var t_mes = mes + 1;
-            
+
             for(var i=0; i< events.length; i++) {
-                
+
                 if ( events[i][0].split('/')[1] == t_mes && events[i][0].split('/')[2] == ano ){
 
                     $('#' + id_calendari + '_' + events[i][0].replace(/\//g, "_") ).addClass('event');
-                    
+
                     $('#' + id_calendari + '_' + events[i][0].replace(/\//g, "_") + ' a' ).attr('data-original-title', events[i][1]);
-                    
+
                     //bg
                     if ( events[i][3] )
                         $('#' + id_calendari + '_' + events[i][0].replace(/\//g, "_") ).css('background', events[i][3]);
-                    
+
                     //link
                     if ( events[i][2] == '' || events[i][2] == '#' ){
                         if ( events[i][4] != '' ){
@@ -356,7 +356,7 @@ $.fn.bic_calendar = function(options) {
                     }
                 }
             }
-            
+
             $('#' + id_calendari + ' ' + '.event_tooltip a').tooltip(tooltip_options);
             $('#' + id_calendari + ' ' + '.event_popover a').popover(popover_options);
 
@@ -364,17 +364,17 @@ $.fn.bic_calendar = function(options) {
                 $(this).popover('toggle');
             } );
         }
-        
+
     /*** --functions-- ***/
-        
-        
-        
+
+
+
     });
     return this;
 };
 
 
 //defaults values
-/*$.fn.highlight.defaults = {  
-    
+/*$.fn.highlight.defaults = {
+
     };*/

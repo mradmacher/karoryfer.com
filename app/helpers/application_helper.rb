@@ -21,7 +21,7 @@ module ApplicationHelper
   def event_details( event )
     loc = []
     loc << event_date( event )
-    loc << event.location unless event.location.blank? 
+    loc << event.location unless event.location.blank?
     loc.join( ', ' )
   end
 
@@ -56,6 +56,6 @@ module ApplicationHelper
     link_to title, link, options.merge( :class => 'btn' )
   end
 
-	alias render_textile render_text 
-	alias format_text render_text 
+	alias render_textile render_text
+	alias format_text render_text
 end

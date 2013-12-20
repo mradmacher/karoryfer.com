@@ -1,12 +1,12 @@
 <%= render_title %>
 <% content_for :actions do %>
-  <% if can? :update, @artist %>
+  <% if can? :write_artist, @artist %>
     <%= link_to_action t( 'helpers.action.artist.edit' ), edit_artist_path %>
   <% end %>
-  <% if can? :create, Event %>
+  <% if can? :write_event, Event %>
     <%= link_to_action t( 'helpers.action.event.new' ), new_event_path %>
   <% end %>
-  <% if can? :create, Post %>
+  <% if can? :write_event, Post %>
     <%= link_to_action t( 'helpers.action.post.new' ), new_post_path %>
   <% end %>
 <% end %>

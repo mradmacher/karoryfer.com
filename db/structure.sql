@@ -225,6 +225,36 @@ ALTER SEQUENCE licenses_id_seq OWNED BY licenses.id;
 
 
 --
+-- Name: memberships; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE memberships (
+    id integer NOT NULL,
+    artist_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+--
+-- Name: memberships_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE memberships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: memberships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE memberships_id_seq OWNED BY memberships.id;
+
+
+--
 -- Name: pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -494,6 +524,13 @@ ALTER TABLE ONLY licenses ALTER COLUMN id SET DEFAULT nextval('licenses_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY memberships ALTER COLUMN id SET DEFAULT nextval('memberships_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pages ALTER COLUMN id SET DEFAULT nextval('pages_id_seq'::regclass);
 
 
@@ -586,6 +623,14 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY licenses
     ADD CONSTRAINT licenses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: memberships_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY memberships
+    ADD CONSTRAINT memberships_pkey PRIMARY KEY (id);
 
 
 --
@@ -682,6 +727,20 @@ CREATE INDEX events_artist_id_index ON events USING btree (artist_id);
 
 
 --
+-- Name: memberships_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX memberships_artist_id_index ON memberships USING btree (artist_id);
+
+
+--
+-- Name: memberships_user_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX memberships_user_id_index ON memberships USING btree (user_id);
+
+
+--
 -- Name: posts_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -746,6 +805,22 @@ ALTER TABLE ONLY attachments
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_artist_id_fkey FOREIGN KEY (artist_id) REFERENCES artists(id) ON DELETE CASCADE;
+
+
+--
+-- Name: memberships_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY memberships
+    ADD CONSTRAINT memberships_artist_id_fkey FOREIGN KEY (artist_id) REFERENCES artists(id) ON DELETE CASCADE;
+
+
+--
+-- Name: memberships_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY memberships
+    ADD CONSTRAINT memberships_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 
 --
@@ -983,3 +1058,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131028202746');
 INSERT INTO schema_migrations (version) VALUES ('20131031212642');
 
 INSERT INTO schema_migrations (version) VALUES ('20131103141046');
+
+INSERT INTO schema_migrations (version) VALUES ('20131209212810');

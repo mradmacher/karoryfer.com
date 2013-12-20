@@ -9,14 +9,10 @@ gem 'carrierwave'
 gem 'dynamic_form'
 gem 'taglib-ruby'
 gem 'authlogic'
-gem 'cancan'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'six'
 
 group :test do
   gem 'sham'
   gem 'faker'
-	gem 'shoulda-context'
   gem 'sequel'
 end

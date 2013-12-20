@@ -6,20 +6,20 @@ class PostTest < ActiveSupport::TestCase
 		post = Post.sham! :build
 		post.title = nil
 		refute post.valid?
-		assert post.errors[:title].include? I18n.t( 
+		assert post.errors[:title].include? I18n.t(
       'activerecord.errors.models.post.attributes.title.blank' )
 
 		post.title = '  '
 		refute post.valid?
-		assert post.errors[:title].include? I18n.t( 
+		assert post.errors[:title].include? I18n.t(
       'activerecord.errors.models.post.attributes.title.blank' )
-	end 
+	end
 
   def test_validates_title_length
 		post = Post.sham! :build
 		post.title = 'a'*(Post::TITLE_MAX_LENGTH+1)
 		refute post.valid?
-		assert post.errors[:title].include? I18n.t( 
+		assert post.errors[:title].include? I18n.t(
       'activerecord.errors.models.post.attributes.title.too_long' )
 
 		post.title = 'a'*(Post::TITLE_MAX_LENGTH)
@@ -30,7 +30,7 @@ class PostTest < ActiveSupport::TestCase
 		post = Post.sham! :build
 		post.artist_id = nil
 		refute post.valid?
-		assert post.errors[:artist_id].include? I18n.t( 
+		assert post.errors[:artist_id].include? I18n.t(
       'activerecord.errors.models.post.attributes.artist_id.blank' )
 	end
 
@@ -42,7 +42,7 @@ class PostTest < ActiveSupport::TestCase
 		end
 		post.published = nil
 		refute post.valid?
-		assert post.errors[:published].include? I18n.t( 
+		assert post.errors[:published].include? I18n.t(
       'activerecord.errors.models.post.attributes.published.inclusion' )
 	end
 
@@ -63,7 +63,7 @@ class PostTest < ActiveSupport::TestCase
   def test_accepts_valid_poster_urls
     post = Post.sham! :build
     [
-      'http://www.karoryfer.com/posters/1.jpg', 
+      'http://www.karoryfer.com/posters/1.jpg',
       'https://www.example.com?poster_file=somefile.png'
     ].each do |pu|
       post.poster_url = pu
@@ -74,12 +74,12 @@ class PostTest < ActiveSupport::TestCase
   def test_rejects_invalid_poster_urls
     post = Post.sham! :build
     [
-      'www.karoryfer.com/posters/1.jpg', 
+      'www.karoryfer.com/posters/1.jpg',
       'ftp://www.example.com?poster_file=somefile.png'
     ].each do |pu|
       post.poster_url = pu
       refute post.valid?
-      assert post.errors[:poster_url].include? I18n.t( 
+      assert post.errors[:poster_url].include? I18n.t(
         'activerecord.errors.models.post.attributes.poster_url.invalid' )
     end
   end

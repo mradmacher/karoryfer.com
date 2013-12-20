@@ -11,19 +11,19 @@ class PagesController < ApplicationController
   end
 
   def edit
-		authorize! :manage, Page
+		authorize! :write_page, Page
 		flash[:back] = request.referrer
 		@page = Page.find( params[:id] )
   end
 
   def new
 		@page = Page.new
-		authorize! :create, @page
+		authorize! :write_page, @page
   end
 
 	def update
 		@page = Page.find( params[:id] )
-		authorize! :update, @page
+		authorize! :write_page, @page
 
 		if @page.update_attributes( params[:page] )
 			redirect_to page_url( @page )
@@ -33,7 +33,7 @@ class PagesController < ApplicationController
 	end
 
 	def create
-		authorize! :create, Page
+		authorize! :write_page, Page
 		@page = Page.new( params[:page] )
 		if @page.save
 			redirect_to page_url( @page )
@@ -44,10 +44,9 @@ class PagesController < ApplicationController
 
 	def destroy
 		@page = Page.find( params[:id] )
-		authorize! :destroy, @page
+		authorize! :write_page, @page
 		@page.destroy
     redirect_to pages_url
 	end
-
 end
 

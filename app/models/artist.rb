@@ -1,5 +1,5 @@
 class Artist < ActiveRecord::Base
-	has_attached_file :image, 
+	has_attached_file :image,
 		:path => ':rails_root/public/system/:class/:attachment/:id_partition/:style.:extension',
 		:url => '/system/:class/:attachment/:id_partition/:style.:extension',
 		:styles => { :normal => ["300x400>", :png], :thumb => ["110x110", :png] },
@@ -9,6 +9,7 @@ class Artist < ActiveRecord::Base
 	has_many :events
 	has_many :albums
   has_many :videos
+  has_many :memberships
 
 	NAME_MAX_LENGTH = 32
 	REFERENCE_MAX_LENGTH = 24
@@ -30,7 +31,7 @@ class Artist < ActiveRecord::Base
 			find_by_reference( args.delete_at( 0 ).downcase, args )
 		else
 			super( *args )
-		end 
+		end
 	end
 
 end

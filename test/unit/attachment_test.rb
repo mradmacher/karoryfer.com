@@ -8,7 +8,7 @@ class AttachmentTest < ActiveSupport::TestCase
     existing = Attachment.sham! file: existing_file
     tested = Attachment.sham! album: existing.album, file: existing_file
     refute tested.valid?
-		assert tested.errors[:file].include? I18n.t( 
+		assert tested.errors[:file].include? I18n.t(
       'activerecord.errors.models.attachment.attributes.file.taken' )
   end
 
@@ -16,7 +16,7 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment = Attachment.sham! :build
     attachment.album_id = nil
     refute attachment.valid?
-		assert attachment.errors[:album_id].include? I18n.t( 
+		assert attachment.errors[:album_id].include? I18n.t(
       'activerecord.errors.models.attachment.attributes.album_id.blank' )
   end
 
@@ -24,7 +24,7 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment = Attachment.sham! :build, file: nil
 
     refute attachment.valid?
-    assert attachment.errors[:file].include? I18n.t( 
+    assert attachment.errors[:file].include? I18n.t(
       'activerecord.errors.models.attachment.attributes.file.blank' )
   end
 
