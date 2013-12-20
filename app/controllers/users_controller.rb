@@ -2,33 +2,35 @@ class UsersController < ApplicationController
 	before_filter :require_user
 
   def index
-		authorize! :manage, User
+		authorize! :read_user, User
 		@users = User.all
   end
 
   def show
 		@user = User.find( params[:id] )
-		authorize! :read, @user
+		authorize! :read_user, @user
+    @membership = Membership.new
+    @membership.user = @user
   end
 
   def new
-		authorize! :manage, User
+		authorize! :write_user, User
 		@user = User.new
   end
 
   def edit
 		@user = User.find( params[:id] )
-		authorize! :update, @user
+		authorize! :write_user, @user
   end
-	
+
 	def edit_password
 		@user = User.find( params[:id] )
-		authorize! :update, @user
+		authorize! :write_user, @user
 	end
 
 	def update
 		@user = User.find( params[:id] )
-		authorize! :update, @user
+		authorize! :write_user, @user
 		if @user.update_attributes( params[:user], :as => (current_user.admin? ? :admin : :default) )
 			redirect_to admin_user_url( @user )
 		else
@@ -42,7 +44,7 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new( params[:user] )
-		authorize! :create, User
+		authorize! :write_user, User
 		if @user.save
 			redirect_to admin_user_url( @user )
 		else
@@ -52,7 +54,7 @@ class UsersController < ApplicationController
 
 	def destroy
 		@user = User.find( params[:id] )
-		authorize! :destroy, @user
+		authorize! :write_user, @user
 		@user.destroy
 		if @user == current_user then
 			redirect_to root_url
@@ -60,5 +62,5 @@ class UsersController < ApplicationController
 			redirect_to admin_users_url
 		end
 	end
-
 end
+

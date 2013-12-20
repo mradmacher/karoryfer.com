@@ -8,7 +8,7 @@ class TrackTest < ActiveSupport::TestCase
     [nil, '', ' ', '   '].each do |title|
       track.title = title
       refute track.valid?
-      assert track.errors[:title].include? I18n.t( 
+      assert track.errors[:title].include? I18n.t(
         'activerecord.errors.models.track.attributes.title.blank' )
     end
   end
@@ -17,7 +17,7 @@ class TrackTest < ActiveSupport::TestCase
     track = Track.sham! :build
     track.title = 'a' * (Track::TITLE_MAX_LENGTH+1)
     refute track.valid?
-    assert track.errors[:title].include? I18n.t( 
+    assert track.errors[:title].include? I18n.t(
       'activerecord.errors.models.track.attributes.title.too_long' )
 
     track.title = 'a' * Track::TITLE_MAX_LENGTH
@@ -28,7 +28,7 @@ class TrackTest < ActiveSupport::TestCase
     track = Track.sham! :build
     track.album_id = nil
     refute track.valid?
-    assert track.errors[:album_id].include? I18n.t( 
+    assert track.errors[:album_id].include? I18n.t(
       'activerecord.errors.models.track.attributes.album_id.blank' )
   end
 
@@ -36,7 +36,7 @@ class TrackTest < ActiveSupport::TestCase
     track = Track.sham! :build
     track.rank = nil
     refute track.valid?
-    assert track.errors[:rank].include? I18n.t( 
+    assert track.errors[:rank].include? I18n.t(
       'activerecord.errors.models.track.attributes.rank.blank' )
   end
 
@@ -45,7 +45,7 @@ class TrackTest < ActiveSupport::TestCase
     track = Track.sham! :build, album: existing_track.album
     track.rank = existing_track.rank
     refute track.valid?
-    assert track.errors[:rank].include? I18n.t( 
+    assert track.errors[:rank].include? I18n.t(
       'activerecord.errors.models.track.attributes.rank.taken' )
   end
 
@@ -69,7 +69,7 @@ class TrackTest < ActiveSupport::TestCase
     track = Track.sham! :build
     track.comment = 'a' * (Track::COMMENT_MAX_LENGTH+1)
     refute track.valid?
-    assert track.errors[:comment].include? I18n.t( 
+    assert track.errors[:comment].include? I18n.t(
       'activerecord.errors.models.track.attributes.comment.too_long' )
 
     track.comment = 'a' * Track::COMMENT_MAX_LENGTH

@@ -2,8 +2,8 @@
 <h1><%= t 'helpers.title.user.index' %></h1>
 <h2><%= t 'helpers.title.user.new' %></h2>
 <% content_for :actions do %>
-	<ul>
-		<li><%= link_to t( 'helpers.action.cancel_new' ), admin_users_path %></li>
+	<ul class="inline">
+		<li><%= link_to_action t( 'helpers.action.cancel_new' ), admin_users_path %></li>
 	</ul>
 <% end %>
 <%= form_for [:admin, @user] do |f| %>

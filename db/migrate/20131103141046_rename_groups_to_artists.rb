@@ -13,34 +13,34 @@ class RenameGroupsToArtists < ActiveRecord::Migration
       ALTER INDEX posts_group_id_index RENAME TO posts_artist_id_index;
       ALTER INDEX videos_group_id_index RENAME TO videos_artist_id_index;
 
-      ALTER TABLE artists 
+      ALTER TABLE artists
         DROP CONSTRAINT groups_reference_check_format;
-      ALTER TABLE artists 
-        ADD CONSTRAINT artists_reference_check_format 
+      ALTER TABLE artists
+        ADD CONSTRAINT artists_reference_check_format
         CHECK (((reference)::text = COALESCE("substring"((reference)::text, '(^[a-z0-9]+([-_][a-z0-9]+)*$)'::text), ''::text)));
 
-      ALTER TABLE artists 
+      ALTER TABLE artists
         DROP CONSTRAINT groups_reference_check_length;
-      ALTER TABLE artists 
+      ALTER TABLE artists
         ADD CONSTRAINT artists_reference_check_length CHECK ((char_length((reference)::text) > 0));
 
-      ALTER TABLE artists 
+      ALTER TABLE artists
         DROP CONSTRAINT groups_reference_key;
-      ALTER TABLE artists 
+      ALTER TABLE artists
         ADD CONSTRAINT artists_reference_key UNIQUE (reference);
 
-      ALTER TABLE albums 
+      ALTER TABLE albums
         DROP CONSTRAINT albums_group_id_fkey;
-      ALTER TABLE events 
+      ALTER TABLE events
         DROP CONSTRAINT events_group_id_fkey;
-      ALTER TABLE posts 
+      ALTER TABLE posts
         DROP CONSTRAINT posts_group_id_fkey;
-      ALTER TABLE videos 
+      ALTER TABLE videos
         DROP CONSTRAINT videos_group_id_fkey;
-        
-      ALTER TABLE artists 
+
+      ALTER TABLE artists
         DROP CONSTRAINT groups_pkey;
-      ALTER TABLE artists 
+      ALTER TABLE artists
         ADD CONSTRAINT artists_pkey PRIMARY KEY (id);
 
       ALTER TABLE albums
@@ -68,34 +68,34 @@ class RenameGroupsToArtists < ActiveRecord::Migration
       ALTER INDEX posts_artist_id_index RENAME TO posts_group_id_index;
       ALTER INDEX videos_artist_id_index RENAME TO videos_group_id_index;
 
-      ALTER TABLE groups 
+      ALTER TABLE groups
         DROP CONSTRAINT artists_reference_check_format;
-      ALTER TABLE groups 
-        ADD CONSTRAINT groups_reference_check_format 
+      ALTER TABLE groups
+        ADD CONSTRAINT groups_reference_check_format
         CHECK (((reference)::text = COALESCE("substring"((reference)::text, '(^[a-z0-9]+([-_][a-z0-9]+)*$)'::text), ''::text)));
 
-      ALTER TABLE groups 
+      ALTER TABLE groups
         DROP CONSTRAINT artists_reference_check_length;
-      ALTER TABLE groups 
+      ALTER TABLE groups
         ADD CONSTRAINT groups_reference_check_length CHECK ((char_length((reference)::text) > 0));
 
-      ALTER TABLE groups 
+      ALTER TABLE groups
         DROP CONSTRAINT artists_reference_key;
-      ALTER TABLE groups 
+      ALTER TABLE groups
         ADD CONSTRAINT groups_reference_key UNIQUE (reference);
 
-      ALTER TABLE albums 
+      ALTER TABLE albums
         DROP CONSTRAINT albums_artist_id_fkey;
-      ALTER TABLE events 
+      ALTER TABLE events
         DROP CONSTRAINT events_artist_id_fkey;
-      ALTER TABLE posts 
+      ALTER TABLE posts
         DROP CONSTRAINT posts_artist_id_fkey;
-      ALTER TABLE videos 
+      ALTER TABLE videos
         DROP CONSTRAINT videos_artist_id_fkey;
 
-      ALTER TABLE groups 
+      ALTER TABLE groups
         DROP CONSTRAINT artists_pkey;
-      ALTER TABLE groups 
+      ALTER TABLE groups
         ADD CONSTRAINT groups_pkey PRIMARY KEY (id);
 
       ALTER TABLE albums

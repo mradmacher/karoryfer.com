@@ -7,7 +7,7 @@ class CreateEventsFromPosts < ActiveRecord::Migration
         title character varying(80) NOT NULL,
         published boolean DEFAULT false NOT NULL,
         body text,
-        
+
         poster_file_name character varying(40),
         poster_content_type character varying(32),
         poster_file_size integer,

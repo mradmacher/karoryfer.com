@@ -6,15 +6,15 @@ class AlbumReleaseTest < ActiveSupport::TestCase
   FIXTURES_DIR = File.expand_path('../../fixtures', __FILE__)
   include ReleaseHelper
 
-  def setup 
+  def setup
     @tmp_dir = Dir.mktmpdir
     Release::Uploader.album_store_dir = File.join( @tmp_dir, 'storage' )
 
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
-    @album = Album.sham! title: 'Tłuczące pokrowce jeżozwierza', 
+    @album = Album.sham! title: 'Tłuczące pokrowce jeżozwierza',
       image: File.open( File.join( FIXTURES_DIR, 'okladka.jpg' ) )
     3.times do |i|
-      Track.sham! album: @album, 
+      Track.sham! album: @album,
         file: File.open( File.join( FIXTURES_DIR, 'tracks', "#{i+1}.wav" ) )
     end
     @album.tracks.each do |track|
@@ -26,7 +26,7 @@ class AlbumReleaseTest < ActiveSupport::TestCase
     @album.attachments.create( file: File.open( File.join( FIXTURES_DIR, 'attachments', 'att3.txt' ) ) )
   end
 
-  def teardown 
+  def teardown
     FileUtils.remove_entry_secure @tmp_dir
   end
 
@@ -51,12 +51,12 @@ class AlbumReleaseTest < ActiveSupport::TestCase
 
     ogg_artist_reference = ogg_release.album.artist.reference
     ogg_album_reference = ogg_release.album.reference
-    ogg_archive_file_path = File.join( Release::Uploader.album_store_dir, ogg_artist_reference, 
+    ogg_archive_file_path = File.join( Release::Uploader.album_store_dir, ogg_artist_reference,
       "#{ogg_artist_reference}-#{ogg_album_reference}-#{ogg_release.format}.zip" )
 
     flac_artist_reference = flac_release.album.artist.reference
     flac_album_reference = flac_release.album.reference
-    flac_archive_file_path = File.join( Release::Uploader.album_store_dir, flac_artist_reference, 
+    flac_archive_file_path = File.join( Release::Uploader.album_store_dir, flac_artist_reference,
       "#{flac_artist_reference}-#{flac_album_reference}-#{flac_release.format}.zip" )
 
     assert File.exists? ogg_archive_file_path

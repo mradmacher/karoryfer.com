@@ -6,7 +6,7 @@
   <h1 class="hidden"><%= t 'helpers.title.album.index' %></h1>
 <% end %>
 <% content_for :actions do %>
-  <% if can? :manage, Album %>
+  <% if can? :write_album, Album %>
     <%= link_to_action t( "helpers.action.album.new" ), new_album_path %>
   <% end %>
 <% end %>

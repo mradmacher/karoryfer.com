@@ -6,20 +6,20 @@ class EventTest < ActiveSupport::TestCase
 		event = Event.sham! :build
 		event.title = nil
 		refute event.valid?
-		assert event.errors[:title].include? I18n.t( 
+		assert event.errors[:title].include? I18n.t(
       'activerecord.errors.models.event.attributes.title.blank' )
 
 		event.title = '  '
 		refute event.valid?
-		assert event.errors[:title].include? I18n.t( 
+		assert event.errors[:title].include? I18n.t(
       'activerecord.errors.models.event.attributes.title.blank' )
-	end 
+	end
 
 	def test_validates_title_length
 		event = Event.sham! :build
 		event.title = 'a'*(Event::TITLE_MAX_LENGTH+1)
 		refute event.valid?
-		assert event.errors[:title].include? I18n.t( 
+		assert event.errors[:title].include? I18n.t(
       'activerecord.errors.models.event.attributes.title.too_long' )
 
 		event.title = 'a'*(Event::TITLE_MAX_LENGTH)
@@ -30,7 +30,7 @@ class EventTest < ActiveSupport::TestCase
 		event = Event.sham! :build
 		event.artist_id = nil
 		refute event.valid?
-		assert event.errors[ :artist_id ].include? I18n.t( 
+		assert event.errors[ :artist_id ].include? I18n.t(
       'activerecord.errors.models.event.attributes.artist_id.blank' )
 	end
 
@@ -46,7 +46,7 @@ class EventTest < ActiveSupport::TestCase
 		end
 		event.published = nil
 		refute event.valid?
-		assert event.errors[:published].include? I18n.t( 
+		assert event.errors[:published].include? I18n.t(
       'activerecord.errors.models.event.attributes.published.inclusion' )
 	end
 
@@ -58,7 +58,7 @@ class EventTest < ActiveSupport::TestCase
 		end
 		event.free_entrance = nil
 		refute event.valid?
-		assert event.errors[:free_entrance].include? I18n.t( 
+		assert event.errors[:free_entrance].include? I18n.t(
       'activerecord.errors.models.event.attributes.free_entrance.inclusion' )
 	end
 
@@ -66,7 +66,7 @@ class EventTest < ActiveSupport::TestCase
     event = Event.sham! :build
     event.event_date = nil
     refute event.valid?
-    assert event.errors[:event_date].include? I18n.t( 
+    assert event.errors[:event_date].include? I18n.t(
       'activerecord.errors.models.event.attributes.event_date.blank' )
 
     event.event_date = Time.now.to_date
@@ -89,7 +89,7 @@ class EventTest < ActiveSupport::TestCase
 
   def test_accepts_valid_urls_for_poster
     event = Event.sham! :build
-    ['http://www.karoryfer.com/posters/1.jpg', 
+    ['http://www.karoryfer.com/posters/1.jpg',
     'https://www.example.com?poster_file=somefile.png'].each do |pu|
       event.poster_url = pu
       assert event.valid?
@@ -98,11 +98,11 @@ class EventTest < ActiveSupport::TestCase
 
   def test_rejects_invalid_urls_for_poster
     event = Event.sham! :build
-    ['www.karoryfer.com/posters/1.jpg', 
+    ['www.karoryfer.com/posters/1.jpg',
     'ftp://www.example.com?poster_file=somefile.png'].each do |pu|
       event.poster_url = pu
       refute event.valid?
-      assert event.errors[:poster_url].include? I18n.t( 
+      assert event.errors[:poster_url].include? I18n.t(
         'activerecord.errors.models.event.attributes.poster_url.invalid' )
     end
   end

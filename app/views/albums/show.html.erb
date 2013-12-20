@@ -7,7 +7,7 @@
 </h2>
 
 <% content_for :actions do %>
-  <% if can? :manage, @album %>
+  <% if can? :write_album, @album %>
     <%= link_to_action t( "helpers.action.album.edit" ), edit_artist_album_path( @album.artist, @album ) %>
   <% end %>
 <% end %>
@@ -21,7 +21,7 @@
 
     <p>
     <% if @album.license.present? %>
-      <%= render :partial => 'licenses/cc', 
+      <%= render :partial => 'licenses/cc',
         :locals => { :author => @album.artist, :license => @album.license } %>
     <% end %>
     </p>

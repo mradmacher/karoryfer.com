@@ -1,12 +1,12 @@
 <%= render_title @video.title %>
 <% content_for :actions do %>
-  <% if can? :create, Video %>
+  <% if can? :write_video, Video %>
     <%= link_to_action t( 'helpers.action.video.new' ), new_video_path %>
   <% end %>
-  <% if can? :update, @video %>
+  <% if can? :write_video, @video %>
     <%= link_to_action t( 'helpers.action.video.edit' ), edit_video_path %>
   <% end %>
-  <% if can? :destroy, @video %>
+  <% if can? :write_video, @video %>
     <%= link_to_action t( 'helpers.action.video.destroy' ), video_path( @video ), :method => :delete,
       :confirm => t( 'helpers.action.destroy_confirmation' ) %>
   <% end %>

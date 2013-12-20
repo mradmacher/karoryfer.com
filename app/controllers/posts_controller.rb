@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   end
 
   def drafts
-		raise CanCan::AccessDenied unless current_user.admin?
+		raise User::AccessDenied unless current_user?
     @category = :drafts
     @posts = current_user.unpublished_posts
     render :index
@@ -19,24 +19,24 @@ class PostsController < ApplicationController
   def show
 		@post = Post.find( params[:id] )
     redirect_to( artist_post_url( @post.artist, @post ), :status => 301 ) unless current_artist?
-		authorize!( :read, @post )
+		authorize!( :read_post, @post )
   end
 
   def new
 		@post = Post.new
 		@post.artist = current_artist if current_artist?
-		authorize! :create, @post
+		authorize! :write_post, @post
   end
 
   def edit
 		@post = Post.find( params[:id] )
     redirect_to( edit_artist_post_url( @post.artist, @post ), :status => 301 ) unless current_artist?
-		authorize! :update, @post
+		authorize! :write_post, @post
   end
 
 	def create
 		@post = Post.new( params[:post] )
-		authorize! :create, @post
+		authorize! :write_post, @post
 		if @post.save
 			redirect_to artist_post_url( @post.artist, @post )
 		else
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
 
 	def update
 		@post = Post.find( params[:id] )
-		authorize! :update, @post
+		authorize! :write_post, @post
 		if @post.update_attributes( params[:post] )
 			redirect_to artist_post_url( @post.artist, @post )
 		else
@@ -56,7 +56,7 @@ class PostsController < ApplicationController
 
 	def destroy
 		@post = Post.find( params[:id] )
-		authorize! :destroy, @post
+		authorize! :write_post, @post
 		@post.destroy
     redirect_to artist_posts_url( @post.artist )
 	end

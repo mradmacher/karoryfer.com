@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
 	belongs_to :artist
-	has_attached_file :poster, 
+	has_attached_file :poster,
 		:path => ':rails_root/public/system/:class/:attachment/:id_partition/:style.:extension',
 		:url => '/system/:class/:attachment/:id_partition/:style.:extension',
 		:styles => { :normal => ["300x400>", :png], :thumb => ["110x110", :png] },
@@ -18,7 +18,7 @@ class Event < ActiveRecord::Base
   validates :event_date, :presence => true
 	validates :free_entrance, :inclusion => { :in => [true, false] }
 
-  default_scope order( '(CASE WHEN event_date - current_date >= 0 THEN 1 ELSE 0 END) DESC, abs(event_date - current_date) ASC' ) 
+  default_scope order( '(CASE WHEN event_date - current_date >= 0 THEN 1 ELSE 0 END) DESC, abs(event_date - current_date) ASC' )
 
 	scope :published, where( :published => true )
 	scope :unpublished, where( :published => false )

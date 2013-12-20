@@ -33,7 +33,6 @@ GEM
       activerecord (>= 3.2)
       activesupport (>= 3.2)
     builder (3.0.4)
-    cancan (1.6.9)
     carrierwave (0.9.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -92,7 +91,7 @@ GEM
       json (~> 1.4)
     sequel (3.46.0)
     sham (1.1.0)
-    shoulda-context (1.1.1)
+    six (0.2.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -111,7 +110,6 @@ PLATFORMS
 
 DEPENDENCIES
   authlogic
-  cancan
   carrierwave
   dynamic_form
   faker
@@ -121,5 +119,5 @@ DEPENDENCIES
   rdiscount
   sequel
   sham
-  shoulda-context
+  six
   taglib-ruby
