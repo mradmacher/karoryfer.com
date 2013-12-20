@@ -102,7 +102,7 @@
           <% else -%>
             <li><a href="<%= admin_login_url %>" class="btn btn-mini">Zaloguj się</a></li>
           <% end %>
-          <% if can? :manage, User %>
+          <% if can? :write_user, User %>
             <li><a  href="<%= admin_users_path %>" class="btn btn-mini"><%= t( 'helpers.title.user.index' ) %></a></li>
           <% end %>
         </ul>
