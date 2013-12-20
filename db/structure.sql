@@ -29,7 +29,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: albums; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: albums; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE albums (
@@ -73,7 +73,7 @@ ALTER SEQUENCE albums_id_seq OWNED BY albums.id;
 
 
 --
--- Name: artists; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: artists; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE artists (
@@ -113,7 +113,7 @@ ALTER SEQUENCE artists_id_seq OWNED BY artists.id;
 
 
 --
--- Name: attachments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: attachments; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE attachments (
@@ -146,7 +146,7 @@ ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
 
 
 --
--- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE events (
@@ -194,7 +194,7 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
--- Name: licenses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: licenses; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE licenses (
@@ -225,7 +225,7 @@ ALTER SEQUENCE licenses_id_seq OWNED BY licenses.id;
 
 
 --
--- Name: memberships; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: memberships; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE memberships (
@@ -255,7 +255,7 @@ ALTER SEQUENCE memberships_id_seq OWNED BY memberships.id;
 
 
 --
--- Name: pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: pages; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE pages (
@@ -291,7 +291,7 @@ ALTER SEQUENCE pages_id_seq OWNED BY pages.id;
 
 
 --
--- Name: posts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: posts; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE posts (
@@ -330,7 +330,7 @@ ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
 
 
 --
--- Name: releases; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: releases; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE releases (
@@ -366,7 +366,7 @@ ALTER SEQUENCE releases_id_seq OWNED BY releases.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE schema_migrations (
@@ -375,7 +375,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: tracks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: tracks; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE tracks (
@@ -411,7 +411,7 @@ ALTER SEQUENCE tracks_id_seq OWNED BY tracks.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE users (
@@ -451,7 +451,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: videos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: videos; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE videos (
@@ -570,7 +570,7 @@ ALTER TABLE ONLY videos ALTER COLUMN id SET DEFAULT nextval('videos_id_seq'::reg
 
 
 --
--- Name: albums_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: albums_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY albums
@@ -578,7 +578,7 @@ ALTER TABLE ONLY albums
 
 
 --
--- Name: albums_reference_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: albums_reference_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY albums
@@ -586,7 +586,7 @@ ALTER TABLE ONLY albums
 
 
 --
--- Name: artists_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: artists_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY artists
@@ -594,7 +594,7 @@ ALTER TABLE ONLY artists
 
 
 --
--- Name: artists_reference_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: artists_reference_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY artists
@@ -602,7 +602,7 @@ ALTER TABLE ONLY artists
 
 
 --
--- Name: attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY attachments
@@ -610,7 +610,7 @@ ALTER TABLE ONLY attachments
 
 
 --
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY events
@@ -618,7 +618,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: licenses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: licenses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY licenses
@@ -626,7 +626,7 @@ ALTER TABLE ONLY licenses
 
 
 --
--- Name: memberships_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: memberships_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY memberships
@@ -634,7 +634,7 @@ ALTER TABLE ONLY memberships
 
 
 --
--- Name: pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY pages
@@ -642,7 +642,7 @@ ALTER TABLE ONLY pages
 
 
 --
--- Name: pages_reference_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: pages_reference_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY pages
@@ -650,7 +650,7 @@ ALTER TABLE ONLY pages
 
 
 --
--- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY posts
@@ -658,7 +658,7 @@ ALTER TABLE ONLY posts
 
 
 --
--- Name: releases_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: releases_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY releases
@@ -666,7 +666,7 @@ ALTER TABLE ONLY releases
 
 
 --
--- Name: schema_migrations_version_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations_version_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY schema_migrations
@@ -674,7 +674,7 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
--- Name: tracks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: tracks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY tracks
@@ -682,7 +682,7 @@ ALTER TABLE ONLY tracks
 
 
 --
--- Name: users_login_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_login_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY users
@@ -690,7 +690,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY users
@@ -698,7 +698,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: videos_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: videos_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY videos
@@ -706,70 +706,70 @@ ALTER TABLE ONLY videos
 
 
 --
--- Name: albums_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: albums_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX albums_artist_id_index ON albums USING btree (artist_id);
 
 
 --
--- Name: attachments_album_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: attachments_album_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX attachments_album_id_index ON attachments USING btree (album_id);
 
 
 --
--- Name: events_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: events_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX events_artist_id_index ON events USING btree (artist_id);
 
 
 --
--- Name: memberships_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: memberships_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX memberships_artist_id_index ON memberships USING btree (artist_id);
 
 
 --
--- Name: memberships_user_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: memberships_user_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX memberships_user_id_index ON memberships USING btree (user_id);
 
 
 --
--- Name: posts_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: posts_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX posts_artist_id_index ON posts USING btree (artist_id);
 
 
 --
--- Name: releases_album_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: releases_album_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX releases_album_id_index ON releases USING btree (album_id);
 
 
 --
--- Name: releases_track_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: releases_track_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX releases_track_id_index ON releases USING btree (track_id);
 
 
 --
--- Name: tracks_album_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: tracks_album_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX tracks_album_id_index ON tracks USING btree (album_id);
 
 
 --
--- Name: videos_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: videos_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX videos_artist_id_index ON videos USING btree (artist_id);
@@ -866,6 +866,8 @@ ALTER TABLE ONLY videos
 --
 -- PostgreSQL database dump complete
 --
+SET search_path TO "$user",public;
+
 
 INSERT INTO schema_migrations (version) VALUES ('20120111181336');
 
