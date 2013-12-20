@@ -14,7 +14,6 @@ module UsersControllerTest
 
     def test_get_show_is_denied
       assert_raises User::AccessDenied do
-
         get :show, :id => User.sham!.to_param
       end
     end

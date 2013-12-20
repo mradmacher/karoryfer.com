@@ -5,6 +5,7 @@ Karoryfer::Application.routes.draw do
 		match 'logout' => "user_sessions#destroy", :as => :logout
 		scope :path_names => { :edit => 'zmien', :new => 'dodaj' } do
 			resources :users, :path => 'uzytkownicy'
+      resources :memberships, :only => [:create, :destroy]
 		end
 		match 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
 	end
