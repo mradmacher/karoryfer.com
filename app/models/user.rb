@@ -16,6 +16,15 @@ class User < ActiveRecord::Base
     Artist.joins( :memberships ).where( 'memberships.user_id' => self.id )
   end
 
+  def other_artists
+    artist_ids = self.artists.pluck(:id)
+    if artist_ids.empty?
+      Artist.all
+    else
+      Artist.where( 'id not in (?)', artist_ids )
+    end
+  end
+
 	def unpublished_posts
     Post.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'posts.published' => false )
 	end

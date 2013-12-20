@@ -31,6 +31,29 @@ module UsersControllerTest
       assert_headers I18n.t( 'helpers.title.user.index' ), @user.login
     end
 
+    def test_get_show_displays_memberships
+      memberships = []
+      memberships << Membership.sham!( user: @user )
+      memberships << Membership.sham!( user: @user )
+      memberships << Membership.sham!( user: @user )
+      get :show, :id => @user.to_param
+      memberships.each do |membership|
+        assert_select 'li', membership.artist.name
+      end
+    end
+
+    def test_get_show_displays_memberships_only_for_that_user
+      other_membership = Membership.sham!
+      get :show, :id => @user.to_param
+      assert_select 'li', { text: other_membership.artist.name, count: 0 }
+    end
+
+    def test_get_show_does_not_displays_delete_actions_for_memberships
+      membership = Membership.sham!( user: @user )
+      get :show, :id => @user.to_param
+      assert_select 'a[href=?][data-method=delete]', admin_membership_path( membership ), 0
+    end
+
     def test_get_edit_displays_headers
       get :edit, :id => @user.to_param
       assert_title I18n.t( 'helpers.title.user.edit' ), @user.login, I18n.t( 'helpers.title.user.index' )

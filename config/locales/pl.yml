@@ -224,6 +224,8 @@ pl:
         edit: Zmień dane
         edit_password: Zmień hasło
         destroy: Usuń konto
+      membership:
+        destroy: Usuń
       page:
         new: Dodaj informację
         edit: Zmień informację
@@ -273,6 +275,8 @@ pl:
         new: Nowy użytkownik
         edit: Zmiana danych
         edit_password: Zmiana hasła
+      membership:
+        index: Artyści
       site:
         home: Karoryfer Lecolds
       track:
@@ -380,6 +384,8 @@ pl:
         last_login_at: Ostatnie logowanie
         login_count: Ilość logowań
         failed_login_count: Ilość nieudanych logowań
+      membership:
+        artist_id: Artysta
     sidebar:
       title:
         home: Profil

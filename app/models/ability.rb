@@ -9,7 +9,8 @@ class Ability
         :read_artist, :write_artist,
         :read_album, :write_album,
         :read_user, :write_user,
-        :read_page, :write_page
+        :read_page, :write_page,
+        :write_membership
       ]
     else
       rules = []

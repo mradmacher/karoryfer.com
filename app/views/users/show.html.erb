@@ -2,15 +2,15 @@
 <h1><%= t 'helpers.title.user.index' %></h1>
 <h2><%= @user.login %></h2>
 <% content_for :actions do %>
-	<ul>
+	<ul class="inline">
 		<% if can? :write_user, @user %>
-			<li><%= link_to t( 'helpers.action.user.edit_password' ), admin_edit_password_path %></li>
+			<li><%= link_to_action t( 'helpers.action.user.edit_password' ), admin_edit_password_path %></li>
 		<% end %>
 		<% if can? :write_user, @user %>
-			<li><%= link_to t( 'helpers.action.user.edit' ), edit_admin_user_path %></li>
+			<li><%= link_to_action t( 'helpers.action.user.edit' ), edit_admin_user_path %></li>
 		<% end %>
 		<% if can? :write_user, @user %>
-			<li><%= link_to t( 'helpers.action.user.destroy' ), admin_user_path( @user ), :method => :delete,
+			<li><%= link_to_action t( 'helpers.action.user.destroy' ), admin_user_path( @user ), :method => :delete,
 				:confirm => t( 'helpers.action.destroy_confirmation' ) %></li>
 		<% end %>
 	</ul>
@@ -33,3 +33,23 @@
 	<dt><%=t 'helpers.label.user.updated_at' %></dt>
 		<dd><%=l @user.updated_at %></dd>
 </dl>
+<h3><%=t 'helpers.title.membership.index' %></h3>
+<ul class="user-memberships">
+  <% @user.memberships.each do |membership| %>
+    <li><%= membership.artist.name %>
+      <% if can? :write_membership, membership %>
+        <%= link_to t( 'helpers.action.membership.destroy' ), admin_membership_path( membership ), :method => :delete %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% if can? :write_membership, Membership %>
+  <%= form_for [:admin, @membership] do |f| %>
+    <%= f.label :artist_id, t( "helpers.label.membership.artist_id" ) %>
+    <%= f.collection_select :artist_id, @user.other_artists, :id, :name %>
+    <%= f.hidden_field :user_id %>
+    <br />
+    <%= f.submit t( 'helpers.action.save' ), :class => 'btn' %>
+  <% end %>
+<% end %>
+
