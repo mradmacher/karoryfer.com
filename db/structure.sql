@@ -80,10 +80,6 @@ CREATE TABLE artists (
     id integer NOT NULL,
     name character varying(80) NOT NULL,
     reference character varying(80) NOT NULL,
-    image_file_name character varying(40),
-    image_content_type character varying(32),
-    image_file_size integer,
-    image_updated_at timestamp without time zone,
     summary character varying(255),
     description text,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
@@ -1065,3 +1061,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131103141046');
 INSERT INTO schema_migrations (version) VALUES ('20131209212810');
 
 INSERT INTO schema_migrations (version) VALUES ('20131221223326');
+
+INSERT INTO schema_migrations (version) VALUES ('20131222223845');
