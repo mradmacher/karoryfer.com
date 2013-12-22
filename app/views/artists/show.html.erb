@@ -12,8 +12,10 @@
 <% end %>
 
 <div class="media">
-  <%= link_to image_tag( current_artist.image.url( :normal ), :alt => current_artist.name, :class => 'media-object' ),
-    artist_path( current_artist ), :class => 'pull-left' %>
+  <% if current_artist.image? %>
+    <%= link_to image_tag( current_artist.image.thumb.url, :alt => current_artist.name, :class => 'media-object' ),
+      artist_path( current_artist ), :class => 'pull-left' %>
+  <% end %>
   <div class="media-body">
     <h1 class="media-heading"><%= current_artist.name %></h1>
     <p class="lead"><%= @artist.summary %></p>

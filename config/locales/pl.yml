@@ -215,6 +215,7 @@ pl:
         new: Dodaj artystę
         edit: Zmień artystę
         destroy: Usuń artystę
+        remove_image: Usuń obrazek
       album:
         new: Dodaj wydawnictwo
         edit: Zmień wydawnictwo
