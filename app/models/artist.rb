@@ -1,14 +1,8 @@
 class Artist < ActiveRecord::Base
-	has_attached_file :image,
-		:path => ':rails_root/public/system/:class/:attachment/:id_partition/:style.:extension',
-		:url => '/system/:class/:attachment/:id_partition/:style.:extension',
-		:styles => { :normal => ["300x400>", :png], :thumb => ["110x110", :png] },
-		:default_url => 'missing.png'
-
 	has_many :posts
 	has_many :events
-	has_many :albums
   has_many :videos
+	has_many :albums
   has_many :memberships
 
 	NAME_MAX_LENGTH = 32
@@ -21,6 +15,8 @@ class Artist < ActiveRecord::Base
 	validates :reference, :format => { :with => /\A[a-z0-9]+([-_]?[a-z0-9]+)*\z/ }
 	validates :reference, :uniqueness => { :case_sensitive => false }
 	validates :reference, :exclusion => { :in => %w( aktualnosci wydarzenia wiadomosci filmy wydawnictwa informacje artysci ) }
+
+  mount_uploader :image, Uploader::ArtistImage
 
 	def to_param
 		reference
