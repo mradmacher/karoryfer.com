@@ -6,15 +6,6 @@
 </h2>
 
 <div class="media">
-  <% if post.poster_url.nil? %>
-    <% unless post.poster_file_name.nil? %>
-      <%= link_to image_tag( post.poster.url( :normal ), :alt => post.title, :class => 'media-object media-object-normal' ), 
-        post.poster.url( :original ), :class => 'pull-left' %>
-    <% end %>
-  <% else %>
-    <%= link_to image_tag( post.poster_url, :alt => post.title, :class => 'media-object media-object-normal' ), 
-      post.poster_url, :class => 'pull-left' %>
-  <% end %>
   <div class="media-body">
     <h3 class="media-heading"><%= post_icon %><%= post.title %></h3>
   </div>
