@@ -14,7 +14,6 @@ class Event < ActiveRecord::Base
 	validates :published, :inclusion => { :in => [true, false] }
 	validates :title, :length => { :maximum => TITLE_MAX_LENGTH }
 	validates :artist_id, :presence => true
-  validates :poster_url, :format => /^https?:\/\/.*$/, :allow_nil => true
   validates :event_date, :presence => true
 	validates :free_entrance, :inclusion => { :in => [true, false] }
 
@@ -64,11 +63,6 @@ class Event < ActiveRecord::Base
 	def related
 		Event.published.where( artist_id: self.artist_id ).delete_if{ |p| p == self }
 	end
-
-  def poster_url=(value)
-    value = nil if value.blank?
-    super( value )
-  end
 
   def expired?
     return false if self.event_date.nil?
