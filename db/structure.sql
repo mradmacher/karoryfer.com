@@ -153,7 +153,6 @@ CREATE TABLE events (
     poster_content_type character varying(32),
     poster_file_size integer,
     poster_updated_at timestamp without time zone,
-    poster_url character varying(255),
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     external_urls text,
@@ -1061,3 +1060,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131230200147');
 INSERT INTO schema_migrations (version) VALUES ('20131230210259');
 
 INSERT INTO schema_migrations (version) VALUES ('20131230212434');
+
+INSERT INTO schema_migrations (version) VALUES ('20131230222123');
