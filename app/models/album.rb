@@ -16,12 +16,6 @@ class Album < ActiveRecord::Base
     end
   end
 
-	has_attached_file :image,
-		:path => ':rails_root/public/system/:class/:attachment/:id_partition/:style.:extension',
-		:url => '/system/:class/:attachment/:id_partition/:style.:extension',
-		:styles => { :normal => ["300x400>", :png], :thumb => ["110x110", :png] },
-		:default_url => 'missing.png'
-
 	validates :artist_id, :title, :presence => true
 	validates :title, :length => { :maximum => TITLE_MAX_LENGTH }
 	validates :year, :length => { :is => 4 }
@@ -32,6 +26,8 @@ class Album < ActiveRecord::Base
 	validates :reference, :length => { :maximum => REFERENCE_MAX_LENGTH }
 	validates :reference, :format => { :with => /\A[a-z0-9]+([-]?[a-z0-9]+)*\z/ }
 	validates :reference, :uniqueness => { :case_sensitive => false }
+
+  mount_uploader :image, Uploader::AlbumImage
 
 	default_scope order( 'created_at desc' )
 	scope :published, where( :published => true )

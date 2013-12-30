@@ -220,6 +220,7 @@ pl:
         new: Dodaj wydawnictwo
         edit: Zmień wydawnictwo
         destroy: Usuń wydawnictwo
+        remove_image: Usuń obrazek
       user:
         new: Dodaj użytkownika
         edit: Zmień dane

@@ -105,7 +105,6 @@ class ReleaseTest < ActiveSupport::TestCase
     assert_equal 3, TrackReleaser.new( @track, 'ogg' ).ogg_quality
     assert_equal 1, AlbumReleaser.new( @album, 'mp3' ).mp3_quality
     assert_equal 6, TrackReleaser.new( @track, 'mp3' ).mp3_quality
-    assert_equal 'okladka', AlbumReleaser.new( @album, 'flac' ).cover_basename
   end
 end
 
