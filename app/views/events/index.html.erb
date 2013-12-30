@@ -22,16 +22,10 @@
 <ul class="media-list">
 <% @events.each do |event| %>
   <li class="media img-rounded">
-    <% if event.poster_url.nil? %>
-      <% unless event.poster_file_name.nil? %>
-        <%= link_to image_tag( event.poster.url( :thumb ), :alt => event.title, 
-          :class => 'media-object media-object-thumbnail img-polaroid img-rounded' ), 
-          event_path( event ), :class => 'pull-left' %>
-      <% end %>
-    <% else %>
-      <%= link_to image_tag( event.poster_url, :alt => event.title, 
-        :class => 'media-object media-object-thumbnail img-polaroid img-rounded' ), event_path( event ),
-        :class => 'pull-left' %>
+    <% unless event.poster_file_name.nil? %>
+      <%= link_to image_tag( event.poster.url( :thumb ), :alt => event.title,
+        :class => 'media-object media-object-thumbnail img-polaroid img-rounded' ),
+        event_path( event ), :class => 'pull-left' %>
     <% end %>
     <div class="media-body">
       <h5><%= event_icon( event.expired? ) %><%= link_to event.title, artist_event_path( event.artist, event ) %></h5>
