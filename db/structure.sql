@@ -39,15 +39,12 @@ CREATE TABLE albums (
     artist_id integer NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
-    image_file_name character varying(40),
-    image_content_type character varying(32),
-    image_file_size integer,
-    image_updated_at timestamp without time zone,
     license_id integer,
     reference character varying(80) NOT NULL,
     donation text,
     description text,
     published boolean DEFAULT false NOT NULL,
+    image character varying(255),
     CONSTRAINT albums_reference_check_format CHECK (((reference)::text = COALESCE("substring"((reference)::text, '(^[a-z0-9]+([-][a-z0-9]+)*$)'::text), ''::text))),
     CONSTRAINT albums_reference_check_length CHECK ((char_length((reference)::text) > 0))
 );
@@ -80,10 +77,6 @@ CREATE TABLE artists (
     id integer NOT NULL,
     name character varying(80) NOT NULL,
     reference character varying(80) NOT NULL,
-    image_file_name character varying(40),
-    image_content_type character varying(32),
-    image_file_size integer,
-    image_updated_at timestamp without time zone,
     summary character varying(255),
     description text,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
@@ -1065,3 +1058,9 @@ INSERT INTO schema_migrations (version) VALUES ('20131103141046');
 INSERT INTO schema_migrations (version) VALUES ('20131209212810');
 
 INSERT INTO schema_migrations (version) VALUES ('20131221223326');
+
+INSERT INTO schema_migrations (version) VALUES ('20131222223845');
+
+INSERT INTO schema_migrations (version) VALUES ('20131230200147');
+
+INSERT INTO schema_migrations (version) VALUES ('20131230210259');

@@ -120,7 +120,6 @@ module ReleaseHelper
       album_path = File.join( tmp_dir, artist_reference, album_reference )
       assert File.exists? album_path
 
-      assert File.exists? File.join( album_path, 'okladka.jpg' )
       assert File.exists? File.join( album_path, 'att1.jpg' )
       assert File.exists? File.join( album_path, 'att2.pdf' )
       assert File.exists? File.join( album_path, 'att3.txt' )

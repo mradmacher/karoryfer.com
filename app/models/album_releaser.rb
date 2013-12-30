@@ -1,5 +1,4 @@
 class AlbumReleaser < Releaser::Base
-
   def ogg_quality
     6
   end
@@ -11,10 +10,6 @@ class AlbumReleaser < Releaser::Base
   def initialize( album, format )
     @album = album
     @format = format
-  end
-
-  def cover_basename
-    'okladka'
   end
 
   def release_url
@@ -30,8 +25,6 @@ class AlbumReleaser < Releaser::Base
 
       generate_files( output_dir )
 
-      copy_cover( output_dir )
-
       copy_attachments( output_dir )
 
       archive_name = "#{@album.artist.reference}-#{@album.reference}-#{@format}.zip"
@@ -46,12 +39,6 @@ class AlbumReleaser < Releaser::Base
   def generate_files( output_dir )
     @album.tracks.each do |track|
       generate_track( track, output_dir )
-    end
-  end
-
-  def copy_cover( output_dir )
-    if @album.image.path
-      FileUtils.cp( @album.image.path, File.join( output_dir, "#{self.cover_basename}#{File.extname( @album.image.path )}" ) )
     end
   end
 
