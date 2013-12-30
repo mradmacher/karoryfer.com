@@ -13,8 +13,13 @@
 		<%= f.label :year, t( "helpers.label.album.year" ) %>
 		<%= f.number_field :year %>
 		<%= f.label :image, t( "helpers.label.album.image" ) %>
-    <% unless @album.image_file_name.nil? %>
-      <%= image_tag( @album.image.url( :thumb ), :alt => @album.title ) %>
+    <% if @album.image? %>
+      <br />
+      <%= image_tag( @album.image.icon.url, :alt => @album.title ) %>
+      <%= f.label :remove_image do %>
+        <%= f.check_box :remove_image %>
+        <%= t( "helpers.action.album.remove_image" ) %>
+      <% end %>
     <% end %>
 		<%= f.file_field :image %>
     <%= f.label :license_id, t( "helpers.label.album.license_id" ) %>

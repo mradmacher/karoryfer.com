@@ -1,6 +1,8 @@
-<a href="<%= artist_album_path( album.artist, album ) %>">
-  <%= image_tag( album.image.url( :thumb ), :alt => album.title, :class => 'img-rounded img-polaroid' ) %>
-</a>
+<% if album.image? %>
+  <a href="<%= artist_album_path( album.artist, album ) %>">
+    <%= image_tag( album.image.url( :thumb ), :alt => album.title, :class => 'img-rounded img-polaroid' ) %>
+  </a>
+<% end %>
 <% unless current_artist? %>
   <p><%= album.artist.name %></p>
 <% end %>
