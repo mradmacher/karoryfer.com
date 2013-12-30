@@ -120,8 +120,6 @@ pl:
               taken: ^proszę podać unikalny identyfikator
         post:
           attributes:
-            poster_url:
-              invalid: ^proszę podać poprawny adres URL
             title:
               blank: ^proszę podać tytuł
               too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
@@ -341,8 +339,6 @@ pl:
         drafts: Szkice wiadomości
         tags: Tagi
         title: Tytuł
-        poster: Plakat
-        poster_url: URL plakatu
         status: Status
         artist_id: Artysta
         location: Miejsce wydarzenia

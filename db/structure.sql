@@ -293,14 +293,9 @@ CREATE TABLE posts (
     artist_id integer NOT NULL,
     title character varying(80),
     published boolean DEFAULT false NOT NULL,
-    poster_file_name character varying(40),
-    poster_content_type character varying(32),
-    poster_file_size integer,
-    poster_updated_at timestamp without time zone,
     body text,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL,
-    poster_url character varying(255)
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -1064,3 +1059,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131222223845');
 INSERT INTO schema_migrations (version) VALUES ('20131230200147');
 
 INSERT INTO schema_migrations (version) VALUES ('20131230210259');
+
+INSERT INTO schema_migrations (version) VALUES ('20131230212434');

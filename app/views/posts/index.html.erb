@@ -22,17 +22,6 @@
 <ul class="media-list">
 <% @posts.each do |post| %>
   <li class="media img-rounded">
-    <% if post.poster_url.nil? %>
-      <% unless post.poster_file_name.nil? %>
-        <%= link_to image_tag( post.poster.url( :thumb ), :alt => post.title, 
-          :class => 'media-object media-object-thumbnail img-polaroid img-rounded' ), 
-          post_path( post ), :class => 'pull-left' %>
-      <% end %>
-    <% else %>
-      <%= link_to image_tag( post.poster_url, :alt => post.title, 
-        :class => 'media-object media-object-thumbnail img-polaroid img-rounded' ), post_path( post ), 
-        :class => 'pull-left' %>
-    <% end %>
     <div class="media-body">
       <h5><%= post_icon %><%= link_to post.title, artist_post_path( post.artist, post ) %></h5>
       <% unless current_artist? %>
