@@ -38,11 +38,6 @@ class PostsControllerTest < ActionController::TestCase
       assert_select 'label', I18n.t( 'helpers.label.post.title' )
       assert_select 'input[type=text][name=?][value=?]', 'post[title]', post.title
       assert_select 'label', I18n.t( 'helpers.label.post.published' )
-      assert_select 'label', I18n.t( 'helpers.label.post.poster_url' )
-      assert_select 'input[type=text][name=?]', 'post[poster_url]'
-      unless post.poster_url.nil?
-        assert_select 'input[type=text][name=?][value=?]', 'post[poster_url]', post.poster_url
-      end
       assert_select 'label', I18n.t( 'helpers.label.post.body' )
       assert_select 'textarea[name=?]', 'post[body]', :text => post.body
     end
@@ -58,8 +53,6 @@ class PostsControllerTest < ActionController::TestCase
       assert_select 'label', I18n.t( 'helpers.label.post.title' )
       assert_select 'input[type=text][name=?]', 'post[title]'
       assert_select 'label', I18n.t( 'helpers.label.post.published' )
-      assert_select 'label', I18n.t( 'helpers.label.post.poster_url' )
-      assert_select 'input[type=text][name=?]', 'post[poster_url]'
       assert_select 'label', I18n.t( 'helpers.label.post.body' )
       assert_select 'textarea[name=?]', 'post[body]'
     end
