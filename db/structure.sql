@@ -48,6 +48,7 @@ CREATE TABLE albums (
     donation text,
     description text,
     published boolean DEFAULT false NOT NULL,
+    image character varying(255),
     CONSTRAINT albums_reference_check_format CHECK (((reference)::text = COALESCE("substring"((reference)::text, '(^[a-z0-9]+([-][a-z0-9]+)*$)'::text), ''::text))),
     CONSTRAINT albums_reference_check_length CHECK ((char_length((reference)::text) > 0))
 );
@@ -1063,3 +1064,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131209212810');
 INSERT INTO schema_migrations (version) VALUES ('20131221223326');
 
 INSERT INTO schema_migrations (version) VALUES ('20131222223845');
+
+INSERT INTO schema_migrations (version) VALUES ('20131230200147');

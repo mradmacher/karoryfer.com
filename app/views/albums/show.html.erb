@@ -13,8 +13,10 @@
 <% end %>
 
 <div class="media">
-	<%= link_to image_tag( @album.image.url( :normal ), :alt => @album.title, :class => 'media-object' ), @album.image.url( :original ),
-    :class => 'pull-left' %>
+  <% if @album.image? %>
+    <%= link_to image_tag( @album.image.thumb.url, :alt => @album.title, :class => 'media-object' ), @album.image.url,
+      :class => 'pull-left' %>
+  <% end %>
   <div class="media-body">
     <h3 class="media-heading"><%= @album.title %></h3>
     <h4><%= @album.year.to_s %></h4>

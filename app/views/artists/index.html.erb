@@ -9,11 +9,11 @@
 <% @artists.each do |artist| %>
   <li class="span2">
     <div class="thumbnail text-center">
-      <a href="<%= artist_path( artist ) %>">
-        <% if artist.image? %>
+      <% if artist.image? %>
+        <a href="<%= artist_path( artist ) %>">
           <%= image_tag( artist.image.icon.url, :alt => artist.name, :title => artist.summary, :class => 'img-rounded img-polaroid' ) %>
-        <% end %>
-      </a>
+        </a>
+      <% end %>
       <h5><%= link_to artist.name, artist_path( artist ) %></h5>
     </div>
   </li>
