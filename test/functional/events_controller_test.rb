@@ -39,11 +39,6 @@ class EventsControllerTest < ActionController::TestCase
       assert_select 'label', I18n.t( 'helpers.label.event.title' )
       assert_select 'input[type=text][name=?][value=?]', 'event[title]', event.title
       assert_select 'label', I18n.t( 'helpers.label.event.published' )
-      assert_select 'label', I18n.t( 'helpers.label.event.poster_url' )
-      assert_select 'input[type=text][name=?]', 'event[poster_url]'
-      unless event.poster_url.nil?
-        assert_select 'input[type=text][name=?][value=?]', 'event[poster_url]', event.poster_url
-      end
       assert_select 'label', I18n.t( 'helpers.label.event.body' )
       assert_select 'textarea[name=?]', 'event[body]',
         :text => event.body
@@ -61,8 +56,6 @@ class EventsControllerTest < ActionController::TestCase
       assert_select 'label', I18n.t( 'helpers.label.event.title' )
       assert_select 'input[type=text][name=?]', 'event[title]'
       assert_select 'label', I18n.t( 'helpers.label.event.published' )
-      assert_select 'label', I18n.t( 'helpers.label.event.poster_url' )
-      assert_select 'input[type=text][name=?]', 'event[poster_url]'
       assert_select 'label', I18n.t( 'helpers.label.event.body' )
       assert_select 'textarea[name=?]', 'event[body]'
     end

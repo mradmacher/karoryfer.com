@@ -73,40 +73,6 @@ class EventTest < ActiveSupport::TestCase
     assert event.valid?
   end
 
-  def test_accepts_nil_poster_url
-    event = Event.sham! :build
-    event.poster_url = nil
-    assert event.valid?
-  end
-
-  def test_converts_blank_poster_url_to_nil
-    event = Event.sham! :build
-    ['', ' ', '    '].each do |value|
-      event.poster_url = value
-      assert_nil event.poster_url
-    end
-  end
-
-  def test_accepts_valid_urls_for_poster
-    event = Event.sham! :build
-    ['http://www.karoryfer.com/posters/1.jpg',
-    'https://www.example.com?poster_file=somefile.png'].each do |pu|
-      event.poster_url = pu
-      assert event.valid?
-    end
-  end
-
-  def test_rejects_invalid_urls_for_poster
-    event = Event.sham! :build
-    ['www.karoryfer.com/posters/1.jpg',
-    'ftp://www.example.com?poster_file=somefile.png'].each do |pu|
-      event.poster_url = pu
-      refute event.valid?
-      assert event.errors[:poster_url].include? I18n.t(
-        'activerecord.errors.models.event.attributes.poster_url.invalid' )
-    end
-  end
-
   def test_returns_all_published_for_published_scope
     3.times { Event.sham!( published: true ) }
     3.times { Event.sham!( published: false ) }
