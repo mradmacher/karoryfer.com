@@ -64,7 +64,7 @@
   <h4><%= link_to t( 'helpers.sidebar.title.album' ), artist_albums_path( current_artist ), :class => 'menu-link' %></h4>
 	<ul class="unstyled">
 	<% albums.each do |album| %>
-		<li><%= link_to image_tag( album.image.url( :thumb ), :alt => album.title ), artist_album_path( current_artist, album ) %></li>
+		<li><%= link_to image_tag( album.image.icon.url, :alt => album.title ), artist_album_path( current_artist, album ) %></li>
 	<% end %>
 	</ul>
 </p>
