@@ -46,44 +46,6 @@ class PostTest < ActiveSupport::TestCase
       'activerecord.errors.models.post.attributes.published.inclusion' )
 	end
 
-  def test_accepts_nil_poster_url
-    post = Post.sham! :build
-    post.poster_url = nil
-    assert post.valid?
-  end
-
-  def test_converts_blank_poster_url_to_nil
-    post = Post.sham! :build
-    ['', ' ', '    '].each do |value|
-      post.poster_url = value
-      assert_nil post.poster_url
-    end
-  end
-
-  def test_accepts_valid_poster_urls
-    post = Post.sham! :build
-    [
-      'http://www.karoryfer.com/posters/1.jpg',
-      'https://www.example.com?poster_file=somefile.png'
-    ].each do |pu|
-      post.poster_url = pu
-      assert post.valid?
-    end
-  end
-
-  def test_rejects_invalid_poster_urls
-    post = Post.sham! :build
-    [
-      'www.karoryfer.com/posters/1.jpg',
-      'ftp://www.example.com?poster_file=somefile.png'
-    ].each do |pu|
-      post.poster_url = pu
-      refute post.valid?
-      assert post.errors[:poster_url].include? I18n.t(
-        'activerecord.errors.models.post.attributes.poster_url.invalid' )
-    end
-  end
-
   def test_published_scope_returns_all_published
     3.times { Post.sham!( published: true ) }
     3.times { Post.sham!( published: false ) }

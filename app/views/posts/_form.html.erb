@@ -8,16 +8,6 @@
     <%= f.collection_select :artist_id, current_user.artists, :id, :name %>
 		<%= f.label :title, t( "helpers.label.post.title" ) %>
 		<%= f.text_field :title %>
-    <fieldset>
-      <legend><%= t( "helpers.label.post.poster" ) %></legend>
-      <%= f.label :poster, t( 'helpers.label.post.poster' ) %>
-      <% unless @post.poster_file_name.nil? %>
-        <%= image_tag( @post.poster.url( :thumb ), :alt => @post.title ) %>
-      <% end %>
-      <%= f.file_field :poster %>
-      <%= f.label :poster_url, t( "helpers.label.post.poster_url" ) %>
-      <%= f.text_field :poster_url %>
-    </fieldset>
 
     <%= f.label :body, t( "helpers.label.post.body" ) %>
     <%= f.text_area :body, :class => 'span8' %>
