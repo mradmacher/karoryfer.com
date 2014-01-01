@@ -201,6 +201,7 @@ pl:
         new: Dodaj wydarzenie
         edit: Zmień wydarzenie
         destroy: Usuń wydarzenie
+        remove_poster: Usuń obrazek
       video:
         new: Dodaj film
         edit: Zmień film
