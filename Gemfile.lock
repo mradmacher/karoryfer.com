@@ -37,10 +37,6 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.3)
-      climate_control (>= 0.0.3, < 1.0)
     daemons (1.1.9)
     dynamic_form (1.1.4)
     erubis (2.7.0)
@@ -58,11 +54,6 @@ GEM
     mini_magick (3.7.0)
       subexec (~> 0.2.1)
     multi_json (1.8.2)
-    paperclip (3.5.2)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.5.3)
-      mime-types
     pg (0.17.1)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -121,7 +112,6 @@ DEPENDENCIES
   dynamic_form
   faker
   mini_magick
-  paperclip
   pg
   rails (= 3.2.16)
   rdiscount
