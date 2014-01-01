@@ -22,8 +22,8 @@
 <ul class="media-list">
 <% @events.each do |event| %>
   <li class="media img-rounded">
-    <% unless event.poster_file_name.nil? %>
-      <%= link_to image_tag( event.poster.url( :thumb ), :alt => event.title,
+    <% if event.poster? %>
+      <%= link_to image_tag( event.poster.icon.url, :alt => event.title,
         :class => 'media-object media-object-thumbnail img-polaroid img-rounded' ),
         event_path( event ), :class => 'pull-left' %>
     <% end %>

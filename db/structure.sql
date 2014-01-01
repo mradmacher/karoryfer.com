@@ -163,6 +163,7 @@ CREATE TABLE events (
     event_time character varying(255),
     free_entrance boolean DEFAULT false NOT NULL,
     price character varying(255),
+    poster character varying(255),
     CONSTRAINT events_title_check_blank CHECK ((btrim((title)::text) <> ''::text))
 );
 
@@ -1062,3 +1063,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131230210259');
 INSERT INTO schema_migrations (version) VALUES ('20131230212434');
 
 INSERT INTO schema_migrations (version) VALUES ('20131230222123');
+
+INSERT INTO schema_migrations (version) VALUES ('20140101134218');
