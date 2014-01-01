@@ -34,11 +34,15 @@
   <%= f.label :price, t( 'helpers.label.event.price' ) %>
   <%= f.text_field :price %>
 
-  <br />
-  <% unless @event.poster_file_name.nil? %>
-    <%= image_tag( @event.poster.url( :thumb ), :alt => @event.title ) %>
-  <% end %>
   <%= f.label :poster, t( 'helpers.label.event.poster' ) %>
+  <% if @event.poster? %>
+    <br />
+    <%= image_tag( @event.poster.icon.url, :alt => @event.title ) %>
+    <%= f.label :remove_poster do %>
+      <%= f.check_box :remove_poster %>
+      <%= t( "helpers.action.event.remove_poster" ) %>
+    <% end %>
+  <% end %>
   <%= f.file_field :poster %>
 
   <%= f.label :body, t( "helpers.label.event.body" ) %>

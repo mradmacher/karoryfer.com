@@ -6,9 +6,9 @@
 </h2>
 
 <div class="media">
-  <% unless event.poster_file_name.nil? %>
-    <%= link_to image_tag( event.poster.url( :normal ), :alt => event.title, :class => 'media-object media-object-normal' ),
-      event.poster.url( :original ), :class => 'pull-left' %>
+  <% if event.poster? %>
+    <%= link_to image_tag( event.poster.thumb.url, :alt => event.title, :class => 'media-object media-object-normal' ),
+      event.poster.url, :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
     <h3 class="media-heading"><%= event_icon( event.expired? ) %><%= event.title %></h3>

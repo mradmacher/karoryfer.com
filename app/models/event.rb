@@ -1,13 +1,7 @@
 class Event < ActiveRecord::Base
 	belongs_to :artist
-	has_attached_file :poster,
-		:path => ':rails_root/public/system/:class/:attachment/:id_partition/:style.:extension',
-		:url => '/system/:class/:attachment/:id_partition/:style.:extension',
-		:styles => { :normal => ["300x400>", :png], :thumb => ["110x110", :png] },
-		:default_url => 'missing.png'
 
   SOME_LIMIT = 4
-
 	TITLE_MAX_LENGTH = 80
 
 	validates :title, :presence => true
@@ -27,38 +21,7 @@ class Event < ActiveRecord::Base
   scope :for_month, lambda { |y, m| where( 'extract(month from event_date) = ? and extract(year from event_date) = ?', m, y ) }
   scope :for_year, lambda { |y| where( 'extract(year from event_date) = ?', y ) }
 
-  class Uploader < CarrierWave::Uploader::Base
-    #include CarrierWave::MiniMagick
-    cattr_accessor :store_dir
-
-     def extension_white_list
-       %w(jpg jpeg png gif)
-     end
-
-    def filename
-      if original_filename
-        if model && model.read_attribute(mounted_as).present?
-          model.read_attribute(mounted_as)
-        else
-          "#{secure_token}.#{file.extension}"
-        end
-      end
-    end
-
-    def store_dir
-      File.join( @@store_dir, (model.id / 1000).to_s )
-    end
-
-    protected
-    def secure_token
-      var = :"@#{mounted_as}_secure_token"
-      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
-
-      #model.image_secure_token ||= SecureRandom.uuid
-    end
-  end
-  #mount_uploader :file, Uploader
-  #before_destroy :remove_file!
+  mount_uploader :poster, Uploader::EventImage
 
 	def related
 		Event.published.where( artist_id: self.artist_id ).delete_if{ |p| p == self }
