@@ -13,8 +13,8 @@ capybara-*.html
 /tmp/*
 /db/*.sqlite3
 /db/tracks/
-/public/system/*
 /public/uploads/*
+/public/downloads/*
 /coverage/
 /spec/tmp/*
 /config/database.yml
