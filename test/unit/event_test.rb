@@ -119,18 +119,26 @@ class EventTest < ActiveSupport::TestCase
     refute event.expired?
   end
 
-  def test_recognized_external_urls_recognize_facebook
+  def test_recognized_external_urls_recognize_http_and_https_urls
     event = Event.new
     event.external_urls= <<-URLS
-      http://www.facebook.com/event/12345
-      http://www.twitter.com/154321 http://www.facebook.com/Hanba1234
+      https://www.facebook.com/event/12345
+      ftp://example.com
+      http://www.twitter.com/154321 http://karoryfer.pl/Hanba1926
+      mailto:john@example.com
     URLS
 
-    assert event.recognized_external_urls.has_key?( 'http://www.facebook.com/event/12345' )
-    assert_equal :facebook, event.recognized_external_urls['http://www.facebook.com/event/12345']
+    refute event.recognized_external_urls.has_key?( 'ftp://example.com' )
+    refute event.recognized_external_urls.has_key?( 'mailto:john@example.com' )
 
-    assert event.recognized_external_urls.has_key?( 'http://www.facebook.com/Hanba1234' )
-    assert_equal :facebook, event.recognized_external_urls['http://www.facebook.com/Hanba1234']
+    assert event.recognized_external_urls.has_key?( 'https://www.facebook.com/event/12345' )
+    assert_equal 'www.facebook.com', event.recognized_external_urls['https://www.facebook.com/event/12345']
+
+    assert event.recognized_external_urls.has_key?( 'http://www.twitter.com/154321' )
+    assert_equal 'www.twitter.com', event.recognized_external_urls['http://www.twitter.com/154321']
+
+    assert event.recognized_external_urls.has_key?( 'http://karoryfer.pl/Hanba1926' )
+    assert_equal 'karoryfer.pl', event.recognized_external_urls['http://karoryfer.pl/Hanba1926']
   end
 
   def test_recognized_external_urls_does_not_crash_when_external_urls_are_nil
