@@ -6,16 +6,7 @@
 .thumbnail {
   background: #eee;
 }
-.thumbnail img {
-  max-height: 110px;
-}
-img.media-object-thumbnail {
-  max-height: 110px;
-}
-img.media-object-normal {
-  max-height: 400px;
-  max-width: 300px;
-}
+
 .media-list .media {
   background: #eee;
   padding: 5px;
