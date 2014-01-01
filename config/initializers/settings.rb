@@ -4,13 +4,13 @@ Setting.set 'karoryfer.facebook.url', 'http://www.facebook.com/karoryfer'
 Setting.set 'karoryfer.twitter.url', 'http://www.twitter.com/karoryfer'
 Setting.set 'karoryfer.flattr.url', 'http://flattr.com/profile/karoryfer'
 
-Release::Uploader.album_store_dir = File.join( Rails.root, 'public', 'system', 'wydawnictwa' )
-Release::Uploader.track_store_dir = File.join( Rails.root, 'public', 'system', 'tracks' )
-Attachment::Uploader.store_dir = File.join( Rails.root, 'public', 'system', 'attachments' )
+Release::Uploader.album_store_dir = File.join( Rails.root, 'public', 'downloads', 'wydawnictwa' )
+Release::Uploader.track_store_dir = File.join( Rails.root, 'public', 'downloads', 'tracks' )
+Attachment::Uploader.store_dir = File.join( Rails.root, 'public', 'uploads', 'attachments' )
 Track::Uploader.store_dir = File.join( Rails.root, 'db', 'tracks' )
 Releaser::Base.publisher_name = 'Karoryfer Lecolds'
 Releaser::Base.publisher_host = 'www.karoryfer.com'
-Uploader::ArtistImage.store_dir = File.join( Rails.root, 'public', 'system', 'artists' )
-Uploader::AlbumImage.store_dir = File.join( Rails.root, 'public', 'system', 'albums' )
-Uploader::EventImage.store_dir = File.join( Rails.root, 'public', 'system', 'events' )
+Uploader::ArtistImage.store_dir = File.join( Rails.root, 'public', 'uploads', 'obrazki', 'artysci' )
+Uploader::AlbumImage.store_dir = File.join( Rails.root, 'public', 'uploads', 'obrazki', 'wydawnictwa' )
+Uploader::EventImage.store_dir = File.join( Rails.root, 'public', 'uploads', 'obrazki', 'wydarzenia' )
 
