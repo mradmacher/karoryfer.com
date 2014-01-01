@@ -35,12 +35,8 @@ class Event < ActiveRecord::Base
 
   def recognized_external_urls
     result = {}
-    return result if external_urls.blank?
-    external_urls.split( /\s/ ).each do |url|
-      result[url] = :facebook if /facebook.com/ =~ url
-    end
+    URI.extract(external_urls || '', ['http', 'https']).map{ |url| result[url] = URI.parse(url).host }
     result
   end
-
 end
 

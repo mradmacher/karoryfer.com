@@ -34,12 +34,11 @@
   <% end %>
   </p>
   <p>
-  <% @event.recognized_external_urls.each do |url, service| %>
-    <% if service == :facebook %>
-      <%= link_to image_tag( 'social/facebook.png', :alt => 'Facebook', :title => 'Facebook' ), url,
-        :target => '_blank', :class => 'social' -%>
+    <ul class="unstyled">
+    <% @event.recognized_external_urls.each do |url, service| %>
+      <li><%= link_to service, url, :target => '_blank' %></li>
     <% end %>
-  <% end %>
+    </ul>
   </p>
 </div>
 <br />
