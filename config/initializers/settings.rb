@@ -12,4 +12,5 @@ Releaser::Base.publisher_name = 'Karoryfer Lecolds'
 Releaser::Base.publisher_host = 'www.karoryfer.com'
 Uploader::ArtistImage.store_dir = File.join( Rails.root, 'public', 'system', 'artists' )
 Uploader::AlbumImage.store_dir = File.join( Rails.root, 'public', 'system', 'albums' )
+Uploader::EventImage.store_dir = File.join( Rails.root, 'public', 'system', 'events' )
 
