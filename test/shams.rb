@@ -122,9 +122,10 @@ end
 
 Sham.config( Page ) do |c|
   c.attributes do {
-    :title => Faker::Name.name,
-    :reference => Faker::Name.name.parameterize,
-    :content => Faker::Lorem.paragraph
+    artist: Sham::Nested.new( Artist ),
+    title: Faker::Name.name,
+    reference: Faker::Name.name.parameterize,
+    content: Faker::Lorem.paragraph
   } end
 
 end

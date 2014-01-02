@@ -17,11 +17,6 @@ Karoryfer::Application.routes.draw do
   match 'wiadomosci/z/:year' => 'posts#index', :as => :posts_from
 
 	scope :path_names => { :new => 'dodaj', :edit => 'zmien' } do
-    resources :pages, :path => 'informacje' do
-      collection do
-        get :home
-      end
-    end
 		resources :videos, :path => 'filmy'
 		resources :posts, :path => 'wiadomosci' do
       collection do
@@ -53,8 +48,11 @@ Karoryfer::Application.routes.draw do
         get :drafts, :path => 'szkice'
       end
     end
-		resources :artists, :path => 'artysci', :only => [:show]
+		resources :artists, :only => [:show]
+    resources :pages, :path => 'strony', :except => [:show, :update, :index]
+    match ':id' => 'pages#show', :as => 'page', :via => :get
+    match ':id' => 'pages#update', :as => 'page', :via => :put
+    match ':id' => 'pages#destroy', :as => 'page', :via => :delete
 	end
-
 end
 

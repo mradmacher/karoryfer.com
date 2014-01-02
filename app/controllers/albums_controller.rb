@@ -51,9 +51,5 @@ class AlbumsController < ApplicationController
 		@album.destroy
 		redirect_to albums_url
 	end
-
-  private
-  def set_layout
-    current_artist?? 'current_artist' : 'application'
-  end
 end
+

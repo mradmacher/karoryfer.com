@@ -1,7 +1,15 @@
 require 'test_helper'
 
 class PageTest < ActiveSupport::TestCase
-	def validates_reference_presence
+  def test_validates_artist_presence
+		page = Page.sham! :build
+		page.artist = nil
+		refute page.valid?
+		assert page.errors[:artist_id].include? I18n.t(
+      'activerecord.errors.models.page.attributes.artist_id.blank' )
+  end
+
+	def test_validates_reference_presence
 		page = Page.sham! :build
 		page.reference = nil
 		refute page.valid?
@@ -41,9 +49,9 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
-  def test_validates_reference_uniqueness
+  def test_validates_reference_uniqueness_in_artist_scope
 		existing = Page.sham!
-		page = Page.sham! :build
+		page = Page.sham!( :build, artist: existing.artist )
 		[ existing.reference,
       existing.reference.upcase,
       existing.reference.capitalize,
@@ -54,6 +62,13 @@ class PageTest < ActiveSupport::TestCase
 			assert page.errors[:reference].include? I18n.t(
         'activerecord.errors.models.page.attributes.reference.taken' )
 		end
+	end
+
+  def test_validates_reference_uniqueness_only_in_artist_scope
+		existing = Page.sham!
+		page = Page.sham!( :build, artist: Artist.sham! )
+    page.reference = existing.reference
+    assert page.valid?
 	end
 
   def test_validates_title_presence

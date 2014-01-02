@@ -3,6 +3,7 @@ class Artist < ActiveRecord::Base
 	has_many :events
   has_many :videos
 	has_many :albums
+  has_many :pages
   has_many :memberships
 
 	NAME_MAX_LENGTH = 32

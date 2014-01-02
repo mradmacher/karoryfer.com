@@ -36,7 +36,7 @@ pl:
       artist: Artysta
       post: Wiadomość
       event: Wydarzenie
-      page: Informacja
+      page: Strona
       video: Film
     errors:
       messages:
@@ -160,6 +160,8 @@ pl:
               blank: ^proszę wybrać artystę
         page:
           attributes:
+            artist_id:
+              blank: ^proszę wybrać artystę
             title:
               blank: ^proszę podać tytuł
               too_long: ^podany tytuł jest za długi (dopuszczalne jest 40 znaków)
@@ -228,9 +230,9 @@ pl:
       membership:
         destroy: Usuń
       page:
-        new: Dodaj informację
-        edit: Zmień informację
-        destroy: Usuń informację
+        new: Dodaj stronę
+        edit: Zmień stronę
+        destroy: Usuń stronę
       save: Zapisz
       edit: Zmień
       new: Dodaj
@@ -252,9 +254,9 @@ pl:
         new: Nowy artysta
         edit: Zmiana danych
       page:
-        index: Opisy
-        new: Nowy opis
-        edit: Zmiana opisu
+        index: Strony
+        new: Nowa strona
+        edit: Zmiana strony
       post:
         index: Wiadomości
         new: Nowa wiadomość
@@ -284,7 +286,7 @@ pl:
         index: Lista utworów
     legend:
       artist: Artysta
-      page: Opis
+      page: Strona
       post: Wiadomość
       event: Wydarzenie
       video: Film
@@ -388,7 +390,7 @@ pl:
     sidebar:
       title:
         home: Profil
-        page: Opisy
+        page: Strony
         post: Wiadomości
         event: Wydarzenia
         video: Filmy

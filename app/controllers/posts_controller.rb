@@ -60,10 +60,5 @@ class PostsController < ApplicationController
 		@post.destroy
     redirect_to artist_posts_url( @post.artist )
 	end
-
-  private
-  def set_layout
-    current_artist?? 'current_artist' : 'application'
-  end
-
 end
+

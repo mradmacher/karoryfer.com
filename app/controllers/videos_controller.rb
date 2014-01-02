@@ -50,10 +50,5 @@ class VideosController < ApplicationController
 		@video.destroy
     redirect_to artist_videos_url( @video.artist )
 	end
-
-  private
-  def set_layout
-    current_artist?? 'current_artist' : 'application'
-  end
 end
 

@@ -84,5 +84,19 @@ class PageDBTest < ActiveSupport::TestCase
       DB[:pages].insert( title: 'a'*80, reference: 'reference', content: 'Content' )
     end
   end
+
+  def test_complains_about_nil_artist
+    exception = assert_raises Sequel::NotNullConstraintViolation do
+      DB[:pages].insert( title: 'some title', reference: 'reference' )
+    end
+    assert_match( /artist_id/, exception.message )
+  end
+
+  def test_complains_about_not_existing_artist
+    exception = assert_raises Sequel::ForeignKeyConstraintViolation do
+      DB[:pages].insert( title: 'some title', reference: 'reference', artist_id: 0 )
+    end
+    assert_match( /pages_artist_id_fkey/, exception.message )
+  end
 end
 
