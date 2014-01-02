@@ -1,5 +1,6 @@
-<%= form_for @page do |f| %>
+<%= form_for [current_artist, @page] do |f| %>
 	<%= f.error_messages %>
+  <%= f.hidden_field :artist_id, value: current_artist.id %>
   <%= f.label :title, t( 'helpers.label.page.title' ) %>
   <%= f.text_field :title %>
   <%= f.label :reference, t( 'helpers.label.page.reference' ) %>

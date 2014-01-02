@@ -1,5 +1,7 @@
 <%= render_title t( 'helpers.title.page.new' ) %>
-<%= render_actions :page, :cancel_new => pages_path %>
+<% content_for :actions do %>
+  <%= link_to_action t( "helpers.action.cancel_new" ), artist_path( current_artist ) %>
+<% end %>
 <h1><%= t( 'helpers.title.page.index' ) %></h1>
 <h2><%= t( 'helpers.title.page.new' ) %></h2>
 <%= render :partial => 'form' %>

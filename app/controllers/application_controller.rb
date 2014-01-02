@@ -77,4 +77,8 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+  protected
+  def set_layout
+    current_artist?? 'current_artist' : 'application'
+  end
 end

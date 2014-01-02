@@ -255,6 +255,7 @@ CREATE TABLE pages (
     content text,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    artist_id integer,
     CONSTRAINT pages_reference_check_blank CHECK ((btrim((reference)::text) <> ''::text)),
     CONSTRAINT pages_reference_check_format CHECK (("substring"((reference)::text, '(^[a-z0-9]+(-[a-z0-9]+)*$)'::text) IS NOT NULL)),
     CONSTRAINT pages_title_check_blank CHECK ((btrim((title)::text) <> ''::text))
@@ -726,6 +727,13 @@ CREATE INDEX memberships_user_id_index ON memberships USING btree (user_id);
 
 
 --
+-- Name: pages_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX pages_artist_id_index ON pages USING btree (artist_id);
+
+
+--
 -- Name: posts_artist_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -806,6 +814,14 @@ ALTER TABLE ONLY memberships
 
 ALTER TABLE ONLY memberships
     ADD CONSTRAINT memberships_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pages_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pages
+    ADD CONSTRAINT pages_artist_id_fkey FOREIGN KEY (artist_id) REFERENCES artists(id) ON DELETE CASCADE;
 
 
 --
@@ -1063,3 +1079,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131230222123');
 INSERT INTO schema_migrations (version) VALUES ('20140101134218');
 
 INSERT INTO schema_migrations (version) VALUES ('20140101193330');
+
+INSERT INTO schema_migrations (version) VALUES ('20140102203007');

@@ -1,18 +1,26 @@
 <%= render_title @page.title %>
 <% content_for :actions do %>
   <% if can? :write_page, Page %>
-    <%= link_to_action t( 'helpers.action.page.new' ), new_page_path %>
+    <%= link_to_action t( 'helpers.action.page.new' ), new_artist_page_path( current_artist ) %>
   <% end %>
   <% if can? :write_page, @page %>
-    <%= link_to_action t( 'helpers.action.page.edit' ), edit_page_path( @page ) %>
+    <%= link_to_action t( 'helpers.action.page.edit' ), edit_artist_page_path( current_artist, @page ) %>
   <% end %>
   <% if can? :write_page, @page %>
-    <%= link_to_action t( 'helpers.action.page.destroy' ), page_path( @page ), :method => :delete,
+    <%= link_to_action t( 'helpers.action.page.destroy' ), artist_page_path( current_artist, @page ), :method => :delete,
       :confirm => t( 'helpers.action.destroy_confirmation' ) %>
   <% end %>
 <% end %>
-<%= render :partial => 'sidebar' %>
-<h1><%= @page.title %></h1>
-<p><%= format_text @page.content %></p>
+<h1><%= current_artist.name %></h1>
+<h2><%= @page.title %></h2>
+<div class="long-text">
+  <%= render_text @page.content %>
+</div>
+<br />
+<div class="well">
+  <%= render partial: 'embeds/facebook', locals: { url: artist_page_url( current_artist, @page ) } %>
+  <br />
+  <%= render partial: 'embeds/twitter' %>
+</div>
 
 

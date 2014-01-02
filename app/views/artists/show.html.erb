@@ -9,6 +9,9 @@
   <% if can? :write_event, Post %>
     <%= link_to_action t( 'helpers.action.post.new' ), new_post_path %>
   <% end %>
+  <% if can? :write_page, Page %>
+    <%= link_to_action t( 'helpers.action.page.new' ), new_artist_page_path( current_artist ) %>
+  <% end %>
 <% end %>
 
 <div class="media">

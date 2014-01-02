@@ -1,6 +1,13 @@
 <p>
   <h4><%= link_to t( 'helpers.sidebar.title.home'), artist_path( current_artist ), :class => 'menu-link' %></h4>
 </p>
+<p>
+	<ul class="unstyled">
+	<% current_artist.pages.each do |page| %>
+     <li><%= link_to page.title, artist_page_path( current_artist, page ) %></li>
+  <% end %>
+	</ul>
+</p>
 <% events = current_artist.events.some.published %>
 <% unless events.empty? %>
 <p>
@@ -18,7 +25,6 @@
     <dd></dd>
     <% end %>
 	</dl>
-
 </p>
 <% end %>
 

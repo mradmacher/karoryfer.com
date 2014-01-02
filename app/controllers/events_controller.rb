@@ -82,10 +82,5 @@ class EventsController < ApplicationController
 		@event.destroy
     redirect_to artist_events_url( @event.artist )
 	end
-
-  private
-  def set_layout
-    current_artist?? 'current_artist' : 'application'
-  end
 end
 
