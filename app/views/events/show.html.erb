@@ -1,13 +1,10 @@
 <%= render_title @event.title %>
-<% content_for :actions do %>
-  <% if can? :write_post, Post %>
-    <%= link_to_action t( 'helpers.action.event.new' ), new_event_path %>
+<% content_for :context_actions do %>
+  <% if can? :write_event, @event %>
+    <%= link_to_action t( 'helpers.action.event.edit' ), edit_artist_event_path( @event.artist, @event ) %>
   <% end %>
   <% if can? :write_event, @event %>
-    <%= link_to_action t( 'helpers.action.event.edit' ), edit_event_path( @event ) %>
-  <% end %>
-  <% if can? :write_event, @event %>
-    <%= link_to_action t( 'helpers.action.event.destroy' ), event_path( @event ), :method => :delete,
+    <%= link_to_action t( 'helpers.action.event.destroy' ), artist_event_path( @event.artist, @event ), :method => :delete,
       :confirm => t( 'helpers.action.destroy_confirmation' ) %>
   <% end %>
 <% end %>
@@ -18,7 +15,7 @@
 </div>
 <br />
 <div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: event_url( @event ) } %>
+  <%= render partial: 'embeds/facebook', locals: { url: artist_event_url( @event.artist, @event ) } %>
   <br />
   <%= render partial: 'embeds/twitter' %>
 </div>

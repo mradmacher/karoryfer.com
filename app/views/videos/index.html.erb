@@ -1,9 +1,4 @@
 <%= render_title t( 'helpers.title.video.index' ) %>
-<% content_for :actions do %>
-  <% if can? :write_video, Video %>
-    <%= link_to_action t( 'helpers.action.video.new' ), new_video_path %>
-  <% end %>
-<% end %>
 
 <% if current_artist? %>
   <h1><%= current_artist.name %></h1>

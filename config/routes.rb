@@ -17,17 +17,10 @@ Karoryfer::Application.routes.draw do
   match 'wiadomosci/z/:year' => 'posts#index', :as => :posts_from
 
 	scope :path_names => { :new => 'dodaj', :edit => 'zmien' } do
-		resources :videos, :path => 'filmy'
-		resources :posts, :path => 'wiadomosci' do
-      collection do
-        get :drafts, :path => 'szkice'
-      end
-		end
-		resources :events, :path => 'wydarzenia' do
-      collection do
-        get :drafts, :path => 'szkice'
-      end
-		end
+		resources :videos, :path => 'filmy', :only => [:index]
+		resources :posts, :path => 'wiadomosci', :only => [:index]
+		resources :events, :path => 'wydarzenia', :only => [:index]
+
 		resources :artists, :path => 'artysci'
 		resources :albums, :path => 'wydawnictwa'
 	end

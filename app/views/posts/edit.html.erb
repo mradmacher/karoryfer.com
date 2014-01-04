@@ -1,5 +1,7 @@
-<%= render_actions :post, :cancel_edit => post_path( @post ) %>
 <%= render_title t( 'helpers.title.post.edit' ) %>
+<% content_for :context_actions do %>
+  <%= link_to_action t( 'helpers.action.cancel_edit' ), artist_post_path( @post.artist, @post ) %>
+<% end %>
 <h1><%= @post.artist.name %></h1>
 <h2><%= t 'helpers.title.post.index'  %></h2>
 <h3><%= t 'helpers.title.post.edit' %></h3>

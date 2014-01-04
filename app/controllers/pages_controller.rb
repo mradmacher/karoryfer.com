@@ -19,9 +19,11 @@ class PagesController < ApplicationController
 
 	def update
 		@page = current_artist.pages.find_by_reference( params[:id] )
+    @page.assign_attributes( params[:page] )
+    @page.artist = current_artist
 		authorize! :write_page, @page
 
-		if @page.update_attributes( params[:page] )
+		if @page.save
 			redirect_to artist_page_url( current_artist, @page )
 		else
 			render :action => "edit"
@@ -29,8 +31,8 @@ class PagesController < ApplicationController
 	end
 
 	def create
-		authorize! :write_page, Page
-		@page = current_artist.pages.new( params[:page] )
+    @page = current_artist.pages.new( params[:page] )
+		authorize! :write_page, @page
 		if @page.save
 			redirect_to artist_page_url( current_artist, @page )
 		else

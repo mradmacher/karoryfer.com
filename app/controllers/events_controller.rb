@@ -39,25 +39,23 @@ class EventsController < ApplicationController
   end
 
   def show
-		@event = Event.find( params[:id] )
-    redirect_to( artist_event_url( @event.artist, @event ), :status => 301 ) unless current_artist?
+		@event = current_artist.events.find( params[:id] )
 		authorize! :read_event, @event
   end
 
   def new
 		@event = Event.new
-		@event.artist = current_artist if current_artist?
+		@event.artist = current_artist
 		authorize! :write_event, @event
   end
 
   def edit
-		@event = Event.find( params[:id] )
-    redirect_to( edit_artist_event_url( @event.artist, @event ), :status => 301 ) unless current_artist?
+		@event = current_artist.events.find( params[:id] )
 		authorize! :write_event, @event
   end
 
 	def create
-		@event = Event.new( params[:event] )
+		@event = current_artist.events.new( params[:event] )
 		authorize! :write_event, @event
 		if @event.save
 			redirect_to artist_event_url( @event.artist, @event )
@@ -67,9 +65,12 @@ class EventsController < ApplicationController
 	end
 
 	def update
-		@event = Event.find( params[:id] )
+		@event = current_artist.events.find( params[:id] )
+    @event.assign_attributes( params[:event] )
+    @event.artist = current_artist
 		authorize! :write_event, @event
-		if @event.update_attributes( params[:event] )
+
+		if @event.save
 			redirect_to artist_event_url( @event.artist, @event )
 		else
 			render :action => 'edit'
@@ -77,7 +78,7 @@ class EventsController < ApplicationController
 	end
 
 	def destroy
-		@event = Event.find( params[:id] )
+		@event = current_artist.events.find( params[:id] )
 		authorize! :write_event, @event
 		@event.destroy
     redirect_to artist_events_url( @event.artist )

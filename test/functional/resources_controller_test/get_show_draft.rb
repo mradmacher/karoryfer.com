@@ -4,14 +4,14 @@ module ResourcesControllerTest
       login( User.sham! )
       resource = resource_class.sham!( published: false )
       assert_raises User::AccessDenied do
-        get :show, :id => resource.to_param
+        get :show, artist_id: resource.artist.to_param, id: resource.to_param
       end
     end
 
     def test_get_show_for_guest_is_denied_for_unpublished
       resource = resource_class.sham!( published: false )
       assert_raises User::AccessDenied do
-        get :show, :id => resource.to_param
+        get :show, artist_id: resource.artist.to_param, id: resource.to_param
       end
     end
 
@@ -19,7 +19,7 @@ module ResourcesControllerTest
       membership = Membership.sham!
       login( membership.user )
       resource = resource_class.sham!( artist: membership.artist, published: false )
-      get :show, :artist_id => membership.artist.to_param, :id => resource.to_param
+      get :show, artist_id: membership.artist.to_param, id: resource.to_param
       assert_response :success
     end
   end

@@ -28,13 +28,28 @@ class PagesControllerTest < ActionController::TestCase
     Page
   end
 
+  def test_get_show_for_guest_displays_headers
+    resource = resource_class.sham!
+    get :show, artist_id: resource.artist.to_param, id: resource.to_param
+    assert_select "title", build_title( resource.title, resource.artist.name )
+    assert_select 'h1', resource.artist.name
+    assert_select 'h2', resource.title
+  end
+
+  def test_delete_destroy_for_artist_user_properly_redirects
+    membership = Membership.sham!
+    login( membership.user )
+    resource = resource_class.sham!( artist: membership.artist )
+    delete :destroy, artist_id: resource.artist.to_param, id: resource.to_param
+    assert_redirected_to send( "artist_path",  resource.artist )
+  end
+
   def test_get_edit_for_artist_user_displays_form
     membership = Membership.sham!
     login( membership.user )
-    post = Post.sham!( artist: membership.artist )
-    get :edit, :artist_id => post.artist.to_param, :id => post.to_param
+    page = Page.sham!( artist: membership.artist )
+    get :edit, artist_id: page.artist.to_param, id: page.to_param
     assert_select 'form' do
-      assert_select 'input[type=hidden][name=?]', 'page[artist_id]'
       assert_select 'label', I18n.t( 'helpers.label.page.title' )
       assert_select 'input[type=text][name=?][value=?]', 'page[title]', page.title
       assert_select 'label', I18n.t( 'helpers.label.page.reference' )
@@ -48,9 +63,8 @@ class PagesControllerTest < ActionController::TestCase
   def test_get_new_for_artist_user_displays_form
     membership = Membership.sham!
     login( membership.user )
-    get :new
+    get :new, artist_id: membership.artist.to_param
     assert_select 'form' do
-      assert_select 'input[type=hidden][name=?]', 'page[artist_id]'
       assert_select 'label', I18n.t( 'helpers.label.page.title' )
       assert_select 'input[type=text][name=?]', 'page[title]'
       assert_select 'label', I18n.t( 'helpers.label.page.reference' )

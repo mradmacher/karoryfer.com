@@ -1,13 +1,10 @@
 <%= render_title @video.title %>
-<% content_for :actions do %>
-  <% if can? :write_video, Video %>
-    <%= link_to_action t( 'helpers.action.video.new' ), new_video_path %>
+<% content_for :context_actions do %>
+  <% if can? :write_video, @video %>
+    <%= link_to_action t( 'helpers.action.video.edit' ), edit_artist_video_path( @video.artist, @video ) %>
   <% end %>
   <% if can? :write_video, @video %>
-    <%= link_to_action t( 'helpers.action.video.edit' ), edit_video_path %>
-  <% end %>
-  <% if can? :write_video, @video %>
-    <%= link_to_action t( 'helpers.action.video.destroy' ), video_path( @video ), :method => :delete,
+    <%= link_to_action t( 'helpers.action.video.destroy' ), artist_video_path( @video.artist, @video ), :method => :delete,
       :confirm => t( 'helpers.action.destroy_confirmation' ) %>
   <% end %>
 <% end %>
@@ -23,7 +20,7 @@
 </div>
 <br />
 <div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: video_url( @video ) } %>
+  <%= render partial: 'embeds/facebook', locals: { url: artist_video_url( @video.artist, @video ) } %>
   <br />
   <%= render partial: 'embeds/twitter' %>
 </div>

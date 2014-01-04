@@ -1,6 +1,21 @@
 <% content_for :sidebar do %>
   <%=	render :partial => 'artists/sidebar' %>
 <% end %>
+<% content_for :actions do %>
+  <% if can? :write_event, Event %>
+    <%= link_to_action t( 'helpers.action.event.new' ), new_artist_event_path( current_artist ) %>
+  <% end %>
+  <% if can? :write_event, Post %>
+    <%= link_to_action t( 'helpers.action.post.new' ), new_artist_post_path( current_artist ) %>
+  <% end %>
+  <% if can? :write_page, Page %>
+    <%= link_to_action t( 'helpers.action.page.new' ), new_artist_page_path( current_artist ) %>
+  <% end %>
+  <% if can? :write_video, Video %>
+    <%= link_to_action t( 'helpers.action.video.new' ), new_artist_video_path( current_artist ) %>
+  <% end %>
+<% end %>
+
 <% content_for :current_artist do %>
   <%= yield %>
 <% end %>

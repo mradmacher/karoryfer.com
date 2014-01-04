@@ -14,10 +14,6 @@ module ApplicationHelper
 		end
 	end
 
-	def render_actions( model, actions = {} )
-		render :partial => 'layouts/actions', :locals => { :model => model, :actions => actions }
-	end
-
   def event_details( event )
     loc = []
     loc << event_date( event )
