@@ -255,7 +255,7 @@ CREATE TABLE pages (
     content text,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
-    artist_id integer,
+    artist_id integer NOT NULL,
     CONSTRAINT pages_reference_check_blank CHECK ((btrim((reference)::text) <> ''::text)),
     CONSTRAINT pages_reference_check_format CHECK (("substring"((reference)::text, '(^[a-z0-9]+(-[a-z0-9]+)*$)'::text) IS NOT NULL)),
     CONSTRAINT pages_title_check_blank CHECK ((btrim((title)::text) <> ''::text))
@@ -620,19 +620,19 @@ ALTER TABLE ONLY memberships
 
 
 --
+-- Name: pages_artist_reference_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY pages
+    ADD CONSTRAINT pages_artist_reference_key UNIQUE (artist_id, reference);
+
+
+--
 -- Name: pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY pages
     ADD CONSTRAINT pages_pkey PRIMARY KEY (id);
-
-
---
--- Name: pages_reference_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY pages
-    ADD CONSTRAINT pages_reference_key UNIQUE (reference);
 
 
 --
@@ -1081,3 +1081,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140101134218');
 INSERT INTO schema_migrations (version) VALUES ('20140101193330');
 
 INSERT INTO schema_migrations (version) VALUES ('20140102203007');
+
+INSERT INTO schema_migrations (version) VALUES ('20140104013708');
+
+INSERT INTO schema_migrations (version) VALUES ('20140104015041');
