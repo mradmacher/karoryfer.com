@@ -6,7 +6,7 @@
 	<% end %>
 </h2>
 
-<% content_for :actions do %>
+<% content_for :context_actions do %>
   <% if can? :write_album, @album %>
     <%= link_to_action t( "helpers.action.album.edit" ), edit_artist_album_path( @album.artist, @album ) %>
   <% end %>
