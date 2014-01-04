@@ -1,13 +1,10 @@
 <%= render_title @page.title %>
-<% content_for :actions do %>
-  <% if can? :write_page, Page %>
-    <%= link_to_action t( 'helpers.action.page.new' ), new_artist_page_path( current_artist ) %>
+<% content_for :context_actions do %>
+  <% if can? :write_page, @page %>
+    <%= link_to_action t( 'helpers.action.page.edit' ), edit_artist_page_path( @page.artist, @page ) %>
   <% end %>
   <% if can? :write_page, @page %>
-    <%= link_to_action t( 'helpers.action.page.edit' ), edit_artist_page_path( current_artist, @page ) %>
-  <% end %>
-  <% if can? :write_page, @page %>
-    <%= link_to_action t( 'helpers.action.page.destroy' ), artist_page_path( current_artist, @page ), :method => :delete,
+    <%= link_to_action t( 'helpers.action.page.destroy' ), artist_page_path( @page.artist, @page ), :method => :delete,
       :confirm => t( 'helpers.action.destroy_confirmation' ) %>
   <% end %>
 <% end %>
@@ -18,7 +15,7 @@
 </div>
 <br />
 <div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: artist_page_url( current_artist, @page ) } %>
+  <%= render partial: 'embeds/facebook', locals: { url: artist_page_url( @page.artist, @page ) } %>
   <br />
   <%= render partial: 'embeds/twitter' %>
 </div>

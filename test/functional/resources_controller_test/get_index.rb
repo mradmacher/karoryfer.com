@@ -18,23 +18,25 @@ module ResourcesControllerTest
     end
 
     def test_get_index_for_guest_does_not_display_actions
-      get :index
-      assert_select 'a[href=?]', send("new_#{resource_name}_path"), 0
+      artist = Artist.sham!
+      get :index, artist_id: artist.to_param
+      assert_select 'a[href=?]', send("new_artist_#{resource_name}_path", artist), 0
     end
 
     def test_get_index_for_user_does_not_display_actions
+      artist = Artist.sham!
       login( User.sham! )
-      get :index
-      assert_select 'a[href=?]', send("new_#{resource_name}_path"), 0
+      get :index, artist_id: artist.to_param
+      assert_select 'a[href=?]', send("new_artist_#{resource_name}_path", artist), 0
     end
 
     def test_get_index_for_artist_user_displays_actions
-      login( Membership.sham!.user )
-      get :index
-      assert_select 'a[href=?]', send("new_#{resource_name}_path"),
+      membership = Membership.sham!
+      login( membership.user )
+      get :index, artist_id: membership.artist.to_param
+      assert_select 'a[href=?]', send("new_artist_#{resource_name}_path", membership.artist ),
         I18n.t( "helpers.action.#{resource_name}.new" )
     end
-
   end
 end
 

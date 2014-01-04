@@ -1,9 +1,0 @@
-<% content_for :actions do %>
-	<%= link_to_action( t( "helpers.action.#{model}.new" ), actions[:new] ) if actions[:new] %>
-	<%= link_to_action( t( "helpers.action.#{model}.edit" ), actions[:edit] ) if actions[:edit] %>
-	<%= link_to_action( t( "helpers.action.#{model}.destroy" ), actions[:destroy], :method => :delete, 
-							:confirm => t( "helpers.action.destroy_confirmation" )  ) if actions[:destroy] %>
-	<%= link_to_action( t( "helpers.action.cancel_new" ), actions[:cancel_new] ) if actions[:cancel_new] %>
-	<%= link_to_action( t( "helpers.action.cancel_edit" ), actions[:cancel_edit] ) if actions[:cancel_edit] %>
-<% end %>
-

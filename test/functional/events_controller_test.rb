@@ -32,10 +32,8 @@ class EventsControllerTest < ActionController::TestCase
     membership = Membership.sham!
     login( membership.user )
     event = Event.sham!( artist: membership.artist )
-    get :edit, :artist_id => event.artist.to_param, :id => event.to_param
+    get :edit, artist_id: event.artist.to_param, id: event.to_param
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'helpers.label.event.artist_id' )
-      assert_select 'select[name=?]', 'event[artist_id]'
       assert_select 'label', I18n.t( 'helpers.label.event.title' )
       assert_select 'input[type=text][name=?][value=?]', 'event[title]', event.title
       assert_select 'label', I18n.t( 'helpers.label.event.published' )
@@ -48,11 +46,8 @@ class EventsControllerTest < ActionController::TestCase
   def test_get_new_for_artist_user_displays_form
     membership = Membership.sham!
     login( membership.user )
-    available_artists = [membership.artist]
-    get :new
+    get :new, artist_id: membership.artist
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'helpers.label.event.artist_id' )
-      assert_select 'select[name=?]', 'event[artist_id]'
       assert_select 'label', I18n.t( 'helpers.label.event.title' )
       assert_select 'input[type=text][name=?]', 'event[title]'
       assert_select 'label', I18n.t( 'helpers.label.event.published' )

@@ -28,10 +28,8 @@ class VideosControllerTest < ActionController::TestCase
     membership = Membership.sham!
     login( membership.user )
     video = Video.sham!( artist: membership.artist )
-    get :edit, :artist_id => video.artist.to_param, :id => video.to_param
+    get :edit, artist_id: video.artist.to_param, id: video.to_param
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'helpers.label.video.artist_id' )
-      assert_select 'select[name=?]', 'video[artist_id]'
       assert_select 'label', I18n.t( 'helpers.label.video.title' )
       assert_select 'input[type=text][name=?][value=?]', 'video[title]', video.title
       assert_select 'label', I18n.t( 'helpers.label.video.url' )
@@ -44,10 +42,8 @@ class VideosControllerTest < ActionController::TestCase
   def test_get_new_for_artist_user_displays_form
     membership = Membership.sham!
     login( membership.user )
-    get :new
+    get :new, artist_id: membership.artist
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'helpers.label.video.artist_id' )
-      assert_select 'select[name=?]', 'video[artist_id]'
       assert_select 'label', I18n.t( 'helpers.label.video.title' )
       assert_select 'input[type=text][name=?]', 'video[title]'
       assert_select 'label', I18n.t( 'helpers.label.video.url' )

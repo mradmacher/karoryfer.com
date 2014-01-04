@@ -1,5 +1,7 @@
-<%= render_actions :video, :cancel_edit => video_path( @video ) %>
 <%= render_title t( 'helpers.title.video.edit' ) %>
+<% content_for :context_actions do %>
+  <%= link_to_action t( 'helpers.action.cancel_edit' ), artist_video_path( @video.artist, @video ) %>
+<% end %>
 <h1><%= @video.artist.name %></h1>
 <h2><%= t 'helpers.title.video.index'  %></h2>
 <h3><%= t 'helpers.title.video.edit' %></h3>

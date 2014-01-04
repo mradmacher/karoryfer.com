@@ -65,16 +65,6 @@ class ArtistsControllerTest < ActionController::TestCase
     assert_select 'a[href=?][data-method=delete]', artist_path( membership.artist ), 0
   end
 
-  def test_get_show_displays_actions_for_admin
-    login( User.sham!(:admin) )
-    artist = Artist.sham!
-    get :show, :id => artist.to_param
-    assert_select 'a[href=?]', edit_artist_path, I18n.t( 'helpers.action.artist.edit' )
-    assert_select 'a[href=?]', new_post_path, I18n.t( 'helpers.action.post.new' )
-    #assert_select 'a[href=?][data-method=delete]', artist_path( artist ), I18n.t( 'helpers.action.artist.destroy' )
-    assert_select 'a[href=?][data-method=delete]', artist_path( artist ), 0
-  end
-
   def test_get_new_is_denied_for_guest
     assert_raises User::AccessDenied do
       get :new

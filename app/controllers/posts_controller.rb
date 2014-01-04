@@ -17,25 +17,23 @@ class PostsController < ApplicationController
   end
 
   def show
-		@post = Post.find( params[:id] )
-    redirect_to( artist_post_url( @post.artist, @post ), :status => 301 ) unless current_artist?
-		authorize!( :read_post, @post )
+		@post = current_artist.posts.find( params[:id] )
+		authorize! :read_post, @post
   end
 
   def new
 		@post = Post.new
-		@post.artist = current_artist if current_artist?
+		@post.artist = current_artist
 		authorize! :write_post, @post
   end
 
   def edit
-		@post = Post.find( params[:id] )
-    redirect_to( edit_artist_post_url( @post.artist, @post ), :status => 301 ) unless current_artist?
+		@post = current_artist.posts.find( params[:id] )
 		authorize! :write_post, @post
   end
 
 	def create
-		@post = Post.new( params[:post] )
+		@post = current_artist.posts.new( params[:post] )
 		authorize! :write_post, @post
 		if @post.save
 			redirect_to artist_post_url( @post.artist, @post )
@@ -45,9 +43,12 @@ class PostsController < ApplicationController
 	end
 
 	def update
-		@post = Post.find( params[:id] )
+		@post = current_artist.posts.find( params[:id] )
+    @post.assign_attributes( params[:post] )
+    @post.artist = current_artist
 		authorize! :write_post, @post
-		if @post.update_attributes( params[:post] )
+
+		if @post.save
 			redirect_to artist_post_url( @post.artist, @post )
 		else
 			render :action => 'edit'
@@ -55,7 +56,7 @@ class PostsController < ApplicationController
 	end
 
 	def destroy
-		@post = Post.find( params[:id] )
+		@post = current_artist.posts.find( params[:id] )
 		authorize! :write_post, @post
 		@post.destroy
     redirect_to artist_posts_url( @post.artist )

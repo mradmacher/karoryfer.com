@@ -1,11 +1,9 @@
-<%= form_for @post do |f| %>
+<%= form_for [current_artist, @post] do |f| %>
 	<%= f.error_messages %>
     <%= f.label :published do %>
       <%= f.check_box :published %>
       <%= t( "helpers.label.post.published" ) %>
     <% end %>
-		<%= f.label :artist_id, t( "helpers.label.post.artist_id" ) %>
-    <%= f.collection_select :artist_id, current_user.artists, :id, :name %>
 		<%= f.label :title, t( "helpers.label.post.title" ) %>
 		<%= f.text_field :title %>
 

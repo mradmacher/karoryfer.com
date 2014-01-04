@@ -1,7 +1,5 @@
-<%= form_for @video do |f| %>
+<%= form_for [current_artist, @video] do |f| %>
 	<%= f.error_messages %>
-  <%= f.label :artist_id, t( "helpers.label.video.artist_id" ) %>
-  <%= f.collection_select :artist_id, current_user.artists, :id, :name %>
   <%= f.label :title, t( "helpers.label.video.title" ) %>
   <%= f.text_field :title %>
   <%= f.label :url, t( "helpers.label.video.url" ) %>
