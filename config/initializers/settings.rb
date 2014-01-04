@@ -1,4 +1,4 @@
-Setting.set 'donations_info_url', '/informacje/darowizny'
+Setting.set 'donations_info_url', '/karoryfer-lecolds/darowizny'
 Setting.set 'karoryfer.youtube.url', 'http://www.youtube.com/user/KaroryferLecolds'
 Setting.set 'karoryfer.facebook.url', 'http://www.facebook.com/karoryfer'
 Setting.set 'karoryfer.twitter.url', 'http://www.twitter.com/karoryfer'
