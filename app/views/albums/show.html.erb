@@ -128,16 +128,22 @@ $(document).ready(function(){
 		cssSelectorAncestor: "#jp_container_1"
 	}, [
 	], {
-		swfPath: '/js',
+		swfPath: '/js/jQuery.jPlayer.2.5.0',
 		supplied: 'oga, mp3'
 	});
 
   $( '#tracklist > li' ).each( function(index){
-    playlist.add( {
-      title: $(this).find( '.title' ).html(),
-      oga: $(this).find( '[data-format=ogg]' ).attr( 'data-url' ),
-      mp3: $(this).find( '[data-format=mp3]' ).attr( 'data-url' )
-    });
+    track = $(this);
+    media = {
+      title: track.find( '.title' ).html(),
+    }
+    if( track.has( '[data-format=ogg]' ).size() > 0 ) {
+      media['oga'] = track.find( '[data-format=ogg]' ).attr( 'data-url' );
+    }
+    if( track.has( '[data-format=mp3]' ).size() > 0 ) {
+      media['mp3'] = track.find( '[data-format=mp3]' ).attr( 'data-url' );
+    }
+    playlist.add( media );
   });
 
   $( '#tracklist' ).remove();
