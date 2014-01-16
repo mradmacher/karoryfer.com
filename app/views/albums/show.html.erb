@@ -33,7 +33,8 @@
 <div class="row">
   <div class="span12">
     <% Release::FORMATS.each do |format| %>
-      <%= form_tag download_album_path( @album ), class: 'pull-left' do %>
+      <%= form_tag release_album_path( @album ), class: 'pull-left' do %>
+        <%= hidden_field_tag :download_url, download_album_path( @album ) %>
         <%= hidden_field_tag :format, format %>
         <%= submit_tag format, class: 'download-button img-circle create-release-button'%>
       <% end %>
@@ -166,26 +167,39 @@ $(document).ready(function(){
 
   $( '#tracklist' ).remove();
 
+  var progress_id;
+  $('#download-message').on('hidden.bs.modal', function (e) {
+    if( typeof progress_id !== 'undefined' ) {
+      clearInterval(progress_id);
+    }
+  })
+
   $('.create-release-button').click(function(e){
      e.preventDefault();
      form = $(this).parent('form');
-     url = form.attr('action');
+     release_url = form.attr('action');
+     download_url = form.find('#download_url').val();
      format = form.find('#format').val();
-     $('#download-message').find('.format').html(format);
-     $('#download-message').find('.waiting-message').show();
-     $('#download-message').find('.progress-indicator').html('.');
-     $('#download-message').find('.progress-indicator').show();
-     $('#download-message').find('.ready-message').hide();
-     $('#download-message').modal('show');
-     progress_id = setInterval(function() {
-       $('#download-message').find('.progress-indicator').append('.');
-     }, 2000);
-     $.post(url, {format: format}, function(data) {
-       clearInterval(progress_id);
-       $('#download-message').find('.download-link').attr('href', data.url);
-     $('#download-message').find('.progress-indicator').hide();
-       $('#download-message').find('.waiting-message').hide();
-       $('#download-message').find('.ready-message').show();
+     $.post(release_url, {format: format}, function(data) {
+       $('#download-message').find('.format').html(format);
+       $('#download-message').find('.waiting-message').show();
+       $('#download-message').find('.progress-indicator').html('*');
+       $('#download-message').find('.progress-indicator').show();
+       $('#download-message').find('.ready-message').hide();
+       $('#download-message').modal('show');
+
+       progress_id = setInterval(function() {
+         $('#download-message').find('.progress-indicator').append('*');
+         $.get(download_url, {format: format}, function(data) {
+           if( data.success ) {
+             clearInterval(progress_id);
+             $('#download-message').find('.download-link').attr('href', data.url);
+             $('#download-message').find('.progress-indicator').hide();
+             $('#download-message').find('.waiting-message').hide();
+             $('#download-message').find('.ready-message').show();
+           }
+         });
+       }, 2000);
      });
   });
 });

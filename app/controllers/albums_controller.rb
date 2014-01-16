@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-	before_filter :require_user, :except => [:index, :show, :download]
+	before_filter :require_user, :except => [:index, :show, :release, :download]
   layout :set_layout
 
   def index
@@ -52,16 +52,44 @@ class AlbumsController < ApplicationController
 		redirect_to albums_url
 	end
 
+  def release
+		@album = Album.find( params[:id] )
+    release = @album.releases.in_format( params[:format] ).first
+    #TODO release.touch
+    #FIXME
+    # release = @album.releases.build( format: params[:format] )
+    # release.valid?
+    # argv = "karoryfer_releaser_#{@album.id}_#{release.format}"
+    argv = "karoryfer_releaser_#{@album.id}_#{params[:format]}"
+    if release.nil?
+      unless `ps aux`.include? argv
+        Spawnling.new( argv: argv ) do
+          @album.releases.create( format: params[:format] )
+        end
+      end
+    end
+    if request.xhr?
+      render json: { success: true }
+    else
+      redirect_to album_url(@album)
+    end
+  end
+
   def download
 		@album = Album.find( params[:id] )
     release = @album.releases.in_format( params[:format] ).first
     if release.nil?
-      release = @album.releases.create( format: params[:format] )
-    end
-    if request.xhr?
-      render json: { success: true, url: release.file.url }
+      if request.xhr?
+        render json: { success: false }
+      else
+        redirect_to album_url(@album)
+      end
     else
-      redirect_to release.file.url
+      if request.xhr?
+        render json: { success: true, url: release.file.url }
+      else
+        redirect_to release.file.url
+      end
     end
   end
 end
