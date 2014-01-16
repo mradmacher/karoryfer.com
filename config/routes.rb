@@ -22,7 +22,11 @@ Karoryfer::Application.routes.draw do
 		resources :events, :path => 'wydarzenia', :only => [:index]
 
 		resources :artists, :path => 'artysci'
-		resources :albums, :path => 'wydawnictwa'
+		resources :albums, :path => 'wydawnictwa' do
+      member do
+        post :download
+      end
+    end
 	end
 
 	match ':id' => 'artists#show', :as => :artist, :via => :get
