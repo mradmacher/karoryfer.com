@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-	before_filter :require_user, :except => [:index, :show]
+	before_filter :require_user, :except => [:index, :show, :download]
   layout :set_layout
 
   def index
@@ -51,5 +51,18 @@ class AlbumsController < ApplicationController
 		@album.destroy
 		redirect_to albums_url
 	end
+
+  def download
+		@album = Album.find( params[:id] )
+    release = @album.releases.in_format( params[:format] ).first
+    if release.nil?
+      release = @album.releases.create( format: params[:format] )
+    end
+    if request.xhr?
+      render json: { success: true, url: release.file.url }
+    else
+      redirect_to release.file.url
+    end
+  end
 end
 

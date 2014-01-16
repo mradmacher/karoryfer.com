@@ -30,19 +30,37 @@
   </div>
 </div>
 <br />
-<% unless @album.releases.empty? %>
-  <ul class="unstyled inline">
-  <% Release::FORMATS.each do |format| %>
-    <% if release = @album.releases.in_format( format ).first %>
-      <li>
-        <a href="<%= release.file.url %>" title="<%= t('helpers.label.download') %> <%= format %>">
-          <button class="download-button img-circle"><strong><%= format %></strong></button></a>
-      </li>
+<div class="row">
+  <div class="span12">
+    <% Release::FORMATS.each do |format| %>
+      <%= form_tag download_album_path( @album ), class: 'pull-left' do %>
+        <%= hidden_field_tag :format, format %>
+        <%= submit_tag format, class: 'download-button img-circle create-release-button'%>
+      <% end %>
     <% end %>
-  <% end %>
-  </ul>
-<% end %>
-
+    <div class="modal fade" id="download-message" tabindex="-1" role="dialog" aria-labelledby="download-message-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="download-message-label"><%= @album.artist.name %> - <%= @album.title %></h4>
+            <h5 class="modal-title format"></h5>
+          </div>
+          <div class="modal-body">
+            <p class="waiting-message">
+              Wydawnictwo jest przygotowywane do pobrania. Prosimy o chwilę cierpliwości.
+            </p>
+            <p class="progress-indicator"></p>
+            <p class="ready-message hidden">
+              <a href="#" class="download-link" title="<%= t('helpers.label.download') %>">
+                <button class="download-button img-circle"><strong><%= t('helpers.label.download') %></strong></button></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <% unless @album.donation.blank? %>
   <div class="well donations">
     <%=raw @album.donation %>
@@ -147,7 +165,31 @@ $(document).ready(function(){
   });
 
   $( '#tracklist' ).remove();
+
+  $('.create-release-button').click(function(e){
+     e.preventDefault();
+     form = $(this).parent('form');
+     url = form.attr('action');
+     format = form.find('#format').val();
+     $('#download-message').find('.format').html(format);
+     $('#download-message').find('.waiting-message').show();
+     $('#download-message').find('.progress-indicator').html('.');
+     $('#download-message').find('.progress-indicator').show();
+     $('#download-message').find('.ready-message').hide();
+     $('#download-message').modal('show');
+     progress_id = setInterval(function() {
+       $('#download-message').find('.progress-indicator').append('.');
+     }, 2000);
+     $.post(url, {format: format}, function(data) {
+       clearInterval(progress_id);
+       $('#download-message').find('.download-link').attr('href', data.url);
+     $('#download-message').find('.progress-indicator').hide();
+       $('#download-message').find('.waiting-message').hide();
+       $('#download-message').find('.ready-message').show();
+     });
+  });
 });
+
 //]]>
 </script>
 
