@@ -24,7 +24,8 @@ Karoryfer::Application.routes.draw do
 		resources :artists, :path => 'artysci'
 		resources :albums, :path => 'wydawnictwa' do
       member do
-        post :download
+        post :release
+        get :download
       end
     end
 	end
