@@ -644,11 +644,27 @@ ALTER TABLE ONLY posts
 
 
 --
+-- Name: releases_album_format_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY releases
+    ADD CONSTRAINT releases_album_format_key UNIQUE (album_id, format);
+
+
+--
 -- Name: releases_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY releases
     ADD CONSTRAINT releases_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: releases_track_format_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY releases
+    ADD CONSTRAINT releases_track_format_key UNIQUE (track_id, format);
 
 
 --
@@ -1085,3 +1101,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140102203007');
 INSERT INTO schema_migrations (version) VALUES ('20140104013708');
 
 INSERT INTO schema_migrations (version) VALUES ('20140104015041');
+
+INSERT INTO schema_migrations (version) VALUES ('20140119201221');

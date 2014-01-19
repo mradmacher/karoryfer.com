@@ -65,7 +65,7 @@ class PageDBTest < ActiveSupport::TestCase
   def test_does_not_complains_about_duplicated_reference_for_different_artists
     other_artist_id = DB[:artists].insert( name: Faker::Name.name, reference: Faker::Name.name.parameterize )
     DB[:pages].insert( title: 'Title', reference: 'reference', content: 'Content', artist_id: @artist_id )
-    exception = assert_nothing_raised do
+    assert_nothing_raised do
       DB[:pages].insert( title: 'Title2', reference: 'reference', content: 'Content2', artist_id: other_artist_id )
     end
   end
