@@ -53,14 +53,15 @@ class AlbumsController < ApplicationController
 	end
 
   def release
-		@album = Album.find( params[:id] )
+    @artist = Artist.find( params[:artist_id] )
+		@album = @artist.albums.find_by_reference( params[:id] )
     release = @album.releases.in_format( params[:format] ).first
     #TODO release.touch
     #FIXME
     # release = @album.releases.build( format: params[:format] )
     # release.valid?
     # argv = "karoryfer_releaser_#{@album.id}_#{release.format}"
-    argv = "karoryfer_releaser_#{@album.id}_#{params[:format]}"
+    argv = "release-#{@artist.id}-#{@album.id}-#{params[:format]}"
     if release.nil?
       unless `ps aux`.include? argv
         Spawnling.new( argv: argv ) do
@@ -76,7 +77,8 @@ class AlbumsController < ApplicationController
   end
 
   def download
-		@album = Album.find( params[:id] )
+    @artist = Artist.find( params[:artist_id] )
+		@album = @artist.albums.find_by_reference( params[:id] )
     release = @album.releases.in_format( params[:format] ).first
     if release.nil?
       if request.xhr?
