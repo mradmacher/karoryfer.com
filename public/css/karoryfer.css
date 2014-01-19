@@ -34,6 +34,7 @@
 
 .download-button {
   text-transform: uppercase;
+  font-weight: bold;
   background: url("/images/download.png") no-repeat bottom;
   width: 90px;
   height: 50px;

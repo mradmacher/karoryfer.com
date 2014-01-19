@@ -22,19 +22,19 @@ Karoryfer::Application.routes.draw do
 		resources :events, :path => 'wydarzenia', :only => [:index]
 
 		resources :artists, :path => 'artysci'
-		resources :albums, :path => 'wydawnictwa' do
-      member do
-        post :release
-        get :download
-      end
-    end
+		resources :albums, :path => 'wydawnictwa'
 	end
 
 	match ':id' => 'artists#show', :as => :artist, :via => :get
 	match ':id' => 'artists#update', :as => :artist, :via => :put
 	resources :artists, :path => 'artysci'
 	scope ':artist_id', :as => 'artist', :path_names => { :new => 'dodaj', :edit => 'zmien' } do
-    resources :albums, :path => 'wydawnictwa'
+    resources :albums, :path => 'wydawnictwa' do
+      member do
+        post ':format', to: 'albums#release', as: 'release', constraints: { format: /flac|ogg|mp3/ }
+        get ':format', to: 'albums#download', as: 'download', constraints: { format: /flac|ogg|mp3/ }
+      end
+    end
 		resources :videos, :path => 'filmy'
 		resources :posts, :path => 'wiadomosci' do
       collection do
