@@ -1,8 +1,9 @@
 <%= render_title t( 'helpers.title.album.edit' ), @album.title %>
-<h1><%= t 'helpers.title.album.index'  %></h1>
-<h2><%= t 'helpers.title.album.edit' %></h2>
+<h1><%= current_artist.name %></h1>
+<h2><%= t 'helpers.title.album.index'  %></h2>
+<h3><%= t 'helpers.title.album.edit' %></h3>
 <% content_for :context_actions do %>
-  <%= link_to_action t( "helpers.action.cancel_edit" ), album_path( @album ) %>
+  <%= link_to_action t( "helpers.action.cancel_edit" ), artist_album_path( @album.artist, @album ) %>
 <% end %>
 <%= render :partial => 'form' %>
 

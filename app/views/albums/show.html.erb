@@ -119,7 +119,7 @@
 <% end %>
 <br />
 <div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: album_url( @album ) } %>
+  <%= render partial: 'embeds/facebook', locals: { url: artist_album_url( @album.artist, @album ) } %>
   <br />
   <%= render partial: 'embeds/twitter' %>
 </div>

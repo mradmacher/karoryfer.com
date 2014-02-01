@@ -1,8 +1,9 @@
 <%= render_title t( 'helpers.title.album.new' ) %>
-<h1><%= t 'helpers.title.album.index'  %></h1>
-<h2><%= t 'helpers.title.album.new' %></h2>
+<h1><%= current_artist.name %></h1>
+<h2><%= t 'helpers.title.album.index'  %></h2>
+<h3><%= t 'helpers.title.album.new' %></h3>
 <% content_for :context_actions do %>
-  <%= link_to_action t( "helpers.action.cancel_new" ), current_artist? ? artist_path( current_artist ) : albums_path %>
+  <%= link_to_action t( "helpers.action.cancel_new" ), artist_path( current_artist ) %>
 <% end %>
 <%= render :partial => 'form' %>
 

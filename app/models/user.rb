@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 	end
 
   def unpublished_albums
-    self.admin? ? Album.unpublished.all : []
+    Album.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'albums.published' => false )
   end
 
 	def to_param
