@@ -41,7 +41,11 @@ class Ability
             rules << [:write_artist]
           end
         when 'Album'
-          rules = [:read_album] if subject.published?
+          if subject.published?
+            rules = [:read_album]
+          elsif !user.nil? && !(subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
+            rules << [:read_album]
+          end
         when 'User'
           rules = [:read_user, :write_user] if user.id == subject.id
         when 'Class'

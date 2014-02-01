@@ -2,13 +2,13 @@
 <% if current_artist? %>
   <h1><%= current_artist.name %></h1>
   <h2><%= t 'helpers.title.album.index' %></h2>
+  <% content_for :actions do %>
+    <% if can? :write_album, Album %>
+      <%= link_to_action t( "helpers.action.album.new" ), new_artist_album_path(current_artist) %>
+    <% end %>
+  <% end %>
 <% else %>
   <h1 class="hidden"><%= t 'helpers.title.album.index' %></h1>
-<% end %>
-<% content_for :actions do %>
-  <% if can? :write_album, Album %>
-    <%= link_to_action t( "helpers.action.album.new" ), new_album_path %>
-  <% end %>
 <% end %>
 <ul class="thumbnails">
 <% @albums.each do |album| %>

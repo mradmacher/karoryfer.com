@@ -1,11 +1,9 @@
-<%= form_for @album, :html => {:multipart => true} do |f| %>
+<%= form_for [current_artist, @album], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
     <%= f.label :published do %>
       <%= f.check_box :published %>
       <%= t( "helpers.label.album.published" ) %>
     <% end %>
-		<%= label_tag :artist_id, t( "helpers.label.album.artist_id" ) %>
-		<%= f.collection_select :artist_id, Artist.all, :id, :name %>
 		<%= f.label :title, t( "helpers.label.album.title" ) %>
 		<%= f.text_field :title %>
 		<%= f.label :reference %>

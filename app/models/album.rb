@@ -42,6 +42,10 @@ class Album < ActiveRecord::Base
 		end
 	end
 
+  def self.find_by_reference( ref )
+    super( ref.downcase)
+  end
+
 	def to_param
     reference
 	end
