@@ -3,7 +3,7 @@
 <% content_for :actions do %>
 	<ul>
 		<% if can? :write_user, User %>
-			<li><%= link_to t( 'helpers.action.user.new' ), new_admin_user_path %></li>
+			<%= link_to_action t( 'helpers.action.user.new' ), new_admin_user_path %>
 		<% end %>
 	</ul>
 <% end %>

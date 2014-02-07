@@ -196,20 +196,20 @@ pl:
   helpers:
     action:
       post:
-        new: Dodaj wiadomość
+        new: Wiadomość
         edit: Zmień wiadomość
         destroy: Usuń wiadomość
       event:
-        new: Dodaj wydarzenie
+        new: Wydarzenie
         edit: Zmień wydarzenie
         destroy: Usuń wydarzenie
         remove_poster: Usuń obrazek
       video:
-        new: Dodaj film
+        new: Film
         edit: Zmień film
         destroy: Usuń film
       article:
-        new: Dodaj informację
+        new: Informacja
         edit: Zmień informację
         destroy: Usuń informację
       artist:
@@ -230,7 +230,7 @@ pl:
       membership:
         destroy: Usuń
       page:
-        new: Dodaj stronę
+        new: Strona
         edit: Zmień stronę
         destroy: Usuń stronę
       save: Zapisz
@@ -294,6 +294,7 @@ pl:
       album: Wydawnictwo
       user: Użytkownik
     label:
+      release_message: Wydawnictwo jest przygotowywane do pobrania. Prosimy o chwilę cierpliwości.
       nothing_here_yet: Nic tu jeszcze nie ma.
       unpublished: Szkice
       true_value: tak
