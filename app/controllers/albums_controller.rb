@@ -54,7 +54,10 @@ class AlbumsController < ApplicationController
   def release
 		@album = current_artist.albums.find_by_reference( params[:id] )
     release = @album.releases.in_format( params[:format] ).first
-    if release.nil?
+    release_exists = !release.nil?
+    if release_exists
+      release.touch
+    else
       release = @album.releases.build( format: params[:format] )
       if release.valid?
         argv = "release-#{current_artist.id}-#{@album.id}-#{release.format}"
@@ -64,13 +67,15 @@ class AlbumsController < ApplicationController
           end
         end
       end
-    else
-      release.touch
     end
     if request.xhr?
       render json: { success: true }
     else
-      redirect_to artist_album_url(current_artist, @album)
+      if release_exists
+        redirect_to release.file.url
+      else
+        redirect_to artist_album_url(current_artist, @album), notice: I18n.t('helpers.label.release_message')
+      end
     end
   end
 
