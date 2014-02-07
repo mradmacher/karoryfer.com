@@ -32,6 +32,7 @@
 <br />
 <div class="row">
   <div class="span12">
+    <div class="text-info"><%= flash[:notice] %></div>
     <% Release::FORMATS.each do |format| %>
       <%= form_tag release_artist_album_path( @album.artist, @album, format ), class: 'pull-left',
           'data-format' => format do %>
@@ -48,7 +49,7 @@
           </div>
           <div class="modal-body">
             <p class="waiting-message">
-              Wydawnictwo jest przygotowywane do pobrania. Prosimy o chwilę cierpliwości.
+              <%=t 'helpers.label.release_message' %>
             </p>
             <p class="progress-indicator"></p>
             <p class="ready-message hidden">

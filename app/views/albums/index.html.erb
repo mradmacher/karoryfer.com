@@ -2,7 +2,7 @@
 <% if current_artist? %>
   <h1><%= current_artist.name %></h1>
   <h2><%= t 'helpers.title.album.index' %></h2>
-  <% content_for :actions do %>
+  <% content_for :context_actions do %>
     <% if can? :write_album, Album %>
       <%= link_to_action t( "helpers.action.album.new" ), new_artist_album_path(current_artist) %>
     <% end %>

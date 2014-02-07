@@ -51,7 +51,7 @@ class AlbumsControllerTest < ActionController::TestCase
     assert_equal release.file.url, result['url']
   end
 
-  def test_post_release_redirects_to_album
+  def test_post_release_redirects_to_album_if_release_does_not_exist
     Spawnling.default_options( { :method => :yield } )
     track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
     album = track.album
@@ -59,7 +59,16 @@ class AlbumsControllerTest < ActionController::TestCase
     assert_redirected_to artist_album_path( album.artist, album )
   end
 
-  def test_post_release_json_returns_true
+  def test_post_release_returns_release_url_if_release_exists
+    Spawnling.default_options( { :method => :yield } )
+    track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
+    album = track.album
+    release = album.releases.create( format: 'flac' )
+    post :release, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
+    assert_redirected_to release.file.url
+  end
+
+  def test_xhr_post_release_returns_true
     Spawnling.default_options( { :method => :yield } )
     track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
     album = track.album
