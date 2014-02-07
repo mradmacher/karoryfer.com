@@ -91,16 +91,6 @@ module AlbumsControllerTests
       assert_select 'a[href=?]', new_artist_album_path(artist), 0
     end
 
-    def test_get_index_for_admin_displays_unpublished
-      login( User.sham!( :admin ) )
-      5.times { Album.sham!( :published ) }
-      5.times { Album.sham!( :unpublished ) }
-      get :index
-      Album.unpublished.each do |a|
-        assert_select "a", a.title
-      end
-    end
-
     def test_get_index_for_admin_in_artist_scope_displays_actions
       artist = Artist.sham!
       login( User.sham!( :admin ) )
