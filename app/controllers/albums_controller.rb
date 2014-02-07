@@ -52,26 +52,25 @@ class AlbumsController < ApplicationController
 	end
 
   def release
-    @artist = Artist.find( params[:artist_id] )
-		@album = @artist.albums.find_by_reference( params[:id] )
+		@album = current_artist.albums.find_by_reference( params[:id] )
     release = @album.releases.in_format( params[:format] ).first
-    #TODO release.touch
-    #FIXME
-    # release = @album.releases.build( format: params[:format] )
-    # release.valid?
-    # argv = "karoryfer_releaser_#{@album.id}_#{release.format}"
-    argv = "release-#{@artist.id}-#{@album.id}-#{params[:format]}"
     if release.nil?
-      unless `ps aux`.include? argv
-        Spawnling.new( argv: argv ) do
-          @album.releases.create( format: params[:format] )
+      release = @album.releases.build( format: params[:format] )
+      if release.valid?
+        argv = "release-#{current_artist.id}-#{@album.id}-#{release.format}"
+        unless `ps aux`.include? argv
+          Spawnling.new( argv: argv ) do
+            release.save
+          end
         end
       end
+    else
+      release.touch
     end
     if request.xhr?
       render json: { success: true }
     else
-      redirect_to album_url(@album)
+      redirect_to artist_album_url(current_artist, @album)
     end
   end
 
@@ -83,7 +82,7 @@ class AlbumsController < ApplicationController
       if request.xhr?
         render json: { success: false }
       else
-        redirect_to album_url(@album)
+        redirect_to artist_album_url(@artist, @album)
       end
     else
       if request.xhr?
