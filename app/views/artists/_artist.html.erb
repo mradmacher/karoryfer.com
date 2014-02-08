@@ -1,0 +1,7 @@
+<% if artist.image? %>
+  <a href="<%= artist_path( artist ) %>">
+    <%= image_tag( artist.image.icon.url, :alt => artist.name, :title => artist.summary, :class => 'img-rounded img-polaroid' ) %>
+  </a>
+<% end %>
+<h5><%= link_to artist.name, artist_path( artist ) %></h5>
+
