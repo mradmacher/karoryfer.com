@@ -5,7 +5,17 @@
   <p><%=t 'helpers.label.site.desc' %></p>
 </div>
 
-<h4><%= t( 'helpers.title.album.index' ) %></h4>
+<h3 class="text-center"><%= t( 'helpers.title.artist.index' ) %></h3>
+<ul class="thumbnails">
+<% @artists.each do |artist| %>
+  <li class="span2">
+    <div class="thumbnail text-center"><%= render artist %></div>
+  </li>
+<% end %>
+</ul>
+
+
+<h3 class="text-center"><%= t( 'helpers.title.album.index' ) %></h3>
 <ul class="thumbnails">
 <% @albums.each do |album| %>
   <li class="span2">
@@ -13,18 +23,6 @@
   </li>
 <% end %>
 </ul>
-<%= link_to t( 'helpers.action.see_more' ), albums_url %>
-
-<hr />
-<h4><%= t( 'helpers.title.video.index' ) %></h4>
-<ul class="thumbnails">
-<% @videos.each do |video| %>
-  <li class="span2">
-    <div class="thumbnail text-center"><%= render video %></div>
-  </li>
-<% end %>
-</ul>
-<%= link_to t( 'helpers.action.see_more' ), videos_url %>
 
 <%= render :partial => 'events/calendar_js' %>
 
