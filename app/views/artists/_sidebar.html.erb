@@ -8,13 +8,13 @@
   <% end %>
 	</ul>
 </p>
-<% events = current_artist.events.some.published %>
+<% events = current_artist.events.some.current.published %>
 <% unless events.empty? %>
 <p>
   <h4><%= link_to t( 'helpers.sidebar.title.event' ), artist_events_path( current_artist ), :class => 'menu-link' %></h4>
 	<dl class="unstyled">
   <% event_count = 0 %>
-	<% current_artist.events.some.published.each do |event| %>
+	<% events.each do |event| %>
     <% event_count += 1 %>
 		<dt><a href="<%= artist_event_path( current_artist, event ) %>">
       <%= event_icon( event.expired? ) %><%= event_date( event ) %></a></dt>
