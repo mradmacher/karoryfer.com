@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-7">
+    <ul class="nav nav-pills">
+      <li class="<%= action_name == 'events' ? 'active' : 'normal' %>">
+        <a href="<%= events_path %>" class="main-menu-link"><%=t 'helpers.title.event.index' %></a>
+      </li>
+      <li class="<%= action_name == 'posts' ? 'active' : 'normal' %>">
+        <a href="<%= posts_path %>" class="main-menu-link"><%=t 'helpers.title.post.index' %></a>
+      </li>
+      <li class="<%= action_name == 'videos' ? 'active' : 'normal' %>">
+        <a href="<%= videos_path %>" class="main-menu-link"><%=t 'helpers.title.video.index' %></a>
+      </li>
+    </ul>
+  </div>
+</div>
+<br />
+

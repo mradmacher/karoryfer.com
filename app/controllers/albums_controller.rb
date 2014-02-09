@@ -3,7 +3,7 @@ class AlbumsController < ApplicationController
   layout :set_layout
 
   def index
-		@albums = current_artist ? current_artist.albums.published.all : Album.published.all
+		@albums = current_artist.albums.published.all
   end
 
   def show

@@ -17,6 +17,21 @@
 <% end %>
 
 <% content_for :current_artist do %>
+  <h1><a href="<%= artist_path(current_artist) %>" class="main-menu-link"><%= current_artist.name %></a></h1>
+  <ul class="nav nav-pills">
+    <li class="<%= controller_name == 'events' ? 'active' : 'normal' %>">
+      <a href="<%= artist_events_path(current_artist) %>" class="main-menu-link"><%=t 'helpers.title.event.index' %></a>
+    </li>
+    <li class="<%= controller_name == 'posts' ? 'active' : 'normal' %>">
+      <a href="<%= artist_posts_path(current_artist) %>" class="main-menu-link"><%=t 'helpers.title.post.index' %></a>
+    </li>
+    <li class="<%= controller_name == 'albums' ? 'active' : 'normal' %>">
+      <a href="<%= artist_albums_path(current_artist) %>" class="main-menu-link"><%=t 'helpers.title.album.index' %></a>
+    </li>
+    <li class="<%= controller_name == 'videos' ? 'active' : 'normal' %>">
+      <a href="<%= artist_videos_path(current_artist) %>" class="main-menu-link"><%=t 'helpers.title.video.index' %></a>
+    </li>
+  </ul>
   <%= yield %>
 <% end %>
 <%= render :template => 'layouts/application' %>

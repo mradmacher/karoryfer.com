@@ -1,10 +1,14 @@
+<%= render partial: 'sidebar' %>
+<%= render partial: 'nav' %>
+
 <%= render_title t( 'helpers.title.event.index' ) %>
 
-<h2 class="hidden"><%= t 'helpers.title.event.index' %></h2>
+<h1 class="hidden"><%= t 'helpers.title.event.index' %></h1>
 
 <% if @events.empty? %>
  <p><%= t( 'helpers.label.nothing_here_yet' ) %></p>
 <% end %>
+
 <ul class="media-list">
 <% @events.each do |event| %>
   <li class="media img-rounded">
@@ -16,6 +20,7 @@
     <div class="media-body">
       <h5><%= event_icon( event.expired? ) %><%= link_to event.title, artist_event_path( event.artist, event ) %></h5>
       <p>
+        <%= event.artist.name %><br />
         <%= event_date( event ) %><br />
         <%= event.location %>
         <% if event.address.present? %>
@@ -27,4 +32,6 @@
   </li>
 <% end %>
 </ul>
+
+<%= render :partial => 'events/calendar_js' %>
 

@@ -1,10 +1,5 @@
 <%= render_title @album.title %>
-<h1><%= current_artist.name %></h1>
-<h2><%= t 'helpers.title.album.index' %>
-	<% unless @album.published? %>
-		<span class="status">(<%= t('helpers.label.album.unpublished') %>)</span>
-	<% end %>
-</h2>
+<h2 class="hidden"><%= t 'helpers.title.album.index' %></h2>
 
 <% content_for :context_actions do %>
   <% if can? :write_album, @album %>
@@ -18,7 +13,11 @@
       :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
-    <h3 class="media-heading"><%= @album.title %></h3>
+    <h3 class="media-heading"><%= @album.title %>
+    <% unless @album.published? %>
+      <span class="status">(<%= t('helpers.label.album.unpublished') %>)</span>
+    <% end %>
+    </h3>
     <h4><%= @album.year.to_s %></h4>
 
     <p>

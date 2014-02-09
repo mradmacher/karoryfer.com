@@ -1,13 +1,19 @@
 <h1><%= t( 'helpers.title.user_session.new' ) %></h1>
-<%= form_for [:admin, @user_session] do |f| %>
+<%= form_for [:admin, @user_session], html: { class: 'form-horizontal' } do |f| %>
 	<% if not @user_session.errors[:login].empty? or not @user_session.errors[:password].empty? %>
 		<p>Nieprawidłowy login/hasło!</p>
 	<% end %>
-	<%= f.label :login, t( 'helpers.label.user_session.login' ) %>
-	<%= f.text_field :login %>
-	<%= f.label :password, t( 'helpers.label.user_session.password' ) %>
-	<%= f.password_field :password %>
-  <br />
-	<%= f.submit t( 'helpers.label.user_session.submit' ), :class => 'btn' %>
+
+  <div class="form-group">
+    <%= f.label :login, t( 'helpers.label.user_session.login' ), class: 'col-sm-1' %>
+    <div class="col-sm-4"><%= f.text_field :login, class: 'form-control' %></div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password, t( 'helpers.label.user_session.password' ), class: 'col-sm-1' %>
+    <div class="col-sm-4"><%= f.password_field :password, class: 'form-control' %></div>
+  </div>
+
+	<button type="submit" class="btn btn-default"><%=t 'helpers.label.user_session.submit' %></button>
 <% end %>
 

@@ -5,24 +5,7 @@ class EventsController < ApplicationController
   respond_to :json, :only => [:calendar]
 
   def index
-    @current_date = "#{params[:day]}/#{params[:month]}/#{params[:year]}"
-
-    @events = current_artist?? current_artist.events.published : Event.published
-    if params[:day] && params[:month] && params[:year]
-      @events = @events.for_day( params[:year], params[:month], params[:day] )
-    elsif params[:month] && params[:year]
-      @events = @events.for_month( params[:year], params[:month] )
-    elsif params[:year]
-      @events = @events.for_year( params[:year] )
-    end
-    render :index
-  end
-
-  def drafts
-		raise User::AccessDenied unless current_user?
-    @category = :drafts
-    @events = current_user.unpublished_events
-    render :index
+    @events = current_artist.events.published
   end
 
   def calendar

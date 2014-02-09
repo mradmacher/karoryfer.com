@@ -16,6 +16,7 @@ class Event < ActiveRecord::Base
 	scope :published, where( :published => true )
 	scope :unpublished, where( :published => false )
   scope :current, where( 'event_date - current_date >= 0' )
+  scope :expired, where( 'event_date - current_date < 0' )
   scope :some, limit( SOME_LIMIT )
   scope :for_day, lambda { |y, m, d| where( 'extract(day from event_date) = ? and extract(month from event_date) = ? and extract(year from event_date) = ?', d, m, y ) }
   scope :for_month, lambda { |y, m| where( 'extract(month from event_date) = ? and extract(year from event_date) = ?', m, y ) }

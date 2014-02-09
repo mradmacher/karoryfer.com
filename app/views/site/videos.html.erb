@@ -1,6 +1,9 @@
 <%= render_title t( 'helpers.title.video.index' ) %>
 
-<h2 class="hidden"><%= t 'helpers.title.video.index' %></h2>
+<%= render partial: 'sidebar' %>
+<%= render partial: 'nav' %>
+
+<h1 class="hidden"><%= t 'helpers.title.video.index' %></h1>
 
 <% if @videos.empty? %>
   <%= t( 'helpers.label.nothing_here_yet' ) %>
@@ -12,4 +15,6 @@
   </li>
 <% end %>
 </ul>
+
+<%= render :partial => 'events/calendar_js' %>
 

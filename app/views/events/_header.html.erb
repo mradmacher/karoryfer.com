@@ -1,9 +1,4 @@
-<h1><%= current_artist.name %></h1>
-<h2><%= t 'helpers.title.event.index' %>
-	<% unless event.published? %>
-		<span class="status">(<%= t('helpers.label.event.unpublished') %>)</span>
-	<% end %>
-</h2>
+<h2 class="hidden"><%= t 'helpers.title.event.index' %></h2>
 
 <div class="media">
   <% if event.poster? %>
@@ -11,7 +6,11 @@
       event.poster.url, :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
-    <h3 class="media-heading"><%= event_icon( event.expired? ) %><%= event.title %></h3>
+    <h3 class="media-heading"><%= event_icon( event.expired? ) %><%= event.title %>
+      <% unless event.published? %>
+        <span class="status">(<%= t('helpers.label.event.unpublished') %>)</span>
+      <% end %>
+    </h3>
     <p class="lead">
       <%= event_date( event ) %><br />
       <%= event.location %>
@@ -34,7 +33,7 @@
   <% end %>
   </p>
   <p>
-    <ul class="unstyled">
+    <ul class="list-unstyled">
     <% @event.recognized_external_urls.each do |url, service| %>
       <li><%= link_to service, url, :target => '_blank' %></li>
     <% end %>

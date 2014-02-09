@@ -2,20 +2,18 @@
 <h1><%= t 'helpers.title.user.index' %></h1>
 <h2><%= @user.login %></h2>
 <% content_for :actions do %>
-	<ul class="inline">
-		<% if can? :write_user, @user %>
-			<li><%= link_to_action t( 'helpers.action.user.edit_password' ), admin_edit_password_path %></li>
-		<% end %>
-		<% if can? :write_user, @user %>
-			<li><%= link_to_action t( 'helpers.action.user.edit' ), edit_admin_user_path %></li>
-		<% end %>
-		<% if can? :write_user, @user %>
-			<li><%= link_to_action t( 'helpers.action.user.destroy' ), admin_user_path( @user ), :method => :delete,
-				:confirm => t( 'helpers.action.destroy_confirmation' ) %></li>
-		<% end %>
-	</ul>
+  <% if can? :write_user, @user %>
+    <%= link_to_action t( 'helpers.action.user.edit_password' ), admin_edit_password_path %>
+  <% end %>
+  <% if can? :write_user, @user %>
+    <%= link_to_action t( 'helpers.action.user.edit' ), edit_admin_user_path %>
+  <% end %>
+  <% if can? :write_user, @user %>
+    <%= link_to_action t( 'helpers.action.user.destroy' ), admin_user_path( @user ), :method => :delete,
+      :confirm => t( 'helpers.action.destroy_confirmation' ) %>
+  <% end %>
 <% end %>
-<dl>
+<dl class="dl-horizontal">
 	<dt><%=t 'helpers.label.user.login' %></dt>
 		<dd><%= @user.login %></dd>
 	<dt><%=t 'helpers.label.user.email' %></dt>
@@ -45,11 +43,12 @@
 </ul>
 <% if can? :write_membership, Membership %>
   <%= form_for [:admin, @membership] do |f| %>
-    <%= f.label :artist_id, t( "helpers.label.membership.artist_id" ) %>
-    <%= f.collection_select :artist_id, @user.other_artists, :id, :name %>
     <%= f.hidden_field :user_id %>
-    <br />
-    <%= f.submit t( 'helpers.action.save' ), :class => 'btn' %>
+    <div class="form-group">
+      <%= f.label :artist_id, t( "helpers.label.membership.artist_id" ) %>
+      <%= f.collection_select :artist_id, @user.other_artists, :id, :name %>
+    </div>
+    <button type="submit" class="btn btn-default"><%=t 'helpers.action.save' %></button>
   <% end %>
 <% end %>
 

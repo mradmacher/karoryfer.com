@@ -1,7 +1,5 @@
 <%= render_title t( 'helpers.title.album.new' ) %>
-<h1><%= current_artist.name %></h1>
-<h2><%= t 'helpers.title.album.index'  %></h2>
-<h3><%= t 'helpers.title.album.new' %></h3>
+<h2 class="hidden"><%= t 'helpers.title.album.index'  %></h2>
 <% content_for :context_actions do %>
   <%= link_to_action t( "helpers.action.cancel_new" ), artist_path( current_artist ) %>
 <% end %>

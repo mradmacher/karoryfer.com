@@ -1,0 +1,14 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-<%= content_for?( :sidebar ) ? '8' : '12' %>">
+    <%= content_for?( :current_artist ) ? yield( :current_artist ) : yield %>
+  </div>
+
+<% if content_for?( :sidebar ) %>
+  <div class="col-md-4">
+    <%= yield :sidebar %>
+  </div>
+<% end %>
+</div>
+</div>
+

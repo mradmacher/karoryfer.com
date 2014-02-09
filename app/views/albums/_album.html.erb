@@ -1,10 +1,12 @@
+<p><a href="<%= artist_album_path(album.artist, album) %>"><%= album.title %></a></p>
 <% if album.image? %>
-  <a href="<%= artist_album_path( album.artist, album ) %>">
-    <%= image_tag( album.image.icon.url, :alt => album.title, :class => 'img-rounded img-polaroid' ) %>
+<p>
+  <a href="<%= artist_album_path(album.artist, album) %>">
+    <%= image_tag(album.image.icon.url, alt: album.title, class: 'img-rounded img-polaroid') %>
   </a>
+</p>
 <% end %>
 <% unless current_artist? %>
   <p><%= album.artist.name %></p>
 <% end %>
-<h5><a href="<%= artist_album_path( album.artist, album ) %>"><%= album.title %></a></h5>
 

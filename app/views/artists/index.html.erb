@@ -5,9 +5,9 @@
 		<%= link_to_action t( 'helpers.action.artist.new' ), new_artist_path %>
 	<% end %>
 <% end %>
-<ul class="thumbnails">
+<ul class="row list-unstyled">
 <% @artists.each do |artist| %>
-  <li class="span2">
+  <li class="col-sm-2 col-md-2 col-lg-2">
     <div class="thumbnail text-center"><%= render artist %></div>
   </li>
 <% end %>

@@ -37,7 +37,7 @@ module ResourcesControllerTest
       assert_select "title", build_title( I18n.t( "helpers.title.#{resource_name}.edit" ), resource.artist.name )
       assert_select "h1", resource.artist.name
       assert_select "h2", I18n.t( "helpers.title.#{resource_name}.index" )
-      assert_select "h3", I18n.t( "helpers.title.#{resource_name}.edit" )
+      assert_select "h3", resource.title
     end
 
     def test_get_edit_for_artist_user_displays_actions

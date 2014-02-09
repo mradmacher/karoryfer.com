@@ -1,13 +1,12 @@
-<h1><%= current_artist.name %></h1>
-<h2><%= t 'helpers.title.post.index' %>
-	<% unless post.published? %>
-		<span class="status">(<%= t('helpers.label.post.unpublished') %>)</span>
-	<% end %>
-</h2>
+<h2 class="hidden"><%= t 'helpers.title.post.index' %></h2>
 
 <div class="media">
   <div class="media-body">
-    <h3 class="media-heading"><%= post_icon %><%= post.title %></h3>
+    <h3 class="media-heading"><%= post_icon %><%= post.title %>
+      <% unless post.published? %>
+        <span class="status">(<%= t('helpers.label.post.unpublished') %>)</span>
+      <% end %>
+    </h3>
   </div>
 </div>
 <br />

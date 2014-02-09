@@ -1,6 +1,9 @@
 <%= render_title t( 'helpers.title.post.index' ) %>
 
-<h2 class="hidden"><%= t 'helpers.title.post.index' %></h2>
+<%= render partial: 'sidebar' %>
+<%= render partial: 'nav' %>
+
+<h1 class="hidden"><%= t 'helpers.title.post.index' %></h1>
 
 <% if @posts.empty? %>
   <%= t( 'helpers.label.nothing_here_yet' ) %>
@@ -10,8 +13,11 @@
   <li class="media img-rounded">
     <div class="media-body">
       <h5><%= post_icon %><%= link_to post.title, artist_post_path( post.artist, post ) %></h5>
+      <p><%= post.artist.name %></p>
     </div>
   </li>
 <% end %>
 </ul>
+
+<%= render :partial => 'events/calendar_js' %>
 

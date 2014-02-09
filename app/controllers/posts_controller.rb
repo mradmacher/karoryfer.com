@@ -3,17 +3,7 @@ class PostsController < ApplicationController
   layout :set_layout
 
   def index
-    @selected_year = "#{params[:year]}"
-    @posts = current_artist?? current_artist.posts.published : Post.published
-    @posts = @posts.created_in_year( params[:year] ) if params[:year]
-    render :index
-  end
-
-  def drafts
-		raise User::AccessDenied unless current_user?
-    @category = :drafts
-    @posts = current_user.unpublished_posts
-    render :index
+    @posts = current_artist.posts.published
   end
 
   def show

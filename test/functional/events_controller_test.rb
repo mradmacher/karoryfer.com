@@ -1,6 +1,5 @@
 require 'test_helper'
 require_relative 'resources_controller_test/get_index'
-require_relative 'resources_controller_test/get_drafts'
 require_relative 'resources_controller_test/get_show'
 require_relative 'resources_controller_test/get_show_draft'
 require_relative 'resources_controller_test/get_edit'
@@ -11,7 +10,6 @@ require_relative 'resources_controller_test/delete_destroy'
 
 class EventsControllerTest < ActionController::TestCase
   include ResourcesControllerTest::GetIndex
-  include ResourcesControllerTest::GetDrafts
   include ResourcesControllerTest::GetShow
   include ResourcesControllerTest::GetShowDraft
   include ResourcesControllerTest::GetEdit

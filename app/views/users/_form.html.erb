@@ -1,13 +1,15 @@
 <%= form_for [:admin, @user] do |f| %>
 	<%= f.error_messages %>
-	<fieldset>
-		<legend><%= t( "helpers.legend.user" ) %></legend>
-		<%= f.label :password, t( "helpers.label.user.password" ) %>
-		<%= f.password_field :password %> <br />
-		<%= f.label :password_confirmation, t( "helpers.label.user.password_confirmation" ) %>
-		<%= f.password_field :password_confirmation %> <br />
-		<%= f.submit t( 'helpers.action.save' ) %>
-	</fieldset>
-<% end %>
+  <div class="form-group">
+    <%= f.label :password, t( "helpers.label.user.password" ) %>
+    <%= f.password_field :password, class: 'form-control' %>
+  </div>
 
+  <div class="form-group">
+    <%= f.label :password_confirmation, t( "helpers.label.user.password_confirmation" ) %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+
+  <button type="submit" class="btn btn-default"><%=t 'helpers.action.save' %></button>
+<% end %>
 
