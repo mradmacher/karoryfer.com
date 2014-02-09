@@ -2,7 +2,7 @@
 <% if album.image? %>
 <p>
   <a href="<%= artist_album_path(album.artist, album) %>">
-    <%= image_tag(album.image.icon.url, alt: album.title, class: 'img-rounded img-polaroid') %>
+    <%= image_tag(album.image.icon.url, alt: album.title, class: 'img-rounded img-polaroid img-responsive') %>
   </a>
 </p>
 <% end %>

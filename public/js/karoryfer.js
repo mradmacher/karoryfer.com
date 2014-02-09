@@ -13,11 +13,13 @@ $(window).load(function() {
         img_height = current_img_height;
       }
     });
-    $(this).find(".thumbnail").each(function() {
-      $(this).height(height);
-      img = $(this).find('img');
-      img.css('margin-bottom', img_height - img.height());
-    });
+	if( height > img_height ) {
+	  $(this).find(".thumbnail").each(function() {
+	    $(this).height(height);
+	    img = $(this).find('img');
+	    img.css('margin-bottom', img_height - img.height());
+	  });
+	}
   });
 });
 
