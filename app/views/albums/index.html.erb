@@ -1,43 +1,19 @@
 <%= render_title t( 'helpers.title.album.index') %>
-<% if current_artist? %>
-  <h1><%= current_artist.name %></h1>
-  <h2><%= t 'helpers.title.album.index' %></h2>
-  <% content_for :context_actions do %>
-    <% if can? :write_album, Album %>
-      <%= link_to_action t( "helpers.action.album.new" ), new_artist_album_path(current_artist) %>
-    <% end %>
+<h2 class="hidden"><%= t 'helpers.title.album.index' %></h2>
+<% content_for :context_actions do %>
+  <% if can? :write_album, Album %>
+    <%= link_to_action t( "helpers.action.album.new" ), new_artist_album_path(current_artist) %>
   <% end %>
-<% else %>
-  <h1 class="hidden"><%= t 'helpers.title.album.index' %></h1>
 <% end %>
-<ul class="thumbnails">
+
+<% if @albums.empty? %>
+  <%= t( 'helpers.label.nothing_here_yet' ) %>
+<% end %>
+<ul class="row list-unstyled">
 <% @albums.each do |album| %>
-  <li class="span2">
+  <li class="col-sm-3 col-md-3 col-lg-3">
     <div class="thumbnail text-center"><%= render album %></div>
   </li>
 <% end %>
 </ul>
-
-<% unless current_artist? %>
-  <% if current_user? %>
-    <h2><%= t 'helpers.label.unpublished' %></h2>
-    <ul class="thumbnails">
-    <% current_user.unpublished_albums.each do |album| %>
-      <li class="span2">
-        <div class="thumbnail text-center">
-          <% if album.image? %>
-            <a href="<%= artist_album_path( album.artist, album ) %>">
-              <%= image_tag( album.image.icon.url, :alt => album.title, :class => 'img-rounded img-polaroid' ) %>
-            </a>
-          <% end %>
-          <h5><a href="<%= artist_album_path( album.artist, album ) %>"><%= album.title %></a></h5>
-          <% unless current_artist? %>
-            <p><%= album.artist.name %></p>
-          <% end %>
-        </div>
-      </li>
-    <% end %>
-    </ul>
-  <% end %>
-<% end %>
 

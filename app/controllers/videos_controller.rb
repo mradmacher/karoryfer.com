@@ -3,7 +3,7 @@ class VideosController < ApplicationController
   layout :set_layout
 
   def index
-    @videos = current_artist?? current_artist.videos : Video.all
+    @videos = current_artist.videos
   end
 
   def show

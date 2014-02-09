@@ -1,28 +1,37 @@
-<%= render partial: 'news/sidebar' %>
+<%= render partial: 'sidebar' %>
+<%= render partial: 'nav' %>
 
-<div class="hero-unit">
+<div class="jumbotron">
   <h1><%=t 'helpers.label.site.name' %></h1>
   <p><%=t 'helpers.label.site.desc' %></p>
 </div>
 
-<h3 class="text-center"><%= t( 'helpers.title.artist.index' ) %></h3>
-<ul class="thumbnails">
-<% @artists.each do |artist| %>
-  <li class="span2">
-    <div class="thumbnail text-center"><%= render artist %></div>
-  </li>
-<% end %>
-</ul>
+<div class="panel panel-default">
+  <div class="panel-heading"><%= t( 'helpers.title.artist.index' ) %></div>
+  <div class="panel-body">
+    <ul class="row list-unstyled">
+      <% @artists.each do |artist| %>
+        <li class="col-sm-3 col-md-3 col-lg-3">
+          <div class="thumbnail text-center"><%= render artist %></div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
 
-<h3 class="text-center"><%= t( 'helpers.title.album.index' ) %></h3>
-<ul class="thumbnails">
-<% @albums.each do |album| %>
-  <li class="span2">
-    <div class="thumbnail text-center"><%= render album %></div>
-  </li>
-<% end %>
-</ul>
+<div class="panel panel-default">
+  <div class="panel-heading"><%= t( 'helpers.title.album.index' ) %></div>
+  <div class="panel-body">
+    <ul class="row list-unstyled">
+      <% @albums.each do |album| %>
+        <li class="col-sm-3 col-md-3 col-lg-3">
+          <div class="thumbnail text-center"><%= render album %></div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
 <%= render :partial => 'events/calendar_js' %>
 

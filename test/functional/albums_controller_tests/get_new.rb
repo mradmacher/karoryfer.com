@@ -26,7 +26,6 @@ module AlbumsControllerTests
       assert_select "title", build_title( I18n.t( 'helpers.title.album.new' ), artist.name )
       assert_select "h1", artist.name
       assert_select "h2", I18n.t( 'helpers.title.album.index' )
-      assert_select "h3", I18n.t( 'helpers.title.album.new' )
     end
 
     def test_get_new_for_admin_displays_form
@@ -50,7 +49,7 @@ module AlbumsControllerTests
         assert_select 'textarea[name=?]', 'album[donation]'
         assert_select 'label', I18n.t( 'helpers.label.album.description' )
         assert_select 'textarea[name=?]', 'album[description]'
-        assert_select 'input[type=submit][value=?]', I18n.t( 'helpers.action.save' )
+        assert_select 'button[type=submit]'
       end
     end
 

@@ -1,14 +1,20 @@
 <%= form_for [current_artist, @video] do |f| %>
 	<%= f.error_messages %>
-  <%= f.label :title, t( "helpers.label.video.title" ) %>
-  <%= f.text_field :title %>
-  <%= f.label :url, t( "helpers.label.video.url" ) %>
-  <%= f.text_field :url %>
+  <div class="form-group">
+    <%= f.label :title, t( "helpers.label.video.title" ) %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
 
-  <%= f.label :body, t( "helpers.label.video.body" ) %>
-  <%= f.text_area :body, :class => 'span8' %>
-  <br />
+  <div class="form-group">
+    <%= f.label :url, t( "helpers.label.video.url" ) %>
+    <%= f.text_field :url, class: 'form-control' %>
+  </div>
 
-  <%= f.submit t( 'helpers.action.save' ), :class => 'btn' %>
+  <div class="form-group">
+    <%= f.label :body, t( "helpers.label.video.body" ) %>
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
+
+  <button type="submit" class="btn btn-default"><%=t 'helpers.action.save' %></button>
 <% end %>
 

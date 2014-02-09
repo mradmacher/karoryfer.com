@@ -1,15 +1,22 @@
 <%= form_for [current_artist, @post] do |f| %>
 	<%= f.error_messages %>
-    <%= f.label :published do %>
-      <%= f.check_box :published %>
-      <%= t( "helpers.label.post.published" ) %>
-    <% end %>
-		<%= f.label :title, t( "helpers.label.post.title" ) %>
-		<%= f.text_field :title %>
+    <div class="checkbox">
+      <%= f.label :published do %>
+        <%= f.check_box :published %>
+        <%= t( "helpers.label.post.published" ) %>
+      <% end %>
+    </div>
 
-    <%= f.label :body, t( "helpers.label.post.body" ) %>
-    <%= f.text_area :body, :class => 'span8' %>
+    <div class="form-group">
+      <%= f.label :title, t( "helpers.label.post.title" ) %>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
 
-    <br />
-    <%= f.submit t( 'helpers.action.save' ), :class => 'btn' %>
+    <div class="form-group">
+      <%= f.label :body, t( "helpers.label.post.body" ) %>
+      <%= f.text_area :body, class: 'form-control' %>
+    </div>
+
+    <button type="submit" class="btn btn-default"><%=t 'helpers.action.save' %></button>
 <% end %>
+

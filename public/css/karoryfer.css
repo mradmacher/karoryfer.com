@@ -1,8 +1,9 @@
-.hero-unit {
+.jumbotron {
   background: url("/images/splash.jpg") no-repeat left;
   color: white;
-  height: 240px;
+  height: 280px;
 }
+
 .thumbnail {
   background: #eee;
 }
@@ -10,6 +11,18 @@
 .media-list .media {
   background: #eee;
   padding: 5px;
+}
+
+.event-list {
+  list-style-image: url('/images/tags/event.png');
+}
+
+.post-list {
+  list-style-image: url('/images/tags/note.png');
+}
+
+.video-list {
+  list-style-image: url('/images/tags/video.png');
 }
 
 .menu-link {

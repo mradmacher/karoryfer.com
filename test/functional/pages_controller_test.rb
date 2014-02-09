@@ -1,6 +1,5 @@
 require 'test_helper'
 require_relative 'resources_controller_test/get_index'
-require_relative 'resources_controller_test/get_drafts'
 require_relative 'resources_controller_test/get_show'
 require_relative 'resources_controller_test/get_show_draft'
 require_relative 'resources_controller_test/get_edit'
@@ -11,7 +10,6 @@ require_relative 'resources_controller_test/delete_destroy'
 
 class PagesControllerTest < ActionController::TestCase
   #include ResourcesControllerTest::GetIndex
-  #include ResourcesControllerTest::GetDrafts
   include ResourcesControllerTest::GetShow
   #include ResourcesControllerTest::GetShowDraft
   include ResourcesControllerTest::GetEdit
@@ -56,7 +54,7 @@ class PagesControllerTest < ActionController::TestCase
       assert_select 'input[type=text][name=?][value=?][disabled=disabled]', 'page[reference]', page.reference
       assert_select 'label', I18n.t( 'helpers.label.page.content' )
       assert_select 'textarea[name=?]', 'page[content]', page.content
-      assert_select 'input[type=submit][value=?]', I18n.t( 'helpers.action.save' )
+      assert_select 'button[type=submit]'
     end
   end
 
@@ -72,7 +70,7 @@ class PagesControllerTest < ActionController::TestCase
       assert_select 'input[type=text][name=?]', 'page[reference]'
       assert_select 'label', I18n.t( 'helpers.label.page.content' )
       assert_select 'textarea[name=?]', 'page[content]'
-      assert_select 'input[type=submit][value=?]', I18n.t( 'helpers.action.save' )
+      assert_select 'button[type=submit]'
     end
   end
 end

@@ -1,0 +1,10 @@
+<%= render_title t( 'helpers.title.album.index') %>
+<h1 class="hidden"><%= t 'helpers.title.album.index' %></h1>
+<ul class="row list-unstyled">
+<% @albums.each do |album| %>
+  <li class="col-sm-2 col-md-2 col-lg-2">
+    <div class="thumbnail text-center"><%= render album %></div>
+  </li>
+<% end %>
+</ul>
+

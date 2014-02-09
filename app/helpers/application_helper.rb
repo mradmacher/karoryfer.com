@@ -49,7 +49,7 @@ module ApplicationHelper
   end
 
   def link_to_action( title, link, options = {} )
-    link_to title, link, options.merge( :class => 'btn' )
+    link_to title, link, options.merge( :class => 'btn btn-default' )
   end
 
 	alias render_textile render_text

@@ -1,5 +1,5 @@
 $(window).load(function() {
-  $(".thumbnails").each(function() {
+  $(".row").each(function() {
     var height = 0;
     var img_height = 0;
 

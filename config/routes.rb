@@ -12,17 +12,17 @@ Karoryfer::Application.routes.draw do
 
   root :to => 'site#home'
 
-  match 'wydarzenia/kalendarz' => 'events#calendar', :as => :calendar_events
-  match 'wydarzenia/z/:year(/:month(/:day))' => 'events#index', :as => :events_from
-  match 'wiadomosci/z/:year' => 'posts#index', :as => :posts_from
+  get 'wydarzenia/kalendarz', to: 'events#calendar', as: 'calendar_events'
+  get 'wydarzenia/z/:year(/:month(/:day))', to: 'site#events', as: 'events_from'
+  get 'wiadomosci/z/:year', to: 'site#posts', as: :posts_from
+  get 'wydarzenia', to: 'site#events', as: 'events'
+  get 'wiadomosci', to: 'site#posts', as: 'posts'
+  get 'filmy', to: 'site#videos', as: 'videos'
+  get 'wydawnictwa', to: 'site#albums', as: 'albums'
+  get 'szkice', to: 'site#drafts', as: 'drafts'
 
 	scope path_names: { new: 'dodaj', edit: 'zmien' } do
-		resources :videos, path: 'filmy', only: [:index]
-		resources :posts, path: 'wiadomosci', only: [:index]
-		resources :events, path: 'wydarzenia', only: [:index]
-
 		resources :artists, path: 'artysci'
-		resources :albums, path: 'wydawnictwa', only: [:index]
 	end
 
 	match ':id' => 'artists#show', :as => :artist, :via => :get
@@ -36,16 +36,8 @@ Karoryfer::Application.routes.draw do
       end
     end
 		resources :videos, path: 'filmy'
-		resources :posts, path: 'wiadomosci' do
-      collection do
-        get :drafts, path: 'szkice'
-      end
-    end
-		resources :events, path: 'wydarzenia' do
-      collection do
-        get :drafts, path: 'szkice'
-      end
-    end
+		resources :posts, path: 'wiadomosci'
+		resources :events, path: 'wydarzenia'
 		resources :artists, only: [:show]
     resources :pages, path: 'strony', except: [:show, :update, :index]
     match ':id' => 'pages#show', as: 'page', via: :get
