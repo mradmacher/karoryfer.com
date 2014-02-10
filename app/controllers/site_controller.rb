@@ -13,7 +13,7 @@ class SiteController < ApplicationController
 
   def events
     @current_date = "#{params[:day]}/#{params[:month]}/#{params[:year]}"
-    @events = Event.published
+    @events = Event.all
 
     if params[:day] && params[:month] && params[:year]
       @events = @events.for_day( params[:year], params[:month], params[:day] )
@@ -26,7 +26,7 @@ class SiteController < ApplicationController
 
   def posts
     @selected_year = "#{params[:year]}"
-    @posts = Post.published
+    @posts = Post.all
     @posts = @posts.created_in_year( params[:year] ) if params[:year]
   end
 
@@ -35,15 +35,13 @@ class SiteController < ApplicationController
   end
 
   def drafts
-    @events = current_user.unpublished_events
-    @posts = current_user.unpublished_posts
     @albums = current_user.unpublished_albums
   end
 
   private
   def set_resources
-    @current_posts = Post.some.published
-    @current_events = Event.some.current.published
+    @current_posts = Post.some
+    @current_events = Event.some.current
     @current_videos = Video.some
   end
 end

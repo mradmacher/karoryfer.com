@@ -38,18 +38,6 @@ class EventTest < ActiveSupport::TestCase
     refute Event.new.free_entrance?
   end
 
-	def test_is_published_or_unpublished
-		event = Event.sham! :build
-		[true, false].each do |v|
-			event.published = v
-			assert event.valid?
-		end
-		event.published = nil
-		refute event.valid?
-		assert event.errors[:published].include? I18n.t(
-      'activerecord.errors.models.event.attributes.published.inclusion' )
-	end
-
   def test_has_free_enctrance_or_not
 		event = Event.sham! :build
 		[true, false].each do |v|
@@ -72,28 +60,6 @@ class EventTest < ActiveSupport::TestCase
     event.event_date = Time.now.to_date
     assert event.valid?
   end
-
-  def test_returns_all_published_for_published_scope
-    3.times { Event.sham!( published: true ) }
-    3.times { Event.sham!( published: false ) }
-    assert_equal 3, Event.published.count
-    Event.published.each do |event|
-      assert event.published?
-    end
-  end
-
-  def test_returns_all_unpublished_for_unpublished_scope
-    3.times { Event.sham!( published: true ) }
-    3.times { Event.sham!( published: false ) }
-    assert_equal 3, Event.unpublished.count
-    Event.unpublished.each do |event|
-      refute event.published?
-    end
-  end
-
-  def test_is_unpublished_by_default
-		refute Event.new.published?
-	end
 
   def test_returns_not_too_many_for_some_scope
     15.times { Event.sham!( :event ) }

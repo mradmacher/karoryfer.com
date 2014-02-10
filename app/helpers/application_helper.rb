@@ -52,6 +52,5 @@ module ApplicationHelper
     link_to title, link, options.merge( :class => 'btn btn-default' )
   end
 
-	alias render_textile render_text
 	alias format_text render_text
 end

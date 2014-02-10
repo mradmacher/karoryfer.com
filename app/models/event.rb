@@ -5,7 +5,6 @@ class Event < ActiveRecord::Base
 	TITLE_MAX_LENGTH = 80
 
 	validates :title, :presence => true
-	validates :published, :inclusion => { :in => [true, false] }
 	validates :title, :length => { :maximum => TITLE_MAX_LENGTH }
 	validates :artist_id, :presence => true
   validates :event_date, :presence => true
@@ -13,8 +12,6 @@ class Event < ActiveRecord::Base
 
   default_scope order( '(CASE WHEN event_date - current_date >= 0 THEN 1 ELSE 0 END) DESC, abs(event_date - current_date) ASC' )
 
-	scope :published, where( :published => true )
-	scope :unpublished, where( :published => false )
   scope :current, where( 'event_date - current_date >= 0' )
   scope :expired, where( 'event_date - current_date < 0' )
   scope :some, limit( SOME_LIMIT )
@@ -23,10 +20,6 @@ class Event < ActiveRecord::Base
   scope :for_year, lambda { |y| where( 'extract(year from event_date) = ?', y ) }
 
   mount_uploader :poster, Uploader::EventImage
-
-	def related
-		Event.published.where( artist_id: self.artist_id ).delete_if{ |p| p == self }
-	end
 
   def expired?
     return false if self.event_date.nil?

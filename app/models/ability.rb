@@ -16,19 +16,19 @@ class Ability
       rules = []
       case subject.class.to_s
         when 'Post'
-          rules = [:read_post] if subject.published?
+          rules = [:read_post]
           unless user.nil? || (subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
-            rules << [:read_post, :write_post]
+            rules << [:write_post]
           end
         when 'Event'
-          rules = [:read_event] if subject.published?
+          rules = [:read_event]
           unless user.nil? || (subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
-            rules << [:read_event, :write_event]
+            rules << [:write_event]
           end
         when 'Video'
           rules = [:read_video]
           unless user.nil? || (subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
-            rules << [:read_video, :write_video]
+            rules << [:write_video]
           end
         when 'Page'
           rules = [:read_page]

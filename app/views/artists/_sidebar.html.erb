@@ -14,11 +14,11 @@
     <h4>
       <%=t 'helpers.sidebar.title.event' %>
       <a href="<%= artist_events_path(current_artist) %>">
-        <span class="badge"><%= current_artist.events.published.current.count %> / <%= current_artist.events.published.expired.count %></span>
+        <span class="badge"><%= current_artist.events.current.count %> / <%= current_artist.events.expired.count %></span>
       </a>
     </h4>
   </div>
-  <% events = current_artist.events.some.current.published %>
+  <% events = current_artist.events.current %>
   <% unless events.empty? %>
     <div class="panel-body">
       <ul class="event-list">
@@ -39,11 +39,11 @@
     <h4>
       <%=t 'helpers.sidebar.title.post' %>
       <a href="<%= artist_posts_path(current_artist) %>">
-        <span class="badge"><%= current_artist.posts.published.count %></span>
+        <span class="badge"><%= current_artist.posts.count %></span>
       </a>
     </h4>
   </div>
-  <% posts = current_artist.posts.some.published %>
+  <% posts = current_artist.posts.some %>
   <% unless posts.empty? %>
     <div class="panel-body">
       <ul class="post-list">

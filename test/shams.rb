@@ -134,7 +134,6 @@ Sham.config( Post ) do |c|
   c.attributes do {
     artist: Sham::Nested.new( Artist ),
     title: Faker::Name.name,
-    published: true,
     body: Faker::Lorem.paragraph
   } end
 end
@@ -143,7 +142,6 @@ Sham.config( Event ) do |c|
   c.attributes do {
     artist: Sham::Nested.new( Artist ),
     title: Faker::Name.name,
-    published: true,
     event_date: Time.now.to_date,
     location: Faker::Address.city,
     body: Faker::Lorem.paragraph

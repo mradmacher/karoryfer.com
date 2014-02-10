@@ -5,11 +5,11 @@ class EventsController < ApplicationController
   respond_to :json, :only => [:calendar]
 
   def index
-    @events = current_artist.events.published
+    @events = current_artist.events
   end
 
   def calendar
-    grouped_events = Event.published.for_month( params[:ano], params[:mes] ).each_with_object({}) do |e, result|
+    grouped_events = Event.for_month( params[:ano], params[:mes] ).each_with_object({}) do |e, result|
       result[e.event_date] = [] unless result.has_key? e.event_date
       result[e.event_date] << e.artist.name
     end

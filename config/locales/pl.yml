@@ -125,8 +125,6 @@ pl:
               too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
             artist_id:
               blank: ^proszę wybrać artystę
-            published:
-              inclusion: ^proszę zaznaczyć czy opublikować wiadomości
         event:
           attributes:
             poster_url:
@@ -138,8 +136,6 @@ pl:
               too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
             artist_id:
               blank: ^proszę wybrać artystę
-            published:
-              inclusion: ^proszę zaznaczyć czy opublikować wiadomości
             free_entrance:
               inclusion: ^proszę zaznaczyć czy wstęp jest wolny
         video:
@@ -294,7 +290,7 @@ pl:
       album: Wydawnictwo
       user: Użytkownik
     label:
-      release_message: Wydawnictwo jest przygotowywane do pobrania. Prosimy o chwilę cierpliwości.
+      release_message: Wydawnictwo jest przygotowywane do pobrania. Prosimy o chwilę cierpliwości. Możesz powrócić tu za minutę albo dwie. Będzie gotowe.
       nothing_here_yet: Nic tu jeszcze nie ma.
       unpublished: Szkice
       true_value: tak
@@ -335,8 +331,6 @@ pl:
         free_entrance: Wstęp wolny
         price: Cena
         body: Treść
-        unpublished: Szkic
-        published: Opublikowane
         external_urls: URL stron zewnętrznych
       post:
         all: ...
@@ -349,8 +343,6 @@ pl:
         event_date: Data wydarzenia
         event_duration: Dni ważności
         body: Treść
-        unpublished: Szkic
-        published: Opublikowane
       video:
         all: ...
         title: Tytuł

@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   layout :set_layout
 
   def index
-    @posts = current_artist.posts.published
+    @posts = current_artist.posts
   end
 
   def show
