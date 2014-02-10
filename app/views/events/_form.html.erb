@@ -1,12 +1,5 @@
 <%= form_for [current_artist, @event] do |f| %>
 	<%= f.error_messages %>
-  <div class="checkbox">
-  <%= f.label :published do %>
-    <%= f.check_box :published %>
-    <%= t( "helpers.label.event.published" ) %>
-  <% end %>
-  </div>
-
   <div class="form-group">
     <%= f.label :title, t( "helpers.label.event.title" ) %>
     <%= f.text_field :title, class: 'form-control' %>

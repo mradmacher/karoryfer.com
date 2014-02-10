@@ -17,39 +17,3 @@
 <% end %>
 </ul>
 
-<h2><%= t 'helpers.title.event.index' %></h2>
-<ul class="media-list">
-<% @events.each do |event| %>
-  <li class="media img-rounded">
-    <% if event.poster? %>
-      <%= link_to image_tag( event.poster.icon.url, :alt => event.title,
-        :class => 'media-object media-object-thumbnail img-polaroid img-rounded' ),
-        artist_event_path( event.artist, event ), :class => 'pull-left' %>
-    <% end %>
-    <div class="media-body">
-      <h5><%= event_icon( event.expired? ) %><%= link_to event.title, artist_event_path( event.artist, event ) %></h5>
-      <p>
-        <%= event.artist.name %><br />
-        <%= event_date( event ) %><br />
-        <%= event.location %>
-        <% if event.address.present? %>
-          <br />
-          <small><%= event.address %></small>
-        <% end %>
-      </p>
-    </div>
-  </li>
-<% end %>
-</ul>
-
-<h2><%= t 'helpers.title.post.index' %></h2>
-<ul class="media-list">
-<% @posts.each do |post| %>
-  <li class="media img-rounded">
-    <div class="media-body">
-      <h5><%= post_icon %><%= link_to post.title, artist_post_path( post.artist, post ) %></h5>
-    </div>
-  </li>
-<% end %>
-</ul>
-

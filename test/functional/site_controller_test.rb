@@ -35,17 +35,9 @@ class SiteControllerTest < ActionController::TestCase
   def test_get_drafts_for_user_displays_nothing
     login( User.sham! )
     albums = 3.times.to_a.map{ |i| Album.sham!( published: false ) }
-    posts = 3.times.to_a.map{ |i| Post.sham!( published: false ) }
-    events = 3.times.to_a.map{ |i| Event.sham!( published: false ) }
     get :drafts
 
     albums.each do |r|
-      assert_select "a", {text: r.title, count: 0}
-    end
-    posts.each do |r|
-      assert_select "a", {text: r.title, count: 0}
-    end
-    events.each do |r|
       assert_select "a", {text: r.title, count: 0}
     end
   end
@@ -54,17 +46,9 @@ class SiteControllerTest < ActionController::TestCase
     membership = Membership.sham!
     login( membership.user )
     albums = 3.times.to_a.map{ |i| Album.sham!( published: false, artist: membership.artist ) }
-    posts = 3.times.to_a.map{ |i| Post.sham!( published: false, artist: membership.artist ) }
-    events = 3.times.to_a.map{ |i| Event.sham!( published: false, artist: membership.artist ) }
     get :drafts
 
     albums.each do |r|
-      assert_select "a", r.title
-    end
-    posts.each do |r|
-      assert_select "a", r.title
-    end
-    events.each do |r|
       assert_select "a", r.title
     end
   end

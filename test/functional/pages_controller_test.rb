@@ -1,7 +1,6 @@
 require 'test_helper'
 require_relative 'resources_controller_test/get_index'
 require_relative 'resources_controller_test/get_show'
-require_relative 'resources_controller_test/get_show_draft'
 require_relative 'resources_controller_test/get_edit'
 require_relative 'resources_controller_test/get_new'
 require_relative 'resources_controller_test/put_update'
@@ -11,7 +10,6 @@ require_relative 'resources_controller_test/delete_destroy'
 class PagesControllerTest < ActionController::TestCase
   #include ResourcesControllerTest::GetIndex
   include ResourcesControllerTest::GetShow
-  #include ResourcesControllerTest::GetShowDraft
   include ResourcesControllerTest::GetEdit
   include ResourcesControllerTest::GetNew
   include ResourcesControllerTest::PutUpdate

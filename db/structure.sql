@@ -147,7 +147,6 @@ CREATE TABLE events (
     id integer NOT NULL,
     artist_id integer NOT NULL,
     title character varying(80) NOT NULL,
-    published boolean DEFAULT false NOT NULL,
     body text,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
@@ -289,7 +288,6 @@ CREATE TABLE posts (
     id integer NOT NULL,
     artist_id integer NOT NULL,
     title character varying(80),
-    published boolean DEFAULT false NOT NULL,
     body text,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL
@@ -1103,3 +1101,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140104013708');
 INSERT INTO schema_migrations (version) VALUES ('20140104015041');
 
 INSERT INTO schema_migrations (version) VALUES ('20140119201221');
+
+INSERT INTO schema_migrations (version) VALUES ('20140210205054');
+
+INSERT INTO schema_migrations (version) VALUES ('20140210205102');

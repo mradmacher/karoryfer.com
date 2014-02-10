@@ -2,11 +2,7 @@
 
 <div class="media">
   <div class="media-body">
-    <h3 class="media-heading"><%= post_icon %><%= post.title %>
-      <% unless post.published? %>
-        <span class="status">(<%= t('helpers.label.post.unpublished') %>)</span>
-      <% end %>
-    </h3>
+    <h3 class="media-heading"><%= post_icon %><%= post.title %></h3>
   </div>
 </div>
 <br />
