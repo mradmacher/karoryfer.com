@@ -3,7 +3,6 @@ require 'test_helper'
 require 'release_helper'
 
 class AlbumReleaseTest < ActiveSupport::TestCase
-  FIXTURES_DIR = File.expand_path('../../fixtures', __FILE__)
   include ReleaseHelper
 
   def setup

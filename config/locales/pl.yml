@@ -279,7 +279,9 @@ pl:
       site:
         home: Karoryfer Lecolds
       track:
-        index: Lista utworów
+        index: Utwory
+      attachment:
+        index: Załączniki
     legend:
       artist: Artysta
       page: Strona
