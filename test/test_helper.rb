@@ -7,6 +7,7 @@ require 'shams'
 
 dbconfig = Rails.configuration.database_configuration['test']
 DB = Sequel.connect( "postgres://#{dbconfig['username']}@localhost/#{dbconfig['database']}" )
+FIXTURES_DIR = File.expand_path('../fixtures', __FILE__)
 
 module I18n
 	def self.raise_missing_translation( *args )

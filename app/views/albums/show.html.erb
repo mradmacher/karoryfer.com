@@ -73,7 +73,7 @@
 <%= render_text @album.description %>
 
 <% unless @album.tracks.empty? %>
-  <h5><%= t 'helpers.title.track.index' %></h5>
+  <h4><%= t 'helpers.title.track.index' %></h4>
   <ol id="tracklist">
     <% @album.tracks.each do |track| %>
       <li data-track-id="<%= track.id %>">
@@ -117,6 +117,16 @@
     </div>
   </div>
 <% end %>
+
+<% unless @album.attachments.empty? %>
+  <h4><%= t 'helpers.title.attachment.index' %></h4>
+  <ul>
+    <% @album.attachments.each do |attachment| %>
+      <li><a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <br />
 <div class="well">
   <%= render partial: 'embeds/facebook', locals: { url: artist_album_url( @album.artist, @album ) } %>

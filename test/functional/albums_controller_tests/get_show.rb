@@ -87,6 +87,17 @@ module AlbumsControllerTests
       #assert_select 'a[href=?][data-method=delete]', album_path( album ), I18n.t( 'helpers.action.album.destroy' )
       assert_select 'a[href=?][data-method=delete]', artist_album_path( album.artist, album ), 0
     end
+
+    def test_get_show_displays_urls_to_attached_files
+      album = Album.sham!( :published )
+      att1 = album.attachments.create( file: File.open( File.join( FIXTURES_DIR, 'attachments', 'att1.jpg' ) ) )
+      att2 = album.attachments.create( file: File.open( File.join( FIXTURES_DIR, 'attachments', 'att2.pdf' ) ) )
+      att3 = album.attachments.create( file: File.open( File.join( FIXTURES_DIR, 'attachments', 'att3.txt' ) ) )
+      get :show, :artist_id => album.artist.to_param, :id => album.to_param
+      assert_select 'a[href=?]',  att1.file.url, 'att1.jpg'
+      assert_select 'a[href=?]',  att2.file.url, 'att2.pdf'
+      assert_select 'a[href=?]',  att3.file.url, 'att3.txt'
+    end
   end
 end
 
