@@ -34,6 +34,7 @@ Karoryfer::Application.routes.draw do
         post ':format', to: 'albums#release', as: 'release', constraints: { format: /flac|ogg|mp3/ }
         get ':format', to: 'albums#download', as: 'download', constraints: { format: /flac|ogg|mp3/ }
       end
+      resources :attachments, path: 'zalaczniki', only: [:index, :show, :new, :create, :destroy]
     end
 		resources :videos, path: 'filmy'
 		resources :posts, path: 'wiadomosci'
