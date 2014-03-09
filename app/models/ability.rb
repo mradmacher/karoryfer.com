@@ -10,6 +10,7 @@ class Ability
         :read_album, :write_album,
         :read_user, :write_user,
         :read_page, :write_page,
+        :read_attachment, :write_attachment,
         :write_membership
       ]
     else
@@ -46,6 +47,8 @@ class Ability
           elsif !user.nil? && !(subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
             rules << [:read_album]
           end
+        when 'Attachment'
+          rules << [:read_attachment]
         when 'User'
           rules = [:read_user, :write_user] if user.id == subject.id
         when 'Class'
