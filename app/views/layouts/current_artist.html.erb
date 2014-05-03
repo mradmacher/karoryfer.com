@@ -10,16 +10,16 @@
     <div class="panel-body">
       <ul class="nav nav-pills">
         <li class="<%= controller_name == 'events' ? 'active' : 'normal' %>">
-          <a href="<%= artist_events_path(current_artist) %>" class="main-menu-link"><%=t 'helpers.title.event.index' %></a>
+          <a href="<%= artist_events_path(current_artist) %>" class="main-menu-link"><%=t 'label.events' %></a>
         </li>
         <li class="<%= controller_name == 'posts' ? 'active' : 'normal' %>">
-          <a href="<%= artist_posts_path(current_artist) %>" class="main-menu-link"><%=t 'helpers.title.post.index' %></a>
+          <a href="<%= artist_posts_path(current_artist) %>" class="main-menu-link"><%=t 'label.posts' %></a>
         </li>
         <li class="<%= (controller_name == 'albums' || controller_name == 'attachments') ? 'active' : 'normal' %>">
-          <a href="<%= artist_albums_path(current_artist) %>" class="main-menu-link"><%=t 'helpers.title.album.index' %></a>
+          <a href="<%= artist_albums_path(current_artist) %>" class="main-menu-link"><%=t 'label.albums' %></a>
         </li>
         <li class="<%= controller_name == 'videos' ? 'active' : 'normal' %>">
-          <a href="<%= artist_videos_path(current_artist) %>" class="main-menu-link"><%=t 'helpers.title.video.index' %></a>
+          <a href="<%= artist_videos_path(current_artist) %>" class="main-menu-link"><%=t 'label.videos' %></a>
         </li>
       </ul>
     </div>

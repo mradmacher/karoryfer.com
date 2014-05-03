@@ -74,7 +74,7 @@ class AlbumsController < ApplicationController
       if release_exists
         redirect_to release.file.url
       else
-        redirect_to artist_album_url(current_artist, @album), notice: I18n.t('helpers.label.release_message')
+        redirect_to artist_album_url(current_artist, @album), notice: I18n.t('label.release_message')
       end
     end
   end

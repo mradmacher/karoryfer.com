@@ -1,6 +1,6 @@
-<%= render_title t( 'helpers.title.post.edit' ) %>
+<%= render_title @post.title %>
 <h2><%= @post.title %></h2>
 <p>
-  <a href="<%= artist_post_path(@post.artist, @post) %>" class="btn btn-warning btn-xs"><%=t 'helpers.action.cancel_edit' %></a>
+  <a href="<%= artist_post_path(@post.artist, @post) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_edit' %></a>
 </p>
 <%= render :partial => 'form' %>

@@ -1,9 +1,9 @@
 <% pages = current_artist.pages %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <span class="h4"><%=t 'helpers.sidebar.title.page' %></span>
+    <span class="h4"><%=t 'label.pages' %></span>
     <% if can? :write_page, Page %>
-      <a href="<%= new_artist_page_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'helpers.action.new' ) %></a>
+      <a href="<%= new_artist_page_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>
   <% unless pages.empty? %>
@@ -20,12 +20,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <span class="h4">
-      <%=t 'helpers.sidebar.title.event' %>
+      <%=t 'label.events' %>
       <a href="<%= artist_events_path(current_artist) %>">
         <span class="badge"><%= current_artist.events.current.count %> / <%= current_artist.events.expired.count %></span></a>
     </span>
     <% if can? :write_event, Event %>
-      <a href="<%= new_artist_event_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'helpers.action.new' ) %></a>
+      <a href="<%= new_artist_event_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>
   <% events = current_artist.events.current %>
@@ -47,12 +47,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <span class="h4">
-      <%=t 'helpers.sidebar.title.post' %>
+      <%=t 'label.posts' %>
       <a href="<%= artist_posts_path(current_artist) %>">
         <span class="badge"><%= current_artist.posts.count %></span></a>
     </span>
     <% if can? :write_post, Post %>
-      <a href="<%= new_artist_post_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'helpers.action.new' ) %></a>
+      <a href="<%= new_artist_post_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>
   <% posts = current_artist.posts.some %>
@@ -70,12 +70,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <span class="h4">
-      <%=t 'helpers.sidebar.title.video' %>
+      <%=t 'label.videos' %>
       <a href="<%= artist_videos_path(current_artist) %>">
         <span class="badge"><%= current_artist.videos.count %></span></a>
     </span>
     <% if can? :write_video, Video %>
-      <a href="<%= new_artist_video_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'helpers.action.new' ) %></a>
+      <a href="<%= new_artist_video_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>
   <% videos = current_artist.videos.some %>
@@ -93,13 +93,13 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <span class="h4">
-      <%=t 'helpers.sidebar.title.album' %>
+      <%=t 'label.albums' %>
       <a href="<%= artist_albums_path(current_artist) %>">
         <span class="badge"><%= current_artist.albums.published.count %></span>
       </a>
     </span>
     <% if can? :write_album, Album %>
-      <a href="<%= new_artist_album_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'helpers.action.new' ) %></a>
+      <a href="<%= new_artist_album_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>
   <% albums = current_artist.albums.published %>

@@ -1,9 +1,9 @@
-<%= render_title t( 'helpers.title.user.index' ) %>
-<h1><%=t 'helpers.title.user.index' %></h1>
+<%= render_title t( 'title.user.index' ) %>
+<h1><%=t 'title.user.index' %></h1>
 <% content_for :actions do %>
 	<ul>
 		<% if can? :write_user, User %>
-			<%= link_to_action t( 'helpers.action.user.new' ), new_admin_user_path %>
+			<%= link_to_action t( 'action.user.new' ), new_admin_user_path %>
 		<% end %>
 	</ul>
 <% end %>

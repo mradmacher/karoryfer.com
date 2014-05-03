@@ -1,9 +1,9 @@
-<%= render_title t( 'helpers.title.event.index' ) %>
+<%= render_title t( 'label.events' ) %>
 
-<h2 class="hidden"><%= t 'helpers.title.event.index' %></h2>
+<h2 class="hidden"><%= t 'label.events' %></h2>
 
 <% if @events.empty? %>
- <p><%= t( 'helpers.label.nothing_here_yet' ) %></p>
+ <p><%= t( 'label.nothing_here_yet' ) %></p>
 <% end %>
 <ul class="media-list">
 <% @events.each do |event| %>

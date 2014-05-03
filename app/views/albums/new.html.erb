@@ -1,7 +1,7 @@
-<%= render_title t( 'helpers.title.album.new' ) %>
-<h2><%= t 'helpers.title.album.new' %></h2>
+<%= render_title t( 'title.album.new' ) %>
+<h2><%= t 'title.album.new' %></h2>
 <p>
-  <a href="<%= artist_path(@album.artist) %>" class="btn btn-warning btn-xs"><%=t 'helpers.action.cancel_new' %></a>
+  <a href="<%= artist_path(@album.artist) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
 <%= render :partial => 'form' %>
 

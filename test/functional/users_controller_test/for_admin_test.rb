@@ -50,7 +50,7 @@ module UsersControllerTest
     def test_get_show_for_other_user_displays_form_to_add_membership
       get :show, :id => @other_user.to_param
       assert_select 'form' do
-        assert_select 'label', I18n.t( 'helpers.label.membership.artist_id' )
+        assert_select 'label', I18n.t( 'label.membership.artist_id' )
         assert_select 'select[name=?]', 'membership[artist_id]'
         assert_select 'input[type=hidden][name=?]', 'membership[user_id]'
       end
@@ -85,22 +85,22 @@ module UsersControllerTest
 
     def test_get_new_displays_headers
       get :new
-      assert_title I18n.t( 'helpers.title.user.new' ), I18n.t( 'helpers.title.user.index' )
-      assert_headers I18n.t( 'helpers.title.user.index' ), I18n.t( 'helpers.title.user.new' )
+      assert_title CGI.escape_html( I18n.t( 'title.user.new' ) ), I18n.t( 'title.user.index' )
+      assert_headers I18n.t( 'title.user.index' ), CGI.escape_html( I18n.t( 'title.user.new' ) )
     end
 
     def test_get_index_displays_headers
       get :index
-      assert_select "title", build_title( I18n.t( 'helpers.title.user.index' ) )
-      assert_select "h1", I18n.t( 'helpers.title.user.index' )
+      assert_select "title", build_title( I18n.t( 'title.user.index' ) )
+      assert_select "h1", I18n.t( 'title.user.index' )
     end
 
     def test_get_edit_password_for_other_user_displays_headers
       get :edit_password, :id => @other_user.to_param
-      assert_title I18n.t( 'helpers.title.user.edit_password' ), @other_user.login,
-        I18n.t( 'helpers.title.user.index' )
-      assert_headers I18n.t( 'helpers.title.user.index' ), @other_user.login,
-        I18n.t( 'helpers.title.user.edit_password' )
+      assert_title I18n.t( 'title.user.edit_password' ), @other_user.login,
+        I18n.t( 'title.user.index' )
+      assert_headers I18n.t( 'title.user.index' ), @other_user.login,
+        I18n.t( 'title.user.edit_password' )
     end
   end
 end

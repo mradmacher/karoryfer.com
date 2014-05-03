@@ -189,217 +189,162 @@ pl:
               blank: ^proszę wybrać artystę
             user_id:
               blank: ^proszę wybrać użytkownika
-  helpers:
-    action:
-      new: Dodaj
-      edit: Zmień
-      delete: Usuń
-      post:
-        new: Wiadomość
-        edit: Zmień wiadomość
-        destroy: Usuń wiadomość
-      event:
-        new: Wydarzenie
-        edit: Zmień wydarzenie
-        destroy: Usuń wydarzenie
-        remove_poster: Usuń obrazek
-      video:
-        new: Film
-        edit: Zmień film
-        destroy: Usuń film
-      article:
-        new: Informacja
-        edit: Zmień informację
-        destroy: Usuń informację
-      artist:
-        new: Dodaj artystę
-        edit: Zmień artystę
-        destroy: Usuń artystę
-        remove_image: Usuń obrazek
-      album:
-        new: Dodaj wydawnictwo
-        edit: Zmień wydawnictwo
-        destroy: Usuń wydawnictwo
-        remove_image: Usuń obrazek
-      attachment:
-        index: Załączniki
-        new: Dodaj załącznik
-        back_to_album: Wróć do albumu
-      user:
-        new: Dodaj użytkownika
-        edit: Zmień dane
-        edit_password: Zmień hasło
-        destroy: Usuń konto
-      membership:
-        destroy: Usuń
-      page:
-        new: Strona
-        edit: Zmień stronę
-        destroy: Usuń stronę
-      save: Zapisz
-      edit: Zmień
-      new: Dodaj
+
+  action:
+    artist:
+      new: Dodaj artystę
+      edit: Zmień artystę
+      destroy: Usuń artystę
+    user:
+      new: Dodaj użytkownika
+      edit: Zmień dane
+      edit_password: Zmień hasło
+      destroy: Usuń konto
+    membership:
       destroy: Usuń
-      cancel_edit: Zostaw jak było
-      cancel_new: Odpuść sobie
-      destroy_confirmation: Czy na pewno to usunąć?
-      more: Pokaż...
-      see_more: Zobacz więcej...
-    title:
-      user_session:
-        new: Logowanie
-      album:
-        index: Wydawnictwa
-        new: <Nowe wydawnictwo>
-        edit: Zmiana danych
-      artist:
-        index: Artyści
-        new: <Nowy artysta>
-        edit: Zmiana danych
-      page:
-        index: Strony
-        new: <Nowa strona>
-        edit: Zmiana strony
-      post:
-        index: Wiadomości
-        new: <Nowa wiadomość>
-        edit: Zmiana danych
-      event:
-        index: Wydarzenia
-        new: <Nowe wydarzenie>
-        edit: Zmiana danych
-      video:
-        index: Filmy
-        new: <Nowy film>
-        edit: Zmiana danych
-      user:
-        index: Użytkownicy
-        new: <Nowy użytkownik>
-        edit: Zmiana danych
-        edit_password: Zmiana hasła
-      membership:
-        index: Artyści
-      site:
-        home: Karoryfer Lecolds
-      track:
-        index: Utwory
-      attachment:
-        new: <Nowy załącznik>
-        index: Załączniki
-    legend:
-      artist: Artysta
-      page: Strona
-      post: Wiadomość
-      event: Wydarzenie
-      video: Film
-      article: Informacje
-      album: Wydawnictwo
-      user: Użytkownik
-    label:
-      release_message: Wydawnictwo jest przygotowywane do pobrania. Prosimy o chwilę cierpliwości. Możesz powrócić tu za minutę albo dwie. Będzie gotowe.
-      nothing_here_yet: Nic tu jeszcze nie ma.
-      nothing_here: Brak
-      unpublished: Szkice
-      true_value: tak
-      false_value: nie
-      download: Pobierz
-      post: Wiadomość
-      event: Wydarzenie
-      posts: Wiadomości
-      events: Wydarzenia
-      drafts: Szkice
-      user_session:
-        login: "Użytkownik"
-        password: "Hasło"
-        submit: "Wpuść mnie"
-      artist:
-        name: Nazwa
-        image: Obrazek
-        reference: Identyfikator
-        summary: W skrócie
-        description: Dokładniej
-      page:
-        title: Tytuł
-        reference: Identyfikator
-        content: Opis
-      event:
-        all: ...
-        drafts: Szkice wydarzeń
-        title: Tytuł
-        poster: Plakat
-        poster_url: URL plakatu
-        status: Status
-        artist_id: Artysta
-        location: Miejsce wydarzenia
-        address: Adres
-        event_date: Data wydarzenia
-        event_time: Godzina
-        duration: Dni ważności
-        free_entrance: Wstęp wolny
-        price: Cena
-        body: Treść
-        external_urls: URL stron zewnętrznych
-      post:
-        all: ...
-        drafts: Szkice wiadomości
-        tags: Tagi
-        title: Tytuł
-        status: Status
-        artist_id: Artysta
-        location: Miejsce wydarzenia
-        event_date: Data wydarzenia
-        event_duration: Dni ważności
-        body: Treść
-      video:
-        all: ...
-        title: Tytuł
-        url: URL
-        artist_id: Artysta
-        body: Opis
-      article:
-        title: Tytuł
-        body: Treść
-      album:
-        title: Tytuł
-        reference: Indentyfikator
-        artist_id: Artysta
-        unpublished: Szkic
-        published: Opublikowany
-        year: Rok
-        media: Media
-        image: Okładka
-        license_id: Licencja
-        donation: Darowizny
-        description: Opis
-      attachment:
-        file: Plik
-      site:
-        name: Karoryfer Lecolds
-        desc: Wirtualna wytwórnia płytowa
-      user:
-        login: Login
-        email: E-mail
-        password: Hasło
-        password_confirmation: Potwierdzenie hasła
-        admin: Administrator
-        created_at: Utworzono
-        updated_at: Zmodyfikowano
-        last_login_at: Ostatnie logowanie
-        login_count: Ilość logowań
-        failed_login_count: Ilość nieudanych logowań
-      membership:
-        artist_id: Artysta
-    sidebar:
-      title:
-        home: Profil
-        page: Strony
-        post: Wiadomości
-        event: Wydarzenia
-        video: Filmy
-        article: Informacje
-        artist: Artysta
-        album: Wydawnictwa
-        related: Zobacz też
-        also: Oraz
-        others: Inne
-        latest: Ostatnio dodane
+    new: Dodaj
+    edit: Zmień
+    delete: Usuń
+    save: Zapisz
+    cancel_edit: Zostaw jak było
+    cancel_new: Odpuść sobie
+    remove_image: Usuń obrazek
+    destroy_confirmation: Czy na pewno to usunąć?
+
+  title:
+    user_session:
+      new: Logowanie
+    album:
+      index: Wydawnictwa
+      new: <Nowe wydawnictwo>
+    artist:
+      index: Artyści
+      new: <Nowy artysta>
+    page:
+      index: Strony
+      new: <Nowa strona>
+    post:
+      index: Wiadomości
+      new: <Nowa wiadomość>
+    event:
+      index: Wydarzenia
+      new: <Nowe wydarzenie>
+    video:
+      index: Filmy
+      new: <Nowy film>
+    user:
+      index: Użytkownicy
+      new: <Nowy użytkownik>
+      edit: Zmiana danych
+      edit_password: Zmiana hasła
+    membership:
+      index: Artyści
+    site:
+      home: Karoryfer Lecolds
+    track:
+      index: Utwory
+    attachment:
+      new: <Nowy załącznik>
+      index: Załączniki
+
+  label:
+    release_message: Wydawnictwo jest przygotowywane do pobrania. Możesz powrócić tu za minutę albo dwie. Będzie gotowe.
+    nothing_here_yet: Nic tu jeszcze nie ma.
+    nothing_here: Brak
+    unpublished: Szkice
+    true_value: tak
+    false_value: nie
+    download: Pobierz
+    artist: Artysta
+    album: Wydawnictwo
+    post: Wiadomość
+    event: Wydarzenie
+    albums: Wydawnictwa
+    posts: Wiadomości
+    events: Wydarzenia
+    drafts: Szkice
+    pages: Strony
+    posts: Wiadomości
+    events: Wydarzenia
+    videos: Filmy
+    user_session:
+      login: Użytkownik
+      password: Hasło
+      submit: Wpuść mnie
+    artist:
+      name: Nazwa
+      image: Obrazek
+      reference: Identyfikator
+      summary: W skrócie
+      description: Dokładniej
+    page:
+      title: Tytuł
+      reference: Identyfikator
+      content: Opis
+    event:
+      all: ...
+      drafts: Szkice wydarzeń
+      title: Tytuł
+      poster: Plakat
+      poster_url: URL plakatu
+      status: Status
+      artist_id: Artysta
+      location: Miejsce wydarzenia
+      address: Adres
+      event_date: Data wydarzenia
+      event_time: Godzina
+      duration: Dni ważności
+      free_entrance: Wstęp wolny
+      price: Cena
+      body: Treść
+      external_urls: URL stron zewnętrznych
+    post:
+      all: ...
+      drafts: Szkice wiadomości
+      tags: Tagi
+      title: Tytuł
+      status: Status
+      artist_id: Artysta
+      location: Miejsce wydarzenia
+      event_date: Data wydarzenia
+      event_duration: Dni ważności
+      body: Treść
+    video:
+      all: ...
+      title: Tytuł
+      url: URL
+      artist_id: Artysta
+      body: Opis
+    article:
+      title: Tytuł
+      body: Treść
+    album:
+      title: Tytuł
+      reference: Indentyfikator
+      artist_id: Artysta
+      unpublished: Szkic
+      published: Opublikowany
+      year: Rok
+      media: Media
+      image: Okładka
+      license_id: Licencja
+      donation: Darowizny
+      description: Opis
+    attachment:
+      file: Plik
+    site:
+      name: Karoryfer Lecolds
+      desc: Wirtualna wytwórnia płytowa
+    user:
+      login: Login
+      email: E-mail
+      password: Hasło
+      password_confirmation: Potwierdzenie hasła
+      admin: Administrator
+      created_at: Utworzono
+      updated_at: Zmodyfikowano
+      last_login_at: Ostatnie logowanie
+      login_count: Ilość logowań
+      failed_login_count: Ilość nieudanych logowań
+    membership:
+      artist_id: Artysta

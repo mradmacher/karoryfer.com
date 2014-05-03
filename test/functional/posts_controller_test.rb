@@ -29,9 +29,9 @@ class PostsControllerTest < ActionController::TestCase
     post = Post.sham!( artist: membership.artist )
     get :edit, artist_id: post.artist.to_param, id: post.to_param
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'helpers.label.post.title' )
+      assert_select 'label', I18n.t( 'label.post.title' )
       assert_select 'input[type=text][name=?][value=?]', 'post[title]', post.title
-      assert_select 'label', I18n.t( 'helpers.label.post.body' )
+      assert_select 'label', I18n.t( 'label.post.body' )
       assert_select 'textarea[name=?]', 'post[body]', :text => post.body
     end
   end
@@ -41,9 +41,9 @@ class PostsControllerTest < ActionController::TestCase
     login( membership.user )
     get :new, artist_id: membership.artist
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'helpers.label.post.title' )
+      assert_select 'label', I18n.t( 'label.post.title' )
       assert_select 'input[type=text][name=?]', 'post[title]'
-      assert_select 'label', I18n.t( 'helpers.label.post.body' )
+      assert_select 'label', I18n.t( 'label.post.body' )
       assert_select 'textarea[name=?]', 'post[body]'
     end
   end

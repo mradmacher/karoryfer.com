@@ -1,28 +1,28 @@
-<%= render_title t( 'helpers.title.user.edit' ), @user.login, t( 'helpers.title.user.index' ) %>
-<h1><%= t 'helpers.title.user.index'  %></h1>
+<%= render_title t( 'title.user.edit' ), @user.login, t( 'title.user.index' ) %>
+<h1><%= t 'title.user.index'  %></h1>
 <h2><%= @user.login %></h2>
-<h3><%= t 'helpers.title.user.edit' %></h3>
+<h3><%= t 'title.user.edit' %></h3>
 <% content_for :actions do %>
-  <%= link_to_action t( 'helpers.action.cancel_edit' ), admin_user_path( @user ) %>
+  <%= link_to_action t( 'action.cancel_edit' ), admin_user_path( @user ) %>
 <% end %>
 <%= form_for [:admin, @user] do |f| %>
 	<%= f.error_messages %>
   <div class="form-group">
-		<%= f.label :login, t( 'helpers.label.user.login' ) %>
+		<%= f.label :login, t( 'label.user.login' ) %>
 		<%= f.text_field :login, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-		<%= f.label :email, t( 'helpers.label.user.email' ) %>
+		<%= f.label :email, t( 'label.user.email' ) %>
 		<%= f.text_field :email, class: 'form-control' %>
   </div>
 
   <div class="form-group">
 		<% if can? :manage, User %>
-			<%= f.label :admin, t( 'helpers.label.user.admin' ) %>
+			<%= f.label :admin, t( 'label.user.admin' ) %>
 			<%= f.check_box :admin, class: 'form-control' %>
 		<% end %>
   </div>
-  <button type="submit" class="btn btn-default"><%=t 'helpers.action.save' %></button>
+  <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
 <% end %>
 

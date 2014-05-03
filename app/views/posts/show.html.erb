@@ -3,10 +3,10 @@
 <p>
   <div class="btn-group">
     <% if can? :write_post, @post %>
-      <a href="<%= edit_artist_post_path(@post.artist, @post) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.edit' %></a>
+      <a href="<%= edit_artist_post_path(@post.artist, @post) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
     <% end %>
     <% if can? :write_post, @post %>
-      <a href="<%= artist_post_path(@post.artist, @post) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'helpers.action.destroy_confirmation' %>" method="delete"><%=t 'helpers.action.delete' %></a>
+      <a href="<%= artist_post_path(@post.artist, @post) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
     <% end %>
   </div>
 </p>

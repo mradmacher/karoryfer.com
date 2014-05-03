@@ -8,8 +8,8 @@ class ArtistsControllerTest < ActionController::TestCase
 
   def test_get_index_displays_headers_for_guest
     get :index
-    assert_select "title", build_title( I18n.t( 'helpers.title.artist.index' ) )
-    assert_select "h1", I18n.t( 'helpers.title.artist.index' )
+    assert_select "title", build_title( I18n.t( 'title.artist.index' ) )
+    assert_select "h1", I18n.t( 'title.artist.index' )
   end
 
   def test_get_index_does_not_display_actions_for_guest
@@ -26,7 +26,7 @@ class ArtistsControllerTest < ActionController::TestCase
   def test_get_index_displays_actions_for_admin
     login( User.sham!(:admin) )
     get :index
-    assert_select 'a[href=?]', new_artist_path, I18n.t( 'helpers.action.artist.new' )
+    assert_select 'a[href=?]', new_artist_path, I18n.t( 'action.artist.new' )
   end
 
   def test_get_show_succeeds
@@ -61,7 +61,7 @@ class ArtistsControllerTest < ActionController::TestCase
     membership = Membership.sham!
     login( membership.user )
     get :show, :id => membership.artist.to_param
-    assert_select 'a[href=?]', edit_artist_path, I18n.t( 'helpers.action.artist.edit' )
+    assert_select 'a[href=?]', edit_artist_path, I18n.t( 'action.edit' )
     assert_select 'a[href=?][data-method=delete]', artist_path( membership.artist ), 0
   end
 
@@ -95,25 +95,24 @@ class ArtistsControllerTest < ActionController::TestCase
   def test_get_new_displays_headers_for_admin
     login( User.sham!(:admin) )
     get :new
-    assert_select "title", build_title( I18n.t( 'helpers.title.artist.new' ) )
-    assert_select "h1", I18n.t( 'helpers.title.artist.new' )
+    assert_select "title", CGI.escape_html( build_title( I18n.t( 'title.artist.new' ) ) )
+    assert_select "h1", CGI.escape_html( I18n.t( 'title.artist.new' ) )
   end
 
   def test_get_new_displays_form_for_admin
     login( User.sham!(:admin) )
     get :new
     assert_select 'form[enctype="multipart/form-data"]' do
-      assert_select 'label', I18n.t( 'helpers.label.artist.name' )
+      assert_select 'label', I18n.t( 'label.artist.name' )
       assert_select 'input[type=text][name=?]', 'artist[name]'
-      assert_select 'label', I18n.t( 'helpers.label.artist.reference' )
+      assert_select 'label', I18n.t( 'label.artist.reference' )
       assert_select 'input[type=text][name=?]', 'artist[reference]'
-      assert_select 'label', I18n.t( 'helpers.label.artist.image' )
+      assert_select 'label', I18n.t( 'label.artist.image' )
       assert_select 'input[type=file][name=?]', 'artist[image]'
-      assert_select 'label', I18n.t( 'helpers.label.artist.summary' )
+      assert_select 'label', I18n.t( 'label.artist.summary' )
       assert_select 'input[type=text][name=?]', 'artist[summary]'
-      assert_select 'label', I18n.t( 'helpers.label.artist.description' )
+      assert_select 'label', I18n.t( 'label.artist.description' )
       assert_select 'textarea[name=?]', 'artist[description]'
-      assert_select 'input[type=submit][value=?]', I18n.t( 'helpers.action.save' )
     end
   end
 
@@ -149,16 +148,15 @@ class ArtistsControllerTest < ActionController::TestCase
     login( User.sham!(:admin) )
     artist = Artist.sham!
     get :edit, :id => artist.to_param
-    assert_select "title", build_title( I18n.t( 'helpers.title.artist.edit' ), artist.name )
+    assert_select "title", build_title( artist.name )
     assert_select 'h1', artist.name
-    assert_select 'h2', I18n.t( 'helpers.title.artist.edit' )
   end
 
   def test_get_edit_displays_actions_for_admin
     login( User.sham!(:admin) )
     artist = Artist.sham!
     get :edit, :id => artist.to_param
-    assert_select 'a[href=?]', artist_path( artist ), I18n.t( 'helpers.action.cancel_edit' )
+    assert_select 'a[href=?]', artist_path( artist ), I18n.t( 'action.cancel_edit' )
   end
 
   def test_get_edit_displays_form_for_admin
@@ -166,17 +164,16 @@ class ArtistsControllerTest < ActionController::TestCase
     artist = Artist.sham!
     get :edit, :id => artist.to_param
     assert_select 'form[enctype="multipart/form-data"]' do
-      assert_select 'label', I18n.t( 'helpers.label.artist.name' )
+      assert_select 'label', I18n.t( 'label.artist.name' )
       assert_select 'input[type=text][name=?][value=?]', 'artist[name]', artist.name
-      assert_select 'label', I18n.t( 'helpers.label.artist.reference' )
+      assert_select 'label', I18n.t( 'label.artist.reference' )
       assert_select 'input[type=text][name=?][value=?]', 'artist[reference]', artist.reference
-      assert_select 'label', I18n.t( 'helpers.label.artist.image' )
+      assert_select 'label', I18n.t( 'label.artist.image' )
       assert_select 'input[type=file][name=?]', 'artist[image]'
-      assert_select 'label', I18n.t( 'helpers.label.artist.summary' )
+      assert_select 'label', I18n.t( 'label.artist.summary' )
       assert_select 'input[type=text][name=?]', 'artist[summary]', artist.summary
-      assert_select 'label', I18n.t( 'helpers.label.artist.description' )
+      assert_select 'label', I18n.t( 'label.artist.description' )
       assert_select 'textarea[name=?]', 'artist[description]', artist.description
-      assert_select 'input[type=submit][value=?]', I18n.t( 'helpers.action.save' )
     end
   end
 
@@ -186,17 +183,16 @@ class ArtistsControllerTest < ActionController::TestCase
     artist = membership.artist
     get :edit, :id => artist.to_param
     assert_select 'form[enctype="multipart/form-data"]' do
-      assert_select 'label', I18n.t( 'helpers.label.artist.name' )
+      assert_select 'label', I18n.t( 'label.artist.name' )
       assert_select 'input[type=text][name=?][value=?]', 'artist[name]', artist.name
-      assert_select 'label', I18n.t( 'helpers.label.artist.reference' )
+      assert_select 'label', I18n.t( 'label.artist.reference' )
       assert_select 'input[type=text][name=?][value=?]', 'artist[reference]', artist.reference
-      assert_select 'label', I18n.t( 'helpers.label.artist.image' )
+      assert_select 'label', I18n.t( 'label.artist.image' )
       assert_select 'input[type=file][name=?]', 'artist[image]'
-      assert_select 'label', I18n.t( 'helpers.label.artist.summary' )
+      assert_select 'label', I18n.t( 'label.artist.summary' )
       assert_select 'input[type=text][name=?]', 'artist[summary]', artist.summary
-      assert_select 'label', I18n.t( 'helpers.label.artist.description' )
+      assert_select 'label', I18n.t( 'label.artist.description' )
       assert_select 'textarea[name=?]', 'artist[description]', artist.description
-      assert_select 'input[type=submit][value=?]', I18n.t( 'helpers.action.save' )
     end
   end
 

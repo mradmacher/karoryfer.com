@@ -10,7 +10,7 @@
           <li><a href="<%= admin_login_url %>" class="btn btn-default btn-xs">Zaloguj się</a></li>
         <% end %>
         <% if can? :write_user, User %>
-          <li><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t( 'helpers.title.user.index' ) %></a></li>
+          <li><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t( 'title.user.index' ) %></a></li>
         <% end %>
       </ul>
     </div>

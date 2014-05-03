@@ -44,7 +44,7 @@ module ResourcesControllerTest
       login( membership.user )
       resource = resource_class.sham!( artist: membership.artist )
       get :edit, artist_id: resource.artist.to_param, id: resource.to_param
-      assert_select 'a[href=?]', send( "artist_#{resource_name}_path", membership.artist, resource ), I18n.t( 'helpers.action.cancel_edit' )
+      assert_select 'a[href=?]', send( "artist_#{resource_name}_path", membership.artist, resource ), I18n.t( 'action.cancel_edit' )
     end
   end
 end
