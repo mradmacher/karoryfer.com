@@ -81,7 +81,7 @@ module AlbumsControllerTests
       artist = Artist.sham!
       login( User.sham!( :admin ) )
       get :index, artist_id: artist.to_param
-      assert_select 'a[href=?]', new_artist_album_path(artist), I18n.t( 'helpers.action.album.new' )
+      assert_select 'a[href=?]', new_artist_album_path(artist), I18n.t( 'action.new' )
     end
   end
 end

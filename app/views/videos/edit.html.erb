@@ -1,7 +1,7 @@
 <%= render_title @video.title %>
 <h2><%= @video.title %></h2>
 <p>
-  <a href="<%= artist_video_path(@video.artist, @video) %>" class="btn btn-warning btn-xs"><%=t 'helpers.action.cancel_edit' %></a>
+  <a href="<%= artist_video_path(@video.artist, @video) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_edit' %></a>
 </p>
 
 <%= render :partial => 'form' %>

@@ -1,9 +1,9 @@
-<%= render_title t( 'helpers.title.video.index' ) %>
+<%= render_title t( 'title.video.index' ) %>
 
-<h2 class="hidden"><%= t 'helpers.title.video.index' %></h2>
+<h2 class="hidden"><%= t 'title.video.index' %></h2>
 
 <% if @videos.empty? %>
-  <%= t( 'helpers.label.nothing_here_yet' ) %>
+  <%= t( 'label.nothing_here_yet' ) %>
 <% end %>
 <ul class="row list-unstyled">
 <% @videos.each do |video| %>

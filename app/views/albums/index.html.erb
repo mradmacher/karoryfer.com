@@ -1,7 +1,7 @@
-<%= render_title t( 'helpers.title.album.index') %>
+<%= render_title t( 'title.album.index') %>
 
 <% if @albums.empty? %>
-  <%= t( 'helpers.label.nothing_here_yet' ) %>
+  <%= t( 'label.nothing_here_yet' ) %>
 <% end %>
 <ul class="row list-unstyled">
 <% @albums.each do |album| %>

@@ -46,11 +46,11 @@ class PagesControllerTest < ActionController::TestCase
     page = Page.sham!( artist: membership.artist )
     get :edit, artist_id: page.artist.to_param, id: page.to_param
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'helpers.label.page.title' )
+      assert_select 'label', I18n.t( 'label.page.title' )
       assert_select 'input[type=text][name=?][value=?]', 'page[title]', page.title
-      assert_select 'label', I18n.t( 'helpers.label.page.reference' )
+      assert_select 'label', I18n.t( 'label.page.reference' )
       assert_select 'input[type=text][name=?][value=?][disabled=disabled]', 'page[reference]', page.reference
-      assert_select 'label', I18n.t( 'helpers.label.page.content' )
+      assert_select 'label', I18n.t( 'label.page.content' )
       assert_select 'textarea[name=?]', 'page[content]', page.content
       assert_select 'button[type=submit]'
     end
@@ -61,12 +61,12 @@ class PagesControllerTest < ActionController::TestCase
     login( membership.user )
     get :new, artist_id: membership.artist.to_param
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'helpers.label.page.title' )
+      assert_select 'label', I18n.t( 'label.page.title' )
       assert_select 'input[type=text][name=?]', 'page[title]'
-      assert_select 'label', I18n.t( 'helpers.label.page.reference' )
+      assert_select 'label', I18n.t( 'label.page.reference' )
       assert_select 'input[type=text][name=?][disabled=disabled]', 'page[reference]', 0
       assert_select 'input[type=text][name=?]', 'page[reference]'
-      assert_select 'label', I18n.t( 'helpers.label.page.content' )
+      assert_select 'label', I18n.t( 'label.page.content' )
       assert_select 'textarea[name=?]', 'page[content]'
       assert_select 'button[type=submit]'
     end

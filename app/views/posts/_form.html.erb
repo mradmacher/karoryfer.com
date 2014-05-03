@@ -1,15 +1,15 @@
 <%= form_for [current_artist, @post] do |f| %>
 	<%= f.error_messages %>
     <div class="form-group">
-      <%= f.label :title, t( "helpers.label.post.title" ) %>
+      <%= f.label :title, t( "label.post.title" ) %>
       <%= f.text_field :title, class: 'form-control' %>
     </div>
 
     <div class="form-group">
-      <%= f.label :body, t( "helpers.label.post.body" ) %>
+      <%= f.label :body, t( "label.post.body" ) %>
       <%= f.text_area :body, class: 'form-control' %>
     </div>
 
-    <button type="submit" class="btn btn-default"><%=t 'helpers.action.save' %></button>
+    <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
 <% end %>
 

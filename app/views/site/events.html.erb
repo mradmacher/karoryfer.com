@@ -1,12 +1,12 @@
 <%= render partial: 'sidebar' %>
 <%= render partial: 'nav' %>
 
-<%= render_title t( 'helpers.title.event.index' ) %>
+<%= render_title t( 'title.event.index' ) %>
 
-<h1 class="hidden"><%= t 'helpers.title.event.index' %></h1>
+<h1 class="hidden"><%= t 'title.event.index' %></h1>
 
 <% if @events.empty? %>
- <p><%= t( 'helpers.label.nothing_here_yet' ) %></p>
+ <p><%= t( 'label.nothing_here_yet' ) %></p>
 <% end %>
 
 <ul class="media-list">

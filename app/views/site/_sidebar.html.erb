@@ -2,7 +2,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4><a href="<%= events_path %>"><%=t 'helpers.sidebar.title.event' %></a></h4>
+      <h4><a href="<%= events_path %>"><%=t 'label.events' %></a></h4>
     </div>
     <div id="calendar"><div style="display:none"><%= @current_date %></div></div>
     <% if @current_events %>
@@ -22,7 +22,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4><a href="<%= posts_path %>"><%=t 'helpers.sidebar.title.post' %></a></h4>
+      <h4><a href="<%= posts_path %>"><%=t 'label.posts' %></a></h4>
     </div>
     <% if @current_posts %>
       <div class="panel-body">
@@ -40,7 +40,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4><a href="<%= videos_path %>"><%=t 'helpers.sidebar.title.video' %></a></h4>
+      <h4><a href="<%= videos_path %>"><%=t 'label.videos' %></a></h4>
     </div>
     <% if @current_videos %>
       <div class="panel-body">

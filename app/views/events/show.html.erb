@@ -3,10 +3,10 @@
 <p>
   <div class="btn-group">
     <% if can? :write_event, @event %>
-      <a href="<%= edit_artist_event_path(@event.artist, @event) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.edit' %></a>
+      <a href="<%= edit_artist_event_path(@event.artist, @event) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
     <% end %>
-    <% if can? :write_video, @video %>
-      <a href="<%= artist_event_path(@event.artist, @event) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'helpers.action.destroy_confirmation' %>" method="delete"><%=t 'helpers.action.delete' %></a>
+    <% if can? :write_event, @event %>
+      <a href="<%= artist_event_path(@event.artist, @event) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
     <% end %>
   </div>
 </p>
@@ -27,14 +27,14 @@
   </div>
   <p>
   <% if @event.event_time.present? %>
-    <strong><%=t 'helpers.label.event.event_time' %>:</strong> <%= @event.event_time %>
+    <strong><%=t 'label.event.event_time' %>:</strong> <%= @event.event_time %>
   <% end %>
   <% if @event.free_entrance? %>
     <br />
-    <strong><%=t 'helpers.label.event.free_entrance' %></strong>
+    <strong><%=t 'label.event.free_entrance' %></strong>
   <% elsif @event.price.present? %>
     <br />
-    <strong><%=t 'helpers.label.event.price' %>:</strong> <%= @event.price %>
+    <strong><%=t 'label.event.price' %>:</strong> <%= @event.price %>
   <% end %>
   </p>
   <p>

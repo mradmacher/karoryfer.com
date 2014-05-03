@@ -27,8 +27,8 @@ module UsersControllerTest
 
     def test_get_show_displays_headers
       get :show, :id => @user.to_param
-      assert_title @user.login, I18n.t( 'helpers.title.user.index' )
-      assert_headers I18n.t( 'helpers.title.user.index' ), @user.login
+      assert_title @user.login, I18n.t( 'title.user.index' )
+      assert_headers I18n.t( 'title.user.index' ), @user.login
     end
 
     def test_get_show_displays_memberships
@@ -56,14 +56,14 @@ module UsersControllerTest
 
     def test_get_edit_displays_headers
       get :edit, :id => @user.to_param
-      assert_title I18n.t( 'helpers.title.user.edit' ), @user.login, I18n.t( 'helpers.title.user.index' )
-      assert_headers I18n.t( 'helpers.title.user.index' ), @user.login, I18n.t( 'helpers.title.user.edit' )
+      assert_title I18n.t( 'title.user.edit' ), @user.login, I18n.t( 'title.user.index' )
+      assert_headers I18n.t( 'title.user.index' ), @user.login, I18n.t( 'title.user.edit' )
     end
 
     def test_get_edit_password_displays_headers
       get :edit_password, :id => @user.to_param
-      assert_title I18n.t( 'helpers.title.user.edit_password' ), @user.login, I18n.t( 'helpers.title.user.index' )
-      assert_headers I18n.t( 'helpers.title.user.index' ), @user.login, I18n.t( 'helpers.title.user.edit_password' )
+      assert_title I18n.t( 'title.user.edit_password' ), @user.login, I18n.t( 'title.user.index' )
+      assert_headers I18n.t( 'title.user.index' ), @user.login, I18n.t( 'title.user.edit_password' )
     end
 
     def test_get_edit_does_not_display_admin_field

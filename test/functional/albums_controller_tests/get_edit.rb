@@ -41,10 +41,9 @@ module AlbumsControllerTests
       login( User.sham!( :admin ) )
       album = Album.sham!
       get :edit, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_select "title", build_title( I18n.t( 'helpers.title.album.edit' ), album.title, album.artist.name )
+      assert_select "title", build_title( album.title, album.artist.name )
       assert_select 'h1', album.artist.name
-      assert_select 'h2', I18n.t( 'helpers.title.album.index' )
-      assert_select 'h3', album.title
+      assert_select 'h2', album.title
     end
 
     def test_get_edit_for_admin_displays_form
@@ -52,12 +51,12 @@ module AlbumsControllerTests
       album = Album.sham!
       get :edit, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select 'form[enctype="multipart/form-data"]' do
-        assert_select 'label', I18n.t( 'helpers.label.album.title' )
+        assert_select 'label', I18n.t( 'label.album.title' )
         assert_select 'input[type=text][name=?][value=?]', 'album[title]', album.title
-        assert_select 'label', I18n.t( 'helpers.label.album.published' )
-        assert_select 'label', I18n.t( 'helpers.label.album.year' )
+        assert_select 'label', I18n.t( 'label.album.published' )
+        assert_select 'label', I18n.t( 'label.album.year' )
         assert_select 'input[type=number][name=?][value=?]', 'album[year]', album.year
-        assert_select 'label', I18n.t( 'helpers.label.album.image' )
+        assert_select 'label', I18n.t( 'label.album.image' )
         assert_select 'input[type=file][name=?]', 'album[image]'
         assert_select 'select[name=?]', 'album[license_id]' do
           assert_select 'option[value=?]', ''
@@ -70,9 +69,9 @@ module AlbumsControllerTests
             end
           end
         end
-        assert_select 'label', I18n.t( 'helpers.label.album.donation' )
+        assert_select 'label', I18n.t( 'label.album.donation' )
         assert_select 'textarea[name=?]', 'album[donation]', album.donation
-        assert_select 'label', I18n.t( 'helpers.label.album.description' )
+        assert_select 'label', I18n.t( 'label.album.description' )
         assert_select 'textarea[name=?]', 'album[description]', album.description
         assert_select 'button[type=submit]'
       end
@@ -82,7 +81,7 @@ module AlbumsControllerTests
       login( User.sham!( :admin ) )
       album = Album.sham!
       get :edit, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_select 'a[href=?]', artist_album_path( album.artist, album ), I18n.t( 'helpers.action.cancel_edit' )
+      assert_select 'a[href=?]', artist_album_path( album.artist, album ), I18n.t( 'action.cancel_edit' )
     end
   end
 end

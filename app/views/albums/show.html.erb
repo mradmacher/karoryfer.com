@@ -2,13 +2,13 @@
 <h2>
   <%= @album.title %>
   <% unless @album.published? %>
-    <small><%= t('helpers.label.album.unpublished') %></small>
+    <small><%= t('label.album.unpublished') %></small>
   <% end %>
 </h2>
 <p>
   <div class="btn-group">
     <% if can? :write_album, @album %>
-      <a href="<%= edit_artist_album_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.edit' %></a>
+      <a href="<%= edit_artist_album_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
     <% end %>
   </div>
 </p>
@@ -51,12 +51,12 @@
           </div>
           <div class="modal-body">
             <p class="waiting-message">
-              <%=t 'helpers.label.release_message' %>
+              <%=t 'label.release_message' %>
             </p>
             <p class="progress-indicator"></p>
             <p class="ready-message">
-              <a href="#" class="download-link" title="<%= t('helpers.label.download') %>">
-                <button class="download-button img-circle"><strong><%= t('helpers.label.download') %></strong></button></a>
+              <a href="#" class="download-link" title="<%= t('label.download') %>">
+                <button class="download-button img-circle"><strong><%= t('label.download') %></strong></button></a>
             </p>
           </div>
         </div>
@@ -76,7 +76,7 @@
 <%= render_text @album.description %>
 
 <% unless @album.tracks.empty? %>
-  <h4><%= t 'helpers.title.track.index' %></h4>
+  <h4><%= t 'title.track.index' %></h4>
   <ol id="tracklist">
     <% @album.tracks.each do |track| %>
       <li data-track-id="<%= track.id %>">
@@ -121,22 +121,22 @@
   </div>
 <% end %>
 
-<h4><%= t 'helpers.title.attachment.index' %></h4>
+<h4><%= t 'title.attachment.index' %></h4>
 <% if can? :write_attachment, Attachment %>
   <p>
-    <a href="<%= new_artist_album_attachment_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.new' %></a>
+    <a href="<%= new_artist_album_attachment_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
   </p>
 <% end %>
 <% if @album.attachments.empty? %>
-  <%=t 'helpers.label.nothing_here' %>
+  <%=t 'label.nothing_here' %>
 <% end %>
 <ul>
   <% @album.attachments.each do |attachment| %>
     <li>
       <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
       <% if can? :write_attachment, @attachment %>
-        <a href="<%= artist_album_attachment_path(@album.artist, @album, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'helpers.action.destroy_confirmation' %>">
-          <%=t 'helpers.action.destroy' %>
+        <a href="<%= artist_album_attachment_path(@album.artist, @album, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+          <%=t 'action.delete' %>
         </a>
       <% end %>
     </li>

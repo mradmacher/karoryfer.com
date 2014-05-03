@@ -37,15 +37,15 @@ module ApplicationHelper
   end
 
   def post_icon
-    image_tag 'tags/note.png', alt: t( 'helpers.legend.post' ), title: t( 'helpers.legend.post' )
+    image_tag 'tags/note.png', alt: t( 'label.post' ), title: t( 'label.post' )
   end
 
   def event_icon( expired = false )
-    image_tag "tags/#{expired ? 'expired_' : ''}event.png", alt: t( 'helpers.legend.event' ), title: t( 'helpers.legend.event' )
+    image_tag "tags/#{expired ? 'expired_' : ''}event.png", alt: t( 'label.event' ), title: t( 'label.event' )
   end
 
   def video_icon
-    image_tag 'tags/video.png', alt: t( 'helpers.legend.video' ), title: t( 'helpers.legend.video' )
+    image_tag 'tags/video.png', alt: t( 'label.video' ), title: t( 'label.video' )
   end
 
   def link_to_action( title, link, options = {} )

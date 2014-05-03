@@ -24,9 +24,7 @@ module AlbumsControllerTests
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select "title", build_title( album.title, album.artist.name )
       assert_select 'h1', album.artist.name
-      assert_select 'h2', I18n.t( 'helpers.title.album.index' )
-      assert_select 'h3', album.title
-      assert_select 'h4', album.year.to_s
+      assert_select 'h2', album.title
     end
 
     def test_get_show_for_guest_does_not_display_actions
@@ -83,8 +81,8 @@ module AlbumsControllerTests
       login( User.sham!( :admin ) )
       album = Album.sham!
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_select 'a[href=?]', edit_artist_album_path( album.artist ), I18n.t( 'helpers.action.album.edit' )
-      #assert_select 'a[href=?][data-method=delete]', album_path( album ), I18n.t( 'helpers.action.album.destroy' )
+      assert_select 'a[href=?]', edit_artist_album_path( album.artist ), I18n.t( 'action.edit' )
+      #assert_select 'a[href=?][data-method=delete]', album_path( album ), I18n.t( 'action.album.destroy' )
       assert_select 'a[href=?][data-method=delete]', artist_album_path( album.artist, album ), 0
     end
 

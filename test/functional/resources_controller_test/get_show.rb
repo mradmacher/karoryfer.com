@@ -42,10 +42,10 @@ module ResourcesControllerTest
       login( membership.user )
       resource = resource_class.sham!( artist: membership.artist )
       get :show, artist_id: resource.artist.to_param, id: resource.to_param
-      assert_select 'a[href=?]', send( "new_artist_#{resource_name}_path", resource.artist ), I18n.t( "helpers.action.new" )
-      assert_select 'a[href=?]', send( "edit_artist_#{resource_name}_path", resource.artist, resource ), I18n.t( "helpers.action.edit" )
+      assert_select 'a[href=?]', send( "new_artist_#{resource_name}_path", resource.artist ), I18n.t( "action.new" )
+      assert_select 'a[href=?]', send( "edit_artist_#{resource_name}_path", resource.artist, resource ), I18n.t( "action.edit" )
       assert_select 'a[href=?][data-method=delete]', send( "artist_#{resource_name}_path", resource.artist, resource ),
-        I18n.t( "helpers.action.destroy" )
+        I18n.t( "action.delete" )
     end
   end
 end

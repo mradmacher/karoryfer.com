@@ -1,8 +1,8 @@
-<%= render_title t( 'helpers.title.artist.index' ) %>
-<h1 class="hidden"><%=t 'helpers.title.artist.index' %></h1>
+<%= render_title t( 'title.artist.index' ) %>
+<h1 class="hidden"><%=t 'title.artist.index' %></h1>
 <% content_for :actions do %>
 	<% if can? :write_artist, Artist %>
-		<%= link_to_action t( 'helpers.action.artist.new' ), new_artist_path %>
+		<%= link_to_action t( 'action.artist.new' ), new_artist_path %>
 	<% end %>
 <% end %>
 <ul class="row list-unstyled">
