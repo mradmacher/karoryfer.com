@@ -32,7 +32,7 @@ module ResourcesControllerTest
       get :new, artist_id: membership.artist.to_param
       assert_select "title", build_title( I18n.t( "helpers.title.#{resource_name}.new" ), membership.artist.name )
       assert_select "h1", membership.artist.name
-      assert_select "h2", I18n.t( "helpers.title.#{resource_name}.index" )
+      assert_select "h2", I18n.t( "helpers.title.#{resource_name}.new" )
     end
 
     def test_get_new_for_artist_user_displays_actions

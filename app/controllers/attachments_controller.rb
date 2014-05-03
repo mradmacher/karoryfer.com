@@ -1,11 +1,9 @@
 class AttachmentsController < ApplicationController
   layout :set_layout
-
-  def index
-  end
+  before_filter :set_album
 
   def show
-    attachment = current_album.attachments.find( params[:id] )
+    attachment = @album.attachments.find( params[:id] )
     redirect_to attachment.file.url
   end
 
@@ -15,26 +13,26 @@ class AttachmentsController < ApplicationController
   end
 
   def create
-		@attachment = current_album.attachments.new( params[:attachment] )
+		@attachment = @album.attachments.new( params[:attachment] )
 		authorize! :write_attachment, @attachment
     if @attachment.save
-      redirect_to artist_album_attachments_url( current_artist, current_album )
+      redirect_to artist_album_url( current_artist, @album )
     else
       render :action => 'new'
     end
   end
 
   def destroy
-		@attachment = current_album.attachments.find( params[:id] )
+		@attachment = @album.attachments.find( params[:id] )
 		authorize! :write_attachment, @attachment
 		@attachment.destroy
-    redirect_to artist_album_attachments_url( current_artist, current_album )
+    redirect_to artist_album_url( current_artist, @album )
   end
 
   private
-  def current_album
-    current_artist.albums.find_by_reference( params[:album_id] )
-  end
 
+  def set_album
+    @album = current_artist.albums.find_by_reference( params[:album_id] )
+  end
 end
 

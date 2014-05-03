@@ -1,14 +1,15 @@
 <%= render_title @page.title %>
-<% content_for :context_actions do %>
-  <% if can? :write_page, @page %>
-    <%= link_to_action t( 'helpers.action.page.edit' ), edit_artist_page_path( @page.artist, @page ) %>
-  <% end %>
-  <% if can? :write_page, @page %>
-    <%= link_to_action t( 'helpers.action.page.destroy' ), artist_page_path( @page.artist, @page ), :method => :delete,
-      :confirm => t( 'helpers.action.destroy_confirmation' ) %>
-  <% end %>
-<% end %>
 <h2><%= @page.title %></h2>
+<p>
+  <div class="btn-group">
+    <% if can? :write_page, @page %>
+      <a href="<%= edit_artist_page_path(@page.artist, @page) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.edit' %></a>
+    <% end %>
+    <% if can? :write_page, @page %>
+      <a href="<%= artist_page_path(@page.artist, @page) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'helpers.action.destroy_confirmation' %>" method="delete"><%=t 'helpers.action.delete' %></a>
+    <% end %>
+  </div>
+</p>
 <div class="long-text">
   <%= render_text @page.content %>
 </div>

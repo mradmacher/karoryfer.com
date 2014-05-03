@@ -24,7 +24,7 @@ module ResourcesControllerTest
       login( membership.user )
       get :index, artist_id: membership.artist.to_param
       assert_select 'a[href=?]', send("new_artist_#{resource_name}_path", membership.artist ),
-        I18n.t( "helpers.action.#{resource_name}.new" )
+        I18n.t( "helpers.action.new" )
     end
 
     def test_get_index_for_guest_displays_resources_only_for_given_artist

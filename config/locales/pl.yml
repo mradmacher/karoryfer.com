@@ -191,6 +191,9 @@ pl:
               blank: ^proszę wybrać użytkownika
   helpers:
     action:
+      new: Dodaj
+      edit: Zmień
+      delete: Usuń
       post:
         new: Wiadomość
         edit: Zmień wiadomość
@@ -218,6 +221,10 @@ pl:
         edit: Zmień wydawnictwo
         destroy: Usuń wydawnictwo
         remove_image: Usuń obrazek
+      attachment:
+        index: Załączniki
+        new: Dodaj załącznik
+        back_to_album: Wróć do albumu
       user:
         new: Dodaj użytkownika
         edit: Zmień dane
@@ -243,35 +250,31 @@ pl:
         new: Logowanie
       album:
         index: Wydawnictwa
-        new: Nowe wydawnictwo
+        new: <Nowe wydawnictwo>
         edit: Zmiana danych
       artist:
         index: Artyści
-        new: Nowy artysta
+        new: <Nowy artysta>
         edit: Zmiana danych
       page:
         index: Strony
-        new: Nowa strona
+        new: <Nowa strona>
         edit: Zmiana strony
       post:
         index: Wiadomości
-        new: Nowa wiadomość
+        new: <Nowa wiadomość>
         edit: Zmiana danych
       event:
         index: Wydarzenia
-        new: Nowe wydarzenie
+        new: <Nowe wydarzenie>
         edit: Zmiana danych
       video:
         index: Filmy
-        new: Nowy film
-        edit: Zmiana danych
-      article:
-        index: Informacje
-        new: Nowa informacja
+        new: <Nowy film>
         edit: Zmiana danych
       user:
         index: Użytkownicy
-        new: Nowy użytkownik
+        new: <Nowy użytkownik>
         edit: Zmiana danych
         edit_password: Zmiana hasła
       membership:
@@ -281,6 +284,7 @@ pl:
       track:
         index: Utwory
       attachment:
+        new: <Nowy załącznik>
         index: Załączniki
     legend:
       artist: Artysta
@@ -294,6 +298,7 @@ pl:
     label:
       release_message: Wydawnictwo jest przygotowywane do pobrania. Prosimy o chwilę cierpliwości. Możesz powrócić tu za minutę albo dwie. Będzie gotowe.
       nothing_here_yet: Nic tu jeszcze nie ma.
+      nothing_here: Brak
       unpublished: Szkice
       true_value: tak
       false_value: nie
@@ -366,6 +371,8 @@ pl:
         license_id: Licencja
         donation: Darowizny
         description: Opis
+      attachment:
+        file: Plik
       site:
         name: Karoryfer Lecolds
         desc: Wirtualna wytwórnia płytowa

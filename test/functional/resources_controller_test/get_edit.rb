@@ -34,10 +34,9 @@ module ResourcesControllerTest
       login( membership.user )
       resource = resource_class.sham!( artist: membership.artist )
       get :edit, artist_id: resource.artist.to_param, id: resource.to_param
-      assert_select "title", build_title( I18n.t( "helpers.title.#{resource_name}.edit" ), resource.artist.name )
+      assert_select "title", build_title( resource.title, resource.artist.name )
       assert_select "h1", resource.artist.name
-      assert_select "h2", I18n.t( "helpers.title.#{resource_name}.index" )
-      assert_select "h3", resource.title
+      assert_select "h2", resource.title
     end
 
     def test_get_edit_for_artist_user_displays_actions

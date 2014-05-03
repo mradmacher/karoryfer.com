@@ -1,15 +1,52 @@
 <%= render_title @event.title %>
-<% content_for :context_actions do %>
-  <% if can? :write_event, @event %>
-    <%= link_to_action t( 'helpers.action.event.edit' ), edit_artist_event_path( @event.artist, @event ) %>
+<h2><%= event_icon( @event.expired? ) %><%= @event.title %></h2>
+<p>
+  <div class="btn-group">
+    <% if can? :write_event, @event %>
+      <a href="<%= edit_artist_event_path(@event.artist, @event) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.edit' %></a>
+    <% end %>
+    <% if can? :write_video, @video %>
+      <a href="<%= artist_event_path(@event.artist, @event) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'helpers.action.destroy_confirmation' %>" method="delete"><%=t 'helpers.action.delete' %></a>
+    <% end %>
+  </div>
+</p>
+<div class="media">
+  <% if @event.poster? %>
+    <%= link_to image_tag( @event.poster.thumb.url, :alt => @event.title, :class => 'media-object media-object-normal' ),
+      @event.poster.url, :class => 'pull-left' %>
   <% end %>
-  <% if can? :write_event, @event %>
-    <%= link_to_action t( 'helpers.action.event.destroy' ), artist_event_path( @event.artist, @event ), :method => :delete,
-      :confirm => t( 'helpers.action.destroy_confirmation' ) %>
+  <div class="media-body">
+    <p class="lead">
+      <%= event_date( @event ) %><br />
+      <%= @event.location %>
+      <% if @event.address.present? %>
+        <br />
+        <small><%= @event.address %></small>
+      <% end %>
+    </p>
+  </div>
+  <p>
+  <% if @event.event_time.present? %>
+    <strong><%=t 'helpers.label.event.event_time' %>:</strong> <%= @event.event_time %>
   <% end %>
-<% end %>
+  <% if @event.free_entrance? %>
+    <br />
+    <strong><%=t 'helpers.label.event.free_entrance' %></strong>
+  <% elsif @event.price.present? %>
+    <br />
+    <strong><%=t 'helpers.label.event.price' %>:</strong> <%= @event.price %>
+  <% end %>
+  </p>
+  <p>
+    <ul class="list-unstyled">
+    <% @event.recognized_external_urls.each do |url, service| %>
+      <li><%= link_to service, url, :target => '_blank' %></li>
+    <% end %>
+    </ul>
+  </p>
+</div>
+<br />
 
-<%= render :partial => 'header', :locals => { :event => @event } %>
 <div class="long-text">
   <%= render_text @event.body %>
 </div>
