@@ -49,7 +49,7 @@ module ApplicationHelper
   end
 
   def link_to_action( title, link, options = {} )
-    link_to title, link, options.merge( :class => 'btn btn-default' )
+    link_to title, link, options.merge( :class => 'btn btn-warning btn-xs' )
   end
 
 	alias format_text render_text

@@ -1,11 +1,17 @@
 <%= render_title @album.title %>
-<h2 class="hidden"><%= t 'helpers.title.album.index' %></h2>
-
-<% content_for :context_actions do %>
-  <% if can? :write_album, @album %>
-    <%= link_to_action t( "helpers.action.album.edit" ), edit_artist_album_path( @album.artist, @album ) %>
+<h2>
+  <%= @album.title %>
+  <% unless @album.published? %>
+    <small><%= t('helpers.label.album.unpublished') %></small>
   <% end %>
-<% end %>
+</h2>
+<p>
+  <div class="btn-group">
+    <% if can? :write_album, @album %>
+      <a href="<%= edit_artist_album_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.edit' %></a>
+    <% end %>
+  </div>
+</p>
 
 <div class="media">
   <% if @album.image? %>
@@ -13,12 +19,7 @@
       :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
-    <h3 class="media-heading"><%= @album.title %>
-    <% unless @album.published? %>
-      <span class="status">(<%= t('helpers.label.album.unpublished') %>)</span>
-    <% end %>
-    </h3>
-    <h4><%= @album.year.to_s %></h4>
+    <p class="lead"><%= @album.year.to_s %></p>
 
     <p>
     <% if @album.license.present? %>
@@ -28,7 +29,9 @@
     </p>
   </div>
 </div>
+
 <br />
+
 <div class="row">
   <div class="span12">
     <div class="text-info"><%= flash[:notice] %></div>
@@ -118,14 +121,27 @@
   </div>
 <% end %>
 
-<% unless @album.attachments.empty? %>
-  <h4><%= t 'helpers.title.attachment.index' %></h4>
-  <ul>
-    <% @album.attachments.each do |attachment| %>
-      <li><a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a></li>
-    <% end %>
-  </ul>
+<h4><%= t 'helpers.title.attachment.index' %></h4>
+<% if can? :write_attachment, Attachment %>
+  <p>
+    <a href="<%= new_artist_album_attachment_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.new' %></a>
+  </p>
 <% end %>
+<% if @album.attachments.empty? %>
+  <%=t 'helpers.label.nothing_here' %>
+<% end %>
+<ul>
+  <% @album.attachments.each do |attachment| %>
+    <li>
+      <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
+      <% if can? :write_attachment, @attachment %>
+        <a href="<%= artist_album_attachment_path(@album.artist, @album, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'helpers.action.destroy_confirmation' %>">
+          <%=t 'helpers.action.destroy' %>
+        </a>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
 
 <br />
 <div class="well">

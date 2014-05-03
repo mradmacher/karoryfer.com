@@ -1,8 +1,7 @@
 <%= render_title t( 'helpers.title.page.edit' ) %>
-<% content_for :context_actions do %>
-  <%= link_to_action t( "helpers.action.cancel_edit" ), artist_page_path( @page.artist, @page ) %>
-<% end %>
-<h2 class="hidden"><%= t 'helpers.title.page.index'  %></h2>
-<h3><%= @page.title %></h3>
+<h2><%= @page.title %></h2>
+<p>
+  <a href="<%= artist_page_path(@page.artist, @page) %>" class="btn btn-warning btn-xs"><%=t 'helpers.action.cancel_edit' %></a>
+</p>
 <%= render :partial => 'form' %>
 

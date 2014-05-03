@@ -1,18 +1,18 @@
 <%= render_title @post.title %>
-<% content_for :context_actions do %>
-  <% if can? :write_post, @post %>
-    <%= link_to_action t( 'helpers.action.post.edit' ), edit_artist_post_path( @post.artist, @post ) %>
-  <% end %>
-  <% if can? :write_post, @post %>
-    <%= link_to_action t( 'helpers.action.post.destroy' ), artist_post_path( @post.artist, @post ), :method => :delete,
-      :confirm => t( 'helpers.action.destroy_confirmation' ) %>
-  <% end %>
-<% end %>
-
-<%= render :partial => 'header', :locals => { :post => @post } %>
-<div class="long-text">
+<h2><%= post_icon %><%= @post.title %></h2>
+<p>
+  <div class="btn-group">
+    <% if can? :write_post, @post %>
+      <a href="<%= edit_artist_post_path(@post.artist, @post) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.edit' %></a>
+    <% end %>
+    <% if can? :write_post, @post %>
+      <a href="<%= artist_post_path(@post.artist, @post) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'helpers.action.destroy_confirmation' %>" method="delete"><%=t 'helpers.action.delete' %></a>
+    <% end %>
+  </div>
+</p>
+<p>
   <%= render_text @post.body %>
-</div>
+</p>
 <br />
 <div class="well">
   <%= render partial: 'embeds/facebook', locals: { url: artist_post_url( @post.artist, @post ) } %>

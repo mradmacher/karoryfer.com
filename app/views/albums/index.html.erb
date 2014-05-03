@@ -1,10 +1,4 @@
 <%= render_title t( 'helpers.title.album.index') %>
-<h2 class="hidden"><%= t 'helpers.title.album.index' %></h2>
-<% content_for :context_actions do %>
-  <% if can? :write_album, Album %>
-    <%= link_to_action t( "helpers.action.album.new" ), new_artist_album_path(current_artist) %>
-  <% end %>
-<% end %>
 
 <% if @albums.empty? %>
   <%= t( 'helpers.label.nothing_here_yet' ) %>

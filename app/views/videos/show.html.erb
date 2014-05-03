@@ -1,22 +1,23 @@
 <%= render_title @video.title %>
-<% content_for :context_actions do %>
-  <% if can? :write_video, @video %>
-    <%= link_to_action t( 'helpers.action.video.edit' ), edit_artist_video_path( @video.artist, @video ) %>
+<h2><%= @video.title %></h2>
+<p>
+  <div class="btn-group">
+    <% if can? :write_video, @video %>
+      <a href="<%= edit_artist_video_path(@video.artist, @video) %>" class="btn btn-default btn-xs"><%=t 'helpers.action.edit' %></a>
+    <% end %>
+    <% if can? :write_video, @video %>
+      <a href="<%= artist_video_path(@video.artist, @video) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'helpers.action.destroy_confirmation' %>" method="delete"><%=t 'helpers.action.delete' %></a>
+    <% end %>
+  </div>
+</p>
+<p>
+  <% if @video.embed_url %>
+    <iframe width="420" height="315" src="<%= @video.embed_url %>" frameborder="0" allowfullscreen></iframe>
   <% end %>
-  <% if can? :write_video, @video %>
-    <%= link_to_action t( 'helpers.action.video.destroy' ), artist_video_path( @video.artist, @video ), :method => :delete,
-      :confirm => t( 'helpers.action.destroy_confirmation' ) %>
-  <% end %>
-<% end %>
-
-<h2 class="hidden"><%= t 'helpers.title.video.index' %></h2>
-<h3><%= @video.title %></h3>
-<% if @video.embed_url %>
-  <iframe width="420" height="315" src="<%= @video.embed_url %>" frameborder="0" allowfullscreen></iframe>
-<% end %>
-<div class="long-text">
+</p>
+<p>
   <%= render_text @video.body %>
-</div>
+</p>
 <br />
 <div class="well">
   <%= render partial: 'embeds/facebook', locals: { url: artist_video_url( @video.artist, @video ) } %>

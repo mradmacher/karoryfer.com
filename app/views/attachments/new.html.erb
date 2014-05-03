@@ -1,0 +1,21 @@
+<%= render_title @album.title %>
+<h2>
+  <%= @album.title %>
+  <% unless @album.published? %>
+    <small><%= t('helpers.label.album.unpublished') %></span>
+  <% end %>
+</h2>
+<h3><%= t( 'helpers.title.attachment.new' ) %></h3>
+<p>
+  <a href="<%= artist_album_path(@album.artist, @album) %>" class="btn btn-warning btn-xs"><%=t 'helpers.action.cancel_new' %></a>
+</p>
+
+<%= form_for [current_artist, @album, @attachment], :html => {:multipart => true} do |f| %>
+	<%= f.error_messages %>
+  <div class="form-group">
+    <%= f.label :file, t( "helpers.label.attachment.file" ) %>
+    <%= f.file_field :file %>
+  </div>
+  <button type="submit" class="btn btn-default"><%=t 'helpers.action.save' %></button>
+<% end %>
+

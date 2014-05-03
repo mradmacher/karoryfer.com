@@ -1,4 +1,4 @@
-FIXTURES_DIR = File.expand_path('../fixtures', __FILE__)
+fixtures_dir = File.expand_path('../fixtures', __FILE__)
 
 def fake_string( klass, method, min, max )
   name = nil
@@ -81,7 +81,7 @@ end
 Sham.config( Attachment ) do |c|
   c.attributes do {
     album: Sham::Nested.new( Album ),
-    file: File.open( "#{FIXTURES_DIR}/attachments/att1.jpg" )
+    file: File.open( "#{fixtures_dir}/attachments/att1.jpg" )
   } end
 end
 
@@ -116,7 +116,7 @@ Sham.config( Track, :with_file ) do |c|
     album: Sham::Nested.new( Album ),
     title: Faker::Lorem.words.join( ' ' ),
     rank: (Track.maximum(:rank) || 0) + 1,
-    file: File.open( "#{FIXTURES_DIR}/tracks/1.wav" )
+    file: File.open( "#{fixtures_dir}/tracks/1.wav" )
   } end
 end
 
