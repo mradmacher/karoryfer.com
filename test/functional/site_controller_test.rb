@@ -33,7 +33,7 @@ class SiteControllerTest < ActionController::TestCase
   end
 
   def test_get_drafts_for_user_displays_nothing
-    login( User.sham! )
+    login_user
     albums = 3.times.to_a.map{ |i| Album.sham!( published: false ) }
     get :drafts
 
@@ -43,8 +43,7 @@ class SiteControllerTest < ActionController::TestCase
   end
 
   def test_get_drafts_for_artist_user_displays_drafts
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     albums = 3.times.to_a.map{ |i| Album.sham!( published: false, artist: membership.artist ) }
     get :drafts
 
@@ -54,8 +53,7 @@ class SiteControllerTest < ActionController::TestCase
   end
 
   def test_get_drafts_for_artist_user_display_unpublished_albums_only_for_this_user
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     artist = membership.artist
     for_artist = []
     not_for_artist = []

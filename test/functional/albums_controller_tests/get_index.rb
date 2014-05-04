@@ -53,7 +53,7 @@ module AlbumsControllerTests
     end
 
     def test_get_index_for_user_does_not_display_unpublished_albums
-      login( User.sham! )
+      login_user
       artist = Artist.sham!
       3.times { Album.sham!( :unpublished, artist: artist ) }
       get :index, artist_id: artist.to_param
@@ -64,22 +64,21 @@ module AlbumsControllerTests
 
     def test_get_index_for_user_does_not_show_actions
       artist = Artist.sham!
-      login( User.sham! )
+      login_user
       get :index, artist_id: artist.to_param
       assert_select 'a[href=?]', new_artist_album_path(artist), 0
     end
 
     def test_get_index_for_artist_user_does_not_show_actions
-      membership = Membership.sham!
+      membership = login_artist_user
       artist = membership.artist
-      login( membership.user )
       get :index, artist_id: artist.to_param
       assert_select 'a[href=?]', new_artist_album_path(artist), 0
     end
 
     def test_get_index_for_admin_displays_actions
       artist = Artist.sham!
-      login( User.sham!( :admin ) )
+      login_admin
       get :index, artist_id: artist.to_param
       assert_select 'a[href=?]', new_artist_album_path(artist), I18n.t( 'action.new' )
     end

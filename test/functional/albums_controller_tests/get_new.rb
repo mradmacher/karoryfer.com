@@ -7,20 +7,20 @@ module AlbumsControllerTests
     end
 
     def test_get_new_for_user_is_denied
-      login( User.sham! )
+      login_user
       assert_raises User::AccessDenied do
         get :new, artist_id: Artist.sham!.to_param
       end
     end
 
     def test_get_for_admin_new_succeeds
-      login( User.sham!( :admin ) )
+      login_admin
       get :new, artist_id: Artist.sham!.to_param
       assert_response :success
     end
 
     def test_get_new_for_admin_displays_headers
-      login( User.sham!( :admin ) )
+      login_admin
       artist = Artist.sham!
       get :new, artist_id: artist.to_param
       title = CGI.escape_html( build_title( I18n.t( 'title.album.new' ), artist.name ) )
@@ -30,7 +30,7 @@ module AlbumsControllerTests
     end
 
     def test_get_new_for_admin_displays_form
-      login( User.sham!( :admin ) )
+      login_admin
       get :new, artist_id: Artist.sham!.to_param
       assert_select 'form[enctype="multipart/form-data"]' do
         assert_select 'label', I18n.t( 'label.album.title' )
@@ -55,7 +55,7 @@ module AlbumsControllerTests
     end
 
     def test_get_new_for_admin_displays_actions
-      login( User.sham!( :admin ) )
+      login_admin
       artist = Artist.sham!
       get :new, artist_id: artist.to_param
       assert_select 'a[href=?]', artist_path( artist ), I18n.t( 'action.cancel_new' )

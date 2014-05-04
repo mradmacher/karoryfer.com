@@ -25,8 +25,7 @@ class VideosControllerTest < ActionController::TestCase
   end
 
   def test_get_edit_for_artist_user_displays_form
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     video = Video.sham!( artist: membership.artist )
     get :edit, artist_id: video.artist.to_param, id: video.to_param
     assert_select 'form' do
@@ -40,8 +39,7 @@ class VideosControllerTest < ActionController::TestCase
   end
 
   def test_get_new_for_artist_user_displays_form
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     get :new, artist_id: membership.artist
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.video.title' )
