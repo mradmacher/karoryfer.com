@@ -33,16 +33,14 @@ class PagesControllerTest < ActionController::TestCase
   end
 
   def test_delete_destroy_for_artist_user_properly_redirects
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     resource = resource_class.sham!( artist: membership.artist )
     delete :destroy, artist_id: resource.artist.to_param, id: resource.to_param
     assert_redirected_to send( "artist_path",  resource.artist )
   end
 
   def test_get_edit_for_artist_user_displays_form
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     page = Page.sham!( artist: membership.artist )
     get :edit, artist_id: page.artist.to_param, id: page.to_param
     assert_select 'form' do
@@ -57,8 +55,7 @@ class PagesControllerTest < ActionController::TestCase
   end
 
   def test_get_new_for_artist_user_displays_form
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     get :new, artist_id: membership.artist.to_param
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.page.title' )

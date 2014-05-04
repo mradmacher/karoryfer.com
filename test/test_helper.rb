@@ -48,5 +48,23 @@ class ActiveSupport::TestCase
     activate_authlogic
     UserSession.create user
   end
+
+  def login_user
+    user = User.sham!
+    login( user )
+    user
+  end
+
+  def login_admin
+    user = User.sham!( :admin )
+    login( user )
+    user
+  end
+
+  def login_artist_user
+    membership = Membership.sham!
+    login( membership.user )
+    membership
+  end
 end
 

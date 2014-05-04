@@ -15,23 +15,21 @@ module ResourcesControllerTest
 
     def test_get_edit_for_user_is_denied
       resource = resource_class.sham!
-      login( User.sham! )
+      login_user
       assert_raises User::AccessDenied do
         get :edit, artist_id: resource.artist.to_param, :id => resource.to_param
       end
     end
 
     def test_get_edit_for_artist_user_succeeds
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       resource = resource_class.sham!( artist: membership.artist )
       get :edit, artist_id: resource.artist.to_param, id: resource.to_param
       assert_response :success
     end
 
     def test_get_edit_for_artist_user_displays_headers
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       resource = resource_class.sham!( artist: membership.artist )
       get :edit, artist_id: resource.artist.to_param, id: resource.to_param
       assert_select "title", build_title( resource.title, resource.artist.name )
@@ -40,8 +38,7 @@ module ResourcesControllerTest
     end
 
     def test_get_edit_for_artist_user_displays_actions
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       resource = resource_class.sham!( artist: membership.artist )
       get :edit, artist_id: resource.artist.to_param, id: resource.to_param
       assert_select 'a[href=?]', send( "artist_#{resource_name}_path", membership.artist, resource ), I18n.t( 'action.cancel_edit' )

@@ -36,7 +36,7 @@ module AlbumsControllerTests
     end
 
     def test_get_show_for_user_is_denied_for_unpublished_album
-      login( User.sham! )
+      login_user
       album = Album.sham!( :unpublished )
       assert_raises User::AccessDenied do
         get :show, :artist_id => album.artist.to_param, :id => album.to_param
@@ -44,15 +44,14 @@ module AlbumsControllerTests
     end
 
     def test_get_show_for_artist_user_succeeds
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       album = Album.sham!( :unpublished, artist: membership.artist )
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
       assert_response :success
     end
 
     def test_get_show_for_user_does_not_show_actions
-      login( User.sham! )
+      login_user
       album = Album.sham!( :published )
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select 'a[href=?]', new_artist_album_path( album.artist ), 0
@@ -61,8 +60,7 @@ module AlbumsControllerTests
     end
 
     def test_get_show_for_artist_user_does_not_show_actions
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       album = Album.sham!( :published, artist: membership.artist )
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select 'a[href=?]', new_artist_album_path( album.artist ), 0
@@ -71,14 +69,14 @@ module AlbumsControllerTests
     end
 
     def test_get_show_for_admin_for_unpublished_succeeds
-      login( User.sham!( :admin ) )
+      login_admin
       album = Album.sham!( :unpublished )
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
       assert_response :success
     end
 
     def test_get_show_for_admin_displays_actions
-      login( User.sham!( :admin ) )
+      login_admin
       album = Album.sham!
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select 'a[href=?]', edit_artist_album_path( album.artist ), I18n.t( 'action.edit' )

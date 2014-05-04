@@ -4,10 +4,9 @@ module UsersControllerTest
   class ForUserTest < ActionController::TestCase
     def setup
       @controller = UsersController.new
-      activate_authlogic
       @user = User.sham!
       @other_user = User.sham!
-      UserSession.create @user
+      login @user
     end
 
     def test_get_show_account_succeeds

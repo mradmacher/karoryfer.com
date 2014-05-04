@@ -15,15 +15,14 @@ module ResourcesControllerTest
 
     def test_delete_destroy_for_user_is_denied
       resource = resource_class.sham!
-      login( User.sham! )
+      login_user
       assert_raises User::AccessDenied do
         delete :destroy, artist_id: resource.artist.to_param, id: resource.to_param
       end
     end
 
     def test_delete_destroy_for_artist_user_removes_entry
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       resource = resource_class.sham!( artist: membership.artist )
       resource_count = resource_class.count
       delete :destroy, artist_id: resource.artist.to_param, id: resource.to_param
@@ -32,8 +31,7 @@ module ResourcesControllerTest
     end
 
     def test_delete_destroy_for_artist_user_properly_redirects
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       resource = resource_class.sham!( artist: membership.artist )
       delete :destroy, artist_id: resource.artist.to_param, id: resource.to_param
       assert_redirected_to send( "artist_#{resource_name.pluralize}_path",  resource.artist )

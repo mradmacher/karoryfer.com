@@ -13,15 +13,14 @@ module ResourcesControllerTest
     end
 
     def test_post_create_for_user_is_denied
-      login( User.sham! )
+      login_user
       assert_raises User::AccessDenied do
         post :create, artist_id: Artist.sham!.to_param, resource_name.to_sym => {}
       end
     end
 
     def test_post_create_for_artist_user_creates_entry
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       resource = resource_class.sham!( :build, artist: membership.artist )
       resource_count = resource_class.count
       post :create, artist_id: resource.artist.to_param, resource_name.to_sym => resource.attributes
@@ -30,8 +29,7 @@ module ResourcesControllerTest
     end
 
     def test_post_create_for_artist_user_does_not_change_artist
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       artist = membership.artist
       other_artist = Artist.sham!
       resource = resource_class.sham!( :build, artist: other_artist )

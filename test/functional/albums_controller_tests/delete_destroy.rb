@@ -13,7 +13,7 @@ module AlbumsControllerTests
     end
 
     def test_delete_destroy_for_user_is_denied
-      login( User.sham! )
+      login_user
       album = Album.sham!
       assert_raises User::AccessDenied do
         delete :destroy, artist_id: album.artist.to_param, :id => album.to_param
@@ -21,8 +21,7 @@ module AlbumsControllerTests
     end
 
     def test_delete_destroy_for_artist_user_is_denied
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       album = Album.sham!( artist: membership.artist )
       assert_raises User::AccessDenied do
         delete :destroy, artist_id: album.artist.to_param, :id => album.to_param
@@ -30,7 +29,7 @@ module AlbumsControllerTests
     end
 
     def test_delete_destroy_for_admin_succeeds
-      login( User.sham!( :admin ) )
+      login_admin
       album = Album.sham!
       album_count = Album.count
       delete :destroy, artist_id: album.artist.to_param, :id => album.to_param
@@ -39,7 +38,7 @@ module AlbumsControllerTests
     end
 
     def test_delete_destroy_for_admin_properly_redirects
-      login( User.sham!( :admin ) )
+      login_admin
       album = Album.sham!
       delete :destroy, artist_id: album.artist.to_param, id: album.to_param
       assert_redirected_to artist_albums_path( album.artist )

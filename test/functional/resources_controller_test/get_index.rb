@@ -14,14 +14,13 @@ module ResourcesControllerTest
 
     def test_get_index_for_user_does_not_display_actions
       artist = Artist.sham!
-      login( User.sham! )
+      login_user
       get :index, artist_id: artist.to_param
       assert_select 'a[href=?]', send("new_artist_#{resource_name}_path", artist), 0
     end
 
     def test_get_index_for_artist_user_displays_actions
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       get :index, artist_id: membership.artist.to_param
       assert_select 'a[href=?]', send("new_artist_#{resource_name}_path", membership.artist ),
         I18n.t( "action.new" )

@@ -29,7 +29,7 @@ module ResourcesControllerTest
     end
 
     def test_get_show_for_user_does_not_display_actions
-      login( User.sham! )
+      login_user
       resource = resource_class.sham!
       get :show, artist_id: resource.artist.to_param, id: resource.to_param
       assert_select 'a[href=?]', send( "new_artist_#{resource_name}_path", resource.artist ), 0
@@ -38,8 +38,7 @@ module ResourcesControllerTest
     end
 
     def test_get_show_for_artist_user_displays_actions
-      membership = Membership.sham!
-      login( membership.user )
+      membership = login_artist_user
       resource = resource_class.sham!( artist: membership.artist )
       get :show, artist_id: resource.artist.to_param, id: resource.to_param
       assert_select 'a[href=?]', send( "new_artist_#{resource_name}_path", resource.artist ), I18n.t( "action.new" )

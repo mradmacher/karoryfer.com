@@ -32,8 +32,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_get_new_for_artist_user_is_denied
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     album = Album.sham!( artist: membership.artist )
     assert_raises User::AccessDenied do
       get :new, artist_id: album.artist.to_param, album_id: album.to_param
@@ -41,7 +40,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_get_new_for_admin_succeeds
-    login( User.sham!( :admin ) )
+    login_admin
     album = Album.sham!
     get :new, artist_id: album.artist.to_param, album_id: album.to_param
     assert_response :success
@@ -76,8 +75,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_post_create_for_artist_user_is_denied
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     album = Album.sham!( artist: membership.artist )
     assert_raises User::AccessDenied do
       post :create, artist_id: album.artist.to_param, album_id: album.to_param, attachment: {}
@@ -94,8 +92,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_delete_destroy_for_artist_user_is_denied
-    membership = Membership.sham!
-    login( membership.user )
+    membership = login_artist_user
     album = Album.sham!( artist: membership.artist )
     attachment = Attachment.sham!(album: album)
     assert_raises User::AccessDenied do
@@ -106,7 +103,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_post_create_for_admin_creates_attachment
-    login( User.sham!( :admin ) )
+    login_admin
     album = Album.sham!
     attachments_count = album.attachments.count
     post :create, artist_id: album.artist.to_param, album_id: album.to_param,
@@ -116,7 +113,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_post_create_for_admin_does_not_change_album
-    login( User.sham!( :admin ) )
+    login_admin
     album = Album.sham!
     other_album = Album.sham!
     attachments_count = album.attachments.count
@@ -128,7 +125,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_delete_destroy_for_admin_succeeds
-    login( User.sham!( :admin ) )
+    login_admin
     attachment = Attachment.sham!
     album = attachment.album
     attachments_count = album.attachments.count
@@ -139,7 +136,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_delete_destroy_for_admin_properly_redirects
-    login( User.sham!( :admin ) )
+    login_admin
     attachment = Attachment.sham!
     delete :destroy, artist_id: attachment.album.artist.to_param,
       album_id: attachment.album.to_param, :id => attachment.to_param
