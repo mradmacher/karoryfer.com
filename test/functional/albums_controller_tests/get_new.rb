@@ -1,27 +1,16 @@
 module AlbumsControllerTests
   module GetNew
-    def test_get_new_for_guest_is_denied
-      assert_raises User::AccessDenied do
-        get :new, artist_id: Artist.sham!.to_param
-      end
-    end
 
-    def test_get_new_for_user_is_denied
-      login_user
-      assert_raises User::AccessDenied do
-        get :new, artist_id: Artist.sham!.to_param
-      end
-    end
-
-    def test_get_for_admin_new_succeeds
-      login_admin
-      get :new, artist_id: Artist.sham!.to_param
+    def test_authorized_get_new_succeeds
+      artist = Artist.sham!
+      allow(:write, Album, artist)
+      get :new, artist_id: artist.to_param
       assert_response :success
     end
 
-    def test_get_new_for_admin_displays_headers
-      login_admin
+    def test_authorized_get_new_displays_headers
       artist = Artist.sham!
+      allow(:write, Album, artist)
       get :new, artist_id: artist.to_param
       title = CGI.escape_html( build_title( I18n.t( 'title.album.new' ), artist.name ) )
       assert_select "title", CGI.escape_html( build_title( I18n.t( 'title.album.new' ), artist.name ) )
@@ -29,9 +18,10 @@ module AlbumsControllerTests
       assert_select "h2", CGI.escape_html( I18n.t( 'title.album.new' ) )
     end
 
-    def test_get_new_for_admin_displays_form
-      login_admin
-      get :new, artist_id: Artist.sham!.to_param
+    def test_authorized_get_new_displays_form
+      artist = Artist.sham!
+      allow(:write, Album, artist)
+      get :new, artist_id: artist.to_param
       assert_select 'form[enctype="multipart/form-data"]' do
         assert_select 'label', I18n.t( 'label.album.title' )
         assert_select 'input[type=text][name=?]', 'album[title]'
@@ -54,9 +44,9 @@ module AlbumsControllerTests
       end
     end
 
-    def test_get_new_for_admin_displays_actions
-      login_admin
+    def test_authorized_get_new_displays_actions
       artist = Artist.sham!
+      allow(:write, Album, artist)
       get :new, artist_id: artist.to_param
       assert_select 'a[href=?]', artist_path( artist ), I18n.t( 'action.cancel_new' )
     end

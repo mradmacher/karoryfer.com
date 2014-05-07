@@ -41,6 +41,7 @@ Sham.config( Album ) do |c|
   c.attributes do
     title = Faker::Name.name
     {
+      :published => true,
       :artist => Sham::Nested.new( Artist ),
       :year => (2000..2020).to_a.sample,
       :reference => title.parameterize,

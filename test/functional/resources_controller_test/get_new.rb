@@ -6,19 +6,6 @@ module ResourcesControllerTest
       end
     end
 
-    def test_get_new_for_guest_is_denied
-      assert_raises User::AccessDenied do
-        get :new, artist_id: Artist.sham!.to_param
-      end
-    end
-
-    def test_get_new_for_user_is_denied
-      login_user
-      assert_raises User::AccessDenied do
-        get :new, artist_id: Artist.sham!.to_param
-      end
-    end
-
     def test_get_new_for_artist_user_succeeds
       membership = login_artist_user
       get :new, artist_id: membership.artist.to_param

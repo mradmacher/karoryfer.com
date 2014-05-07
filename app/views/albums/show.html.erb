@@ -7,7 +7,7 @@
 </h2>
 <p>
   <div class="btn-group">
-    <% if can? :write_album, @album %>
+    <% if can? :write, @album %>
       <a href="<%= edit_artist_album_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
     <% end %>
   </div>
@@ -77,10 +77,29 @@
 
 <% unless @album.tracks.empty? %>
   <h4><%= t 'title.track.index' %></h4>
+  <% if can? :write, Track %>
+    <p>
+      <a href="<%= new_artist_album_track_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
+    </p>
+  <% end %>
   <ol id="tracklist">
     <% @album.tracks.each do |track| %>
       <li data-track-id="<%= track.id %>">
-      <span class="title"><%= track.title %> <% unless track.comment.blank? -%><br /><small><%= track.comment %></small> <% end -%></span>
+      <span class="title">
+        <%= track.rank %>.
+        <%= track.title %>
+        <% unless track.comment.blank? -%><br /><small><%= track.comment %></small> <% end -%>
+        <% if can? :write, track %>
+          <div class="btn-group pull-right">
+            <a href="<%= edit_artist_album_track_path(@album.artist, @album, track) %>" class="btn btn-default btn-xs">
+              <%=t 'action.edit' %>
+            </a>
+            <a href="<%= artist_album_track_path(@album.artist, @album, track) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+              <%=t 'action.delete' %>
+            </a>
+          </div>
+        <% end %>
+      </span>
       <% track.releases.each do |release| %>
         <span data-url="<%= release.file.url %>" data-format="<%= release.format %>" />
       <% end %>
@@ -122,7 +141,7 @@
 <% end %>
 
 <h4><%= t 'title.attachment.index' %></h4>
-<% if can? :write_attachment, Attachment %>
+<% if can? :write, Attachment %>
   <p>
     <a href="<%= new_artist_album_attachment_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
   </p>
@@ -134,7 +153,7 @@
   <% @album.attachments.each do |attachment| %>
     <li>
       <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
-      <% if can? :write_attachment, @attachment %>
+      <% if can? :write, @attachment %>
         <a href="<%= artist_album_attachment_path(@album.artist, @album, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
           <%=t 'action.delete' %>
         </a>

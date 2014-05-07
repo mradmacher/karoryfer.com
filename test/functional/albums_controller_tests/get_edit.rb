@@ -1,53 +1,30 @@
 module AlbumsControllerTests
   module GetEdit
     def test_get_edit_without_artist_is_not_routable
-      assert_raises ActionController::RoutingError do
+      assert_raise ActionController::RoutingError do
         get :edit, :id => '1'
       end
     end
 
-    def test_get_edit_for_guest_is_denied
+    def test_authorized_get_edit_succeeds
       album = Album.sham!
-      assert_raises User::AccessDenied do
-        get :edit, :artist_id => album.artist.to_param, :id => album.to_param
-      end
-    end
-
-    def test_get_edit_for_user_is_denied
-      login_user
-      album = Album.sham!
-      assert_raises User::AccessDenied do
-        get :edit, :artist_id => album.artist.to_param, :id => album
-      end
-    end
-
-    def test_get_edit_for_artist_user_is_denied
-      membership = login_artist_user
-      album = Album.sham!( artist: membership.artist )
-      assert_raises User::AccessDenied do
-        get :edit, :artist_id => album.artist.to_param, :id => album
-      end
-    end
-
-    def test_get_edit_for_admin_succeeds
-      login_admin
-      album = Album.sham!
+      allow(:write, album)
       get :edit, :artist_id => album.artist.to_param, :id => album.to_param
       assert_response :success
     end
 
-    def test_get_edit_for_admin_displays_headers
-      login_admin
+    def test_authorized_get_edit_displays_headers
       album = Album.sham!
+      allow(:write, album)
       get :edit, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select "title", build_title( album.title, album.artist.name )
       assert_select 'h1', album.artist.name
       assert_select 'h2', album.title
     end
 
-    def test_get_edit_for_admin_displays_form
-      login_admin
+    def test_authorized_get_edit_displays_form
       album = Album.sham!
+      allow(:write, album)
       get :edit, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select 'form[enctype="multipart/form-data"]' do
         assert_select 'label', I18n.t( 'label.album.title' )
@@ -76,9 +53,9 @@ module AlbumsControllerTests
       end
     end
 
-    def test_get_edit_for_admin_displays_actions
-      login_admin
+    def test_authorized_get_edit_displays_actions
       album = Album.sham!
+      allow(:write, album)
       get :edit, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select 'a[href=?]', artist_album_path( album.artist, album ), I18n.t( 'action.cancel_edit' )
     end

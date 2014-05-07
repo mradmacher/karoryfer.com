@@ -7,19 +7,22 @@ class ApplicationController < ActionController::Base
 
   helper_method :abilities, :can?
 
-  protected
+  def abilities=(abilities)
+    @abilities = abilities
+  end
 
   def abilities
-    @abilities ||= Six.new( default: Ability )
+    @abilities ||= Ability.new(current_user)
   end
 
-  # simple delegate method for controller & view
-  def can?( action, subject)
-    abilities.allowed?( current_user, action, subject )
+  protected
+
+  def can?(action, subject, scope = nil)
+    abilities.allowed?(action, subject, scope)
   end
 
-  def authorize!( action, subject )
-    raise User::AccessDenied unless abilities.allowed?( current_user, action, subject )
+  def authorize!(action, subject, scope = nil)
+    raise User::AccessDenied unless abilities.allowed?(action, subject, scope)
   end
 
 	private

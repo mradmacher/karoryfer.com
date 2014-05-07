@@ -84,7 +84,6 @@ GEM
       json (~> 1.4)
     sequel (4.5.0)
     sham (1.1.0)
-    six (0.2.0)
     spawnling (2.1.1)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -118,7 +117,6 @@ DEPENDENCIES
   rdiscount
   sequel
   sham
-  six
   spawnling (~> 2.1)
   taglib-ruby
   thin

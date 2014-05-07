@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-	before_filter :require_user, :except => [:index, :show, :calendar]
   layout :set_layout
 
   respond_to :json, :only => [:calendar]
@@ -23,23 +22,22 @@ class EventsController < ApplicationController
 
   def show
 		@event = current_artist.events.find( params[:id] )
-		authorize! :read_event, @event
+		authorize! :read, @event
   end
 
   def new
-		@event = Event.new
-		@event.artist = current_artist
-		authorize! :write_event, @event
+		authorize! :write, Event, current_artist
+		@event = current_artist.events.new
   end
 
   def edit
 		@event = current_artist.events.find( params[:id] )
-		authorize! :write_event, @event
+		authorize! :write, @event
   end
 
 	def create
+		authorize! :write, Event, current_artist
 		@event = current_artist.events.new( params[:event] )
-		authorize! :write_event, @event
 		if @event.save
 			redirect_to artist_event_url( @event.artist, @event )
 		else
@@ -51,7 +49,7 @@ class EventsController < ApplicationController
 		@event = current_artist.events.find( params[:id] )
     @event.assign_attributes( params[:event] )
     @event.artist = current_artist
-		authorize! :write_event, @event
+		authorize! :write, @event
 
 		if @event.save
 			redirect_to artist_event_url( @event.artist, @event )
@@ -62,7 +60,7 @@ class EventsController < ApplicationController
 
 	def destroy
 		@event = current_artist.events.find( params[:id] )
-		authorize! :write_event, @event
+		authorize! :write, @event
 		@event.destroy
     redirect_to artist_events_url( @event.artist )
 	end

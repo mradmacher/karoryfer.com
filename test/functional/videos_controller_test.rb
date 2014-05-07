@@ -6,6 +6,7 @@ require_relative 'resources_controller_test/get_new'
 require_relative 'resources_controller_test/put_update'
 require_relative 'resources_controller_test/post_create'
 require_relative 'resources_controller_test/delete_destroy'
+require_relative 'resources_controller_test/authorize'
 
 class VideosControllerTest < ActionController::TestCase
   include ResourcesControllerTest::GetIndex
@@ -15,6 +16,7 @@ class VideosControllerTest < ActionController::TestCase
   include ResourcesControllerTest::PutUpdate
   include ResourcesControllerTest::PostCreate
   include ResourcesControllerTest::DeleteDestroy
+  include ResourcesControllerTest::Authorize
 
   def resource_name
     'video'

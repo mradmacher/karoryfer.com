@@ -6,19 +6,6 @@ module ResourcesControllerTest
       end
     end
 
-    def test_post_create_for_guest_is_denied
-      assert_raises User::AccessDenied do
-        post :create, artist_id: Artist.sham!.to_param, resource_name.to_sym => {}
-      end
-    end
-
-    def test_post_create_for_user_is_denied
-      login_user
-      assert_raises User::AccessDenied do
-        post :create, artist_id: Artist.sham!.to_param, resource_name.to_sym => {}
-      end
-    end
-
     def test_post_create_for_artist_user_creates_entry
       membership = login_artist_user
       resource = resource_class.sham!( :build, artist: membership.artist )

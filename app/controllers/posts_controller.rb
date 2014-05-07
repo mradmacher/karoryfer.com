@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-	before_filter :require_user, :except => [:index, :show]
   layout :set_layout
 
   def index
@@ -8,23 +7,22 @@ class PostsController < ApplicationController
 
   def show
 		@post = current_artist.posts.find( params[:id] )
-		authorize! :read_post, @post
+		authorize! :read, @post
   end
 
   def new
-		@post = Post.new
-		@post.artist = current_artist
-		authorize! :write_post, @post
+		authorize! :write, Post, current_artist
+		@post = current_artist.posts.new
   end
 
   def edit
 		@post = current_artist.posts.find( params[:id] )
-		authorize! :write_post, @post
+		authorize! :write, @post
   end
 
 	def create
+		authorize! :write, Post, current_artist
 		@post = current_artist.posts.new( params[:post] )
-		authorize! :write_post, @post
 		if @post.save
 			redirect_to artist_post_url( @post.artist, @post )
 		else
@@ -34,9 +32,9 @@ class PostsController < ApplicationController
 
 	def update
 		@post = current_artist.posts.find( params[:id] )
+		authorize! :write, @post
     @post.assign_attributes( params[:post] )
     @post.artist = current_artist
-		authorize! :write_post, @post
 
 		if @post.save
 			redirect_to artist_post_url( @post.artist, @post )
@@ -47,7 +45,7 @@ class PostsController < ApplicationController
 
 	def destroy
 		@post = current_artist.posts.find( params[:id] )
-		authorize! :write_post, @post
+		authorize! :write, @post
 		@post.destroy
     redirect_to artist_posts_url( @post.artist )
 	end

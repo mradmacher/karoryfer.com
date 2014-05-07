@@ -6,86 +6,44 @@ module AlbumsControllerTests
       end
     end
 
-    def test_get_show_for_guest_succeeds
-      album = Album.sham!( :published )
+    def test_authorized_get_show_succeeds
+      album = Album.sham!
+      allow(:read, album)
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
       assert_response :success
     end
 
-    def test_get_show_for_guest_is_denied_for_unpublished_album
-      album = Album.sham!( :unpublished )
-      assert_raises User::AccessDenied do
-        get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      end
-    end
-
-    def test_get_show_for_guest_displays_headers
-      album = Album.sham!( :published )
+    def test_authorized_get_show_displays_headers
+      album = Album.sham!
+      allow(:read, album)
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select "title", build_title( album.title, album.artist.name )
       assert_select 'h1', album.artist.name
       assert_select 'h2', album.title
     end
 
-    def test_get_show_for_guest_does_not_display_actions
-      album = Album.sham!( :published )
-      get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_select 'a[href=?]', new_artist_album_path( album.artist ), 0
-      assert_select 'a[href=?]', edit_artist_album_path( album.artist, album ), 0
-      assert_select 'a[href=?][data-method=delete]', artist_album_path( album.artist, album ), 0
-    end
-
-    def test_get_show_for_user_is_denied_for_unpublished_album
-      login_user
-      album = Album.sham!( :unpublished )
-      assert_raises User::AccessDenied do
-        get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      end
-    end
-
-    def test_get_show_for_artist_user_succeeds
-      membership = login_artist_user
-      album = Album.sham!( :unpublished, artist: membership.artist )
-      get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_response :success
-    end
-
-    def test_get_show_for_user_does_not_show_actions
-      login_user
-      album = Album.sham!( :published )
-      get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_select 'a[href=?]', new_artist_album_path( album.artist ), 0
-      assert_select 'a[href=?]', edit_artist_album_path( album.artist, album ), 0
-      assert_select 'a[href=?][data-method=delete]', artist_album_path( album.artist, album ), 0
-    end
-
-    def test_get_show_for_artist_user_does_not_show_actions
-      membership = login_artist_user
-      album = Album.sham!( :published, artist: membership.artist )
-      get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_select 'a[href=?]', new_artist_album_path( album.artist ), 0
-      assert_select 'a[href=?]', edit_artist_album_path( album.artist, album ), 0
-      assert_select 'a[href=?][data-method=delete]', artist_album_path( album.artist, album ), 0
-    end
-
-    def test_get_show_for_admin_for_unpublished_succeeds
-      login_admin
-      album = Album.sham!( :unpublished )
-      get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_response :success
-    end
-
-    def test_get_show_for_admin_displays_actions
-      login_admin
+    def test_read_authorized_get_show_does_not_display_actions
       album = Album.sham!
+      allow(:read, album)
+      get :show, :artist_id => album.artist.to_param, :id => album.to_param
+      assert_select 'a[href=?]', new_artist_album_path( album.artist ), 0
+      assert_select 'a[href=?]', edit_artist_album_path( album.artist, album ), 0
+      assert_select 'a[href=?][data-method=delete]', artist_album_path( album.artist, album ), 0
+    end
+
+    def test_write_authorized_get_show_displays_actions
+      album = Album.sham!
+      allow(:read, album)
+      allow(:write, album)
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
       assert_select 'a[href=?]', edit_artist_album_path( album.artist ), I18n.t( 'action.edit' )
       #assert_select 'a[href=?][data-method=delete]', album_path( album ), I18n.t( 'action.album.destroy' )
       assert_select 'a[href=?][data-method=delete]', artist_album_path( album.artist, album ), 0
     end
 
-    def test_get_show_displays_urls_to_attached_files
-      album = Album.sham!( :published )
+    def test_authorized_get_show_displays_urls_to_attached_files
+      album = Album.sham!
+      allow(:read, album)
       att1 = album.attachments.create( file: File.open( File.join( FIXTURES_DIR, 'attachments', 'att1.jpg' ) ) )
       att2 = album.attachments.create( file: File.open( File.join( FIXTURES_DIR, 'attachments', 'att2.pdf' ) ) )
       att3 = album.attachments.create( file: File.open( File.join( FIXTURES_DIR, 'attachments', 'att3.txt' ) ) )

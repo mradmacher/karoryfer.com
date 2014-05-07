@@ -26,6 +26,35 @@ Releaser::Base.publisher_name = 'Lecolds'
 Releaser::Base.publisher_host = 'www.lecolds.com'
 
 class ActiveSupport::TestCase
+  class TestAbility
+    def initialize
+      @allowed = []
+    end
+
+    def allow(action, subject, scope = nil)
+      @allowed << [action, subject, scope]
+    end
+
+    def allowed?(action, subject, scope = nil)
+      !@allowed.select{ |e| match_action?(e[0], action) and match_subject?(e[1], subject) and e[2] == scope }.empty?
+    end
+
+    private
+    def match_action?(expected, actual)
+      expected == actual
+    end
+
+    def match_subject?(expected, actual)
+      if expected.class == Class and actual.class == Class
+        expected == actual
+      elsif expected.class == Class
+        expected == actual.class
+      else
+        expected == actual
+      end
+    end
+  end
+
 	DEFAULT_TITLE = 'Karoryfer Lecolds'
 	TITLE_SEPARATOR = ' - '
 
@@ -65,6 +94,31 @@ class ActiveSupport::TestCase
     membership = Membership.sham!
     login( membership.user )
     membership
+  end
+
+  def allow(action, subject, scope = nil)
+    activate_authlogic
+    unless @controller.abilities.class == TestAbility
+      @controller.abilities = TestAbility.new
+    end
+    @controller.abilities.allow(action, subject, scope)
+  end
+
+  def deny(action, subject)
+    activate_authlogic
+    @controller.abilities = TestAbility.new
+  end
+
+  def assert_authorized(action, subject, scope = nil, &block)
+    activate_authlogic
+    @controller.abilities = TestAbility.new
+    assert_raises User::AccessDenied do
+      block.call
+    end
+    @controller.abilities.allow(action, subject, scope)
+    assert_nothing_raised User::AccessDenied do
+      block.call
+    end
   end
 end
 

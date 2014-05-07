@@ -1,5 +1,4 @@
 class AlbumsController < ApplicationController
-	before_filter :require_user, :except => [:index, :show, :release, :download]
   layout :set_layout
 
   def index
@@ -8,23 +7,22 @@ class AlbumsController < ApplicationController
 
   def show
 		@album = current_artist.albums.find_by_reference( params[:id] )
-		authorize! :read_album, @album
+		authorize! :read, @album
   end
 
   def edit
 		@album = current_artist.albums.find_by_reference( params[:id] )
-		authorize! :write_album, @album
+		authorize! :write, @album
   end
 
   def new
-		@album = Album.new
-		@album.artist = current_artist
-		authorize! :write_album, Album
+		authorize! :write, Album, current_artist
+		@album = current_artist.albums.new
   end
 
 	def create
+		authorize! :write, Album, current_artist
 		@album = current_artist.albums.new( params[:album] )
-		authorize! :write_album, @album
 		if @album.save
 			redirect_to artist_album_url( @album.artist, @album )
 		else
@@ -34,9 +32,9 @@ class AlbumsController < ApplicationController
 
 	def update
 		@album = current_artist.albums.find_by_reference( params[:id] )
+		authorize! :write, @album
 		@album.assign_attributes( params[:album] )
     @album.artist = current_artist
-		authorize! :write_album, @album
 		if @album.save
 			redirect_to artist_album_url( @album.artist, @album )
 		else
@@ -46,7 +44,7 @@ class AlbumsController < ApplicationController
 
 	def destroy
 		@album = current_artist.albums.find_by_reference( params[:id] )
-		authorize! :write_album, @album
+		authorize! :write, @album
 		@album.destroy
 		redirect_to artist_albums_url( current_artist )
 	end

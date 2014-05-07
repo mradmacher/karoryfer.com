@@ -1,7 +1,7 @@
 <%= render_title %>
 <p>
   <div class="btn-group">
-    <% if can? :write_artist, @artist %>
+    <% if can? :write, @artist %>
       <a href="<%= edit_artist_path(@artist) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
     <% end %>
   </div>

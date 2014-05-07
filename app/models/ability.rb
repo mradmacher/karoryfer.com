@@ -1,62 +1,81 @@
 class Ability
+  attr_reader :user
 
-	def self.allowed( user, subject )
-    if user && user.admin?
-      rules = [
-        :read_post, :write_post,
-        :read_event, :write_event,
-        :read_video, :write_video,
-        :read_artist, :write_artist,
-        :read_album, :write_album,
-        :read_user, :write_user,
-        :read_page, :write_page,
-        :read_attachment, :write_attachment,
-        :write_membership
-      ]
-    else
-      rules = []
-      case subject.class.to_s
-        when 'Post'
-          rules = [:read_post]
-          unless user.nil? || (subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
-            rules << [:write_post]
-          end
-        when 'Event'
-          rules = [:read_event]
-          unless user.nil? || (subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
-            rules << [:write_event]
-          end
-        when 'Video'
-          rules = [:read_video]
-          unless user.nil? || (subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
-            rules << [:write_video]
-          end
-        when 'Page'
-          rules = [:read_page]
-          unless user.nil? || (subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
-            rules << [:write_page]
-          end
-        when 'Artist'
-          rules = [:read_artist]
-          unless user.nil? || Membership.where(user_id: user.id, artist_id: subject.id).empty?
-            rules << [:write_artist]
-          end
-        when 'Album'
-          if subject.published?
-            rules = [:read_album]
-          elsif !user.nil? && !(subject.artist_id.present? && Membership.where(user_id: user.id, artist_id: subject.artist_id).empty?)
-            rules << [:read_album]
-          end
-        when 'User'
-          rules = [:read_user, :write_user] if user.id == subject.id
-        when 'Class'
-          unless user.nil? || Membership.where(user_id: user.id).empty?
-            rules = [:write_event, :write_post, :write_video, :write_page]
-          end
-        else
-          rules = []
+  def initialize(user)
+    @user = user || User.new
+  end
+
+  def allowed?(action, subject, scope = nil)
+    user_actions_for(subject, scope).include? action
+  end
+
+  private
+  def user_actions_for(subject, scope = nil)
+    rules = []
+    case subject.class.to_s
+      when 'Post', 'Event', 'Video', 'Page'
+        rules = [:read]
+        if !user.memberships.select{ |m| m.artist_id == subject.artist_id }.empty?
+          rules << :write
         end
-    end
+      when 'Artist'
+        rules = [:read]
+        if user.admin?
+          rules << :write
+        elsif !user.memberships.select{ |m| m.artist_id == subject.id }.empty?
+          rules << :write
+        end
+      when 'Attachment', 'Track'
+        rules = []
+        if user.admin?
+          rules << :read
+          rules << :write
+        elsif subject.album.present?
+          if subject.album.published?
+            rules << :read
+          elsif !user.memberships.select{ |m| m.artist_id == subject.album.artist_id }.empty?
+            rules << :read
+          end
+        end
+      when 'Album'
+        rules = []
+        if user.admin?
+          rules << :read
+          rules << :write
+        elsif subject.published?
+          rules << :read
+        elsif !user.memberships.select{ |m| m.artist_id == subject.artist_id }.empty?
+          rules << :read
+        end
+      when 'User'
+        rules = [:read, :write] if user.admin? or user.id == subject.id
+      when 'Membership'
+        rules = [:read, :write] if user.admin? or user.id == subject.user_id
+      when 'Class'
+        if [Post, Video, Page, Event].include?(subject)
+          if !scope.nil? && !user.memberships.select{ |m| m.artist_id == scope.id }.empty?
+            rules = [:write]
+          end
+        elsif [Album].include?(subject)
+          if user.admin? && !scope.nil? #&& !user.memberships.select{ |m| m.artist_id == scope.id }.empty?
+            rules = [:write]
+          end
+        elsif [Attachment, Track].include?(subject)
+          if user.admin? && !scope.nil? #&& !user.memberships.select{ |m| m.artist_id == scope.artist_id }.empty?
+            rules = [:write]
+          end
+        elsif [Artist, User].include?(subject)
+          if user.admin?
+            rules = [:write]
+          end
+        elsif [Membership].include?(subject)
+          if (scope.class == User) && ((user.admin? && !scope.nil?) || !user.memberships.select{ |m| m.user_id == scope.id }.empty?)
+            rules = [:write]
+          end
+        end
+      else
+        rules = []
+      end
     rules
   end
 end

@@ -209,6 +209,7 @@ pl:
     cancel_edit: Zostaw jak było
     cancel_new: Odpuść sobie
     remove_image: Usuń obrazek
+    remove_file: Usuń plik
     destroy_confirmation: Czy na pewno to usunąć?
 
   title:
@@ -242,6 +243,7 @@ pl:
     site:
       home: Karoryfer Lecolds
     track:
+      new: <Nowa ścieżka>
       index: Utwory
     attachment:
       new: <Nowy załącznik>
@@ -332,6 +334,11 @@ pl:
       description: Opis
     attachment:
       file: Plik
+    track:
+      file: Plik
+      title: Tytuł
+      comment: Dodatkowe informacje
+      rank: Kolejność
     site:
       name: Karoryfer Lecolds
       desc: Wirtualna wytwórnia płytowa

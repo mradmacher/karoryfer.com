@@ -9,7 +9,7 @@
         <% else -%>
           <li><a href="<%= admin_login_url %>" class="btn btn-default btn-xs">Zaloguj się</a></li>
         <% end %>
-        <% if can? :write_user, User %>
+        <% if can? :write, User %>
           <li><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t( 'title.user.index' ) %></a></li>
         <% end %>
       </ul>

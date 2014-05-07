@@ -8,13 +8,14 @@ class AttachmentsController < ApplicationController
   end
 
   def new
-    @attachment = Attachment.new
-		authorize! :write_attachment, Attachment
+		authorize! :write, Attachment, @album
+    @attachment = @album.attachments.new
   end
 
   def create
+    authorize! :write, Attachment, @album
 		@attachment = @album.attachments.new( params[:attachment] )
-		authorize! :write_attachment, @attachment
+    @attachment.album = @album
     if @attachment.save
       redirect_to artist_album_url( current_artist, @album )
     else
@@ -24,7 +25,7 @@ class AttachmentsController < ApplicationController
 
   def destroy
 		@attachment = @album.attachments.find( params[:id] )
-		authorize! :write_attachment, @attachment
+		authorize! :write, @attachment
 		@attachment.destroy
     redirect_to artist_album_url( current_artist, @album )
   end

@@ -2,10 +2,10 @@
 <h2><%= post_icon %><%= @post.title %></h2>
 <p>
   <div class="btn-group">
-    <% if can? :write_post, @post %>
+    <% if can? :write, @post %>
       <a href="<%= edit_artist_post_path(@post.artist, @post) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
     <% end %>
-    <% if can? :write_post, @post %>
+    <% if can? :write, @post %>
       <a href="<%= artist_post_path(@post.artist, @post) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
     <% end %>
   </div>
