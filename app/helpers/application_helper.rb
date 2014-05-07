@@ -37,15 +37,15 @@ module ApplicationHelper
   end
 
   def post_icon
-    image_tag 'tags/note.png', alt: t( 'label.post' ), title: t( 'label.post' )
+    image_tag 'tags/note.png', alt: t( 'activerecord.models.post' ), title: t( 'activerecord.models.post' )
   end
 
   def event_icon( expired = false )
-    image_tag "tags/#{expired ? 'expired_' : ''}event.png", alt: t( 'label.event' ), title: t( 'label.event' )
+    image_tag "tags/#{expired ? 'expired_' : ''}event.png", alt: t( 'activerecord.models.event' ), title: t( 'activerecord.models.event' )
   end
 
   def video_icon
-    image_tag 'tags/video.png', alt: t( 'label.video' ), title: t( 'label.video' )
+    image_tag 'tags/video.png', alt: t( 'activerecord.models.video' ), title: t( 'activerecord.models.video' )
   end
 
   def link_to_action( title, link, options = {} )
