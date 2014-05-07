@@ -1,5 +1,4 @@
 class VideosController < ApplicationController
-	before_filter :require_user, :except => [:index, :show]
   layout :set_layout
 
   def index
@@ -8,23 +7,22 @@ class VideosController < ApplicationController
 
   def show
 		@video = current_artist.videos.find( params[:id] )
-		authorize! :read_video, @video
+		authorize! :read, @video
   end
 
   def new
-		@video = Video.new
-		@video.artist = current_artist
-		authorize! :write_video, @video
+		authorize! :write, Video, current_artist
+		@video = current_artist.videos.new
   end
 
   def edit
 		@video = current_artist.videos.find( params[:id] )
-		authorize! :write_video, @video
+		authorize! :write, @video
   end
 
 	def create
+		authorize! :write, Video, current_artist
 		@video = current_artist.videos.new( params[:video] )
-		authorize! :write_video, @video
 		if @video.save
 			redirect_to artist_video_url( @video.artist, @video )
 		else
@@ -36,7 +34,7 @@ class VideosController < ApplicationController
 		@video = current_artist.videos.find( params[:id] )
     @video.assign_attributes( params[:video] )
     @video.artist = current_artist
-		authorize! :write_video, @video
+		authorize! :write, @video
 
 		if @video.save
 			redirect_to artist_video_url( @video.artist, @video )
@@ -47,7 +45,7 @@ class VideosController < ApplicationController
 
 	def destroy
 		@video = current_artist.videos.find( params[:id] )
-		authorize! :write_video, @video
+		authorize! :write, @video
 		@video.destroy
     redirect_to artist_videos_url( @video.artist )
 	end

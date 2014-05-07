@@ -1,0 +1,13 @@
+<%= render_title @album.title %>
+<h2>
+  <%= @album.title %>
+  <% unless @album.published? %>
+    <small><%= t('label.album.unpublished') %></span>
+  <% end %>
+</h2>
+<h3><%= @track.title %></h3>
+<p>
+  <a href="<%= artist_album_path(@album.artist, @album) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+</p>
+<%= render :partial => 'form' %>
+

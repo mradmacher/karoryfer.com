@@ -6,21 +6,6 @@ module ResourcesControllerTest
       end
     end
 
-    def test_put_update_for_guest_is_denied
-      resource = resource_class.sham!
-      assert_raises User::AccessDenied do
-        put :update, artist_id: resource.artist.to_param, id: resource.to_param, resource_name.to_sym => {}
-      end
-    end
-
-    def test_put_update_for_user_is_denied
-      resource = resource_class.sham!
-      login_user
-      assert_raises User::AccessDenied do
-        put :update, artist_id: resource.artist.to_param, id: resource.to_param, resource_name.to_sym => {}
-      end
-    end
-
     def test_put_update_for_artist_user_updates_entry
       membership = login_artist_user
       resource = resource_class.sham!( artist: membership.artist )

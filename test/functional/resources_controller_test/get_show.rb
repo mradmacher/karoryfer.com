@@ -6,12 +6,6 @@ module ResourcesControllerTest
       end
     end
 
-    def test_get_show_for_guest_succeeds
-      resource = resource_class.sham!
-      get :show, artist_id: resource.artist.to_param, id: resource.to_param
-      assert_response :success
-    end
-
     def test_get_show_for_guest_displays_headers
       resource = resource_class.sham!
       get :show, artist_id: resource.artist.to_param, id: resource.to_param

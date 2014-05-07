@@ -2,10 +2,10 @@
 <h2><%= @page.title %></h2>
 <p>
   <div class="btn-group">
-    <% if can? :write_page, @page %>
+    <% if can? :write, @page %>
       <a href="<%= edit_artist_page_path(@page.artist, @page) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
     <% end %>
-    <% if can? :write_page, @page %>
+    <% if can? :write, @page %>
       <a href="<%= artist_page_path(@page.artist, @page) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
     <% end %>
   </div>

@@ -1,8 +1,8 @@
-<% pages = current_artist.pages %>
+<% pages = current_artist.pages.all %>
 <div class="panel panel-default">
   <div class="panel-heading">
     <span class="h4"><%=t 'label.pages' %></span>
-    <% if can? :write_page, Page %>
+    <% if can? :write, Page, current_artist %>
       <a href="<%= new_artist_page_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>
@@ -24,7 +24,7 @@
       <a href="<%= artist_events_path(current_artist) %>">
         <span class="badge"><%= current_artist.events.current.count %> / <%= current_artist.events.expired.count %></span></a>
     </span>
-    <% if can? :write_event, Event %>
+    <% if can? :write, Event, current_artist %>
       <a href="<%= new_artist_event_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>
@@ -51,7 +51,7 @@
       <a href="<%= artist_posts_path(current_artist) %>">
         <span class="badge"><%= current_artist.posts.count %></span></a>
     </span>
-    <% if can? :write_post, Post %>
+    <% if can? :write, Post, current_artist %>
       <a href="<%= new_artist_post_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>
@@ -74,7 +74,7 @@
       <a href="<%= artist_videos_path(current_artist) %>">
         <span class="badge"><%= current_artist.videos.count %></span></a>
     </span>
-    <% if can? :write_video, Video %>
+    <% if can? :write, Video, current_artist %>
       <a href="<%= new_artist_video_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>
@@ -98,7 +98,7 @@
         <span class="badge"><%= current_artist.albums.published.count %></span>
       </a>
     </span>
-    <% if can? :write_album, Album %>
+    <% if can? :write, Album, current_artist %>
       <a href="<%= new_artist_album_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
     <% end %>
   </div>

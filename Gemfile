@@ -10,7 +10,6 @@ gem 'carrierwave'
 gem 'dynamic_form'
 gem 'taglib-ruby'
 gem 'authlogic'
-gem 'six'
 gem 'spawnling', '~>2.1'
 
 group :test do

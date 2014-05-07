@@ -2,10 +2,10 @@
 <h2><%= @video.title %></h2>
 <p>
   <div class="btn-group">
-    <% if can? :write_video, @video %>
+    <% if can? :write, @video %>
       <a href="<%= edit_artist_video_path(@video.artist, @video) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
     <% end %>
-    <% if can? :write_video, @video %>
+    <% if can? :write, @video %>
       <a href="<%= artist_video_path(@video.artist, @video) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
     <% end %>
   </div>

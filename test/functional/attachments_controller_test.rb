@@ -24,24 +24,9 @@ class AttachmentsControllerTest < ActionController::TestCase
     end
   end
 
-  def test_get_new_for_guest_is_denied
+  def test_authorized_get_new_succeeds
     album = Album.sham!
-    assert_raises User::AccessDenied do
-      get :new, artist_id: album.artist.to_param, album_id: album.to_param
-    end
-  end
-
-  def test_get_new_for_artist_user_is_denied
-    membership = login_artist_user
-    album = Album.sham!( artist: membership.artist )
-    assert_raises User::AccessDenied do
-      get :new, artist_id: album.artist.to_param, album_id: album.to_param
-    end
-  end
-
-  def test_get_new_for_admin_succeeds
-    login_admin
-    album = Album.sham!
+    allow(:write, Attachment, album)
     get :new, artist_id: album.artist.to_param, album_id: album.to_param
     assert_response :success
   end
@@ -67,44 +52,9 @@ class AttachmentsControllerTest < ActionController::TestCase
     end
   end
 
-  def test_post_create_for_guest_is_denied
+  def test_authorized_post_create_creates_attachment
     album = Album.sham!
-    assert_raises User::AccessDenied do
-      post :create, artist_id: album.artist.to_param, album_id: album.to_param, attachment: {}
-    end
-  end
-
-  def test_post_create_for_artist_user_is_denied
-    membership = login_artist_user
-    album = Album.sham!( artist: membership.artist )
-    assert_raises User::AccessDenied do
-      post :create, artist_id: album.artist.to_param, album_id: album.to_param, attachment: {}
-    end
-  end
-
-  def test_delete_destroy_for_guest_is_denied
-    attachment = Attachment.sham!
-    assert_raises User::AccessDenied do
-      delete :destroy, artist_id: attachment.album.artist.to_param,
-        album_id: attachment.album.to_param,
-        id: attachment.to_param
-    end
-  end
-
-  def test_delete_destroy_for_artist_user_is_denied
-    membership = login_artist_user
-    album = Album.sham!( artist: membership.artist )
-    attachment = Attachment.sham!(album: album)
-    assert_raises User::AccessDenied do
-      delete :destroy, artist_id: attachment.album.artist.to_param,
-        album_id: attachment.album.to_param,
-        id: attachment.to_param
-    end
-  end
-
-  def test_post_create_for_admin_creates_attachment
-    login_admin
-    album = Album.sham!
+    allow(:write, Attachment, album)
     attachments_count = album.attachments.count
     post :create, artist_id: album.artist.to_param, album_id: album.to_param,
       attachment: {album_id: album.id, file: fixture_file_upload('attachments/att1.jpg')}
@@ -112,9 +62,9 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_redirected_to artist_album_url( album.artist, album )
   end
 
-  def test_post_create_for_admin_does_not_change_album
-    login_admin
+  def test_authorized_post_create_does_not_change_album
     album = Album.sham!
+    allow(:write, Attachment, album)
     other_album = Album.sham!
     attachments_count = album.attachments.count
 
@@ -124,9 +74,9 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_equal album, attachment.album
   end
 
-  def test_delete_destroy_for_admin_succeeds
-    login_admin
+  def test_authorized_delete_destroy_succeeds
     attachment = Attachment.sham!
+    allow(:write, attachment)
     album = attachment.album
     attachments_count = album.attachments.count
     delete :destroy, artist_id: attachment.album.artist.to_param,
@@ -136,8 +86,8 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_delete_destroy_for_admin_properly_redirects
-    login_admin
     attachment = Attachment.sham!
+    allow(:write, attachment)
     delete :destroy, artist_id: attachment.album.artist.to_param,
       album_id: attachment.album.to_param, :id => attachment.to_param
     assert_redirected_to artist_album_path( attachment.album.artist, attachment.album )

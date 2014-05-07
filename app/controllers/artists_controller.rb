@@ -1,5 +1,4 @@
 class ArtistsController < ApplicationController
-	before_filter :require_user, :except => [:index, :show]
   layout 'current_artist', :except => [:index, :new, :create]
 
   def show
@@ -11,18 +10,18 @@ class ArtistsController < ApplicationController
   end
 
   def new
-		authorize! :write_artist, Artist
+		authorize! :write, Artist
 		@artist = Artist.new
   end
 
   def edit
 		@artist = Artist.find( params[:id] )
-		authorize! :write_artist, @artist
+		authorize! :write, @artist
   end
 
 	def create
-		authorize! :write_artist, Artist
 		@artist = Artist.new( params[:artist] )
+		authorize! :write, @artist
 		if @artist.save
 			redirect_to artist_url( @artist )
 		else
@@ -32,7 +31,7 @@ class ArtistsController < ApplicationController
 
 	def update
 		@artist = Artist.find( params[:id] )
-		authorize! :write_artist, @artist
+		authorize! :write, @artist
 
 		if @artist.update_attributes( params[:artist] )
 			redirect_to artist_url( @artist )

@@ -6,12 +6,12 @@ module AlbumsControllerTests
       end
     end
 
-    def test_get_index_for_guest_succeeds
+    def test_get_index_succeeds
       get :index, artist_id: Artist.sham!.to_param
       assert_response :success
     end
 
-    def test_get_index_for_guest_does_not_display_actions
+    def test_get_index_not_authorized_does_not_display_actions
       artist = Artist.sham!
       get :index, artist_id: artist.to_param
       assert_select 'a[href=?]', new_artist_album_path(artist), 0
