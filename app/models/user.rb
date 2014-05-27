@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
   has_many :memberships
 
 	attr_accessible :login, :email, :password, :password_confirmation, :as => [:default, :admin]
-	attr_accessible :admin, :as => :admin
+	attr_accessible :admin, :publisher, :as => :admin
 	validates :admin, :inclusion => { :in => [true, false] }
+	validates :publisher, :inclusion => { :in => [true, false] }
 
   def artists
     Artist.joins( :memberships ).where( 'memberships.user_id' => self.id )

@@ -19,6 +19,8 @@
   <% end %>
 	<dt><%=t 'label.user.admin' %></dt>
 		<dd><%= @user.admin? ? t( 'label.true_value' ) : t( 'label.false_value' )%></dd>
+	<dt><%=t 'label.user.publisher' %></dt>
+		<dd><%= @user.publisher? ? t( 'label.true_value' ) : t( 'label.false_value' )%></dd>
 	<dt><%=t 'label.user.login_count' %></dt>
 		<dd><%= @user.login_count %></dd>
 	<dt><%=t 'label.user.failed_login_count' %></dt>

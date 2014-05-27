@@ -177,6 +177,8 @@ pl:
               too_short: ^podane potwierdzenie hasła jest za krótkie
             admin:
               inclusion: ^proszę określić, czy użytkownik jest administratorem
+            publisher:
+              inclusion: ^proszę określić, czy użytkownik jest wydawcą
         setting:
           attributes:
             name:
@@ -348,6 +350,7 @@ pl:
       password: Hasło
       password_confirmation: Potwierdzenie hasła
       admin: Administrator
+      publisher: Wydawca
       created_at: Utworzono
       updated_at: Zmodyfikowano
       last_login_at: Ostatnie logowanie
