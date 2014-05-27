@@ -18,6 +18,10 @@
 		<%= f.label :admin, t( 'label.user.admin' ) %>
 		<%= f.check_box :admin %>
   </div>
+  <div class="checkbox">
+		<%= f.label :publisher, t( 'label.user.publisher' ) %>
+		<%= f.check_box :publisher %>
+  </div>
   <div class="form-group">
 		<%= f.label :password, t( 'label.user.password' ) %>
 		<%= f.password_field :password, class: 'form-control' %>

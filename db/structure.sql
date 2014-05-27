@@ -412,7 +412,8 @@ CREATE TABLE users (
     current_login_at timestamp without time zone,
     last_login_at timestamp without time zone,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    publisher boolean DEFAULT false NOT NULL
 );
 
 
@@ -1106,3 +1107,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140119201221');
 INSERT INTO schema_migrations (version) VALUES ('20140210205054');
 
 INSERT INTO schema_migrations (version) VALUES ('20140210205102');
+
+INSERT INTO schema_migrations (version) VALUES ('20140527204826');

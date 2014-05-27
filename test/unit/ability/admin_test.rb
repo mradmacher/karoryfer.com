@@ -5,51 +5,59 @@ class Ability::AdminTest < ActiveSupport::TestCase
     @ability = Ability.new(User.sham!(:build, :admin))
   end
 
-  def test_write_album_is_allowed
+  def test_write_album_is_denied
     album = Album.sham!(:build)
-    assert @ability.allowed?(:write, album)
+    refute @ability.allowed?(:write, album)
   end
 
-  def test_create_album_is_allowed
+  def test_create_album_is_denied
     artist = Artist.sham!
     refute @ability.allowed?(:write, Album)
-    assert @ability.allowed?(:write, Album, artist)
+    refute @ability.allowed?(:write, Album, artist)
   end
 
-  def test_write_attachment_is_allowed
+  def test_write_attachment_is_denied
     attachment = Attachment.sham!(:build)
-    assert @ability.allowed?(:write, attachment)
+    refute @ability.allowed?(:write, attachment)
   end
 
-  def test_create_attachment_is_allowed
+  def test_create_attachment_is_denied
     album = Album.sham!
     refute @ability.allowed?(:write, Attachment)
-    assert @ability.allowed?(:write, Attachment, album)
+    refute @ability.allowed?(:write, Attachment, album)
   end
 
-  def test_write_track_is_allowed
+  def test_write_track_is_denied
     track = Track.sham!(:build)
-    assert @ability.allowed?(:write, track)
+    refute @ability.allowed?(:write, track)
   end
 
-  def test_create_track_is_allowed
+  def test_create_track_is_denied
     album = Album.sham!
     refute @ability.allowed?(:write, Track)
-    assert @ability.allowed?(:write, Track, album)
+    refute @ability.allowed?(:write, Track, album)
   end
 
   def test_create_artist_is_allowed
     assert @ability.allowed?(:write, Artist)
   end
 
-  def test_read_account_is_allowed
+  def test_read_user_is_allowed
     user = User.sham!
     assert @ability.allowed?(:read, user)
   end
 
-  def test_write_account_is_allowed
+  def test_read_users_is_allowed
+    assert @ability.allowed?(:read, User)
+  end
+
+  def test_write_user_is_allowed
     user = User.sham!
     assert @ability.allowed?(:read, user)
+  end
+
+  def test_create_user_is_allowed
+    assert @ability.allowed?(:read, User)
   end
 
   def test_read_membership_is_allowed
@@ -67,6 +75,5 @@ class Ability::AdminTest < ActiveSupport::TestCase
     refute @ability.allowed?(:write, Membership)
     assert @ability.allowed?(:write, Membership, user)
   end
-
 end
 

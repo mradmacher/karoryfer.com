@@ -17,6 +17,13 @@ module AlbumsControllerTests
       assert_select 'a[href=?]', new_artist_album_path(artist), 0
     end
 
+    def test_get_index_authorized_displays_actions
+      artist = Artist.sham!
+      allow(:write, Album, artist)
+      get :index, artist_id: artist.to_param
+      assert_select 'a[href=?]', new_artist_album_path(artist), I18n.t( 'action.new' )
+    end
+
     def test_get_index_for_guest_does_not_display_unpublished
       artist = Artist.sham!
       2.times { Album.sham!( :published, artist: artist ) }
@@ -62,26 +69,6 @@ module AlbumsControllerTests
       end
     end
 
-    def test_get_index_for_user_does_not_show_actions
-      artist = Artist.sham!
-      login_user
-      get :index, artist_id: artist.to_param
-      assert_select 'a[href=?]', new_artist_album_path(artist), 0
-    end
-
-    def test_get_index_for_artist_user_does_not_show_actions
-      membership = login_artist_user
-      artist = membership.artist
-      get :index, artist_id: artist.to_param
-      assert_select 'a[href=?]', new_artist_album_path(artist), 0
-    end
-
-    def test_get_index_for_admin_displays_actions
-      artist = Artist.sham!
-      login_admin
-      get :index, artist_id: artist.to_param
-      assert_select 'a[href=?]', new_artist_album_path(artist), I18n.t( 'action.new' )
-    end
   end
 end
 
