@@ -28,6 +28,7 @@ class Album < ActiveRecord::Base
 	validates :reference, :uniqueness => { :case_sensitive => false }
 
   mount_uploader :image, Uploader::AlbumImage
+  mount_uploader :file, Uploader::CustomRelease
 
 	default_scope order( 'created_at desc' )
 	scope :published, where( :published => true )

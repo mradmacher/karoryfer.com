@@ -32,38 +32,48 @@
 
 <br />
 
-<div class="row">
-  <div class="span12">
-    <div class="text-info"><%= flash[:notice] %></div>
-    <% Release::FORMATS.each do |format| %>
-      <%= form_tag release_artist_album_path( @album.artist, @album, format ), class: 'pull-left',
-          'data-format' => format do %>
-        <%= submit_tag format, class: 'download-button img-circle create-release-button'%>
+<% if @album.file? %>
+  <div class="row">
+    <div class="span12">
+      <a href="<%= @album.file.url %>" class="download-link" title="zip">
+        <button class="download-button img-circle"><strong>zip</strong></button></a>
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <div class="text-info"><%= flash[:notice] %></div>
+      <% Release::FORMATS.each do |format| %>
+        <%= form_tag release_artist_album_path( @album.artist, @album, format ), class: 'pull-left',
+            'data-format' => format do %>
+          <%= submit_tag format, class: 'download-button img-circle create-release-button'%>
+        <% end %>
       <% end %>
-    <% end %>
-    <div class="modal fade" id="download-message" tabindex="-1" role="dialog" aria-labelledby="download-message-label" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="download-message-label"><%= @album.artist.name %> - <%= @album.title %></h4>
-            <h5 class="modal-title format"></h5>
-          </div>
-          <div class="modal-body">
-            <p class="waiting-message">
-              <%=t 'label.release_message' %>
-            </p>
-            <p class="progress-indicator"></p>
-            <p class="ready-message">
-              <a href="#" class="download-link" title="<%= t('label.download') %>">
-                <button class="download-button img-circle"><strong><%= t('label.download') %></strong></button></a>
-            </p>
+      <div class="modal fade" id="download-message" tabindex="-1" role="dialog" aria-labelledby="download-message-label" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="download-message-label"><%= @album.artist.name %> - <%= @album.title %></h4>
+              <h5 class="modal-title format"></h5>
+            </div>
+            <div class="modal-body">
+              <p class="waiting-message">
+                <%=t 'label.release_message' %>
+              </p>
+              <p class="progress-indicator"></p>
+              <p class="ready-message">
+                <a href="#" class="download-link" title="<%= t('label.download') %>">
+                  <button class="download-button img-circle"><strong><%= t('label.download') %></strong></button></a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
+
 <% unless @album.donation.blank? %>
   <div class="well donations">
     <%=raw @album.donation %>
@@ -75,7 +85,7 @@
 
 <%= render_text @album.description %>
 
-<% unless @album.tracks.empty? %>
+<% if !@album.tracks.empty? or can?(:write, Track, @album)%>
   <h4><%= t 'title.track.index' %></h4>
   <% if can? :write, Track, @album %>
     <p>
@@ -140,27 +150,26 @@
   </div>
 <% end %>
 
-<h4><%= t 'title.attachment.index' %></h4>
-<% if can? :write, Attachment, @album %>
-  <p>
-    <a href="<%= new_artist_album_attachment_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
-  </p>
-<% end %>
-<% if @album.attachments.empty? %>
-  <%=t 'label.nothing_here' %>
-<% end %>
-<ul>
-  <% @album.attachments.each do |attachment| %>
-    <li>
-      <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
-      <% if can? :write, attachment %>
-        <a href="<%= artist_album_attachment_path(@album.artist, @album, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
-          <%=t 'action.delete' %>
-        </a>
-      <% end %>
-    </li>
+<% if !@album.attachments.empty? or can?(:write, Attachment, @album) %>
+  <h4><%= t 'title.attachment.index' %></h4>
+  <% if can? :write, Attachment, @album %>
+    <p>
+      <a href="<%= new_artist_album_attachment_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
+    </p>
   <% end %>
-</ul>
+  <ul>
+    <% @album.attachments.each do |attachment| %>
+      <li>
+        <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
+        <% if can? :write, attachment %>
+          <a href="<%= artist_album_attachment_path(@album.artist, @album, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+            <%=t 'action.delete' %>
+          </a>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 
 <br />
 <div class="well">

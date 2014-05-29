@@ -7,7 +7,7 @@ class AlbumReleaseTest < ActiveSupport::TestCase
 
   def setup
     @tmp_dir = Dir.mktmpdir
-    Release::Uploader.album_store_dir = File.join( @tmp_dir, 'storage' )
+    Uploader::Release.album_store_dir = File.join( @tmp_dir, 'storage' )
 
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
     @album = Album.sham! title: 'Tłuczące pokrowce jeżozwierza',
@@ -50,12 +50,12 @@ class AlbumReleaseTest < ActiveSupport::TestCase
 
     ogg_artist_reference = ogg_release.album.artist.reference
     ogg_album_reference = ogg_release.album.reference
-    ogg_archive_file_path = File.join( Release::Uploader.album_store_dir, ogg_artist_reference,
+    ogg_archive_file_path = File.join( Uploader::Release.album_store_dir, ogg_artist_reference,
       "#{ogg_artist_reference}-#{ogg_album_reference}-#{ogg_release.format}.zip" )
 
     flac_artist_reference = flac_release.album.artist.reference
     flac_album_reference = flac_release.album.reference
-    flac_archive_file_path = File.join( Release::Uploader.album_store_dir, flac_artist_reference,
+    flac_archive_file_path = File.join( Uploader::Release.album_store_dir, flac_artist_reference,
       "#{flac_artist_reference}-#{flac_album_reference}-#{flac_release.format}.zip" )
 
     assert File.exists? ogg_archive_file_path

@@ -86,10 +86,10 @@ module ReleaseHelper
   def check_track_release( release )
     track = release.track
 
-    assert Dir.exists? Release::Uploader.track_store_dir
+    assert Dir.exists? Uploader::Release.track_store_dir
     partition = (track.id / 1000).to_s
 
-    track_path = File.join( Release::Uploader.track_store_dir, partition, "#{track.id}.#{release.format}" )
+    track_path = File.join( Uploader::Release.track_store_dir, partition, "#{track.id}.#{release.format}" )
     assert File.exists? track_path
     type = case release.format
       when Release::OGG then 'Ogg'
@@ -101,14 +101,14 @@ module ReleaseHelper
     assert_tags release, track, track_path
 
     (Release::FORMATS - [release.format]).each do |format|
-      assert Dir.glob( File.join( Release::Uploader.track_store_dir, partition, "*.#{format}" ) ).empty?
+      assert Dir.glob( File.join( Uploader::Release.track_store_dir, partition, "*.#{format}" ) ).empty?
     end
   end
 
   def check_album_release( release )
     artist_reference = release.album.artist.reference
     album_reference = release.album.reference
-    archive_file_path = File.join( Release::Uploader.album_store_dir, artist_reference,
+    archive_file_path = File.join( Uploader::Release.album_store_dir, artist_reference,
       "#{artist_reference}-#{album_reference}-#{release.format}.zip" )
 
     puts archive_file_path

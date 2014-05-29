@@ -18,8 +18,8 @@ module I18n
 end
 I18n.exception_handler = :raise_missing_translation
 
-Release::Uploader.album_store_dir = "/tmp"
-Release::Uploader.track_store_dir = "/tmp"
+Uploader::Release.album_store_dir = "/tmp"
+Uploader::Release.track_store_dir = "/tmp"
 Attachment::Uploader.store_dir = "/tmp"
 Track::Uploader.store_dir = "/tmp"
 Releaser::Base.publisher_name = 'Lecolds'
