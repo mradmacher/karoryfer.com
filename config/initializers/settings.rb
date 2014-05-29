@@ -5,8 +5,9 @@ Setting.set 'karoryfer.twitter.url', 'http://www.twitter.com/karoryfer'
 Setting.set 'karoryfer.flattr.url', 'http://flattr.com/profile/karoryfer'
 
 Artist.admin_reference = 'karoryfer-lecolds'
-Release::Uploader.album_store_dir = File.join( Rails.root, 'public', 'downloads', 'wydawnictwa' )
-Release::Uploader.track_store_dir = File.join( Rails.root, 'public', 'downloads', 'tracks' )
+Uploader::Release.album_store_dir = File.join( Rails.root, 'public', 'downloads', 'wydawnictwa' )
+Uploader::Release.track_store_dir = File.join( Rails.root, 'public', 'downloads', 'tracks' )
+Uploader::CustomRelease.store_dir = File.join( Rails.root, 'public', 'downloads', 'wydawnictwa' )
 Attachment::Uploader.store_dir = File.join( Rails.root, 'public', 'uploads', 'attachments' )
 Track::Uploader.store_dir = File.join( Rails.root, 'db', 'tracks' )
 Releaser::Base.publisher_name = 'Karoryfer Lecolds'

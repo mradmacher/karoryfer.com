@@ -8,7 +8,7 @@ class TrackReleaseTest < ActiveSupport::TestCase
 
   def setup
     @tmp_dir = Dir.mktmpdir
-    Release::Uploader.track_store_dir = File.join( @tmp_dir, 'storage' )
+    Uploader::Release.track_store_dir = File.join( @tmp_dir, 'storage' )
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
     @track = Track.sham! file: File.open( File.join( FIXTURES_DIR, 'tracks', "1.wav" ) )
   end
@@ -33,12 +33,12 @@ class TrackReleaseTest < ActiveSupport::TestCase
     flac_release = @track.releases.create( format: Release::FLAC )
     partition = (@track.id / 1000).to_s
 
-    assert File.exists?( File.join( Release::Uploader.track_store_dir, partition, "#{@track.id}.ogg" ) )
-    assert File.exists?( File.join( Release::Uploader.track_store_dir, partition,  "#{@track.id}.flac" ) )
+    assert File.exists?( File.join( Uploader::Release.track_store_dir, partition, "#{@track.id}.ogg" ) )
+    assert File.exists?( File.join( Uploader::Release.track_store_dir, partition,  "#{@track.id}.flac" ) )
 
     ogg_release.destroy
-    refute File.exists?( File.join( Release::Uploader.track_store_dir, partition, "#{@track.id}.ogg" ) )
-    assert File.exists?( File.join( Release::Uploader.track_store_dir, partition, "#{@track.id}.flac" ) )
+    refute File.exists?( File.join( Uploader::Release.track_store_dir, partition, "#{@track.id}.ogg" ) )
+    assert File.exists?( File.join( Uploader::Release.track_store_dir, partition, "#{@track.id}.flac" ) )
   end
 end
 
