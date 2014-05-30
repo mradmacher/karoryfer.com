@@ -1,4 +1,3 @@
-<p><a href="<%= artist_album_path(album.artist, album) %>"><%= album.title %></a></p>
 <% if album.image? %>
 <p>
   <a href="<%= artist_album_path(album.artist, album) %>">
@@ -9,4 +8,5 @@
 <% unless current_artist? %>
   <p><%= album.artist.name %></p>
 <% end %>
+<p><a href="<%= artist_album_path(album.artist, album) %>"><%= album.title %></a></p>
 
