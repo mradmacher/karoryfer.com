@@ -39,7 +39,7 @@
         <button class="download-button img-circle"><strong>zip</strong></button></a>
     </div>
   </div>
-<% else %>
+<% elsif !@album.tracks.empty? %>
   <div class="row">
     <div class="span12">
       <div class="text-info"><%= flash[:notice] %></div>
