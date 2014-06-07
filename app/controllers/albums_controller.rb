@@ -49,49 +49,22 @@ class AlbumsController < ApplicationController
 		redirect_to artist_albums_url( current_artist )
 	end
 
-  def release
-		@album = current_artist.albums.find_by_reference( params[:id] )
-    release = @album.releases.in_format( params[:format] ).first
-    release_exists = !release.nil?
-    if release_exists
-      release.touch
-    else
-      release = @album.releases.build( format: params[:format] )
-      if release.valid?
-        argv = "release-#{current_artist.id}-#{@album.id}-#{release.format}"
-        unless `ps aux`.include? argv
-          Spawnling.new( argv: argv ) do
-            release.save
-          end
-        end
-      end
-    end
-    if request.xhr?
-      render json: { success: true }
-    else
-      if release_exists
-        redirect_to release.file.url
-      else
-        redirect_to artist_album_url(current_artist, @album), notice: I18n.t('label.release_message')
-      end
-    end
-  end
-
   def download
     @artist = Artist.find( params[:artist_id] )
 		@album = @artist.albums.find_by_reference( params[:id] )
-    release = @album.releases.in_format( params[:format] ).first
-    if release.nil?
-      if request.xhr?
-        render json: { success: false }
-      else
-        redirect_to artist_album_url(@artist, @album)
-      end
-    else
+    release = @album.releases.in_format( params[:format] ).first!
+    if release.file?
       if request.xhr?
         render json: { success: true, url: release.file.url }
       else
         redirect_to release.file.url
+      end
+    else
+      release.generate_in_background!
+      if request.xhr?
+        render json: { success: false }
+      else
+        redirect_to artist_album_url(@artist, @album), notice: I18n.t('label.release_message')
       end
     end
   end

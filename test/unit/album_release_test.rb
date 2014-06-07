@@ -7,7 +7,7 @@ class AlbumReleaseTest < ActiveSupport::TestCase
 
   def setup
     @tmp_dir = Dir.mktmpdir
-    Uploader::Release.album_store_dir = File.join( @tmp_dir, 'storage' )
+    Uploader::Release.album_store_dir = @tmp_dir
 
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
     @album = Album.sham! title: 'Tłuczące pokrowce jeżozwierza',
@@ -29,41 +29,66 @@ class AlbumReleaseTest < ActiveSupport::TestCase
     FileUtils.remove_entry_secure @tmp_dir
   end
 
-  def test_on_create_makes_ogg_release
-    release = @album.releases.create( format: Release::OGG )
+  def test_creates_ogg_release
+    release = Release.create( owner: @album, format: Release::OGG )
+    release.generate!
     check_album_release release
   end
 
-  def test_on_create_makes_flac_release
-    release = @album.releases.create( format: Release::FLAC )
+  def test_creates_flac_release
+    release = Release.create( owner: @album, format: Release::FLAC )
+    release.generate!
     check_album_release release
   end
 
-  def test_on_create_makes_mp3_release
-    release = @album.releases.create( format: Release::MP3 )
+  def test_creates_mp3_release
+    release = Release.create( owner: @album, format: Release::MP3 )
+    release.generate!
     check_album_release release
   end
 
-  def test_on_delete_removes_files_from_storage
-    ogg_release = @album.releases.create( format: Release::OGG )
-    flac_release = @album.releases.create( format: Release::FLAC )
+  def expected_release_url( album )
+    "#{Publisher.instance.url}/#{album.artist.reference}/wydawnictwa/#{album.reference}"
+  end
 
-    ogg_artist_reference = ogg_release.album.artist.reference
-    ogg_album_reference = ogg_release.album.reference
-    ogg_archive_file_path = File.join( Uploader::Release.album_store_dir, ogg_artist_reference,
-      "#{ogg_artist_reference}-#{ogg_album_reference}-#{ogg_release.format}.zip" )
+  def check_album_release( release )
+    album = release.owner
+    artist_reference = album.artist.reference
+    album_reference = album.reference
+    file_path = release.file.path
 
-    flac_artist_reference = flac_release.album.artist.reference
-    flac_album_reference = flac_release.album.reference
-    flac_archive_file_path = File.join( Uploader::Release.album_store_dir, flac_artist_reference,
-      "#{flac_artist_reference}-#{flac_album_reference}-#{flac_release.format}.zip" )
+    assert File.exists?( file_path )
+    assert_equal "#{artist_reference}-#{album_reference}-#{release.format}.zip", File.basename( file_path )
 
-    assert File.exists? ogg_archive_file_path
-    assert File.exists? flac_archive_file_path
+    Dir.mktmpdir do |tmp_dir|
+      system "unzip #{file_path} -d #{tmp_dir}"
 
-    ogg_release.destroy
-    refute File.exists? ogg_archive_file_path
-    assert File.exists? flac_archive_file_path
+      album_path = File.join( tmp_dir, artist_reference, album_reference )
+      assert File.exists? album_path
+
+      assert File.exists? File.join( album_path, 'att1.jpg' )
+      assert File.exists? File.join( album_path, 'att2.pdf' )
+      assert File.exists? File.join( album_path, 'att3.txt' )
+      album.tracks.each do |track|
+        track_reference = track.title.parameterize( '_' )
+
+       track_path = File.join( album_path, "#{sprintf( '%02d', track.rank )}-#{track_reference}.#{release.format}" )
+        assert File.exists? track_path
+        type = case release.format
+          when Release::OGG then 'Ogg'
+          when Release::MP3 then 'MPEG'
+          when Release::FLAC then 'FLAC'
+        end
+        assert `file #{track_path}` =~ /#{type}/
+
+        assert_tags track_path, track, Publisher.instance, expected_release_url( album )
+      end
+
+      (Release::FORMATS - [release.format]).each do |format|
+        refute File.exists? File.join( album_path, "*.#{format}" )
+      end
+    end
   end
 end
+
 

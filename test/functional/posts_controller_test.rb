@@ -25,9 +25,10 @@ class PostsControllerTest < ActionController::TestCase
     Post
   end
 
-  def test_get_edit_for_artist_user_displays_form
-    membership = login_artist_user
-    post = Post.sham!( artist: membership.artist )
+  def test_authorized_get_edit_displays_form
+    artist = Artist.sham!
+    post = Post.sham!( artist: artist )
+    allow( :write, post )
     get :edit, artist_id: post.artist.to_param, id: post.to_param
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.post.title' )
@@ -37,9 +38,10 @@ class PostsControllerTest < ActionController::TestCase
     end
   end
 
-  def test_get_new_for_artist_user_displays_form
-    membership = login_artist_user
-    get :new, artist_id: membership.artist
+  def test_authorized_get_new_displays_form
+    artist = Artist.sham!
+    allow( :write, Post, artist )
+    get :new, artist_id: artist
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.post.title' )
       assert_select 'input[type=text][name=?]', 'post[title]'

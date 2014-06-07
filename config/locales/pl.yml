@@ -106,7 +106,9 @@ pl:
               blank: ^proszę wybrać album
             format:
               blank: ^proszę wybrać format
-              inclusion: ^podany format nie jest akceptowany
+              inclusion: ^dopuszczalne formaty to ogg, mp3 i flac
+            file:
+              blank: ^proszę załączyć plik
         artist:
           attributes:
             name:
@@ -252,7 +254,7 @@ pl:
       index: Załączniki
 
   label:
-    release_message: Wydawnictwo jest przygotowywane do pobrania. Możesz powrócić tu za minutę albo dwie. Będzie gotowe.
+    release_message: Wydawnictwo jest przygotowywane do pobrania i będzie gotowe za kilka minut. Możesz w tym czasie spokojnie poklikać po stronie. (Your download is being processed. It will be ready in a few minutes. Feel free to use the website in the meantime.)
     nothing_here_yet: Nic tu jeszcze nie ma.
     nothing_here: Brak
     unpublished: Szkice

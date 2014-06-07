@@ -1,4 +1,3 @@
-require 'spawnling'
 require 'test_helper'
 require_relative 'albums_controller_tests/get_index'
 require_relative 'albums_controller_tests/get_show'
@@ -7,6 +6,14 @@ require_relative 'albums_controller_tests/get_new'
 require_relative 'albums_controller_tests/put_update'
 require_relative 'albums_controller_tests/post_create'
 require_relative 'albums_controller_tests/delete_destroy'
+
+class Release
+  def generate_in_background!
+    self.generated = false
+    self.file = File.open( File.join( FIXTURES_DIR, 'attachments', 'att2.pdf' ) )
+    self.save
+  end
+end
 
 class AlbumsControllerTest < ActionController::TestCase
   FIXTURES_DIR = File.expand_path('../../fixtures', __FILE__)
@@ -19,14 +26,18 @@ class AlbumsControllerTest < ActionController::TestCase
   include AlbumsControllerTests::PostCreate
   include AlbumsControllerTests::DeleteDestroy
 
-  def test_get_download_redirects_to_album_if_no_release_in_provided_format
+  def test_get_download_redirects_to_album_if_release_without_file_in_provided_format
     album = Album.sham!( :published )
+    release = Release.sham!( owner: album, format: 'flac', generated: true )
+    release.remove_file!
     get :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
     assert_redirected_to artist_album_url( album.artist, album )
   end
 
-  def test_xhr_get_download_returns_false_if_no_release_in_provided_format
+  def test_xhr_get_download_returns_false_if_release_without_file_in_provided_format
     album = Album.sham!( :published )
+    release = Release.sham!( owner: album, format: 'flac', generated: true )
+    release.remove_file!
     xhr :get, :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
     assert_response :success
     result = JSON.parse(response.body)
@@ -34,16 +45,16 @@ class AlbumsControllerTest < ActionController::TestCase
   end
 
   def test_get_download_redirects_to_release_url_if_release_in_provided_format_exists
-    track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
-    release = track.album.releases.create(format: 'flac')
-    get :download, artist_id: release.album.artist.to_param, id: release.album.to_param, format: 'flac'
+    album = Album.sham!( :published )
+    release = Release.sham!( owner: album, format: 'flac' )
+    get :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
     assert_redirected_to release.file.url
   end
 
   def test_xhr_get_download_returns_release_url_if_release_in_provided_format_exists
-    track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
-    release = track.album.releases.create(format: 'flac')
-    xhr :get, :download, artist_id: release.album.artist.to_param, id: release.album.to_param, format: 'flac'
+    album = Album.sham!( :published )
+    release = Release.sham!( owner: album, format: 'flac' )
+    xhr :get, :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
     assert_response :success
 
     result = JSON.parse(response.body)
@@ -51,68 +62,29 @@ class AlbumsControllerTest < ActionController::TestCase
     assert_equal release.file.url, result['url']
   end
 
-  def test_post_release_redirects_to_album_if_release_does_not_exist
-    Spawnling.default_options( { :method => :yield } )
+  def test_get_download_generates_release_for_release_without_file
     track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
     album = track.album
-    post :release, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
-    assert_redirected_to artist_album_path( album.artist, album )
-  end
+    release = Release.sham!( :generated, owner: album, format: 'flac' )
 
-  def test_post_release_returns_release_url_if_release_exists
-    Spawnling.default_options( { :method => :yield } )
-    track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
-    album = track.album
-    release = album.releases.create( format: 'flac' )
-    post :release, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
-    assert_redirected_to release.file.url
-  end
-
-  def test_xhr_post_release_returns_true
-    Spawnling.default_options( { :method => :yield } )
-    track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
-    album = track.album
-    xhr :post, :release, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
-    result = JSON.parse(response.body)
-    assert_equal true, result['success']
-  end
-
-  def test_post_release_generates_release_if_none_in_provided_format
-    Spawnling.default_options( { :method => :yield } )
-    track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
-    album = track.album
-
-    refute album.releases.in_format( 'flac' ).exists?
-    post :release, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
-    assert album.releases.in_format( 'flac' ).exists?
-  end
-
-  def test_post_release_does_not_generate_release_if_exists_in_provided_format
-    Spawnling.default_options( { :method => :yield } )
-    track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
-    album = track.album
-    album.releases.create( format: 'flac' )
-
-    assert_equal 1, album.releases.in_format( 'flac' ).count
-    post :release, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
-    assert_equal 1, album.releases.in_format( 'flac' ).count
-  end
-
-  def test_post_release_does_not_generate_release_if_already_generated_for_provided_format
-    skip "I don't know how to test it"
-  end
-
-  def test_post_release_updates_release_timestamp
-    Spawnling.default_options( { :method => :yield } )
-    track = Track.sham!  file: File.open( File.join( FIXTURES_DIR, 'tracks', '1.wav' ) )
-    album = track.album
-    now = Time.now
-    release = album.releases.create( format: 'flac', updated_at: now - 10.days )
-
-    refute_in_delta release.updated_at.to_i, now.to_i, 1
-    post :release, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
+    refute release.file?
+    get :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
     release.reload
-    assert_in_delta release.updated_at.to_i, now.to_i, 1
+    assert release.file?
+  end
+
+  def test_get_download_does_not_generate_release_if_file_exists
+    album = Album.sham!( :published )
+    release = Release.sham!( owner: album, format: 'flac' )
+
+    was_updated_at = release.updated_at
+    get :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
+    release.reload
+    assert_equal was_updated_at.to_i, release.updated_at.to_i
+  end
+
+  def test_get_download_does_not_generate_release_if_already_generated_for_provided_format
+    skip 'This is a test for Release#generate_in_background!'
   end
 
   def test_get_edit_is_authorized

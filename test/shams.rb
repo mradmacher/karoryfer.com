@@ -86,21 +86,19 @@ Sham.config( Attachment ) do |c|
   } end
 end
 
-Sham.config( Release, :album ) do |c|
-  c.attributes do {
-    album: Sham::Nested.new( Album ),
-    format: Release::FORMATS.sample,
-  } end
-end
-Sham.config( Release, :track ) do |c|
-  c.attributes do {
-    track: Sham::Nested.new( Track ),
-    format: Release::FORMATS.sample,
-  } end
-end
 Sham.config( Release ) do |c|
   c.attributes do {
-    album: Sham::Nested.new( Album ),
+    owner: [0, 1].sample == 1 ? Sham::Nested.new( Album ) : Sham::Nested.new( Track ),
+    generated: false,
+    format: Release::FORMATS.sample,
+    file: File.open( "#{fixtures_dir}/release.zip" )
+  } end
+end
+
+Sham.config( Release, :generated ) do |c|
+  c.attributes do {
+    owner: [0, 1].sample == 1 ? Sham::Nested.new( Album ) : Sham::Nested.new( Track ),
+    generated: true,
     format: Release::FORMATS.sample,
   } end
 end

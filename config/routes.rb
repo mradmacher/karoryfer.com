@@ -31,8 +31,7 @@ Karoryfer::Application.routes.draw do
 	scope ':artist_id', as: 'artist', path_names: { new: 'dodaj', edit: 'zmien' } do
     resources :albums, path: 'wydawnictwa' do
       member do
-        post ':format', to: 'albums#release', as: 'release', constraints: { format: /flac|ogg|mp3/ }
-        get ':format', to: 'albums#download', as: 'download', constraints: { format: /flac|ogg|mp3/ }
+        get ':format', to: 'albums#download', as: 'download', constraints: { format: /.{1,4}/ }
       end
       resources :attachments, path: 'zalaczniki', only: [:show, :new, :create, :destroy]
       resources :tracks, path: 'sciezki', only: [:show, :new, :edit, :create, :update, :destroy]

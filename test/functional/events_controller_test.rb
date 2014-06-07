@@ -26,9 +26,10 @@ class EventsControllerTest < ActionController::TestCase
     Event
   end
 
-  def test_get_edit_for_artist_user_displays_form
-    membership = login_artist_user
-    event = Event.sham!( artist: membership.artist )
+  def test_authorized_get_edit_displays_form
+    artist = Artist.sham!
+    event = Event.sham!( artist: artist )
+    allow( :write, event )
     get :edit, artist_id: event.artist.to_param, id: event.to_param
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.event.title' )
@@ -39,9 +40,10 @@ class EventsControllerTest < ActionController::TestCase
     end
   end
 
-  def test_get_new_for_artist_user_displays_form
-    membership = login_artist_user
-    get :new, artist_id: membership.artist
+  def test_authorized_get_new_displays_form
+    artist = Artist.sham!
+    allow( :write, Event, artist )
+    get :new, artist_id: artist
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.event.title' )
       assert_select 'input[type=text][name=?]', 'event[title]'

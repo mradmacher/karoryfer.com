@@ -9,66 +9,66 @@ class Release < ActiveRecord::Base
   belongs_to :album
   belongs_to :track
 
-  before_save :generate
   after_destroy :remove_file!
 
-  validate :if_album_or_track
-  #validate :if_all_tracks_with_files
-  validates :format, presence: true, inclusion: { in: FORMATS }
+  validate :owner_presence
+  validates :format, presence: true
+  validates :format, inclusion: {
+    in: ['ogg', 'mp3', 'flac'] }, if: :generated?
+  validates :file, presence: true, unless: :generated?
 
   mount_uploader :file, Uploader::Release
 
-  def releaser
-    if @releaser.nil?
-      @releaser = if self.album
-        AlbumReleaser.new( self.album, self.format )
-      elsif self.track
-        TrackReleaser.new( self.track, self.format )
-      end
-    end
-    @releaser
-  end
-
   scope :in_format, lambda { |format| where( format: format ) }
 
-  def release_url
-    self.releaser.release_url
+  def generate!
+    releaser = if owner.is_a? Album
+      Release::AlbumReleaser.new( Publisher.instance, owner, format )
+    elsif owner.is_a? Track
+      Release::TrackReleaser.new( Publisher.instance, owner, format )
+    end
+    unless releaser.nil?
+      releaser.generate do |release_file_path|
+        self.file = File.open( release_file_path )
+      end
+      save
+    end
   end
 
-  def publisher_name
-    self.releaser.publisher_name
+  def generate_in_background!
+    argv = "release-#{owner.class.name}-#{owner.id}-#{format}"
+    unless `ps aux`.include? argv
+      Spawnling.new( argv: argv ) do
+        generate!
+      end
+    end
   end
 
-  def publisher_url
-    self.releaser.publisher_url
+  def owner=( owner )
+    if owner.is_a? Album
+      self.album = owner
+      self.track = nil
+    elsif owner.is_a? Track
+      self.album = nil
+      self.track = owner
+    end
   end
 
-  def generate
-    self.releaser.generate do |release_file_path|
-      self.file = File.open( release_file_path )
+  def owner
+    if self.album.nil?
+      self.track
+    else
+      self.album
     end
   end
 
   private
 
-  def if_album_or_track
+  def owner_presence
     self.errors[:base] << I18n.t( 'activerecord.errors.models.release.album_or_track.both' ) if
       self.album_id and self.track_id
     self.errors[:base] << I18n.t( 'activerecord.errors.models.release.album_or_track.none' ) unless
       self.album_id or self.track_id
   end
-
-  def if_all_tracks_with_files
-    without_file = false
-    if self.track
-      without_file = true if self.track.file.identifier.nil?
-    elsif self.album
-      self.album.tracks.each do |track|
-        without_file = true if track.file.identifier.nil?
-      end
-    end
-    self.errors[:base] << I18n.t( 'activerecord.errors.models.release.album_or_track.missing_files' ) if without_file
-  end
-
 end
 

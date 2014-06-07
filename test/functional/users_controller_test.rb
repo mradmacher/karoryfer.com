@@ -131,7 +131,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   def test_get_edit_for_user_does_not_display_admin_field
-    user = login_user
+    user = User.sham!
     allow(:write,  user)
     get :edit, :id => user.to_param
     assert_select 'form > input[name=?]', 'user[admin]', 0
@@ -157,7 +157,6 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   def test_authorized_get_show_for_admin_displays_form_to_add_membership
-    login_admin
     user = User.sham!
     allow(:read, user)
     allow(:write, Membership, user)
@@ -170,7 +169,6 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   def test_authorized_get_show_for_admin_displays_on_form_only_artist_user_is_not_member_of
-    login_admin
     user = User.sham!
     allow(:read, user)
     allow(:write, Membership, user)
