@@ -105,14 +105,10 @@
   <% albums = current_artist.albums.published %>
   <% unless albums.empty? %>
     <div class="panel-body">
-      <ul class="row list-unstyled">
-      <% albums.each do |album| %>
-        <li class="col-sm-6 col-md-6 col-lg-6">
-          <div class="thumbnail">
-            <%= link_to image_tag( album.image.icon.url, :alt => album.title ), artist_album_path( current_artist, album ) %>
-          </div>
-        </li>
-      <% end %>
+      <ul class="album-list">
+        <% albums.each do |album| %>
+          <li><%= link_to album.title, artist_album_path( current_artist, album ) %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>

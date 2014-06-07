@@ -25,6 +25,10 @@
   list-style-image: url('/images/tags/video.png');
 }
 
+.album-list {
+  list-style-image: url('/images/tags/album.png');
+}
+
 .menu-link {
   color: #000;
 }
