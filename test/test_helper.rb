@@ -22,8 +22,8 @@ Uploader::Release.album_store_dir = "/tmp"
 Uploader::Release.track_store_dir = "/tmp"
 Attachment::Uploader.store_dir = "/tmp"
 Track::Uploader.store_dir = "/tmp"
-Releaser::Base.publisher_name = 'Lecolds'
-Releaser::Base.publisher_host = 'www.lecolds.com'
+Publisher.instance.name = 'Lecolds'
+Publisher.instance.url = 'http://www.lecolds.com'
 
 class ActiveSupport::TestCase
   class TestAbility

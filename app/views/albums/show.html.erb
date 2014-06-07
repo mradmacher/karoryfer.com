@@ -32,21 +32,23 @@
 
 <br />
 
-<% if @album.file? %>
-  <div class="row">
-    <div class="span12">
-      <a href="<%= @album.file.url %>" class="download-link" title="zip">
-        <button class="download-button img-circle"><strong>zip</strong></button></a>
-    </div>
-  </div>
-<% elsif !@album.tracks.empty? %>
+<% if !@album.releases.empty? %>
   <div class="row">
     <div class="span12">
       <div class="text-info"><%= flash[:notice] %></div>
-      <% Release::FORMATS.each do |format| %>
-        <%= form_tag release_artist_album_path( @album.artist, @album, format ), class: 'pull-left',
-            'data-format' => format do %>
-          <%= submit_tag format, class: 'download-button img-circle create-release-button'%>
+      <% @album.releases.each do |release| %>
+        <% if release.file? %>
+          <a href="<%= download_artist_album_path( @album.artist, @album, release.format ) %>">
+            <button class="pull-left download-button img-circle">
+              <%= release.format %>
+            </button>
+          </a>
+        <% else %>
+          <a href="<%= download_artist_album_path( @album.artist, @album, release.format ) %>" data-format="<%= release.format %>">
+            <button class="pull-left download-button img-circle create-release-button">
+              <%= release.format %>
+            </button>
+          </a>
         <% end %>
       <% end %>
       <div class="modal fade" id="download-message" tabindex="-1" role="dialog" aria-labelledby="download-message-label" aria-hidden="true">
@@ -227,12 +229,16 @@ $(document).ready(function(){
     }
   })
 
+  function set_release_url() {
+
+  }
+
   $('.create-release-button').click(function(e){
      e.preventDefault();
-     form = $(this).parent('form');
-     release_url = form.attr('action');
-     format = form.attr('data-format');
-     $.post(release_url, {}, function(data) {
+     a = $(this).parent('a');
+     release_url = a.attr('href');
+     format = a.attr('data-format');
+     $.get(release_url, {}, function(data) {
        $('#download-message').find('.format').html(format);
        $('#download-message').find('.waiting-message').show();
        $('#download-message').find('.progress-indicator').html('*');
@@ -253,6 +259,10 @@ $(document).ready(function(){
          });
        }, 3000);
      });
+  });
+
+  $('#download-message').find('.download-link').click(function() {
+     $('#download-message').modal('hide');
   });
 });
 
