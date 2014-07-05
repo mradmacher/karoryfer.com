@@ -13,7 +13,7 @@ class SiteController < ApplicationController
 
   def events
     @current_date = "#{params[:day]}/#{params[:month]}/#{params[:year]}"
-    @events = Event.all
+    @events = Event.scoped
 
     if params[:day] && params[:month] && params[:year]
       @events = @events.for_day( params[:year], params[:month], params[:day] )
