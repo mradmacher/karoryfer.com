@@ -3,6 +3,7 @@ Setting.set 'karoryfer.youtube.url', 'http://www.youtube.com/user/KaroryferLecol
 Setting.set 'karoryfer.facebook.url', 'http://www.facebook.com/karoryfer'
 Setting.set 'karoryfer.twitter.url', 'http://www.twitter.com/karoryfer'
 Setting.set 'karoryfer.flattr.url', 'http://flattr.com/profile/karoryfer'
+Setting.set 'karoryfer.gplus.url', 'https://plus.google.com/101590945458103175168'
 
 Publisher.instance.name = 'Karoryfer Lecolds'
 Publisher.instance.url = 'http://www.karoryfer.com'
