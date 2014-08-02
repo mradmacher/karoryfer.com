@@ -336,6 +336,8 @@ pl:
       license_id: Licencja
       donation: Darowizny
       description: Opis
+    release:
+      downloads: Ilość pobrań
     attachment:
       file: Plik
     track:

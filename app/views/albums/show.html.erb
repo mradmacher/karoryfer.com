@@ -27,6 +27,14 @@
         :locals => { :author => @album.artist, :license => @album.license } %>
     <% end %>
     </p>
+    <% if can? :write, @album %>
+      <%=t 'label.release.downloads' %>: <%= @album.releases.sum(:downloads) %>
+      <ul>
+        <% @album.releases.each do |release| %>
+          <li><%= release.format %>: <%= release.downloads %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>
 

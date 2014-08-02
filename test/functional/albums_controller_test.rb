@@ -30,6 +30,7 @@ class AlbumsControllerTest < ActionController::TestCase
     album = Album.sham!( :published )
     release = Release.sham!( owner: album, format: 'flac', generated: true )
     release.remove_file!
+    refute release.file?
     get :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
     assert_redirected_to artist_album_url( album.artist, album )
   end
@@ -38,6 +39,7 @@ class AlbumsControllerTest < ActionController::TestCase
     album = Album.sham!( :published )
     release = Release.sham!( owner: album, format: 'flac', generated: true )
     release.remove_file!
+    refute release.file?
     xhr :get, :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
     assert_response :success
     result = JSON.parse(response.body)
@@ -85,6 +87,48 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_get_download_does_not_generate_release_if_already_generated_for_provided_format
     skip 'This is a test for Release#generate_in_background!'
+  end
+
+  def test_get_download_does_not_change_counter_if_release_without_file_in_provided_format
+    album = Album.sham!( :published )
+    release = Release.sham!( owner: album, format: 'flac', generated: true )
+    release.remove_file!
+    refute release.file?
+    assert_equal 0, release.downloads
+    get :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
+    release.reload
+    assert_equal 0, release.downloads
+  end
+
+  def test_xhr_get_download_does_not_change_counter_if_release_without_file_in_provided_format
+    album = Album.sham!( :published )
+    release = Release.sham!( owner: album, format: 'flac', generated: true )
+    release.remove_file!
+    refute release.file?
+    assert_equal 0, release.downloads
+    xhr :get, :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
+    release.reload
+    assert_equal 0, release.downloads
+  end
+
+  def test_get_download_increments_counter_if_release_in_provided_format_exists
+    album = Album.sham!( :published )
+    release = Release.sham!( owner: album, format: 'flac' )
+    assert release.file?
+    assert_equal 0, release.downloads
+    get :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
+    release.reload
+    assert_equal 1, release.downloads
+  end
+
+  def test_xhr_get_download_increments_counter_if_release_in_provided_format_exists
+    album = Album.sham!( :published )
+    release = Release.sham!( owner: album, format: 'flac' )
+    assert release.file?
+    assert_equal 0, release.downloads
+    xhr :get, :download, artist_id: album.artist.to_param, id: album.to_param, format: 'flac'
+    release.reload
+    assert_equal 1, release.downloads
   end
 
   def test_get_edit_is_authorized
