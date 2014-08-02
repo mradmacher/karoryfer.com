@@ -54,6 +54,7 @@ class AlbumsController < ApplicationController
 		@album = @artist.albums.find_by_reference( params[:id] )
     release = @album.releases.in_format( params[:format] ).first!
     if release.file?
+      release.increment!(:downloads)
       if request.xhr?
         render json: { success: true, url: release.file.url }
       else
