@@ -40,7 +40,7 @@ Karoryfer::Application.routes.draw do
 		resources :posts, path: 'wiadomosci'
 		resources :events, path: 'wydarzenia'
 		resources :artists, only: [:show]
-    resources :pages, path: 'strony', except: [:show, :update, :index]
+    resources :pages, path: 'informacje', except: [:show, :update, :index]
     match ':id' => 'pages#show', as: 'page', via: :get
     match ':id' => 'pages#update', as: 'page', via: :put
     match ':id' => 'pages#destroy', as: 'page', via: :delete

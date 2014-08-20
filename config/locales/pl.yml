@@ -36,7 +36,7 @@ pl:
       artist: Artysta
       post: Wiadomość
       event: Wydarzenie
-      page: Strona
+      page: Informacja
       video: Film
     errors:
       messages:
@@ -226,8 +226,8 @@ pl:
       index: Artyści
       new: <Nowy artysta>
     page:
-      index: Strony
-      new: <Nowa strona>
+      index: Informacje
+      new: <Nowa informacja>
     post:
       index: Wiadomości
       new: <Nowa wiadomość>
@@ -269,7 +269,7 @@ pl:
     posts: Wiadomości
     events: Wydarzenia
     drafts: Szkice
-    pages: Strony
+    pages: Informacje
     posts: Wiadomości
     events: Wydarzenia
     videos: Filmy
