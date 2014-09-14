@@ -1,21 +1,7 @@
 <hr />
 <div class="container">
   <div class="row">
-    <div class="col-md-9">
-      <ul class="list-inline">
-        <% if current_user? -%>
-          <li><a href="<%= admin_logout_url %>" class="btn btn-default btn-xs">Pa</a></li>
-          <li><a href="<%= admin_user_path( current_user ) %>" class="btn btn-default btn-xs">Moje konto</a></li>
-        <% else -%>
-          <li><a href="<%= admin_login_url %>" class="btn btn-default btn-xs">Zaloguj się</a></li>
-        <% end %>
-        <% if can? :write, User %>
-          <li><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t( 'title.user.index' ) %></a></li>
-        <% end %>
-      </ul>
-    </div>
-
-    <div class="col-md-3">
+    <div class="col-md-8">
       <ul class="list-inline">
         <% if page_url = Setting.get( 'karoryfer.facebook.url' ) %>
           <li><a href="<%= page_url %>" target="_blank">
@@ -36,6 +22,20 @@
         <% if page_url = Setting.get( 'karoryfer.gplus.url' ) %>
           <li><a href="<%= page_url %>" rel="publisher" target="_blank">
             <%= image_tag( 'social/gplus.png', :alt => 'Google+', :title => 'Google+' ) %></a></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="col-md-4">
+      <ul class="list-inline">
+        <% if current_user? -%>
+          <li class="pull-right"><a href="<%= admin_logout_url %>" class="btn btn-default btn-xs">Pa</a></li>
+          <li class="pull-right"><a href="<%= admin_user_path( current_user ) %>" class="btn btn-default btn-xs">Moje konto</a></li>
+        <% else -%>
+          <li class="pull-right"><a href="<%= admin_login_url %>" class="btn btn-default btn-xs">Zaloguj się</a></li>
+        <% end %>
+        <% if can? :write, User %>
+          <li class="pull-right"><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t( 'title.user.index' ) %></a></li>
         <% end %>
       </ul>
     </div>
