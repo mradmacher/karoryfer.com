@@ -1,9 +1,8 @@
 <%= render_title t( 'title.post.index' ) %>
 
 <%= render partial: 'sidebar' %>
-<%= render partial: 'nav' %>
 
-<h1 class="hidden"><%= t 'title.post.index' %></h1>
+<h1><%= t 'title.post.index' %></h1>
 
 <% if @posts.empty? %>
   <%= t( 'label.nothing_here_yet' ) %>

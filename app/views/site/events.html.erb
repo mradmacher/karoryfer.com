@@ -1,9 +1,8 @@
 <%= render partial: 'sidebar' %>
-<%= render partial: 'nav' %>
 
 <%= render_title t( 'title.event.index' ) %>
 
-<h1 class="hidden"><%= t 'title.event.index' %></h1>
+<h1><%= t 'title.event.index' %></h1>
 
 <% if @events.empty? %>
  <p><%= t( 'label.nothing_here_yet' ) %></p>

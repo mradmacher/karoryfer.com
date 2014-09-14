@@ -3,8 +3,8 @@ class SiteController < ApplicationController
   before_filter :set_resources
 
   def home
-    @albums = Album.published
-    @artists = Artist.order( :name )
+    @albums = Album.published.all.sample(4)
+    @artists = Artist.all.sample(4)
   end
 
   def albums
