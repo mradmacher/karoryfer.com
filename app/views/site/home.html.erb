@@ -1,5 +1,4 @@
 <%= render partial: 'sidebar' %>
-<%= render partial: 'nav' %>
 
 <div class="jumbotron">
   <h1><%=t 'label.site.name' %></h1>
@@ -7,7 +6,7 @@
 </div>
 
 <div class="panel panel-default">
-  <div class="panel-heading"><%= t( 'title.artist.index' ) %></div>
+  <div class="panel-heading"><%= link_to t( 'title.artist.index' ), artists_url %></div>
   <div class="panel-body">
     <ul class="row list-unstyled">
       <% @artists.each do |artist| %>
@@ -21,7 +20,7 @@
 
 
 <div class="panel panel-default">
-  <div class="panel-heading"><%= t( 'title.album.index' ) %></div>
+  <div class="panel-heading"><%= link_to t( 'title.album.index' ), albums_url %></div>
   <div class="panel-body">
     <ul class="row list-unstyled">
       <% @albums.each do |album| %>

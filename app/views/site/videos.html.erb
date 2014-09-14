@@ -1,9 +1,8 @@
 <%= render_title t( 'title.video.index' ) %>
 
 <%= render partial: 'sidebar' %>
-<%= render partial: 'nav' %>
 
-<h1 class="hidden"><%= t 'title.video.index' %></h1>
+<h1><%= t 'title.video.index' %></h1>
 
 <% if @videos.empty? %>
   <%= t( 'label.nothing_here_yet' ) %>
