@@ -1,4 +1,4 @@
-class VideosController < ApplicationController
+class VideosController < CurrentArtistController
   layout :set_layout
 
   def index

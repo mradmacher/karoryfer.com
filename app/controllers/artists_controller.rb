@@ -1,4 +1,4 @@
-class ArtistsController < ApplicationController
+class ArtistsController < CurrentArtistController
   layout 'current_artist', :except => [:index, :new, :create]
 
   def show

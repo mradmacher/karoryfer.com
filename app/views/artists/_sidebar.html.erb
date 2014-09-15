@@ -1,41 +1,39 @@
-<% pages = current_artist.pages.all %>
-<% if !pages.empty? or can? :write, Page, current_artist %>
+<% if @current_artist_view.show_pages? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4"><%=t 'label.pages' %></span>
-      <% if can? :write, Page, current_artist %>
-        <a href="<%= new_artist_page_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
+      <% if @current_artist_view.create_pages? %>
+        <a href="<%= @current_artist_view.new_page_path %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
       <% end %>
     </div>
       <div class="panel-body">
         <ul class="list-unstyled">
-        <% pages.each do |page| %>
-           <li><%= link_to page.title, artist_page_path(current_artist, page) %></li>
+        <% @current_artist_view.recent_pages.each do |page| %>
+           <li><%= link_to page.title, @current_artist_view.page_path(page) %></li>
         <% end %>
         </ul>
       </div>
   </div>
 <% end %>
 
-<% events = current_artist.events %>
-<% if !events.empty? or can? :write, Event, current_artist %>
+<% if @current_artist_view.show_events? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
         <%=t 'label.events' %>
-        <a href="<%= artist_events_path(current_artist) %>">
-          <span class="badge"><%= current_artist.events.current.count %> / <%= current_artist.events.expired.count %></span></a>
+        <a href="<%= @current_artist_view.events_path %>">
+          <span class="badge"><%= @current_artist_view.current_events_count %> / <%= @current_artist_view.expired_events_count %></span></a>
       </span>
-      <% if can? :write, Event, current_artist %>
-        <a href="<%= new_artist_event_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
+      <% if @current_artist_view.create_events? %>
+        <a href="<%= @current_artist_view.new_event_path %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
       <% end %>
     </div>
-    <% unless events.current.empty? %>
+    <% unless @current_artist_view.recent_events.empty? %>
       <div class="panel-body">
         <ul class="event-list">
-          <% events.current.each do |event| %>
+          <% @current_artist_view.recent_events.each do |event| %>
             <li>
-              <a href="<%= artist_event_path(current_artist, event) %>"><%= event_date( event ) %></a>
+              <a href="<%= @current_artist_view.event_path(event) %>"><%= event_date(event) %></a>
               <br />
               <%= event.title %>
             </li>
@@ -46,70 +44,67 @@
   </div>
 <% end %>
 
-<% posts = current_artist.posts.some %>
-<% if !posts.empty? or can? :write, Post, current_artist %>
+<% if @current_artist_view.show_posts? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
         <%=t 'label.posts' %>
-        <a href="<%= artist_posts_path(current_artist) %>">
-          <span class="badge"><%= current_artist.posts.count %></span></a>
+        <a href="<%= @current_artist_view.posts_path %>">
+          <span class="badge"><%= @current_artist_view.posts_count %></span></a>
       </span>
-      <% if can? :write, Post, current_artist %>
-        <a href="<%= new_artist_post_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
+      <% if @current_artist_view.create_posts? %>
+        <a href="<%= @current_artist_view.new_post_path %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
       <% end %>
     </div>
     <div class="panel-body">
       <ul class="post-list">
-        <% posts.each do |post| %>
-          <li><%= link_to post.title, artist_post_path(current_artist, post) %></li>
+        <% @current_artist_view.recent_posts.each do |post| %>
+          <li><%= link_to post.title, @current_artist_view.post_path(post) %></li>
         <% end %>
       </ul>
     </div>
   </div>
 <% end %>
 
-<% videos = current_artist.videos.some %>
-<% if !videos.empty? or can? :write, Video, current_artist %>
+<% if @current_artist_view.show_videos? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
         <%=t 'label.videos' %>
-        <a href="<%= artist_videos_path(current_artist) %>">
-          <span class="badge"><%= current_artist.videos.count %></span></a>
+        <a href="<%= @current_artist_view.videos_path %>">
+          <span class="badge"><%= @current_artist_view.videos_count %></span></a>
       </span>
-      <% if can? :write, Video, current_artist %>
-        <a href="<%= new_artist_video_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
+      <% if @current_artist_view.create_videos? %>
+        <a href="<%= @current_artist_view.new_video_path %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
       <% end %>
     </div>
     <div class="panel-body">
       <ul class="video-list">
-        <% videos.each do |video| %>
-          <li><%= link_to video.title, artist_video_path( video.artist, video ) %></li>
+        <% @current_artist_view.recent_videos.each do |video| %>
+          <li><%= link_to video.title, @current_artist_view.video_path(video) %></li>
         <% end %>
       </ul>
     </div>
   </div>
 <% end %>
 
-<% albums = current_artist.albums.published %>
-<% if !albums.empty? or can? :write, Album, current_artist %>
+<% if @current_artist_view.show_albums? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
         <%=t 'label.albums' %>
-        <a href="<%= artist_albums_path(current_artist) %>">
-          <span class="badge"><%= current_artist.albums.published.count %></span>
+        <a href="<%= @current_artist_view.albums_path %>">
+          <span class="badge"><%= @current_artist_view.albums_count %></span>
         </a>
       </span>
-      <% if can? :write, Album, current_artist %>
-        <a href="<%= new_artist_album_path(current_artist) %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
+      <% if @current_artist_view.create_albums? %>
+        <a href="<%= @current_artist_view.new_album_path %>" class="btn btn-default btn-xs"><%= t( 'action.new' ) %></a>
       <% end %>
     </div>
     <div class="panel-body">
       <ul class="album-list">
-        <% albums.each do |album| %>
-          <li><%= link_to album.title, artist_album_path( current_artist, album ) %></li>
+        <% @current_artist_view.recent_albums.each do |album| %>
+          <li><%= link_to album.title, @current_artist_view.album_path(album) %></li>
         <% end %>
       </ul>
     </div>

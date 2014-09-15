@@ -1,4 +1,4 @@
-class PostsController < ApplicationController
+class PostsController < CurrentArtistController
   layout :set_layout
 
   def index

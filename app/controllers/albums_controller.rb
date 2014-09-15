@@ -1,4 +1,4 @@
-class AlbumsController < ApplicationController
+class AlbumsController < CurrentArtistController
   layout :set_layout
 
   def index
