@@ -19,6 +19,7 @@ Karoryfer::Application.routes.draw do
   get 'wiadomosci', to: 'site#posts', as: 'posts'
   get 'filmy', to: 'site#videos', as: 'videos'
   get 'wydawnictwa', to: 'site#albums', as: 'albums'
+  get 'artysci', to: 'site#artists', as: 'artists'
   get 'szkice', to: 'site#drafts', as: 'drafts'
 
 	scope path_names: { new: 'dodaj', edit: 'zmien' } do

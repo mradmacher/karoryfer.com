@@ -1,4 +1,4 @@
-class EventsController < ApplicationController
+class EventsController < CurrentArtistController
   layout :set_layout
 
   respond_to :json, :only => [:calendar]

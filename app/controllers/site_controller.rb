@@ -11,6 +11,10 @@ class SiteController < ApplicationController
 		@albums = Album.published.all
   end
 
+  def artists
+		@artists = Artist.all( :order => 'name' )
+  end
+
   def events
     @current_date = "#{params[:day]}/#{params[:month]}/#{params[:year]}"
     @events = Event.scoped

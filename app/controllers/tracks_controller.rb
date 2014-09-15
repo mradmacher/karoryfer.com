@@ -1,4 +1,4 @@
-class TracksController < ApplicationController
+class TracksController < CurrentArtistController
   layout :set_layout
   before_filter :set_album
 

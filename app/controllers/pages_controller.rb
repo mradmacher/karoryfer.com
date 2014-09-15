@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class PagesController < CurrentArtistController
   layout :set_layout
 
   def show

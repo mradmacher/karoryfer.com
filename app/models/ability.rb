@@ -9,6 +9,8 @@ class Ability
     user_actions_for(subject, scope).include? action
   end
 
+  alias :allow? :allowed?
+
   private
   def user_actions_for(subject, scope = nil)
     rules = []

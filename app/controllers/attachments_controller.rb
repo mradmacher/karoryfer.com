@@ -1,4 +1,4 @@
-class AttachmentsController < ApplicationController
+class AttachmentsController < CurrentArtistController
   layout :set_layout
   before_filter :set_album
 
