@@ -28,15 +28,13 @@ class ApplicationController < ActionController::Base
 	private
 	def redirect_subdomain
 		if request.subdomain.present?
-      if request.subdomain != 'www'
+      if Artist.pluck(:reference).include? request.subdomain
         url = "#{request.protocol}www"
         url << request.host_with_port.gsub( "#{request.subdomain}", '' )
         url << "/#{request.subdomains.first}"
         url << request.fullpath unless request.fullpath == '/'
         redirect_to url, :status => 301
       end
-    elsif Rails.env != 'test'
-      redirect_to "#{request.protocol}www.#{request.host_with_port}#{request.fullpath}", :status => 301
     end
 	end
 
