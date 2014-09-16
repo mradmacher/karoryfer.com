@@ -1,29 +1,6 @@
 require 'test_helper'
 
 class ArtistsControllerTest < ActionController::TestCase
-  def test_get_index_succeeds
-    get :index
-    assert_response :success
-  end
-
-  def test_get_index_displays_headers
-    get :index
-    assert_select "title", build_title( I18n.t( 'title.artist.index' ) )
-    assert_select "h1", I18n.t( 'title.artist.index' )
-  end
-
-  def test_get_index_does_not_display_actions_when_not_authorized
-    deny(:write, Artist)
-    get :index
-    assert_select 'a[href=?]', new_artist_path, 0
-  end
-
-  def test_get_index_displays_actions_when_authorized
-    allow(:write, Artist)
-    get :index
-    assert_select 'a[href=?]', new_artist_path
-  end
-
   def test_get_show_succeeds
     get :show, :id => Artist.sham!.to_param
     assert_template 'current_artist'

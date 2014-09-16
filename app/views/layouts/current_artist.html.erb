@@ -1,38 +1,40 @@
-<% content_for :sidebar do %>
-  <%=	render :partial => 'artists/sidebar' %>
-<% end %>
+<% if current_artist? %>
+  <% content_for :sidebar do %>
+    <%=	render :partial => 'artists/sidebar' %>
+  <% end %>
 
-<% content_for :current_artist do %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h1><a href="<%= artist_path(current_artist) %>" class="main-menu-link"><%= current_artist.name %></a></h1>
+  <% content_for :current_artist do %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1><a href="<%= artist_path(current_artist) %>" class="main-menu-link"><%= current_artist.name %></a></h1>
+      </div>
+      <div class="panel-body">
+        <ul class="nav nav-pills">
+          <% if @current_artist_view.show_events? %>
+            <li class="<%= controller_name == 'events' ? 'active' : 'normal' %>">
+              <a href="<%= artist_events_path(current_artist) %>" class="main-menu-link"><%=t 'label.events' %></a>
+            </li>
+          <% end %>
+          <% if @current_artist_view.show_posts? %>
+            <li class="<%= controller_name == 'posts' ? 'active' : 'normal' %>">
+              <a href="<%= artist_posts_path(current_artist) %>" class="main-menu-link"><%=t 'label.posts' %></a>
+            </li>
+          <% end %>
+          <% if @current_artist_view.show_albums? %>
+            <li class="<%= (controller_name == 'albums' || controller_name == 'attachments') ? 'active' : 'normal' %>">
+              <a href="<%= artist_albums_path(current_artist) %>" class="main-menu-link"><%=t 'label.albums' %></a>
+            </li>
+          <% end %>
+          <% if @current_artist_view.show_videos? %>
+            <li class="<%= controller_name == 'videos' ? 'active' : 'normal' %>">
+              <a href="<%= artist_videos_path(current_artist) %>" class="main-menu-link"><%=t 'label.videos' %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-    <div class="panel-body">
-      <ul class="nav nav-pills">
-        <% if @current_artist_view.show_events? %>
-          <li class="<%= controller_name == 'events' ? 'active' : 'normal' %>">
-            <a href="<%= artist_events_path(current_artist) %>" class="main-menu-link"><%=t 'label.events' %></a>
-          </li>
-        <% end %>
-        <% if @current_artist_view.show_posts? %>
-          <li class="<%= controller_name == 'posts' ? 'active' : 'normal' %>">
-            <a href="<%= artist_posts_path(current_artist) %>" class="main-menu-link"><%=t 'label.posts' %></a>
-          </li>
-        <% end %>
-        <% if @current_artist_view.show_albums? %>
-          <li class="<%= (controller_name == 'albums' || controller_name == 'attachments') ? 'active' : 'normal' %>">
-            <a href="<%= artist_albums_path(current_artist) %>" class="main-menu-link"><%=t 'label.albums' %></a>
-          </li>
-        <% end %>
-        <% if @current_artist_view.show_videos? %>
-          <li class="<%= controller_name == 'videos' ? 'active' : 'normal' %>">
-            <a href="<%= artist_videos_path(current_artist) %>" class="main-menu-link"><%=t 'label.videos' %></a>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-  <%= yield %>
+    <%= yield %>
+  <% end %>
 <% end %>
 <%= render :template => 'layouts/application' %>
 
