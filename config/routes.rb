@@ -23,7 +23,7 @@ Karoryfer::Application.routes.draw do
   get 'szkice', to: 'site#drafts', as: 'drafts'
 
 	scope path_names: { new: 'dodaj', edit: 'zmien' } do
-		resources :artists, path: 'artysci'
+		resources :artists, path: 'artysci', except: [:index]
 	end
 
 	match ':id' => 'artists#show', :as => :artist, :via => :get
@@ -41,10 +41,7 @@ Karoryfer::Application.routes.draw do
 		resources :posts, path: 'wiadomosci'
 		resources :events, path: 'wydarzenia'
 		resources :artists, only: [:show]
-    resources :pages, path: 'informacje', except: [:show, :update, :index]
-    match ':id' => 'pages#show', as: 'page', via: :get
-    match ':id' => 'pages#update', as: 'page', via: :put
-    match ':id' => 'pages#destroy', as: 'page', via: :delete
+    resources :pages, path: 'informacje'
 	end
 end
 

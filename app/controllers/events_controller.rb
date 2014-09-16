@@ -4,7 +4,7 @@ class EventsController < CurrentArtistController
   respond_to :json, :only => [:calendar]
 
   def index
-    @events = current_artist.events
+    @events = current_artist.events.all
   end
 
   def calendar

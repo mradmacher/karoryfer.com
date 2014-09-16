@@ -65,7 +65,7 @@ class CurrentArtistView
   end
 
   def recent_pages
-    artist.pages
+    artist.pages.all
   end
 
   def recent_events
