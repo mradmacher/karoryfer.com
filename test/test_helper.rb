@@ -38,6 +38,7 @@ class ActiveSupport::TestCase
     def allowed?(action, subject, scope = nil)
       !@allowed.select{ |e| match_action?(e[0], action) and match_subject?(e[1], subject) and e[2] == scope }.empty?
     end
+    alias :allow? :allowed?
 
     private
     def match_action?(expected, actual)
