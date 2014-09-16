@@ -5,9 +5,15 @@ Setting.set 'karoryfer.twitter.url', 'http://www.twitter.com/karoryfer'
 Setting.set 'karoryfer.flattr.url', 'http://flattr.com/profile/karoryfer'
 Setting.set 'karoryfer.gplus.url', 'https://plus.google.com/101590945458103175168'
 
+Setting.set 'highlighted', [
+  { 'title' => 'Sample',
+    'reference' => 'karoryfer-samples'},
+  {
+    'title' => 'O nas',
+    'reference' => 'karoryfer-lecolds'}
+]
 Publisher.instance.name = 'Karoryfer Lecolds'
 Publisher.instance.url = 'http://www.karoryfer.com'
-Artist.admin_reference = 'karoryfer-lecolds'
 Uploader::Release.album_store_dir = File.join( Rails.root, 'public', 'downloads', 'wydawnictwa' )
 Uploader::Release.track_store_dir = File.join( Rails.root, 'public', 'downloads', 'tracks' )
 Attachment::Uploader.store_dir = File.join( Rails.root, 'public', 'uploads', 'attachments' )
