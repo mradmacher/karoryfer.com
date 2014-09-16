@@ -5,31 +5,9 @@
     </div>
     <div class="col-md-6">
       <ul class="nav nav-tabs">
-        <% if current_artist? %>
-          <li><%= link_to "Artyści", artists_url, :class => 'main-menu-link' %></li>
-          <li><%= link_to "Wydawnictwa", albums_url, :class => 'main-menu-link' %></li>
-          <% if Artist.admin_reference %>
-            <% if current_artist.reference != Artist.admin_reference %>
-              <li><%= link_to "O nas", artist_url( Artist.admin_reference ), :class => 'main-menu-link' %></li>
-            <% else %>
-              <li class="active"><%= link_to "O nas", artist_url( Artist.admin_reference ), :class => 'main-menu-link' %></li>
-            <% end %>
-          <% end %>
-          <% if current_user? %>
-            <li><%= link_to "Szkice", drafts_url, :class => 'main-menu-link' %></li>
-          <% end %>
-        <% else %>
-          <li class="<%= controller_name == 'artists' ? 'active' : 'normal' %>">
-            <%= link_to "Artyści", artists_url, :class => 'main-menu-link' %></li>
-          <li class="<%= controller_name == 'site' and action_name == 'albums' ? 'active' : 'normal' %>">
-            <%= link_to "Wydawnictwa", albums_url, :class => 'main-menu-link' %></li>
-          <% if Artist.admin_reference %>
-            <li><%= link_to "O nas", artist_url( Artist.admin_reference ), :class => 'main-menu-link' %></li>
-          <% end %>
-          <% if current_user? %>
-            <li class="<%= controller_name == 'site' and action_name == 'drafts' ? 'active' : 'normal' %>">
-              <%= link_to "Szkice", drafts_url, :class => 'main-menu-link' %></li>
-          <% end %>
+        <% main_menu_items.each do |title, url, is_active| %>
+          <li class="<%= is_active ? 'active' : 'normal' %>">
+            <%= link_to title, url, :class => 'main-menu-link' %></li>
         <% end %>
       </ul>
     </div>

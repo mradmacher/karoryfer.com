@@ -53,4 +53,25 @@ module ApplicationHelper
   end
 
 	alias format_text render_text
+
+  def main_menu_items
+    active = if current_artist?
+      current_artist.reference
+    else
+      if controller_name == 'site'
+        action_name
+      end
+    end
+
+    items = []
+    items << ['Artyści', artists_url, active == 'artists']
+    items <<  ['Wydawnictwa', albums_url, active == 'albums']
+    if Artist.admin_reference
+      items << ['O nas', artist_url( Artist.admin_reference ), active == Artist.admin_reference]
+    end
+    if current_user?
+      items << ["Szkice", drafts_url, active == 'drafts']
+    end
+    items
+  end
 end
