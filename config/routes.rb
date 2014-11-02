@@ -1,13 +1,13 @@
 Karoryfer::Application.routes.draw do
 	scope 'admin', :as => 'admin' do
 		resources :user_sessions, only: [:create]
-		match 'login' => "user_sessions#new", :as => :login
-		match 'logout' => "user_sessions#destroy", :as => :logout
+		get 'login' => "user_sessions#new", :as => :login
+		get 'logout' => "user_sessions#destroy", :as => :logout
 		scope path_names: { edit: 'zmien', new: 'dodaj' } do
 			resources :users, path: 'uzytkownicy'
       resources :memberships, only: [:create, :destroy]
 		end
-		match 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
+		get 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
 	end
 
   root :to => 'site#home'
@@ -23,12 +23,10 @@ Karoryfer::Application.routes.draw do
   get 'szkice', to: 'site#drafts', as: 'drafts'
 
 	scope path_names: { new: 'dodaj', edit: 'zmien' } do
-		resources :artists, path: 'artysci', except: [:index]
+		resources :artists, path: '', only: [:show, :edit, :new, :update]
+		resources :artists, path: 'artysci', only: [:create]
 	end
 
-	match ':id' => 'artists#show', :as => :artist, :via => :get
-	match ':id' => 'artists#update', :as => :artist, :via => :put
-	resources :artists, path: 'artysci'
 	scope ':artist_id', as: 'artist', path_names: { new: 'dodaj', edit: 'zmien' } do
     resources :albums, path: 'wydawnictwa' do
       member do
@@ -40,7 +38,6 @@ Karoryfer::Application.routes.draw do
 		resources :videos, path: 'filmy'
 		resources :posts, path: 'wiadomosci'
 		resources :events, path: 'wydarzenia'
-		resources :artists, only: [:show]
     resources :pages, path: 'informacje'
 	end
 end

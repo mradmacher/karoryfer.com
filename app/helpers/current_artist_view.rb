@@ -65,7 +65,7 @@ class CurrentArtistView
   end
 
   def recent_pages
-    artist.pages.all
+    artist.pages
   end
 
   def recent_events
@@ -125,23 +125,23 @@ class CurrentArtistView
   end
 
   def create_pages?
-    abilities.allow?( :write, Page, artist )
+    abilities.allow?(:write, Page, artist)
   end
 
   def create_events?
-    abilities.allow?( :write, Event, artist )
+    abilities.allow?(:write, Event, artist)
   end
 
   def create_posts?
-    abilities.allow?( :write, Post, artist )
+    abilities.allow?(:write, Post, artist)
   end
 
   def create_videos?
-    abilities.allow?( :write, Video, artist )
+    abilities.allow?(:write, Video, artist)
   end
 
   def create_albums?
-    abilities.allow?( :write, Album, artist )
+    abilities.allow?(:write, Album, artist)
   end
 end
 

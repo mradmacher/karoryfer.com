@@ -26,33 +26,5 @@ class UserTest < ActiveSupport::TestCase
 		assert user.errors[:publisher].include? I18n.t(
       'activerecord.errors.models.user.attributes.publisher.inclusion' )
 	end
-
-  def test_protects_admin_flag_from_mass_assignment
-		user = User.new
-		user.admin = false
-		user.assign_attributes :admin => true
-		refute user.admin?
-	end
-
-	def test_allows_mass_assignment_of_admin_flag_by_admin
-		user = User.new
-		user.admin = false
-		user.assign_attributes( {:admin => true}, :as => :admin )
-		assert user.admin?
-	end
-
-  def test_protects_publisher_flag_from_mass_assignment
-		user = User.new
-		user.publisher = false
-		user.assign_attributes :publisher => true
-		refute user.publisher?
-	end
-
-	def test_allows_mass_assignment_of_publisher_flag_by_admin
-		user = User.new
-		user.publisher = false
-		user.assign_attributes( {:publisher => true}, :as => :admin )
-		assert user.publisher?
-	end
 end
 

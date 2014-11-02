@@ -14,7 +14,7 @@ class AttachmentsController < CurrentArtistController
 
   def create
     authorize! :write, Attachment, @album
-		@attachment = @album.attachments.new( params[:attachment] )
+		@attachment = @album.attachments.new( attachment_params )
     @attachment.album = @album
     if @attachment.save
       redirect_to artist_album_url( current_artist, @album )
@@ -34,6 +34,10 @@ class AttachmentsController < CurrentArtistController
 
   def set_album
     @album = current_artist.albums.find_by_reference( params[:album_id] )
+  end
+
+  def attachment_params
+    params.require(:attachment).permit(:file)
   end
 end
 

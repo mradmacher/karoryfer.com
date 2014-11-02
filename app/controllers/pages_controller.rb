@@ -19,7 +19,7 @@ class PagesController < CurrentArtistController
 	def update
 		@page = current_artist.pages.find_by_reference( params[:id] )
 		authorize! :write, @page
-    @page.assign_attributes( params[:page] )
+    @page.assign_attributes( page_params )
     @page.artist = current_artist
 
 		if @page.save
@@ -31,7 +31,7 @@ class PagesController < CurrentArtistController
 
 	def create
 		authorize! :write, Page, current_artist
-    @page = current_artist.pages.new( params[:page] )
+    @page = current_artist.pages.new( page_params )
 		if @page.save
 			redirect_to artist_page_url( current_artist, @page )
 		else
@@ -45,5 +45,15 @@ class PagesController < CurrentArtistController
 		@page.destroy
     redirect_to artist_url( current_artist )
 	end
+
+  private
+
+  def page_params
+    params.require(:page).permit(
+      :title,
+      :reference,
+      :content
+    )
+  end
 end
 

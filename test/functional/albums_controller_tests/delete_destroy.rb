@@ -1,7 +1,7 @@
 module AlbumsControllerTests
   module DeleteDestroy
     def test_delete_destroy_without_artist_is_not_routable
-      assert_raises ActionController::RoutingError do
+      assert_raises ActionController::UrlGenerationError do
         delete :destroy, :id => 1
       end
     end

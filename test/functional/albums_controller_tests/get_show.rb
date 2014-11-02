@@ -1,7 +1,7 @@
 module AlbumsControllerTests
   module GetShow
     def test_get_show_without_artist_is_not_routable
-      assert_raises ActionController::RoutingError do
+      assert_raises ActionController::UrlGenerationError do
         get :show, :id => 'album'
       end
     end
@@ -36,7 +36,7 @@ module AlbumsControllerTests
       allow(:read, album)
       allow(:write, album)
       get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_select 'a[href=?]', edit_artist_album_path( album.artist ), I18n.t( 'action.edit' )
+      assert_select 'a[href=?]', edit_artist_album_path(album.artist, album), I18n.t('action.edit')
       #assert_select 'a[href=?][data-method=delete]', album_path( album ), I18n.t( 'action.album.destroy' )
       assert_select 'a[href=?][data-method=delete]', artist_album_path( album.artist, album ), 0
     end

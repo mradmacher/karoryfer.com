@@ -1,7 +1,7 @@
 module AlbumsControllerTests
   module GetIndex
     def test_get_index_without_artist_is_not_routable
-      assert_raises ActionController::RoutingError do
+      assert_raises ActionController::UrlGenerationError do
         get :index, :id => '1'
       end
     end

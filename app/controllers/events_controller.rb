@@ -4,7 +4,7 @@ class EventsController < CurrentArtistController
   respond_to :json, :only => [:calendar]
 
   def index
-    @events = current_artist.events.all
+    @events = current_artist.events
   end
 
   def calendar
@@ -37,7 +37,7 @@ class EventsController < CurrentArtistController
 
 	def create
 		authorize! :write, Event, current_artist
-		@event = current_artist.events.new( params[:event] )
+		@event = current_artist.events.new( event_params )
 		if @event.save
 			redirect_to artist_event_url( @event.artist, @event )
 		else
@@ -47,7 +47,7 @@ class EventsController < CurrentArtistController
 
 	def update
 		@event = current_artist.events.find( params[:id] )
-    @event.assign_attributes( params[:event] )
+    @event.assign_attributes( event_params )
     @event.artist = current_artist
 		authorize! :write, @event
 
@@ -64,5 +64,24 @@ class EventsController < CurrentArtistController
 		@event.destroy
     redirect_to artist_events_url( @event.artist )
 	end
+
+  private
+
+  def event_params
+    params.require(:event).permit(
+      :title,
+      :location,
+      :address,
+      :event_date,
+      :event_time,
+      :duration,
+      :free_entrance,
+      :price,
+      :poster,
+      :remove_poster,
+      :body,
+      :external_urls
+    )
+  end
 end
 

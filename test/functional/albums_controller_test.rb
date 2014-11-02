@@ -162,14 +162,15 @@ class AlbumsControllerTest < ActionController::TestCase
   def test_post_create_is_authorized
     artist = Artist.sham!
     assert_authorized :write, Album, artist do
-      post :create, artist_id: artist.to_param, :album => {}
+      post :create, artist_id: artist.to_param, :album => {a: 1}
     end
   end
 
   def test_put_update_is_authorized
     album = Album.sham!
     assert_authorized :write, album do
-      put :update, artist_id: album.artist.to_param, :id => album.to_param, :album => {}
+      put :update, artist_id: album.artist.to_param, :id => album.to_param,
+        :album => {a: 1}
     end
   end
 end

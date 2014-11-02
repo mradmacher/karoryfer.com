@@ -31,14 +31,15 @@ module ResourcesControllerTest
     def test_post_create_is_authorized
       artist = Artist.sham!
       assert_authorized :write, resource_class, artist do
-        post :create, artist_id: artist.to_param, resource_name.to_sym => {}
+        post :create, artist_id: artist.to_param, resource_name.to_sym => {a: 1}
       end
     end
 
     def test_put_update_is_authorized
       resource = resource_class.sham!
       assert_authorized :write, resource do
-        put :update, artist_id: resource.artist.to_param, :id => resource.to_param, resource_name.to_sym => {}
+        put :update, artist_id: resource.artist.to_param, :id => resource.to_param,
+          resource_name.to_sym => {a: 1}
       end
     end
   end

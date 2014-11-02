@@ -1,7 +1,7 @@
 module ResourcesControllerTest
   module GetNew
     def test_get_new_without_artist_is_not_routable
-      assert_raises ActionController::RoutingError do
+      assert_raises ActionController::UrlGenerationError do
         get :new
       end
     end

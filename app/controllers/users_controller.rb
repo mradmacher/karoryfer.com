@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 	def update
 		@user = User.find( params[:id] )
 		authorize! :write, @user
-		if @user.update_attributes( params[:user], :as => ((current_user && current_user.admin?) ? :admin : :default) )
+		if @user.update_attributes( user_params )
 			redirect_to admin_user_url( @user )
 		else
 			if request.referrer == admin_edit_password_url( @user ) then
@@ -60,5 +60,17 @@ class UsersController < ApplicationController
 			redirect_to admin_users_url
 		end
 	end
+
+  private
+
+  def user_params
+    params.require(:user).permit(
+      if current_user and current_user.admin?
+        [:login, :email, :password, :password_confirmation, :admin, :publisher]
+      else
+        [:login, :email, :password, :password_confirmation]
+      end
+    )
+  end
 end
 

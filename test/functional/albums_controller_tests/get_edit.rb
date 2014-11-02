@@ -1,7 +1,7 @@
 module AlbumsControllerTests
   module GetEdit
     def test_get_edit_without_artist_is_not_routable
-      assert_raise ActionController::RoutingError do
+      assert_raise ActionController::UrlGenerationError do
         get :edit, :id => '1'
       end
     end

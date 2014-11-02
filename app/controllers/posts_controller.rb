@@ -22,7 +22,7 @@ class PostsController < CurrentArtistController
 
 	def create
 		authorize! :write, Post, current_artist
-		@post = current_artist.posts.new( params[:post] )
+		@post = current_artist.posts.new( post_params )
 		if @post.save
 			redirect_to artist_post_url( @post.artist, @post )
 		else
@@ -33,7 +33,7 @@ class PostsController < CurrentArtistController
 	def update
 		@post = current_artist.posts.find( params[:id] )
 		authorize! :write, @post
-    @post.assign_attributes( params[:post] )
+    @post.assign_attributes( post_params )
     @post.artist = current_artist
 
 		if @post.save
@@ -49,5 +49,14 @@ class PostsController < CurrentArtistController
 		@post.destroy
     redirect_to artist_posts_url( @post.artist )
 	end
+
+  private
+
+  def post_params
+    params.require(:post).permit(
+      :title,
+      :body
+    )
+  end
 end
 
