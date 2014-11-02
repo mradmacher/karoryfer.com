@@ -10,7 +10,7 @@ class Track < ActiveRecord::Base
 	validates :rank, :presence => true, :uniqueness => { :scope => :album_id }
 	validates :comment, :length => {:maximum => COMMENT_MAX_LENGTH}
 
-	default_scope order( 'rank asc' )
+	default_scope -> { order( 'rank asc' ) }
 
   class Uploader < CarrierWave::Uploader::Base
     cattr_accessor :store_dir

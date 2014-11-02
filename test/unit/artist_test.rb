@@ -109,19 +109,7 @@ class ArtistTest < ActiveSupport::TestCase
 
 	def test_finds_by_reference
 		expected = Artist.sham!
-		artist = nil
-		assert_nothing_raised do
-			artist = Artist.find expected.reference
-		end
+    artist = Artist.find_by_reference expected.reference.upcase
 		assert_equal expected, artist
 	end
-
-	def test_finds_by_id
-		artist = Artist.sham!
-		assert_nothing_raised do
-			Artist.find( artist.id )
-			Artist.find( artist.id.to_s )
-		end
-	end
-
 end

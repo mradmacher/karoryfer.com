@@ -135,14 +135,14 @@ class ArtistsControllerTest < ActionController::TestCase
 
   def test_post_create_is_authorized
     assert_authorized :write, Artist do
-      post :create, :artist => {}
+      post :create, :artist => {a: 1}
     end
   end
 
   def test_put_update_is_authorized
     artist = Artist.sham!
     assert_authorized :write, artist do
-      put :update, :id => artist.to_param, :artist => {}
+      put :update, :id => artist.to_param, :artist => {a: 1}
     end
   end
 end

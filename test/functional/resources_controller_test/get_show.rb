@@ -1,7 +1,7 @@
 module ResourcesControllerTest
   module GetShow
     def test_get_edit_without_artist_is_not_routable
-      assert_raises ActionController::RoutingError do
+      assert_raises ActionController::UrlGenerationError do
         get :show, :id => resource_class.sham!.to_param
       end
     end

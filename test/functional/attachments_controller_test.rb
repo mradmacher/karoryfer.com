@@ -11,7 +11,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
   def test_get_edit_is_not_routable
     attachment = Attachment.sham!
-    assert_raises ActionController::RoutingError do
+    assert_raises ActionController::UrlGenerationError do
       get :edit, artist_id: attachment.album.artist.to_param,
         album_id: attachment.album.to_param,
         id: attachment.to_param
@@ -19,7 +19,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_get_new_without_album_is_not_routable
-    assert_raises ActionController::RoutingError do
+    assert_raises ActionController::UrlGenerationError do
       get :new
     end
   end
@@ -32,14 +32,14 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_post_create_without_album_is_not_routable
-    assert_raises ActionController::RoutingError do
-      post :create, attachment: {}
+    assert_raises ActionController::UrlGenerationError do
+      post :create, attachment: {a: 1}
     end
   end
 
   def test_put_update_is_not_routable
     attachment = Attachment.sham!
-    assert_raises ActionController::RoutingError do
+    assert_raises ActionController::UrlGenerationError do
       put :update, artist_id: attachment.album.artist.to_param,
         album_id: attachment.album.to_param,
         id: attachment.to_param
@@ -47,7 +47,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   def test_delete_destroy_without_album_is_not_routable
-    assert_raises ActionController::RoutingError do
+    assert_raises ActionController::UrlGenerationError do
       delete :destroy, id: 1
     end
   end

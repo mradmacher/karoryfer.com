@@ -2,7 +2,7 @@ class AlbumsController < CurrentArtistController
   layout :set_layout
 
   def index
-		@albums = current_artist.albums.published.all
+		@albums = current_artist.albums.published
   end
 
   def show
@@ -22,7 +22,7 @@ class AlbumsController < CurrentArtistController
 
 	def create
 		authorize! :write, Album, current_artist
-		@album = current_artist.albums.new( params[:album] )
+		@album = current_artist.albums.new( album_params )
 		if @album.save
 			redirect_to artist_album_url( @album.artist, @album )
 		else
@@ -33,7 +33,7 @@ class AlbumsController < CurrentArtistController
 	def update
 		@album = current_artist.albums.find_by_reference( params[:id] )
 		authorize! :write, @album
-		@album.assign_attributes( params[:album] )
+		@album.assign_attributes( album_params )
     @album.artist = current_artist
 		if @album.save
 			redirect_to artist_album_url( @album.artist, @album )
@@ -50,7 +50,7 @@ class AlbumsController < CurrentArtistController
 	end
 
   def download
-    @artist = Artist.find( params[:artist_id] )
+    @artist = Artist.find_by_reference( params[:artist_id] )
 		@album = @artist.albums.find_by_reference( params[:id] )
     release = @album.releases.in_format( params[:format] ).first!
     if release.file?
@@ -68,6 +68,22 @@ class AlbumsController < CurrentArtistController
         redirect_to artist_album_url(@artist, @album), notice: I18n.t('label.release_message')
       end
     end
+  end
+
+  private
+
+  def album_params
+    params.require(:album).permit(
+      :published,
+      :title,
+      :reference,
+      :year,
+      :image,
+      :remove_image,
+      :license_id,
+      :donation,
+      :description
+    )
   end
 end
 

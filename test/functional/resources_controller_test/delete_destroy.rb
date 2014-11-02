@@ -1,7 +1,7 @@
 module ResourcesControllerTest
   module DeleteDestroy
     def test_delete_destroy_without_artist_is_not_routable
-      assert_raises ActionController::RoutingError do
+      assert_raises ActionController::UrlGenerationError do
         delete :destroy, id: resource_class.sham!.to_param
       end
     end

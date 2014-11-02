@@ -22,7 +22,7 @@ class VideosController < CurrentArtistController
 
 	def create
 		authorize! :write, Video, current_artist
-		@video = current_artist.videos.new( params[:video] )
+		@video = current_artist.videos.new( video_params )
 		if @video.save
 			redirect_to artist_video_url( @video.artist, @video )
 		else
@@ -32,7 +32,7 @@ class VideosController < CurrentArtistController
 
 	def update
 		@video = current_artist.videos.find( params[:id] )
-    @video.assign_attributes( params[:video] )
+    @video.assign_attributes( video_params )
     @video.artist = current_artist
 		authorize! :write, @video
 
@@ -49,5 +49,15 @@ class VideosController < CurrentArtistController
 		@video.destroy
     redirect_to artist_videos_url( @video.artist )
 	end
+
+  private
+
+  def video_params
+    params.require(:video).permit(
+      :title,
+      :url,
+      :body
+    )
+  end
 end
 

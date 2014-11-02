@@ -20,7 +20,7 @@ class TracksController < CurrentArtistController
 
   def create
 		authorize! :write, Track, @album
-		@track = @album.tracks.new( params[:track] )
+		@track = @album.tracks.new( track_params )
     if @track.save
       redirect_to artist_album_url( current_artist, @album )
     else
@@ -30,7 +30,7 @@ class TracksController < CurrentArtistController
 
 	def update
 		@track = @album.tracks.find( params[:id] )
-    @track.assign_attributes( params[:track] )
+    @track.assign_attributes( track_params )
     @track.album = @album
 		authorize! :write, @track
 
@@ -52,6 +52,16 @@ class TracksController < CurrentArtistController
 
   def set_album
     @album = current_artist.albums.find_by_reference( params[:album_id] )
+  end
+
+  def track_params
+    params.require(:track).permit(
+      :title,
+      :rank,
+      :comment,
+      :file,
+      :remove_file
+    )
   end
 end
 

@@ -50,7 +50,7 @@ class UsersControllerTest < ActionController::TestCase
   def test_put_update_is_authorized
     user = User.sham!
     assert_authorized :write, user do
-      put :update, :id => user.to_param, :user => {}
+      put :update, :id => user.to_param, :user => {a: 1}
     end
   end
 
@@ -212,5 +212,39 @@ class UsersControllerTest < ActionController::TestCase
     assert_headers I18n.t( 'title.user.index' ), user.login,
       I18n.t( 'title.user.edit_password' )
   end
+
+
+  def test_protects_admin_flag_from_mass_assignment
+		user = User.sham!(admin: false)
+    other_user = User.sham!(admin: false)
+    allow(:write, other_user)
+    put :update, id: other_user.to_param, user: {admin: true}
+		refute other_user.admin?
+	end
+
+	def test_allows_mass_assignment_of_admin_flag_by_admin
+		user = User.sham!(:admin)
+    other_user = User.sham!(admin: false)
+    allow(:write, other_user)
+    login(user)
+    put :update, id: other_user.to_param, user: {admin: true}
+		assert other_user.admin?
+	end
+
+  def test_protects_publisher_flag_from_mass_assignment
+		user = User.sham!(admin: false)
+    other_user = User.sham!(publisher: false)
+    allow(:write, other_user)
+    put :update, :id => other_user.to_param, :user => {publisher: true}
+		refute other_user.publisher?
+	end
+
+	def test_allows_mass_assignment_of_publisher_flag_by_admin
+		user = User.sham!(:admin)
+    other_user = User.sham!(publisher: false)
+    allow(:write, other_user)
+    put :update, :id => other_user.to_param, :user => {publisher: true}
+		assert other_user.publisher?
+	end
 end
 
