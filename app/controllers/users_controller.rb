@@ -1,76 +1,49 @@
 class UsersController < ApplicationController
   def index
-		authorize! :read, User
-		@users = User.all
+		@users = resource.index
   end
 
   def show
-		@user = User.find( params[:id] )
-		authorize! :read, @user
+		@user = resource.show
     @membership = Membership.new
     @membership.user = @user
   end
 
   def new
-		@user = User.new
-		authorize! :write, @user
+		@user = resource.new
   end
 
   def edit
-		@user = User.find( params[:id] )
-		authorize! :write, @user
+		@user = resource.edit
   end
 
 	def edit_password
-		@user = User.find( params[:id] )
-		authorize! :write, @user
+		@user = resource.edit
 	end
 
 	def update
-		@user = User.find( params[:id] )
-		authorize! :write, @user
-		if @user.update_attributes( user_params )
-			redirect_to admin_user_url( @user )
-		else
-			if request.referrer == admin_edit_password_url( @user ) then
-				render :action => 'edit_password'
-			else
-				render :action => 'edit'
-			end
-		end
+    redirect_to admin_user_url(resource.update)
+  rescue Resource::InvalidResource => e
+    @user = e.resource
+    render action: (request.referrer == admin_edit_password_url(@user) ?
+      'edit_password' : 'edit')
 	end
 
 	def create
-		@user = User.new( params[:user] )
-		authorize! :write, @user
-		if @user.save
-			redirect_to admin_user_url( @user )
-		else
-			render :action => 'new'
-		end
+    redirect_to admin_user_url(resource.create)
+  rescue Resource::InvalidResource => e
+    @user = e.resource
+    render :action => 'new'
 	end
 
 	def destroy
-		@user = User.find( params[:id] )
-		authorize! :write, @user
-		@user.destroy
-		if @user == current_user then
-			redirect_to root_url
-		else
-			redirect_to admin_users_url
-		end
+		user = resource.destroy
+    redirect_to (user == current_user ? root_url : admin_users_url)
 	end
 
   private
 
-  def user_params
-    params.require(:user).permit(
-      if current_user and current_user.admin?
-        [:login, :email, :password, :password_confirmation, :admin, :publisher]
-      else
-        [:login, :email, :password, :password_confirmation]
-      end
-    )
+  def resource
+    Resource::UserResource.new(params, abilities)
   end
 end
-

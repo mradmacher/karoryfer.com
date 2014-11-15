@@ -1,68 +1,43 @@
-class TracksController < CurrentArtistController
+class TracksController < CurrentAlbumController
   layout :set_layout
-  before_filter :set_album
 
   def show
-    track = @album.tracks.find( params[:id] )
-    authorize! :read, track
+    track = resource.show
     redirect_to track.file.url
   end
 
   def new
-		authorize! :write, Track, @album
-    @track = @album.tracks.new
+    @track = resource.new
   end
 
   def edit
-		@track = @album.tracks.find( params[:id] )
-		authorize! :write, @track
+		@track = resource.edit
   end
 
   def create
-		authorize! :write, Track, @album
-		@track = @album.tracks.new( track_params )
-    if @track.save
-      redirect_to artist_album_url( current_artist, @album )
-    else
-      render :action => 'new'
-    end
+    resource.create
+    redirect_to artist_album_url(current_artist, current_album)
+  rescue Resource::InvalidResource => e
+		@track = e.resource
+    render :action => 'new'
   end
 
 	def update
-		@track = @album.tracks.find( params[:id] )
-    @track.assign_attributes( track_params )
-    @track.album = @album
-		authorize! :write, @track
-
-		if @track.save
-			redirect_to artist_album_url( current_artist, @album )
-		else
-			render :action => 'edit'
-		end
+    resource.update
+    redirect_to artist_album_url(current_artist, current_album)
+  rescue Resource::InvalidResource => e
+		@post = e.resource
+    render :action => 'edit'
 	end
 
   def destroy
-		@track = @album.tracks.find( params[:id] )
-		authorize! :write, @track
-		@track.destroy
-    redirect_to artist_album_url( current_artist, @album )
+    resource.destroy
+    redirect_to artist_album_url(current_artist, current_album)
   end
 
-  private
+  protected
 
-  def set_album
-    @album = current_artist.albums.find_by_reference( params[:album_id] )
-  end
-
-  def track_params
-    params.require(:track).permit(
-      :title,
-      :rank,
-      :comment,
-      :file,
-      :remove_file
-    )
+  def resource
+    Resource::TrackResource.new(params, abilities, current_album)
   end
 end
-
-

@@ -2,62 +2,44 @@ class VideosController < CurrentArtistController
   layout :set_layout
 
   def index
-    @videos = current_artist.videos
+    @videos = resource.index
   end
 
   def show
-		@video = current_artist.videos.find( params[:id] )
-		authorize! :read, @video
+		@video = resource.show
   end
 
   def new
-		authorize! :write, Video, current_artist
-		@video = current_artist.videos.new
+		@video = resource.new
   end
 
   def edit
-		@video = current_artist.videos.find( params[:id] )
-		authorize! :write, @video
+		@video = resource.edit
   end
 
 	def create
-		authorize! :write, Video, current_artist
-		@video = current_artist.videos.new( video_params )
-		if @video.save
-			redirect_to artist_video_url( @video.artist, @video )
-		else
-			render :action => 'new'
-		end
+    redirect_to artist_video_url(current_artist, resource.create)
+  rescue Resource::InvalidResource => e
+		@video = e.resource
+    render :action => 'new'
 	end
 
 	def update
-		@video = current_artist.videos.find( params[:id] )
-    @video.assign_attributes( video_params )
-    @video.artist = current_artist
-		authorize! :write, @video
-
-		if @video.save
-			redirect_to artist_video_url( @video.artist, @video )
-		else
-			render :action => 'edit'
-		end
+    redirect_to artist_video_url(current_artist, resource.update)
+  rescue Resource::InvalidResource => e
+		@video = e.resource
+    render :action => 'edit'
 	end
 
 	def destroy
-		@video = current_artist.videos.find( params[:id] )
-		authorize! :write, @video
-		@video.destroy
-    redirect_to artist_videos_url( @video.artist )
+    resource.destroy
+    redirect_to artist_videos_url(current_artist)
 	end
 
   private
 
-  def video_params
-    params.require(:video).permit(
-      :title,
-      :url,
-      :body
-    )
+  def resource
+    Resource::VideoResource.new(params, abilities, current_artist)
   end
 end
 

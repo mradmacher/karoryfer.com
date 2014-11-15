@@ -6,15 +6,6 @@ module AlbumsControllerTests
       end
     end
 
-    def test_authorized_delete_destroy_removes_album
-      album = Album.sham!
-      allow(:write, album)
-      album_count = Album.count
-      delete :destroy, artist_id: album.artist.to_param, :id => album.to_param
-      assert_equal album_count - 1, Album.count
-      refute Album.where( id: album.id ).exists?
-    end
-
     def test_authorized_delete_destroy_properly_redirects
       album = Album.sham!
       allow(:write, album)
@@ -23,4 +14,3 @@ module AlbumsControllerTests
     end
   end
 end
-

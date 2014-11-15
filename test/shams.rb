@@ -161,7 +161,7 @@ Sham.config( User ) do |c|
     admin: false,
     login: Faker::Lorem.characters( Random.new.rand( 6..32 ) ),
     email: Faker::Internet.email,
-    password: passwd = Faker::Lorem.words.join,
+    password: passwd = Faker::Lorem.characters(Random.new.rand(8..32)),
     password_confirmation: passwd,
     password_salt: salt = Authlogic::Random.hex_token,
     crypted_password: Authlogic::CryptoProviders::Sha512.encrypt( 'pass' + salt ),
