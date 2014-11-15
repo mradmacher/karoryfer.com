@@ -3,7 +3,7 @@ class CurrentArtistView
 
   attr_reader :artist, :abilities
 
-  def initialize( artist, abilities )
+  def initialize(artist, abilities)
     @artist = artist
     @abilities = abilities
   end

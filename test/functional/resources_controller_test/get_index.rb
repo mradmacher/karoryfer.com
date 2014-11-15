@@ -42,4 +42,3 @@ module ResourcesControllerTest
     end
   end
 end
-

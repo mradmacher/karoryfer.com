@@ -6,12 +6,6 @@ module ResourcesControllerTest
       end
     end
 
-    def test_get_new_for_artist_user_succeeds
-      membership = login_artist_user
-      get :new, artist_id: membership.artist.to_param
-      assert_response :success
-    end
-
     def test_get_new_for_artist_user_displays_headers
       membership = login_artist_user
       get :new, artist_id: membership.artist.to_param

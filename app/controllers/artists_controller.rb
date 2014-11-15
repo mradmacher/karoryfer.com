@@ -2,55 +2,39 @@ class ArtistsController < CurrentArtistController
   layout 'current_artist', :except => [:index, :new, :create]
 
   def show
-		@artist = Artist.find_by_reference( params[:id] )
+		@artist = resource.show
   end
 
   def index
-		@artists = Artist.all( :order => 'name' )
+		@artists = resource.index
   end
 
   def new
-		authorize! :write, Artist
-		@artist = Artist.new
+		@artist = resource.new
   end
 
   def edit
-		@artist = Artist.find_by_reference( params[:id] )
-		authorize! :write, @artist
+		@artist = resource.edit
   end
 
 	def create
-		@artist = Artist.new( artist_params )
-		authorize! :write, @artist
-		if @artist.save
-			redirect_to artist_url( @artist )
-		else
-			render :action => "new"
-		end
+    redirect_to artist_url(resource.create)
+  rescue Resource::InvalidResource => e
+    @artist = e.resource
+    render action: 'new'
 	end
 
 	def update
-		@artist = Artist.find_by_reference( params[:id] )
-		authorize! :write, @artist
-
-		if @artist.update_attributes( artist_params )
-			redirect_to artist_url( @artist )
-		else
-			render :action => "edit"
-		end
+    redirect_to artist_url(resource.update)
+  rescue Resource::InvalidResource => e
+    @artist = e.resource
+    render action: 'edit'
 	end
 
   private
 
-  def artist_params
-    params.require(:artist).permit(
-      :name,
-      :reference,
-      :summary,
-      :image,
-      :remove_image,
-      :description
-    )
+  def resource
+    Resource::ArtistResource.new(params, abilities)
   end
 end
 

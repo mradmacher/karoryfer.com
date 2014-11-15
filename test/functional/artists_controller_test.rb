@@ -30,12 +30,6 @@ class ArtistsControllerTest < ActionController::TestCase
     assert_select 'a[href=?][data-method=delete]', artist_path( artist ), 0
   end
 
-  def test_get_new_succeeds_when_authorized
-    allow(:write, Artist)
-    get :new
-    assert_response :success
-  end
-
   def test_get_new_displays_headers_when_authorized
     allow(:write, Artist)
     get :new
@@ -58,14 +52,6 @@ class ArtistsControllerTest < ActionController::TestCase
       assert_select 'label', I18n.t( 'label.artist.description' )
       assert_select 'textarea[name=?]', 'artist[description]'
     end
-  end
-
-  def test_get_edit_succeeds_when_authorized
-    artist = Artist.sham!
-    allow(:write, artist)
-    get :edit, :id => artist
-    assert_template 'current_artist'
-    assert_response :success
   end
 
   def test_get_edit_displays_headers_when_authorized
@@ -100,50 +86,4 @@ class ArtistsControllerTest < ActionController::TestCase
       assert_select 'textarea[name=?]', 'artist[description]', artist.description
     end
   end
-
-  def test_post_create_creates_artist_when_authorized
-    allow(:write, Artist)
-    attributes = Artist.sham!( :build ).attributes
-    artists_count = Artist.count
-    post :create, :artist => attributes
-    assert_equal artists_count + 1, Artist.count
-    assert_redirected_to artist_url( assigns( :artist ) )
-  end
-
-  def test_put_update_updates_artist_when_authorized
-    artist = Artist.sham!
-    allow(:write, artist)
-    name = Faker::Name.name
-    put :update, :id => artist.to_param, :artist => {name: name}
-    artist.reload
-    assert_equal name, artist.name
-    assert_redirected_to artist_url( assigns( :artist ) )
-  end
-
-  def test_get_edit_is_authorized
-    artist = Artist.sham!
-    assert_authorized :write, artist do
-      get :edit, :id => artist.to_param
-    end
-  end
-
-  def test_get_new_is_authorized
-    assert_authorized :write, Artist do
-      get :new
-    end
-  end
-
-  def test_post_create_is_authorized
-    assert_authorized :write, Artist do
-      post :create, :artist => {a: 1}
-    end
-  end
-
-  def test_put_update_is_authorized
-    artist = Artist.sham!
-    assert_authorized :write, artist do
-      put :update, :id => artist.to_param, :artist => {a: 1}
-    end
-  end
 end
-

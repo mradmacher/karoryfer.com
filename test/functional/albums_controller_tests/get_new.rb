@@ -1,13 +1,5 @@
 module AlbumsControllerTests
   module GetNew
-
-    def test_authorized_get_new_succeeds
-      artist = Artist.sham!
-      allow(:write, Album, artist)
-      get :new, artist_id: artist.to_param
-      assert_response :success
-    end
-
     def test_authorized_get_new_displays_headers
       artist = Artist.sham!
       allow(:write, Album, artist)
@@ -52,4 +44,3 @@ module AlbumsControllerTests
     end
   end
 end
-

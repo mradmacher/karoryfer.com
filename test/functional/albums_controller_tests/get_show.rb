@@ -6,13 +6,6 @@ module AlbumsControllerTests
       end
     end
 
-    def test_authorized_get_show_succeeds
-      album = Album.sham!
-      allow(:read, album)
-      get :show, :artist_id => album.artist.to_param, :id => album.to_param
-      assert_response :success
-    end
-
     def test_authorized_get_show_displays_headers
       album = Album.sham!
       allow(:read, album)
@@ -54,4 +47,3 @@ module AlbumsControllerTests
     end
   end
 end
-

@@ -3,4 +3,3 @@ class CurrentArtistController < ApplicationController
     @current_artist_view = CurrentArtistView.new(current_artist, abilities)
   end
 end
-

@@ -130,48 +130,4 @@ class AlbumsControllerTest < ActionController::TestCase
     release.reload
     assert_equal 1, release.downloads
   end
-
-  def test_get_edit_is_authorized
-    album = Album.sham!
-    assert_authorized :write, album do
-      get :edit, :artist_id => album.artist.to_param, :id => album.to_param
-    end
-  end
-
-  def test_get_new_is_authorized
-    artist = Artist.sham!
-    assert_authorized :write, Album, artist do
-      get :new, artist_id: artist.to_param
-    end
-  end
-
-  def test_get_show_is_authorized
-    album = Album.sham!
-    assert_authorized :read, album do
-      get :show, :artist_id => album.artist.to_param, :id => album.to_param
-    end
-  end
-
-  def test_delete_destroy_is_authorized
-    album = Album.sham!
-    assert_authorized :write, album do
-      delete :destroy, artist_id: album.artist.to_param, :id => album.to_param
-    end
-  end
-
-  def test_post_create_is_authorized
-    artist = Artist.sham!
-    assert_authorized :write, Album, artist do
-      post :create, artist_id: artist.to_param, :album => {a: 1}
-    end
-  end
-
-  def test_put_update_is_authorized
-    album = Album.sham!
-    assert_authorized :write, album do
-      put :update, artist_id: album.artist.to_param, :id => album.to_param,
-        :album => {a: 1}
-    end
-  end
 end
-

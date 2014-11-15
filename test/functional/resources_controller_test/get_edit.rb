@@ -6,13 +6,6 @@ module ResourcesControllerTest
       end
     end
 
-    def test_get_edit_for_artist_user_succeeds
-      membership = login_artist_user
-      resource = resource_class.sham!( artist: membership.artist )
-      get :edit, artist_id: resource.artist.to_param, id: resource.to_param
-      assert_response :success
-    end
-
     def test_get_edit_for_artist_user_displays_headers
       membership = login_artist_user
       resource = resource_class.sham!( artist: membership.artist )

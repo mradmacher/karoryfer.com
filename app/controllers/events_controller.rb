@@ -4,7 +4,7 @@ class EventsController < CurrentArtistController
   respond_to :json, :only => [:calendar]
 
   def index
-    @events = current_artist.events
+    @events = resource.index
   end
 
   def calendar
@@ -21,67 +21,39 @@ class EventsController < CurrentArtistController
   end
 
   def show
-		@event = current_artist.events.find( params[:id] )
-		authorize! :read, @event
+		@event = resource.show
   end
 
   def new
-		authorize! :write, Event, current_artist
-		@event = current_artist.events.new
+		@event = resource.new
   end
 
   def edit
-		@event = current_artist.events.find( params[:id] )
-		authorize! :write, @event
+		@event = resource.edit
   end
 
 	def create
-		authorize! :write, Event, current_artist
-		@event = current_artist.events.new( event_params )
-		if @event.save
-			redirect_to artist_event_url( @event.artist, @event )
-		else
-			render :action => 'new'
-		end
+    redirect_to artist_event_url(current_artist, resource.create)
+  rescue Resource::InvalidResource => e
+		@event = e.resource
+    render :action => 'new'
 	end
 
 	def update
-		@event = current_artist.events.find( params[:id] )
-    @event.assign_attributes( event_params )
-    @event.artist = current_artist
-		authorize! :write, @event
-
-		if @event.save
-			redirect_to artist_event_url( @event.artist, @event )
-		else
-			render :action => 'edit'
-		end
+    redirect_to artist_event_url(current_artist, resource.update)
+  rescue Resource::InvalidResource => e
+		@event = e.resource
+    render :action => 'edit'
 	end
 
 	def destroy
-		@event = current_artist.events.find( params[:id] )
-		authorize! :write, @event
-		@event.destroy
-    redirect_to artist_events_url( @event.artist )
+    resource.destroy
+    redirect_to artist_events_url(current_artist)
 	end
 
   private
 
-  def event_params
-    params.require(:event).permit(
-      :title,
-      :location,
-      :address,
-      :event_date,
-      :event_time,
-      :duration,
-      :free_entrance,
-      :price,
-      :poster,
-      :remove_poster,
-      :body,
-      :external_urls
-    )
+  def resource
+    Resource::EventResource.new(params, abilities, current_artist)
   end
 end
-
