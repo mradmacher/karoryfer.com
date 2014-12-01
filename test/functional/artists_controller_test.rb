@@ -14,22 +14,6 @@ class ArtistsControllerTest < ActionController::TestCase
     assert_select "h1", artist.name
   end
 
-  def test_get_show_does_not_display_actions_when_not_authorized
-    artist = Artist.sham!
-    deny(:write, artist)
-    get :show, :id => artist.to_param
-    assert_select 'a[href=?]', edit_artist_path, 0
-    assert_select 'a[href=?][data-method=delete]', artist_path( artist ), 0
-  end
-
-  def test_get_show_displays_actions_when_authorized
-    artist = Artist.sham!
-    allow(:write, artist)
-    get :show, :id => artist.to_param
-    assert_select 'a[href=?]', edit_artist_path, I18n.t( 'action.edit' )
-    assert_select 'a[href=?][data-method=delete]', artist_path( artist ), 0
-  end
-
   def test_get_new_displays_headers_when_authorized
     allow(:write, Artist)
     get :new

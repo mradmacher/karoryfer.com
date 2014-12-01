@@ -6,11 +6,7 @@
   <% end %>
 </h2>
 <p>
-  <div class="btn-group">
-    <% if can? :write, @album %>
-      <a href="<%= edit_artist_album_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
-    <% end %>
-  </div>
+  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
 </p>
 
 <div class="media">

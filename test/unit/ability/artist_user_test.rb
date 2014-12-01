@@ -212,4 +212,3 @@ class Ability::ArtistUserTest < ActiveSupport::TestCase
     assert @ability.allowed?(:write, Album, @membership.artist)
   end
 end
-

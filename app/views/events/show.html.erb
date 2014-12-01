@@ -1,14 +1,7 @@
 <%= render_title @event.title %>
 <h2><%= event_icon( @event.expired? ) %><%= @event.title %></h2>
 <p>
-  <div class="btn-group">
-    <% if can? :write, @event %>
-      <a href="<%= edit_artist_event_path(@event.artist, @event) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
-    <% end %>
-    <% if can? :write, @event %>
-      <a href="<%= artist_event_path(@event.artist, @event) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
-    <% end %>
-  </div>
+  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
 </p>
 <div class="media">
   <% if @event.poster? %>

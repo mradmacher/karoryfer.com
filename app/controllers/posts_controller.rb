@@ -7,6 +7,7 @@ class PostsController < CurrentArtistController
 
   def show
 		@post = resource.show
+    @current_view = PostView.new(@post, abilities)
   end
 
   def new
@@ -15,6 +16,8 @@ class PostsController < CurrentArtistController
 
   def edit
 		@post = resource.edit
+    @current_view = PostView.new(@post, abilities)
+    render 'shared/edit'
   end
 
 	def create
@@ -42,4 +45,3 @@ class PostsController < CurrentArtistController
     Resource::PostResource.new(params, abilities, current_artist)
   end
 end
-

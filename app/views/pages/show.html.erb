@@ -1,23 +1,14 @@
 <%= render_title @page.title %>
 <h2><%= @page.title %></h2>
 <p>
-  <div class="btn-group">
-    <% if can? :write, @page %>
-      <a href="<%= edit_artist_page_path(@page.artist, @page) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
-    <% end %>
-    <% if can? :write, @page %>
-      <a href="<%= artist_page_path(@page.artist, @page) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
-    <% end %>
-  </div>
+  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
 </p>
 <div class="long-text">
   <%= render_text @page.content %>
 </div>
 <br />
 <div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: artist_page_url( @page.artist, @page ) } %>
+  <%= render partial: 'embeds/facebook', locals: { url: @current_view.show_path } %>
   <br />
   <%= render partial: 'embeds/twitter' %>
 </div>
-
-

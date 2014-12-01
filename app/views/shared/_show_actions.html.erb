@@ -1,0 +1,8 @@
+<div class="btn-group">
+  <% view.with_edit_path do |path| %>
+    <a href="<%= path %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
+  <% end %>
+  <% view.with_destroy_path do |path| %>
+    <a href="<%= path %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
+  <% end %>
+</div>

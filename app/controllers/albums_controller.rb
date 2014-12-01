@@ -7,10 +7,13 @@ class AlbumsController < CurrentArtistController
 
   def show
 		@album = resource.show
+    @current_view = AlbumView.new(@album, abilities)
   end
 
   def edit
 		@album = resource.edit
+    @current_view = AlbumView.new(@album, abilities)
+    render 'shared/edit'
   end
 
   def new
