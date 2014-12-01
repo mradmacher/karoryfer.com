@@ -57,10 +57,12 @@ class Ability
       when 'Class'
         case subject.to_s
           when 'Post', 'Video', 'Page', 'Event'
+            rules << :read
             if !scope.nil? && is_member_of?(scope.id)
               rules << :write
             end
           when 'Album'
+            rules << :read
             if user.publisher? && !scope.nil? && is_member_of?(scope.id)
               rules << :write
             end
@@ -69,7 +71,10 @@ class Ability
               rules << :read
               rules << :write
             end
-          when 'Artist', 'User'
+          when 'Artist'
+            rules << :read
+            rules << :write if user.admin?
+          when 'User'
             if user.admin?
               rules << :read
               rules << :write

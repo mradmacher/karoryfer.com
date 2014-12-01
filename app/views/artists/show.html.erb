@@ -1,10 +1,6 @@
 <%= render_title %>
 <p>
-  <div class="btn-group">
-    <% if can? :write, @artist %>
-      <a href="<%= edit_artist_path(@artist) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
-    <% end %>
-  </div>
+  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
 </p>
 <div class="media">
   <% if current_artist.image? %>
@@ -17,5 +13,5 @@
 </div>
 <br />
 <div class="long-text">
-<%= render_text @artist.description %>
+  <%= render_text @artist.description %>
 </div>

@@ -22,6 +22,7 @@ class EventsController < CurrentArtistController
 
   def show
 		@event = resource.show
+    @current_view = EventView.new(@event, abilities)
   end
 
   def new
@@ -30,6 +31,8 @@ class EventsController < CurrentArtistController
 
   def edit
 		@event = resource.edit
+    @current_view = EventView.new(@event, abilities)
+    render 'shared/edit'
   end
 
 	def create

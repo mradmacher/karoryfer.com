@@ -7,6 +7,7 @@ class VideosController < CurrentArtistController
 
   def show
 		@video = resource.show
+    @current_view = VideoView.new(@video, abilities)
   end
 
   def new
@@ -15,6 +16,8 @@ class VideosController < CurrentArtistController
 
   def edit
 		@video = resource.edit
+    @current_view = VideoView.new(@video, abilities)
+    render 'shared/edit'
   end
 
 	def create
@@ -42,4 +45,3 @@ class VideosController < CurrentArtistController
     Resource::VideoResource.new(params, abilities, current_artist)
   end
 end
-

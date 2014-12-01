@@ -1,20 +1,8 @@
 require 'test_helper'
-require_relative 'resources_controller_test/get_index'
-require_relative 'resources_controller_test/get_show'
-require_relative 'resources_controller_test/get_edit'
-require_relative 'resources_controller_test/get_new'
-require_relative 'resources_controller_test/put_update'
-require_relative 'resources_controller_test/post_create'
-require_relative 'resources_controller_test/delete_destroy'
+require_relative 'resources_controller'
 
 class PagesControllerTest < ActionController::TestCase
-  #include ResourcesControllerTest::GetIndex
-  include ResourcesControllerTest::GetShow
-  include ResourcesControllerTest::GetEdit
-  include ResourcesControllerTest::GetNew
-  include ResourcesControllerTest::PutUpdate
-  include ResourcesControllerTest::PostCreate
-  include ResourcesControllerTest::DeleteDestroy
+  include ResourcesController
 
   def resource_name
     'page'

@@ -2,33 +2,35 @@ require 'test_helper'
 
 class TestResource
   attr_accessor :id, :permitted, :restricted
+  @@storage = {}
 
   def initialize(attrs = {})
-    update_attributes(attrs)
+    @permitted = attrs[:permitted]
+    @restricted = attrs[:restricted]
   end
 
   def save
     if valid?
       self.id = Random.new.rand(100)
+      @@storage[id] = self
       true
     else
       false
     end
+  end
+
+  def valid?(value = self.permitted)
+    value != 'invalid'
   end
 
   def update_attributes(attrs)
-    @id = attrs[:id] if attrs.has_key?(:id)
-    @permitted = attrs[:permitted] if attrs.has_key?(:permitted)
-    @restricted = attrs[:restricted] if attrs.has_key?(:restricted)
-    if valid?
+    if valid?(attrs[:permitted])
+      @permitted = attrs[:permitted] if attrs.has_key?(:permitted)
+      @restricted = attrs[:restricted] if attrs.has_key?(:restricted)
       true
     else
       false
     end
-  end
-
-  def valid?
-    permitted != 'invalid'
   end
 
   def persisted?
@@ -36,7 +38,7 @@ class TestResource
   end
 
   def self.find(id)
-    TestResource.new.tap { |r| r.id = id }
+    @@storage[id]
   end
 
   def self.all
@@ -60,20 +62,25 @@ end
 
 # Tests for resource resource.
 class RegularResourceTest < ActiveSupport::TestCase
+  def test_index_is_authorized
+    assert_authorization :read, TestResource do |abilities|
+      resource_access({}, abilities).index
+    end
+  end
+
   def test_show_is_authorized
-    resource = TestResource.new(id: 1)
+    (resource = TestResource.new).save
     assert_authorization :read, resource do |abilities|
-      resource_access({ id: 1 }, abilities).show
+      resource_access({ id: resource.id }, abilities).show
     end
   end
 
   def test_show_returns_resource_with_provided_id
-    resource = TestResource.new(id: 1)
-    result = nil
+    (resource = TestResource.new).save
     with_permission_to :read, resource do |abilities|
-      result = resource_access({ id: 1 }, abilities).show
+      result = resource_access({ id: resource.id }, abilities).show
+      assert_equal resource, result
     end
-    assert_equal resource, result
   end
 
   def test_new_is_authorized
@@ -91,16 +98,16 @@ class RegularResourceTest < ActiveSupport::TestCase
   end
 
   def test_edit_is_authorized
-    resource = TestResource.new(id: 1)
+    (resource = TestResource.new).save
     assert_authorization :write, resource do |abilities|
-      resource_access({ id: 1 }, abilities).edit
+      resource_access({ id: resource.id }, abilities).edit
     end
   end
 
   def test_edit_returns_resource_with_provided_id
-    resource = TestResource.new(id: 1)
+    (resource = TestResource.new).save
     with_permission_to :write, resource do |abilities|
-      result = resource_access({ id: 1 }, abilities).edit
+      result = resource_access({ id: resource.id }, abilities).edit
       assert_equal resource, result
     end
   end
@@ -141,40 +148,40 @@ class RegularResourceTest < ActiveSupport::TestCase
   end
 
   def test_update_is_authorized
-    resource = TestResource.new(id: 1)
+    (resource = TestResource.new).save
     assert_authorization :write, resource do |abilities|
-      resource_access({ id: 1, test_resource: { dummy: 1 } }, abilities).update
+      resource_access({ id: resource.id, test_resource: { dummy: 1 } }, abilities).update
     end
   end
 
   def test_update_updates_resource
-    resource = TestResource.new(id: 1)
+    (resource = TestResource.new(permitted: 'old')).save
     result = nil
-    with_permission_to :write, resource do |abilities|
+    result = with_permission_to :write, resource do |abilities|
       params = { id: resource.id, test_resource: { permitted: 'new' } }
-      result = resource_access(params, abilities).update
+      resource_access(params, abilities).update
     end
     assert_equal 'new', result.permitted
     assert_equal resource, result
   end
 
   def test_update_updates_only_permitted_params
-    resource = TestResource.new(id: 1)
+    (resource = TestResource.new(permitted: 'old', restricted: 'old')).save
     result = nil
-    with_permission_to :write, resource do |abilities|
-      params = { id: 1, test_resource: { permitted: 'new', restricted: 'new' } }
-      result = resource_access(params, abilities).update
+    result = with_permission_to :write, resource do |abilities|
+      params = { id: resource.id, test_resource: { permitted: 'new', restricted: 'new' } }
+      resource_access(params, abilities).update
     end
     assert_equal 'new', result.permitted
-    assert_nil result.restricted
+    assert_equal 'old', result.restricted
     assert_equal resource, result
   end
 
   def test_update_raises_exception_for_invalid_attributes
-    resource = TestResource.new(id: 1)
+    (resource = TestResource.new).save
     with_permission_to :write, resource do |abilities|
       assert_raises Resource::InvalidResource do
-        params = { id: 1, test_resource: { permitted: 'invalid' } }
+        params = { id: resource.id, test_resource: { permitted: 'invalid' } }
         resource_access(params, abilities).update
       end
     end

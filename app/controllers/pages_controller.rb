@@ -3,10 +3,13 @@ class PagesController < CurrentArtistController
 
   def show
 		@page = resource.show
+    @current_view = PageView.new(@page, abilities)
   end
 
   def edit
 		@page = resource.edit
+    @current_view = PageView.new(@page, abilities)
+    render 'shared/edit'
   end
 
   def new

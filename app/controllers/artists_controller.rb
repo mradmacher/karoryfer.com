@@ -3,6 +3,7 @@ class ArtistsController < CurrentArtistController
 
   def show
 		@artist = resource.show
+    @current_view = ArtistView.new(@artist, abilities)
   end
 
   def index

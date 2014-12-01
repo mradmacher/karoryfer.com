@@ -1,7 +1,0 @@
-<%= render_title @album.title %>
-<h2><%= @album.title %></h2>
-<p>
-  <a href="<%= artist_album_path(@album.artist, @album) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_edit' %></a>
-</p>
-<%= render :partial => 'form' %>
-
