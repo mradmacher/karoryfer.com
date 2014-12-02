@@ -188,6 +188,6 @@ class RegularResourceTest < ActiveSupport::TestCase
   end
 
   def resource_access(params, abilities)
-    TestResourceAccess.new(params, abilities)
+    TestResourceAccess.new(abilities, params)
   end
 end

@@ -26,6 +26,6 @@ class AttachmentsController < CurrentAlbumController
   private
 
   def resource
-    Resource::AttachmentResource.new(params, abilities, current_album)
+    Resource::AttachmentResource.new(abilities, params, current_album)
   end
 end

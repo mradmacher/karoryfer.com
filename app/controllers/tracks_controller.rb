@@ -38,6 +38,6 @@ class TracksController < CurrentAlbumController
   protected
 
   def resource
-    Resource::TrackResource.new(params, abilities, current_album)
+    Resource::TrackResource.new(abilities, params, current_album)
   end
 end

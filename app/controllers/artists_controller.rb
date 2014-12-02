@@ -35,7 +35,7 @@ class ArtistsController < CurrentArtistController
   private
 
   def resource
-    Resource::ArtistResource.new(params, abilities)
+    Resource::ArtistResource.new(abilities, params)
   end
 end
 

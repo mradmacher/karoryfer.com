@@ -63,6 +63,6 @@ class AlbumsController < CurrentArtistController
   private
 
   def resource
-    Resource::AlbumResource.new(params, abilities, current_artist)
+    Resource::AlbumResource.new(abilities, params, current_artist)
   end
 end

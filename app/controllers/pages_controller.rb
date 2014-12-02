@@ -38,7 +38,6 @@ class PagesController < CurrentArtistController
   private
 
   def resource
-    Resource::PageResource.new(params, abilities, current_artist)
+    Resource::PageResource.new(abilities, params, current_artist)
   end
 end
-
