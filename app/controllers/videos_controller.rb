@@ -42,6 +42,6 @@ class VideosController < CurrentArtistController
   private
 
   def resource
-    Resource::VideoResource.new(params, abilities, current_artist)
+    Resource::VideoResource.new(abilities, params, current_artist)
   end
 end

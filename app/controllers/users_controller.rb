@@ -44,6 +44,6 @@ class UsersController < ApplicationController
   private
 
   def resource
-    Resource::UserResource.new(params, abilities)
+    Resource::UserResource.new(abilities, params)
   end
 end

@@ -2,9 +2,9 @@ module Resource
   class RegularResource
     attr_reader :params, :abilities, :owner
 
-    def initialize(params, abilities, owner = nil)
-      @params = params
+    def initialize(abilities, params, owner = nil)
       @abilities = abilities
+      @params = params
       @owner = owner
     end
 

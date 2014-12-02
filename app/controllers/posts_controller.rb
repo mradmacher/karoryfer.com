@@ -42,6 +42,6 @@ class PostsController < CurrentArtistController
   private
 
   def resource
-    Resource::PostResource.new(params, abilities, current_artist)
+    Resource::PostResource.new(abilities, params, current_artist)
   end
 end

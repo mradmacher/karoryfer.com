@@ -57,6 +57,6 @@ class EventsController < CurrentArtistController
   private
 
   def resource
-    Resource::EventResource.new(params, abilities, current_artist)
+    Resource::EventResource.new(abilities, params, current_artist)
   end
 end
