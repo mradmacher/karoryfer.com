@@ -10,6 +10,8 @@ class Page < ActiveRecord::Base
   validates_presence_of :title
   validates_length_of :title, :maximum => TITLE_MAX_LENGTH
 
+  scope :some, -> { all }
+
   def self.find_by_reference( ref )
     super( ref.downcase)
   end

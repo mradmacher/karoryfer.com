@@ -6,13 +6,13 @@
         <a href="<%= path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
       <% end %>
     </div>
-      <div class="panel-body">
-        <ul class="list-unstyled">
-        <% @current_artist_view.recent_pages.each do |page| %>
-           <li><%= link_to page.title, @current_artist_view.page_path(page) %></li>
-        <% end %>
-        </ul>
-      </div>
+    <div class="panel-body">
+      <ul class="list-unstyled">
+      <% @current_artist_view.recent_pages.each do |page| %>
+         <li><%= link_to page.title, @current_artist_view.page_path(page) %></li>
+      <% end %>
+      </ul>
+    </div>
   </div>
 <% end %>
 
