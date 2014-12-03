@@ -1,5 +1,5 @@
 class Track < ActiveRecord::Base
-  TITLE_MAX_LENGTH = 30
+  TITLE_MAX_LENGTH = 80
   COMMENT_MAX_LENGTH = 255
 
 	belongs_to :album
