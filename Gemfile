@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.16'
 
 gem 'thin'
+gem 'unicorn'
 gem 'pg'
 gem 'rdiscount'
 gem 'mini_magick'
