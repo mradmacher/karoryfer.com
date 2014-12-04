@@ -53,6 +53,15 @@ module Resource
       resource.destroy
       resource
     end
+
+    def resource_class
+      fail 'define me'
+    end
+
+    def permitted_params
+      fail 'define me'
+    end
+
     protected
 
     def authorize!(action, subject, scope = nil)
@@ -61,14 +70,6 @@ module Resource
 
     def strong_parameters
       ActionController::Parameters.new(params)
-    end
-
-    def resource_class
-      fail 'define me'
-    end
-
-    def permitted_params
-      fail 'define me'
     end
 
     def find_method

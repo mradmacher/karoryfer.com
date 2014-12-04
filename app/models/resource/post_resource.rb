@@ -1,15 +1,8 @@
 module Resource
   # Provides access to post resource.
   class PostResource < RegularResource
-
-    protected
-
     def resource_class
       Post
-    end
-
-    def resource_scope
-      owner.posts
     end
 
     def permitted_params
@@ -18,6 +11,11 @@ module Resource
         :body
       )
     end
+
+    protected
+
+    def resource_scope
+      owner.posts
+    end
   end
 end
-
