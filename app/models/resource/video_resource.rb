@@ -1,15 +1,8 @@
 module Resource
   # Provides access to video resource.
   class VideoResource < RegularResource
-
-    protected
-
     def resource_class
       Video
-    end
-
-    def resource_scope
-      owner.videos
     end
 
     def permitted_params
@@ -18,6 +11,12 @@ module Resource
         :url,
         :body
       )
+    end
+
+    protected
+
+    def resource_scope
+      owner.videos
     end
   end
 end

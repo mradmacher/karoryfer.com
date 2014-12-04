@@ -1,15 +1,8 @@
 module Resource
   # Provides access to event resource.
   class EventResource < RegularResource
-
-    protected
-
     def resource_class
       Event
-    end
-
-    def resource_scope
-      owner.events
     end
 
     def permitted_params
@@ -27,6 +20,12 @@ module Resource
         :body,
         :external_urls
       )
+    end
+
+    protected
+
+    def resource_scope
+      owner.events
     end
   end
 end
