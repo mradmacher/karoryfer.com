@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
 	def create
-		@membership = Membership.new( params[:membership] )
+		@membership = Membership.new( membership_params )
 		authorize! :write, @membership
 		@membership.save
     redirect_to admin_user_url( @membership.user )
@@ -12,5 +12,11 @@ class MembershipsController < ApplicationController
 		@membership.destroy
     redirect_to admin_user_url( @membership.user )
 	end
+
+  private
+
+  def membership_params
+    params.require(:membership).permit!
+  end
 end
 

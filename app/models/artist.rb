@@ -23,12 +23,7 @@ class Artist < ActiveRecord::Base
 		reference
 	end
 
-	def self.find( *args )
-		if args.first.is_a? String
-			find_by_reference( args.delete_at( 0 ).downcase, args )
-		else
-			super( *args )
-		end
+	def self.find_by_reference( ref )
+	  super ref.downcase
 	end
-
 end

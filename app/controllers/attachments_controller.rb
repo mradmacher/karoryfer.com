@@ -1,39 +1,31 @@
-class AttachmentsController < CurrentArtistController
+class AttachmentsController < CurrentAlbumController
   layout :set_layout
-  before_filter :set_album
 
   def show
-    attachment = @album.attachments.find( params[:id] )
+    attachment = resource.show
     redirect_to attachment.file.url
   end
 
   def new
-		authorize! :write, Attachment, @album
-    @attachment = @album.attachments.new
+    @attachment = resource.new
   end
 
   def create
-    authorize! :write, Attachment, @album
-		@attachment = @album.attachments.new( params[:attachment] )
-    @attachment.album = @album
-    if @attachment.save
-      redirect_to artist_album_url( current_artist, @album )
-    else
-      render :action => 'new'
-    end
+    resource.create
+    redirect_to artist_album_url(current_artist, current_album)
+  rescue Resource::InvalidResource => e
+		@track = e.resource
+    render :action => 'new'
   end
 
   def destroy
-		@attachment = @album.attachments.find( params[:id] )
-		authorize! :write, @attachment
-		@attachment.destroy
-    redirect_to artist_album_url( current_artist, @album )
+    resource.destroy
+    redirect_to artist_album_url(current_artist, current_album)
   end
 
   private
 
-  def set_album
-    @album = current_artist.albums.find_by_reference( params[:album_id] )
+  def resource
+    Resource::AttachmentResource.new(abilities, params, current_album)
   end
 end
-

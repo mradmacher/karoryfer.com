@@ -1,60 +1,6 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  def test_get_index_is_authorized
-    assert_authorized :read, User do
-      get :index
-    end
-  end
-
-  def test_get_edit_is_authorized
-    user = User.sham!
-    assert_authorized :write, user do
-      get :edit, :id => user.to_param
-    end
-  end
-
-  def test_get_edit_password_is_authorized
-    user = User.sham!
-    assert_authorized :write, user do
-      get :edit_password, :id => user.to_param
-    end
-  end
-
-  def test_get_new_is_authorized
-    assert_authorized :write, User do
-      get :new
-    end
-  end
-
-  def test_get_show_is_authorized
-    user = User.sham!
-    assert_authorized :read, user do
-      get :show, :id => user.to_param
-    end
-  end
-
-  def test_delete_destroy_is_authorized
-    user = User.sham!
-    assert_authorized :write, user do
-      delete :destroy, :id => user.to_param
-    end
-  end
-
-  def test_post_create_is_authorized
-    assert_authorized :write, User do
-      post :create, :user => {}
-    end
-  end
-
-  def test_put_update_is_authorized
-    user = User.sham!
-    assert_authorized :write, user do
-      put :update, :id => user.to_param, :user => {}
-    end
-  end
-
-
   def test_authorized_get_show_succeeds
     user = User.sham!
     allow(:read,  user)
@@ -213,4 +159,3 @@ class UsersControllerTest < ActionController::TestCase
       I18n.t( 'title.user.edit_password' )
   end
 end
-

@@ -3,29 +3,54 @@ class CurrentArtistView
 
   attr_reader :artist, :abilities
 
-  def initialize( artist, abilities )
+  def initialize(artist, abilities)
     @artist = artist
     @abilities = abilities
   end
 
+  def with_new_page_path
+    path = new_page_path
+    yield path if path
+  end
+
+  def with_new_event_path
+    path = new_event_path
+    yield path if path
+  end
+
+  def with_new_post_path
+    path = new_post_path
+    yield path if path
+  end
+
+  def with_new_video_path
+    path = new_video_path
+    yield path if path
+  end
+
+  def with_new_album_path
+    path = new_album_path
+    yield path if path
+  end
+
   def new_page_path
-    new_artist_page_path(artist)
+    new_artist_page_path(artist) if can_create_pages?
   end
 
   def new_event_path
-    new_artist_event_path(artist)
+    new_artist_event_path(artist) if can_create_events?
   end
 
   def new_post_path
-    new_artist_post_path(artist)
+    new_artist_post_path(artist) if can_create_posts?
   end
 
   def new_video_path
-    new_artist_video_path(artist)
+    new_artist_video_path(artist) if can_create_videos?
   end
 
   def new_album_path
-    new_artist_album_path(artist)
+    new_artist_album_path(artist) if can_create_albums?
   end
 
   def page_path(page)
@@ -65,19 +90,15 @@ class CurrentArtistView
   end
 
   def recent_pages
-    artist.pages.all
+    artist.pages.some
   end
 
   def recent_events
     artist.events.current
   end
 
-  def current_events_count
+  def events_count
     artist.events.current.count
-  end
-
-  def expired_events_count
-    artist.events.expired.count
   end
 
   def recent_posts
@@ -105,43 +126,62 @@ class CurrentArtistView
   end
 
   def show_pages?
-    !recent_pages.empty? or create_pages?
+    !recent_pages.empty?
   end
 
   def show_events?
-    !artist.events.empty? or create_events?
+    !artist.events.empty?
   end
 
   def show_posts?
-    !recent_posts.empty? or create_posts?
+    !recent_posts.empty?
   end
 
   def show_videos?
-    !recent_videos.empty? or create_videos?
+    !recent_videos.empty?
   end
 
   def show_albums?
-    !recent_albums.empty? or create_albums?
+    !recent_albums.empty?
   end
 
-  def create_pages?
-    abilities.allow?( :write, Page, artist )
+  def show_recent_pages?
+    !recent_pages.empty? or can_create_pages?
   end
 
-  def create_events?
-    abilities.allow?( :write, Event, artist )
+  def show_recent_events?
+    !artist.events.current.empty? or can_create_events?
   end
 
-  def create_posts?
-    abilities.allow?( :write, Post, artist )
+  def show_recent_posts?
+    !recent_posts.empty? or can_create_posts?
   end
 
-  def create_videos?
-    abilities.allow?( :write, Video, artist )
+  def show_recent_videos?
+    !recent_videos.empty? or can_create_videos?
   end
 
-  def create_albums?
-    abilities.allow?( :write, Album, artist )
+  def show_recent_albums?
+    !recent_albums.empty? or can_create_albums?
+  end
+
+  def can_create_pages?
+    abilities.allow?(:write, Page, artist)
+  end
+
+  def can_create_events?
+    abilities.allow?(:write, Event, artist)
+  end
+
+  def can_create_posts?
+    abilities.allow?(:write, Post, artist)
+  end
+
+  def can_create_videos?
+    abilities.allow?(:write, Video, artist)
+  end
+
+  def can_create_albums?
+    abilities.allow?(:write, Album, artist)
   end
 end
-

@@ -40,9 +40,9 @@ class ApplicationController < ActionController::Base
 
 	def set_current_artist
 		@current_artist = if params[:controller] == 'artists'
-			params[:id] ? Artist.find( params[:id] ) : nil
+			params[:id] ? Artist.find_by_reference( params[:id] ) : nil
 		else
-			params[:artist_id] ? Artist.find( params[:artist_id] ) : nil
+			params[:artist_id] ? Artist.find_by_reference( params[:artist_id] ) : nil
 		end
 	end
 
@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def current_user
-		return @current_user if defined?( @current_user )
+		return @current_user if defined?(@current_user)
 		@current_user = current_user_session && current_user_session.user
 	end
 

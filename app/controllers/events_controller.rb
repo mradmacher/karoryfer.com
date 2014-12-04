@@ -4,7 +4,7 @@ class EventsController < CurrentArtistController
   respond_to :json, :only => [:calendar]
 
   def index
-    @events = current_artist.events.all
+    @events = resource.index
   end
 
   def calendar
@@ -21,48 +21,42 @@ class EventsController < CurrentArtistController
   end
 
   def show
-		@event = current_artist.events.find( params[:id] )
-		authorize! :read, @event
+		@event = resource.show
+    @current_view = EventView.new(@event, abilities)
   end
 
   def new
-		authorize! :write, Event, current_artist
-		@event = current_artist.events.new
+		@event = resource.new
   end
 
   def edit
-		@event = current_artist.events.find( params[:id] )
-		authorize! :write, @event
+		@event = resource.edit
+    @current_view = EventView.new(@event, abilities)
+    render 'shared/edit'
   end
 
 	def create
-		authorize! :write, Event, current_artist
-		@event = current_artist.events.new( params[:event] )
-		if @event.save
-			redirect_to artist_event_url( @event.artist, @event )
-		else
-			render :action => 'new'
-		end
+    redirect_to artist_event_url(current_artist, resource.create)
+  rescue Resource::InvalidResource => e
+		@event = e.resource
+    render :action => 'new'
 	end
 
 	def update
-		@event = current_artist.events.find( params[:id] )
-    @event.assign_attributes( params[:event] )
-    @event.artist = current_artist
-		authorize! :write, @event
-
-		if @event.save
-			redirect_to artist_event_url( @event.artist, @event )
-		else
-			render :action => 'edit'
-		end
+    redirect_to artist_event_url(current_artist, resource.update)
+  rescue Resource::InvalidResource => e
+		@event = e.resource
+    render :action => 'edit'
 	end
 
 	def destroy
-		@event = current_artist.events.find( params[:id] )
-		authorize! :write, @event
-		@event.destroy
-    redirect_to artist_events_url( @event.artist )
+    resource.destroy
+    redirect_to artist_events_url(current_artist)
 	end
-end
 
+  private
+
+  def resource
+    Resource::EventResource.new(abilities, params, current_artist)
+  end
+end

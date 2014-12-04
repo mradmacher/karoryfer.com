@@ -10,11 +10,11 @@ class Video < ActiveRecord::Base
 	validates_presence_of :url
 	validates_presence_of :artist_id
 
-	default_scope order( 'created_at desc' )
-  scope :some, limit( SOME_LIMIT )
+	default_scope -> { order( 'created_at desc' ) }
+  scope :some, -> { limit( SOME_LIMIT ) }
 
 	def related
-		Video.where( artist_id: self.artist_id ) #.delete_if{ |p| p == self }
+		Video.where( artist_id: self.artist_id )
 	end
 
   def embed_url

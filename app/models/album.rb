@@ -29,21 +29,13 @@ class Album < ActiveRecord::Base
 
   mount_uploader :image, Uploader::AlbumImage
 
-	default_scope order( 'created_at desc' )
-	scope :published, where( :published => true )
-	scope :unpublished, where( :published => false )
-  scope :some, limit( SOME_LIMIT )
-
-	def self.find( *args )
-		if args.first.is_a? String
-			find_by_reference( args.delete_at( 0 ).downcase, args )
-		else
-			super( *args )
-		end
-	end
+	default_scope -> { order( 'created_at desc' ) }
+	scope :published, -> { where( :published => true ) }
+	scope :unpublished, -> { where( :published => false ) }
+  scope :some, -> { limit( SOME_LIMIT ) }
 
   def self.find_by_reference( ref )
-    super( ref.downcase)
+    super ref.downcase
   end
 
 	def to_param
