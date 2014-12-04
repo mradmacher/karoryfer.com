@@ -2,55 +2,45 @@ class AlbumsController < CurrentArtistController
   layout :set_layout
 
   def index
-		@albums = current_artist.albums.published.all
+		@albums = (can?(:write, Album, current_artist) ? resource.index : resource.index.published)
   end
 
   def show
-		@album = current_artist.albums.find_by_reference( params[:id] )
-		authorize! :read, @album
+		@album = resource.show
+    @current_view = AlbumView.new(@album, abilities)
   end
 
   def edit
-		@album = current_artist.albums.find_by_reference( params[:id] )
-		authorize! :write, @album
+		@album = resource.edit
+    @current_view = AlbumView.new(@album, abilities)
+    render 'shared/edit'
   end
 
   def new
-		authorize! :write, Album, current_artist
-		@album = current_artist.albums.new
+    @album = resource.new
   end
 
 	def create
-		authorize! :write, Album, current_artist
-		@album = current_artist.albums.new( params[:album] )
-		if @album.save
-			redirect_to artist_album_url( @album.artist, @album )
-		else
-			render :action => 'new'
-		end
+    redirect_to artist_album_url(current_artist, resource.create)
+  rescue Resource::InvalidResource => e
+    @album = e.resource
+    render :action => 'new'
 	end
 
 	def update
-		@album = current_artist.albums.find_by_reference( params[:id] )
-		authorize! :write, @album
-		@album.assign_attributes( params[:album] )
-    @album.artist = current_artist
-		if @album.save
-			redirect_to artist_album_url( @album.artist, @album )
-		else
-			render :action => 'edit'
-		end
+    redirect_to artist_album_url(current_artist, resource.update)
+  rescue Resource::InvalidResource => e
+    @album = e.resource
+    render :action => 'edit'
 	end
 
 	def destroy
-		@album = current_artist.albums.find_by_reference( params[:id] )
-		authorize! :write, @album
-		@album.destroy
-		redirect_to artist_albums_url( current_artist )
+		resource.destroy
+		redirect_to artist_albums_url(current_artist)
 	end
 
   def download
-    @artist = Artist.find( params[:artist_id] )
+    @artist = Artist.find_by_reference( params[:artist_id] )
 		@album = @artist.albums.find_by_reference( params[:id] )
     release = @album.releases.in_format( params[:format] ).first!
     if release.file?
@@ -69,5 +59,10 @@ class AlbumsController < CurrentArtistController
       end
     end
   end
-end
 
+  private
+
+  def resource
+    Resource::AlbumResource.new(abilities, params, current_artist)
+  end
+end

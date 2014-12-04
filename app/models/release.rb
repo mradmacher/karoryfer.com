@@ -19,7 +19,7 @@ class Release < ActiveRecord::Base
 
   mount_uploader :file, Uploader::Release
 
-  scope :in_format, lambda { |format| where( format: format ) }
+  scope :in_format, -> (format) { where( format: format ) }
 
   def generate!
     releaser = if owner.is_a? Album

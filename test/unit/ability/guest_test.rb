@@ -5,6 +5,11 @@ class Ability::GuestTest < ActiveSupport::TestCase
     @ability = Ability.new(nil)
   end
 
+  def test_read_posts_is_allowed
+    assert @ability.allowed?(:read, Post)
+    assert @ability.allowed?(:read, Post, Artist.sham!)
+  end
+
   def test_read_post_is_allowed
     post = Post.sham!(:build)
     assert @ability.allowed?(:read, post)
@@ -19,6 +24,11 @@ class Ability::GuestTest < ActiveSupport::TestCase
     artist = Artist.sham!
     refute @ability.allowed?(:write, Post)
     refute @ability.allowed?(:write, Post, artist)
+  end
+
+  def test_read_events_is_allowed
+    assert @ability.allowed?(:read, Event)
+    assert @ability.allowed?(:read, Event, Artist.sham!)
   end
 
   def test_read_event_is_allowed
@@ -37,6 +47,11 @@ class Ability::GuestTest < ActiveSupport::TestCase
     refute @ability.allowed?(:write, Event, artist)
   end
 
+  def test_read_videos_is_allowed
+    assert @ability.allowed?(:read, Video)
+    assert @ability.allowed?(:read, Video, Artist.sham!)
+  end
+
   def test_read_video_is_allowed
     video = Video.sham!(:build)
     assert @ability.allowed?(:read, video)
@@ -51,6 +66,11 @@ class Ability::GuestTest < ActiveSupport::TestCase
     artist = Artist.sham!
     refute @ability.allowed?(:write, Video)
     refute @ability.allowed?(:write, Video, artist)
+  end
+
+  def test_read_pages_is_allowed
+    assert @ability.allowed?(:read, Page)
+    assert @ability.allowed?(:read, Page, Artist.sham!)
   end
 
   def test_read_page_is_allowed
@@ -113,6 +133,10 @@ class Ability::GuestTest < ActiveSupport::TestCase
     refute @ability.allowed?(:write, Track, album)
   end
 
+  def test_read_artists_is_allowed
+    assert @ability.allowed?(:read, Artist)
+  end
+
   def test_read_artist_is_allowed
     artist = Artist.sham!(:build)
     assert @ability.allowed?(:read, artist)
@@ -125,6 +149,11 @@ class Ability::GuestTest < ActiveSupport::TestCase
 
   def test_create_artist_is_denied
     refute @ability.allowed?(:write, Artist)
+  end
+
+  def test_read_albums_is_allowed
+    assert @ability.allowed?(:read, Album)
+    assert @ability.allowed?(:read, Album, Artist.sham!)
   end
 
   def test_read_album_is_allowed

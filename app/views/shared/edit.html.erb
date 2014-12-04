@@ -1,0 +1,5 @@
+<%= render_title @current_view.title %>
+<h2><%= @current_view.title %></h2>
+<p><%= render partial: 'shared/edit_actions', locals: { view: @current_view } %></p>
+
+<%= render :partial => 'form' %>

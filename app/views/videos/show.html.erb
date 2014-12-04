@@ -1,14 +1,7 @@
 <%= render_title @video.title %>
 <h2><%= @video.title %></h2>
 <p>
-  <div class="btn-group">
-    <% if can? :write, @video %>
-      <a href="<%= edit_artist_video_path(@video.artist, @video) %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
-    <% end %>
-    <% if can? :write, @video %>
-      <a href="<%= artist_video_path(@video.artist, @video) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
-    <% end %>
-  </div>
+  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
 </p>
 <p>
   <% if @video.embed_url %>
@@ -20,8 +13,7 @@
 </p>
 <br />
 <div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: artist_video_url( @video.artist, @video ) } %>
+  <%= render partial: 'embeds/facebook', locals: { url: @current_view.show_path } %>
   <br />
   <%= render partial: 'embeds/twitter' %>
 </div>
-

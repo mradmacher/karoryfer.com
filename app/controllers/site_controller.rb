@@ -3,21 +3,21 @@ class SiteController < ApplicationController
   before_filter :set_resources
 
   def home
-    @albums = Album.published.all.sample(4)
+    @albums = Album.published.sample(4)
     @artists = Artist.all.sample(4)
   end
 
   def albums
-		@albums = Album.published.all
+		@albums = Album.published
   end
 
   def artists
-		@artists = Artist.all( :order => 'name' )
+		@artists = Artist.order(:name)
   end
 
   def events
     @current_date = "#{params[:day]}/#{params[:month]}/#{params[:year]}"
-    @events = Event.scoped
+    @events = Event.all
 
     if params[:day] && params[:month] && params[:year]
       @events = @events.for_day( params[:year], params[:month], params[:day] )

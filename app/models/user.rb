@@ -4,12 +4,11 @@ class User < ActiveRecord::Base
 
 	acts_as_authentic do |c|
 		c.validate_email_field = false
+    c.crypto_provider = Authlogic::CryptoProviders::Sha512
 	end
 
   has_many :memberships
 
-	attr_accessible :login, :email, :password, :password_confirmation, :as => [:default, :admin]
-	attr_accessible :admin, :publisher, :as => :admin
 	validates :admin, :inclusion => { :in => [true, false] }
 	validates :publisher, :inclusion => { :in => [true, false] }
 

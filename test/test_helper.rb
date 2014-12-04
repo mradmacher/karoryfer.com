@@ -6,7 +6,7 @@ require 'sequel'
 require 'shams'
 
 dbconfig = Rails.configuration.database_configuration['test']
-DB = Sequel.connect( "postgres://#{dbconfig['username']}@localhost/#{dbconfig['database']}" )
+DB = Sequel.connect("postgres://#{dbconfig['username']}@localhost/#{dbconfig['database']}")
 FIXTURES_DIR = File.expand_path('../fixtures', __FILE__)
 
 module I18n
@@ -55,6 +55,28 @@ class ActiveSupport::TestCase
       end
     end
   end
+
+  def with_permission_to(action, subject, scope = nil)
+    abilities = TestAbility.new
+    abilities.allow(action, subject, scope)
+    yield abilities
+  end
+
+  def without_permissions
+    yield TestAbility.new
+  end
+
+  def assert_authorization(action, subject, scope = nil, &block)
+    abilities = TestAbility.new
+    assert_raises User::AccessDenied do
+      block.call(abilities)
+    end
+    abilities.allow(action, subject, scope)
+    assert_nothing_raised User::AccessDenied do
+      block.call(abilities)
+    end
+  end
+
 
 	DEFAULT_TITLE = 'Karoryfer Lecolds'
 	TITLE_SEPARATOR = ' - '

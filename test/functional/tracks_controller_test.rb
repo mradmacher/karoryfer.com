@@ -32,14 +32,15 @@ class TracksControllerTest < ActionController::TestCase
   def test_post_create_is_authorized
     album = Album.sham!
     assert_authorized :write, Track, album do
-      post :create, artist_id: album.artist.to_param, album_id: album.to_param, track: {}
+      post :create, artist_id: album.artist.to_param, album_id: album.to_param, track: {a: 1}
     end
   end
 
   def test_put_update_is_authorized
     track = Track.sham!
     assert_authorized :write, track do
-      put :update, artist_id: track.album.artist.to_param, album_id: track.album.to_param, id: track.to_param, :track => {}
+      put :update, artist_id: track.album.artist.to_param, album_id: track.album.to_param,
+        id: track.to_param, :track => {a: 1}
     end
   end
 end
