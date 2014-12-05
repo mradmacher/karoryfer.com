@@ -46,6 +46,7 @@ CREATE TABLE albums (
     description text,
     published boolean DEFAULT false NOT NULL,
     image character varying(255),
+    shared boolean DEFAULT true NOT NULL,
     CONSTRAINT albums_reference_check_format CHECK (((reference)::text = COALESCE("substring"((reference)::text, '(^[a-z0-9]+([-][a-z0-9]+)*$)'::text), ''::text))),
     CONSTRAINT albums_reference_check_length CHECK ((char_length((reference)::text) > 0))
 );
@@ -1121,3 +1122,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140704085617');
 INSERT INTO schema_migrations (version) VALUES ('20140707203052');
 
 INSERT INTO schema_migrations (version) VALUES ('20140728134446');
+
+INSERT INTO schema_migrations (version) VALUES ('20141205001752');
