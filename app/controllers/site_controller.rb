@@ -8,7 +8,7 @@ class SiteController < ApplicationController
   end
 
   def albums
-		@albums = Album.published
+		@albums = Album.published.shared
   end
 
   def artists
