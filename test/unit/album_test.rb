@@ -130,20 +130,20 @@ class AlbumTest < ActiveSupport::TestCase
 	end
 
   def test_returns_all_published_for_published_scope
-    5.times { assert Album.sham!( :published ).valid? }
-    5.times { assert Album.sham!( :unpublished ).valid? }
-    assert_equal 10, Album.count
-    assert_equal 5, Album.published.count
+    3.times { assert Album.sham!( :published ).valid? }
+    3.times { assert Album.sham!( :unpublished ).valid? }
+    assert_equal 6, Album.count
+    assert_equal 3, Album.published.count
     Album.published.each do |album|
       assert album.published?
     end
   end
 
   def test_returns_all_unpublished_for_unpublished_scope
-    5.times { assert Album.sham!( :published ).valid? }
-    5.times { assert Album.sham!( :unpublished ).valid? }
-    assert_equal 10, Album.count
-    assert_equal 5, Album.unpublished.count
+    3.times { assert Album.sham!( :published ).valid? }
+    3.times { assert Album.sham!( :unpublished ).valid? }
+    assert_equal 6, Album.count
+    assert_equal 3, Album.unpublished.count
     Album.unpublished.each do |album|
       refute album.published?
     end
