@@ -5,19 +5,8 @@ class PostsController < CurrentArtistController
     @posts = resource.index
   end
 
-  def show
-		@post = resource.show
-    @current_view = PostView.new(@post, abilities)
-  end
-
   def new
 		@post = resource.new
-  end
-
-  def edit
-		@post = resource.edit
-    @current_view = PostView.new(@post, abilities)
-    render 'shared/edit'
   end
 
 	def create
@@ -27,19 +16,23 @@ class PostsController < CurrentArtistController
     render :action => 'new'
 	end
 
-	def update
-    redirect_to artist_post_url(current_artist, resource.update)
-  rescue Resource::InvalidResource => e
-		@post = e.resource
-    render :action => 'edit'
-	end
-
-	def destroy
-    resource.destroy
-    redirect_to artist_posts_url(current_artist)
-	end
-
   private
+
+  def redirect_update(obj)
+    redirect_to artist_post_url(current_artist, obj)
+  end
+
+  def redirect_destroy(obj)
+    redirect_to artist_posts_url(current_artist)
+  end
+
+  def redirect_create(obj)
+    redirect_to artist_post_url(current_artist, obj)
+  end
+
+  def view_class
+    PostView
+  end
 
   def resource
     Resource::PostResource.new(abilities, params, current_artist)

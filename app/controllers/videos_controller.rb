@@ -5,19 +5,8 @@ class VideosController < CurrentArtistController
     @videos = resource.index
   end
 
-  def show
-		@video = resource.show
-    @current_view = VideoView.new(@video, abilities)
-  end
-
   def new
 		@video = resource.new
-  end
-
-  def edit
-		@video = resource.edit
-    @current_view = VideoView.new(@video, abilities)
-    render 'shared/edit'
   end
 
 	def create
@@ -27,19 +16,23 @@ class VideosController < CurrentArtistController
     render :action => 'new'
 	end
 
-	def update
-    redirect_to artist_video_url(current_artist, resource.update)
-  rescue Resource::InvalidResource => e
-		@video = e.resource
-    render :action => 'edit'
-	end
-
-	def destroy
-    resource.destroy
-    redirect_to artist_videos_url(current_artist)
-	end
-
   private
+
+  def redirect_update(obj)
+    redirect_to artist_video_url(current_artist, obj)
+  end
+
+  def redirect_create(obj)
+    redirect_to artist_video_url(current_artist, obj)
+  end
+
+  def redirect_destroy(obj)
+    redirect_to artist_videos_url(current_artist)
+  end
+
+  def view_class
+    VideoView
+  end
 
   def resource
     Resource::VideoResource.new(abilities, params, current_artist)

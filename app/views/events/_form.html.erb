@@ -1,4 +1,4 @@
-<%= form_for [current_artist, @event] do |f| %>
+<%= form_for [current_artist, resource] do |f| %>
 	<%= f.error_messages %>
   <div class="form-group">
     <%= f.label :title, t( "label.event.title" ) %>
@@ -44,8 +44,8 @@
 
   <div class="form-group">
     <%= f.label :poster, t( 'label.event.poster' ) %>
-    <% if @event.poster? %>
-      <p class="help-block"><%= image_tag( @event.poster.icon.url, :alt => @event.title ) %></p>
+    <% if resource.poster? %>
+      <p class="help-block"><%= image_tag(resource.poster.icon.url, :alt => resource.title) %></p>
       <div class="checkbox">
         <%= f.label :remove_poster do %>
           <%= f.check_box :remove_poster %>

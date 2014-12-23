@@ -1,10 +1,9 @@
 <% unless video.url.blank? %>
-  <a href="<%= artist_video_path( video.artist, video ) %>">
-    <%= image_tag( video.image_url, :alt => video.title, :class => 'img-rounded img-polaroid' ) %>
+  <a href="<%= video.show_path %>">
+    <%= image_tag(video.image_url, :alt => video.title, :class => 'img-rounded img-polaroid') %>
   </a>
 <% end %>
 <% unless current_artist? %>
   <p><%= video.artist.name %></p>
 <% end %>
-<h5><%= link_to video.title, artist_video_path( video.artist, video ) %></h5>
-
+<h5><%= link_to video.title, video.show_path %></h5>

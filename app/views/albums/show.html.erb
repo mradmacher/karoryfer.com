@@ -1,32 +1,32 @@
-<%= render_title @album.title %>
+<%= render_title @view.title %>
 <h2>
-  <%= @album.title %>
-  <% unless @album.published? %>
-    <small><%= t('label.album.unpublished') %></small>
+  <%= @view.title %>
+  <% unless @view.published? %>
+    <small><%= t('label.view.unpublished') %></small>
   <% end %>
 </h2>
 <p>
-  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
+  <%= render partial: 'shared/show_actions', locals: { view: @view } %>
 </p>
 
 <div class="media">
-  <% if @album.image? %>
-    <%= link_to image_tag( @album.image.thumb.url, :alt => @album.title, :class => 'media-object' ), @album.image.url,
+  <% if @view.image? %>
+    <%= link_to image_tag( @view.image.thumb.url, :alt => @view.title, :class => 'media-object' ), @view.image.url,
       :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
-    <p class="lead"><%= @album.year.to_s %></p>
+    <p class="lead"><%= @view.year.to_s %></p>
 
     <p>
-    <% if @album.license.present? %>
+    <% if @view.license.present? %>
       <%= render :partial => 'licenses/cc',
-        :locals => { :author => @album.artist, :license => @album.license } %>
+        :locals => { :author => @view.artist, :license => @view.license } %>
     <% end %>
     </p>
-    <% if can? :write, @album %>
-      <%=t 'label.release.downloads' %>: <%= @album.releases.sum(:downloads) %>
+    <% if can? :write, @view %>
+      <%=t 'label.release.downloads' %>: <%= @view.releases.sum(:downloads) %>
       <ul>
-        <% @album.releases.each do |release| %>
+        <% @view.releases.each do |release| %>
           <li><%= release.format %>: <%= release.downloads %></li>
         <% end %>
       </ul>
@@ -36,19 +36,19 @@
 
 <br />
 
-<% if !@album.releases.empty? %>
+<% if !@view.releases.empty? %>
   <div class="row">
     <div class="span12">
       <div class="text-info"><%= flash[:notice] %></div>
-      <% @album.releases.each do |release| %>
+      <% @view.releases.each do |release| %>
         <% if release.file? %>
-          <a href="<%= download_artist_album_path( @album.artist, @album, release.format ) %>">
+          <a href="<%= download_artist_view_path( @view.artist, @view, release.format ) %>">
             <button class="pull-left download-button img-circle">
               <%= release.format %>
             </button>
           </a>
         <% else %>
-          <a href="<%= download_artist_album_path( @album.artist, @album, release.format ) %>" data-format="<%= release.format %>">
+          <a href="<%= download_artist_view_path( @view.artist, @view, release.format ) %>" data-format="<%= release.format %>">
             <button class="pull-left download-button img-circle create-release-button">
               <%= release.format %>
             </button>
@@ -60,7 +60,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="download-message-label"><%= @album.artist.name %> - <%= @album.title %></h4>
+              <h4 class="modal-title" id="download-message-label"><%= @view.artist.name %> - <%= @view.title %></h4>
               <h5 class="modal-title format"></h5>
             </div>
             <div class="modal-body">
@@ -80,26 +80,26 @@
   </div>
 <% end %>
 
-<% unless @album.donation.blank? %>
+<% unless @view.donation.blank? %>
   <div class="well donations">
-    <%=raw @album.donation %>
+    <%=raw @view.donation %>
     <% if Setting.get( 'donations_info_url' ) %>
       <div><small><i><%= link_to 'Informacja na temat darowizn', Setting.get( 'donations_info_url' ) %></i></small></div>
     <% end %>
   </div>
 <% end %>
 
-<%= render_text @album.description %>
+<%= render_text @view.description %>
 
-<% if !@album.tracks.empty? or can?(:write, Track, @album)%>
+<% if !@view.tracks.empty? or can?(:write, Track, @view)%>
   <h4><%= t 'title.track.index' %></h4>
-  <% if can? :write, Track, @album %>
+  <% if can? :write, Track, @view %>
     <p>
-      <a href="<%= new_artist_album_track_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
+      <a href="<%= new_artist_view_track_path(@view.artist, @view) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
     </p>
   <% end %>
   <ol id="tracklist">
-    <% @album.tracks.each do |track| %>
+    <% @view.tracks.each do |track| %>
       <li data-track-id="<%= track.id %>">
       <span class="title">
         <%= track.rank %>.
@@ -107,10 +107,10 @@
         <% unless track.comment.blank? -%><br /><small><%= track.comment %></small> <% end -%>
         <% if can? :write, track %>
           <div class="btn-group pull-right">
-            <a href="<%= edit_artist_album_track_path(@album.artist, @album, track) %>" class="btn btn-default btn-xs">
+            <a href="<%= edit_artist_view_track_path(@view.artist, @view, track) %>" class="btn btn-default btn-xs">
               <%=t 'action.edit' %>
             </a>
-            <a href="<%= artist_album_track_path(@album.artist, @album, track) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+            <a href="<%= artist_view_track_path(@view.artist, @view, track) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
               <%=t 'action.delete' %>
             </a>
           </div>
@@ -156,19 +156,19 @@
   </div>
 <% end %>
 
-<% if !@album.attachments.empty? or can?(:write, Attachment, @album) %>
+<% if !@view.attachments.empty? or can?(:write, Attachment, @view) %>
   <h4><%= t 'title.attachment.index' %></h4>
-  <% if can? :write, Attachment, @album %>
+  <% if can? :write, Attachment, @view %>
     <p>
-      <a href="<%= new_artist_album_attachment_path(@album.artist, @album) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
+      <a href="<%= new_artist_view_attachment_path(@view.artist, @view) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
     </p>
   <% end %>
   <ul>
-    <% @album.attachments.each do |attachment| %>
+    <% @view.attachments.each do |attachment| %>
       <li>
         <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
         <% if can? :write, attachment %>
-          <a href="<%= artist_album_attachment_path(@album.artist, @album, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+          <a href="<%= artist_view_attachment_path(@view.artist, @view, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
             <%=t 'action.delete' %>
           </a>
         <% end %>
@@ -178,28 +178,24 @@
 <% end %>
 
 <br />
-<div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: artist_album_url( @album.artist, @album ) } %>
-  <br />
-  <%= render partial: 'embeds/twitter' %>
-</div>
+<%= render partial: 'embeds/all' %>
 
 <script type="text/javascript">
 //<![CDATA[
 $(document).ready(function(){
-  $( '.jp-controls' ).append( '<li><a href="#" class="jp-previous" tabindex="1">previous</a></li>' );
-  $( '.jp-controls' ).append( '<li><a href="#" class="jp-play" tabindex="1">play</a></li>' );
-  $( '.jp-controls' ).append( '<li><a href="#" class="jp-pause" tabindex="1">pause</a></li>' );
-  $( '.jp-controls' ).append( '<li><a href="#" class="jp-next" tabindex="1">next</a></li>' );
-  $( '.jp-controls' ).append( '<li><a href="#" class="jp-stop" tabindex="1">stop</a></li>' );
-  $( '.jp-controls' ).append( '<li><a href="#" class="jp-mute" tabindex="1">mute</a></li>' );
-  $( '.jp-controls' ).append( '<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>' );
-  $( '.jp-controls' ).append( '<li><a href="#" class="jp-volume-max" tabindex="1">max volume</a></li>' );
+  $('.jp-controls').append('<li><a href="#" class="jp-previous" tabindex="1">previous</a></li>');
+  $('.jp-controls').append('<li><a href="#" class="jp-play" tabindex="1">play</a></li>');
+  $('.jp-controls').append('<li><a href="#" class="jp-pause" tabindex="1">pause</a></li>');
+  $('.jp-controls').append('<li><a href="#" class="jp-next" tabindex="1">next</a></li>');
+  $('.jp-controls').append('<li><a href="#" class="jp-stop" tabindex="1">stop</a></li>');
+  $('.jp-controls').append('<li><a href="#" class="jp-mute" tabindex="1">mute</a></li>');
+  $('.jp-controls').append('<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>');
+  $('.jp-controls').append('<li><a href="#" class="jp-volume-max" tabindex="1">max volume</a></li>');
 
-  $( '.jp-toggles' ).append( '<li><a href="#" class="jp-shuffle" tabindex="1" title="shuffle">shuffle</a></li>' );
-  $( '.jp-toggles' ).append( '<li><a href="#" class="jp-shuffle-off" tabindex="1" title="shuffle off">shuffle off</a></li>' );
-  $( '.jp-toggles' ).append( '<li><a href="#" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>' );
-  $( '.jp-toggles' ).append( '<li><a href="#" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>' );
+  $('.jp-toggles').append('<li><a href="#" class="jp-shuffle" tabindex="1" title="shuffle">shuffle</a></li>');
+  $('.jp-toggles').append('<li><a href="#" class="jp-shuffle-off" tabindex="1" title="shuffle off">shuffle off</a></li>');
+  $('.jp-toggles').append('<li><a href="#" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>');
+  $('.jp-toggles').append('<li><a href="#" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>');
 
 	var playlist = new jPlayerPlaylist({
 		jPlayer: "#jquery_jplayer_1",
@@ -207,7 +203,7 @@ $(document).ready(function(){
 	}, [
 	], {
 		swfPath: '/js/jQuery.jPlayer.2.5.0',
-		supplied: 'oga, mp3'
+		supplied: 'oga, mp4'
 	});
 
   $( '#tracklist > li' ).each( function(index){
@@ -218,7 +214,7 @@ $(document).ready(function(){
     if( track.has( '[data-format=ogg]' ).size() > 0 ) {
       media['oga'] = track.find( '[data-format=ogg]' ).attr( 'data-url' );
     }
-    if( track.has( '[data-format=mp3]' ).size() > 0 ) {
+    if( track.has( '[data-format=mp4]' ).size() > 0 ) {
       media['mp3'] = track.find( '[data-format=mp3]' ).attr( 'data-url' );
     }
     playlist.add( media );

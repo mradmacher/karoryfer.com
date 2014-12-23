@@ -1,4 +1,8 @@
 class AlbumView < ResourceView
+  def_delegators(:resource, :title, :published?, :image?,
+    :image, :license, :year, :donation, :description,
+    :artist, :releases, :tracks, :attachments)
+
   def _path
     artist_album_path(resource.artist, resource)
   end

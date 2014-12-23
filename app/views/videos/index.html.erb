@@ -8,7 +8,7 @@
 <ul class="row list-unstyled">
 <% @videos.each do |video| %>
   <li class="col-sm-3 col-md-3 col-lg-3">
-    <div class="thumbnail text-center"><%= render video %></div>
+    <div class="thumbnail text-center"><%= render partial: 'video', locals: { video: VideoView.new(video, abilities) } %></div>
   </li>
 <% end %>
 </ul>

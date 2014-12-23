@@ -1,14 +1,10 @@
-<%= render_title @post.title %>
-<h2><%= post_icon %><%= @post.title %></h2>
+<%= render_title @view.title %>
+<h2><%= post_icon %><%= @view.title %></h2>
 <p>
-  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
+  <%= render partial: 'shared/show_actions', locals: { view: @view } %>
 </p>
 <p>
-  <%= render_text @post.body %>
+  <%= render_text @view.body %>
 </p>
 <br />
-<div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: @current_view.show_path } %>
-  <br />
-  <%= render partial: 'embeds/twitter' %>
-</div>
+<%= render partial: 'embeds/all' %>

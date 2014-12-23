@@ -1,38 +1,38 @@
-<%= render_title @event.title %>
-<h2><%= event_icon( @event.expired? ) %><%= @event.title %></h2>
+<%= render_title @view.title %>
+<h2><%= event_icon( @view.expired? ) %><%= @view.title %></h2>
 <p>
-  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
+  <%= render partial: 'shared/show_actions', locals: { view: @view } %>
 </p>
 <div class="media">
-  <% if @event.poster? %>
-    <%= link_to image_tag( @event.poster.thumb.url, :alt => @event.title, :class => 'media-object media-object-normal' ),
-      @event.poster.url, :class => 'pull-left' %>
+  <% if @view.poster? %>
+    <%= link_to image_tag(@view.poster.thumb.url, :alt => @view.title, :class => 'media-object media-object-normal'),
+      @view.poster.url, :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
     <p class="lead">
-      <%= event_date( @event ) %><br />
-      <%= @event.location %>
-      <% if @event.address.present? %>
+      <%= event_date(@view.resource) %><br />
+      <%= @view.location %>
+      <% if @view.address.present? %>
         <br />
-        <small><%= @event.address %></small>
+        <small><%= @view.address %></small>
       <% end %>
     </p>
   </div>
   <p>
-  <% if @event.event_time.present? %>
-    <strong><%=t 'label.event.event_time' %>:</strong> <%= @event.event_time %>
+  <% if @view.event_time.present? %>
+    <strong><%=t 'label.event.event_time' %>:</strong> <%= @view.event_time %>
   <% end %>
-  <% if @event.free_entrance? %>
+  <% if @view.free_entrance? %>
     <br />
     <strong><%=t 'label.event.free_entrance' %></strong>
-  <% elsif @event.price.present? %>
+  <% elsif @view.price.present? %>
     <br />
-    <strong><%=t 'label.event.price' %>:</strong> <%= @event.price %>
+    <strong><%=t 'label.event.price' %>:</strong> <%= @view.price %>
   <% end %>
   </p>
   <p>
     <ul class="list-unstyled">
-    <% @event.recognized_external_urls.each do |url, service| %>
+    <% @view.recognized_external_urls.each do |url, service| %>
       <li><%= link_to service, url, :target => '_blank' %></li>
     <% end %>
     </ul>
@@ -41,12 +41,7 @@
 <br />
 
 <div class="long-text">
-  <%= render_text @event.body %>
+  <%= render_text @view.body %>
 </div>
 <br />
-<div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: artist_event_url( @event.artist, @event ) } %>
-  <br />
-  <%= render partial: 'embeds/twitter' %>
-</div>
-
+<%= render partial: 'embeds/all' %>

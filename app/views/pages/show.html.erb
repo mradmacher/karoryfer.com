@@ -1,14 +1,10 @@
-<%= render_title @page.title %>
-<h2><%= @page.title %></h2>
+<%= render_title @view.title %>
+<h2><%= @view.title %></h2>
 <p>
-  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
+  <%= render partial: 'shared/show_actions', locals: { view: @view } %>
 </p>
 <div class="long-text">
-  <%= render_text @page.content %>
+  <%= render_text @view.content %>
 </div>
 <br />
-<div class="well">
-  <%= render partial: 'embeds/facebook', locals: { url: @current_view.show_path } %>
-  <br />
-  <%= render partial: 'embeds/twitter' %>
-</div>
+<%= render partial: 'embeds/all' %>

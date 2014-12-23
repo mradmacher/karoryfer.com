@@ -1,4 +1,6 @@
 class PageView < ResourceView
+  def_delegators(:resource, :title, :content)
+
   def _path
     artist_page_path(resource.artist, resource)
   end
