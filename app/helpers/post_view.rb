@@ -1,4 +1,6 @@
 class PostView < ResourceView
+  def_delegators(:resource, :title, :body)
+
   def _path
     artist_post_path(resource.artist, resource)
   end

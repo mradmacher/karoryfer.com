@@ -5,17 +5,6 @@ class AlbumsController < CurrentArtistController
 		@albums = (can?(:write, Album, current_artist) ? resource.index : resource.index.published)
   end
 
-  def show
-		@album = resource.show
-    @current_view = AlbumView.new(@album, abilities)
-  end
-
-  def edit
-		@album = resource.edit
-    @current_view = AlbumView.new(@album, abilities)
-    render 'shared/edit'
-  end
-
   def new
     @album = resource.new
   end
@@ -61,6 +50,10 @@ class AlbumsController < CurrentArtistController
   end
 
   private
+
+  def view_class
+    AlbumView
+  end
 
   def resource
     Resource::AlbumResource.new(abilities, params, current_artist)

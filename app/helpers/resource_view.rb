@@ -1,21 +1,23 @@
+require 'forwardable'
+
 class ResourceView
+  extend Forwardable
   include Rails.application.routes.url_helpers
 
-  attr_reader :resource, :abilities, :owner
+  attr_reader :resource, :abilities
 
-  def initialize(resource, abilities, owner = nil)
+  def initialize(resource, abilities)
     @resource = resource
     @abilities = abilities
-    @owner = owner
   end
 
-  def title
-    resource.title
-  end
+  #def title
+  #  resource.title
+  #end
 
   def with_show_path
     path = show_path
-    yield path  if path
+    yield path if path
   end
 
   def with_edit_path

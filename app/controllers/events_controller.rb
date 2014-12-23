@@ -20,19 +20,8 @@ class EventsController < CurrentArtistController
     respond_with result.to_json
   end
 
-  def show
-		@event = resource.show
-    @current_view = EventView.new(@event, abilities)
-  end
-
   def new
 		@event = resource.new
-  end
-
-  def edit
-		@event = resource.edit
-    @current_view = EventView.new(@event, abilities)
-    render 'shared/edit'
   end
 
 	def create
@@ -42,19 +31,23 @@ class EventsController < CurrentArtistController
     render :action => 'new'
 	end
 
-	def update
-    redirect_to artist_event_url(current_artist, resource.update)
-  rescue Resource::InvalidResource => e
-		@event = e.resource
-    render :action => 'edit'
-	end
-
-	def destroy
-    resource.destroy
-    redirect_to artist_events_url(current_artist)
-	end
-
   private
+
+  def redirect_update(obj)
+    redirect_to artist_event_url(current_artist, obj)
+  end
+
+  def redirect_create(obj)
+    redirect_to artist_event_url(current_artist, obj)
+  end
+
+  def redirect_destroy(obj)
+    redirect_to artist_events_url(current_artist)
+  end
+
+  def view_class
+    EventView
+  end
 
   def resource
     Resource::EventResource.new(abilities, params, current_artist)

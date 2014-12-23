@@ -16,19 +16,4 @@ class Video < ActiveRecord::Base
 	def related
 		Video.where( artist_id: self.artist_id )
 	end
-
-  def embed_url
-    return "http://www.youtube-nocookie.com/embed/#{self.identifier}" if identifier
-  end
-
-  def image_url
-    return "http://img.youtube.com/vi/#{self.identifier}/2.jpg" if identifier
-  end
-
-  def identifier
-    match = url.match( /youtu\.be\/(.*)/ )
-    return match[1] if match && match.size > 1
-  end
-
 end
-

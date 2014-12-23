@@ -3,4 +3,4 @@
 <p>
   <a href="<%= artist_path(@post.artist) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
-<%= render :partial => 'form' %>
+<%= render partial: 'form', locals: { resource: @post } %>
