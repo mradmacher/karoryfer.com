@@ -5,17 +5,6 @@ class VideosController < CurrentArtistController
     @videos = resource.index
   end
 
-  def new
-		@video = resource.new
-  end
-
-	def create
-    redirect_to artist_video_url(current_artist, resource.create)
-  rescue Resource::InvalidResource => e
-		@video = e.resource
-    render :action => 'new'
-	end
-
   private
 
   def redirect_update(obj)

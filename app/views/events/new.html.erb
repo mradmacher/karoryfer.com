@@ -1,6 +1,6 @@
-<%= render_title t( 'title.event.new' ) %>
+<%= render_title t('title.event.new') %>
 <h2><%= t 'title.event.new' %></h2>
 <p>
-  <a href="<%= artist_path(@event.artist) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+  <a href="<%= artist_path(current_artist) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
-<%= render partial: 'form', locals: { resource: @event } %>
+<%= render partial: 'form', locals: { resource: @view.resource } %>

@@ -1,6 +1,6 @@
-<%= render_title t( 'title.album.new' ) %>
+<%= render_title t('title.album.new') %>
 <h2><%= t 'title.album.new' %></h2>
 <p>
-  <a href="<%= artist_path(@album.artist) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+  <a href="<%= artist_path(current_artist) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
-<%= render partial: 'form', locals: { resource: @album } %>
+<%= render partial: 'form', locals: { resource: @view.resource } %>
