@@ -5,29 +5,6 @@ class AlbumsController < CurrentArtistController
 		@albums = (can?(:write, Album, current_artist) ? resource.index : resource.index.published)
   end
 
-  def new
-    @album = resource.new
-  end
-
-	def create
-    redirect_to artist_album_url(current_artist, resource.create)
-  rescue Resource::InvalidResource => e
-    @album = e.resource
-    render :action => 'new'
-	end
-
-	def update
-    redirect_to artist_album_url(current_artist, resource.update)
-  rescue Resource::InvalidResource => e
-    @album = e.resource
-    render :action => 'edit'
-	end
-
-	def destroy
-		resource.destroy
-		redirect_to artist_albums_url(current_artist)
-	end
-
   def download
     @artist = Artist.find_by_reference( params[:artist_id] )
 		@album = @artist.albums.find_by_reference( params[:id] )
@@ -50,6 +27,18 @@ class AlbumsController < CurrentArtistController
   end
 
   private
+
+  def redirect_update(obj)
+    redirect_to artist_album_url(current_artist, obj)
+  end
+
+  def redirect_create(obj)
+    redirect_to artist_album_url(current_artist, obj)
+  end
+
+  def redirect_destroy(obj)
+    redirect_to artist_albums_url(current_artist)
+  end
 
   def view_class
     AlbumView
