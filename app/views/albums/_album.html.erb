@@ -1,11 +1,11 @@
-<% if album.image? %>
+<% if album_view.image? %>
 <p>
-  <a href="<%= artist_album_path(album.artist, album) %>">
-    <%= image_tag(album.image.icon.url, alt: album.title, class: 'img-rounded img-polaroid img-responsive') %>
+  <a href="<%= album_view.show_path %>">
+    <%= image_tag(album_view.image.icon.url, alt: album_view.title, class: 'img-rounded img-polaroid img-responsive') %>
   </a>
 </p>
 <% end %>
 <% unless current_artist? %>
-  <p><%= album.artist.name %></p>
+  <p><%= album_view.artist.name %></p>
 <% end %>
-<p><a href="<%= artist_album_path(album.artist, album) %>"><%= album.title %></a></p>
+<p><a href="<%= album_view.show_path %>"><%= album_view.title %></a></p>

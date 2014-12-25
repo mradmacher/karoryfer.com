@@ -3,10 +3,6 @@ class EventsController < CurrentArtistController
 
   respond_to :json, :only => [:calendar]
 
-  def index
-    @events = resource.index
-  end
-
   def calendar
     grouped_events = Event.for_month( params[:ano], params[:mes] ).each_with_object({}) do |e, result|
       result[e.event_date] = [] unless result.has_key? e.event_date

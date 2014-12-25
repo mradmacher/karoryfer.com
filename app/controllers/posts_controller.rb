@@ -1,10 +1,6 @@
 class PostsController < CurrentArtistController
   layout :set_layout
 
-  def index
-    @posts = resource.index
-  end
-
   private
 
   def redirect_update(obj)

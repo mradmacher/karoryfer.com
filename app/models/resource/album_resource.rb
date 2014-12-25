@@ -1,6 +1,9 @@
 module Resource
   # Provides access to album resource.
   class AlbumResource < RegularResource
+    def index
+      abilities.allow?(:write, Album, owner) ? super : super.published
+    end
 
     protected
 

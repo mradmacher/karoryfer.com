@@ -3,6 +3,10 @@ class CurrentArtistController < ApplicationController
     @current_artist_view = CurrentArtistView.new(current_artist, abilities)
   end
 
+  def index
+    @views = view_class.views_for(resource.index, abilities)
+  end
+
   def show
     @view = view_class.new(resource.show, abilities)
   end

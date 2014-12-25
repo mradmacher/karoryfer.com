@@ -1,10 +1,6 @@
 class AlbumsController < CurrentArtistController
   layout :set_layout
 
-  def index
-		@albums = (can?(:write, Album, current_artist) ? resource.index : resource.index.published)
-  end
-
   def download
     @artist = Artist.find_by_reference( params[:artist_id] )
 		@album = @artist.albums.find_by_reference( params[:id] )

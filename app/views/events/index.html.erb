@@ -1,26 +1,26 @@
-<%= render_title t( 'label.events' ) %>
+<%= render_title t('label.events') %>
 
 <h2 class="hidden"><%= t 'label.events' %></h2>
 
-<% if @events.empty? %>
- <p><%= t( 'label.nothing_here_yet' ) %></p>
+<% if @views.empty? %>
+ <p><%= t('label.nothing_here_yet') %></p>
 <% end %>
 <ul class="media-list">
-<% @events.each do |event| %>
+<% @views.each do |view| %>
   <li class="media img-rounded">
-    <% if event.poster? %>
-      <%= link_to image_tag( event.poster.icon.url, :alt => event.title,
-        :class => 'media-object media-object-thumbnail img-polaroid img-rounded' ),
-        artist_event_path( event.artist, event ), :class => 'pull-left' %>
+    <% if view.poster? %>
+      <%= link_to image_tag(view.poster.icon.url, :alt => view.title,
+        :class => 'media-object media-object-thumbnail img-polaroid img-rounded'),
+        view.show_path, :class => 'pull-left' %>
     <% end %>
     <div class="media-body">
-      <h5><%= event_icon( event.expired? ) %><%= link_to event.title, artist_event_path( event.artist, event ) %></h5>
+      <h5><%= event_icon(view.expired?) %><%= link_to view.title, view.show_path %></h5>
       <p>
-        <%= event_date( event ) %><br />
-        <%= event.location %>
-        <% if event.address.present? %>
+        <%= event_date(view) %><br />
+        <%= view.location %>
+        <% if view.address.present? %>
           <br />
-          <small><%= event.address %></small>
+          <small><%= view.address %></small>
         <% end %>
       </p>
     </div>

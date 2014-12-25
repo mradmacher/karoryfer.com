@@ -1,4 +1,4 @@
-<%= form_for [current_artist, @album, @track], :html => {:multipart => true} do |f| %>
+<%= form_for [current_artist, @current_album_view.resource, @track], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
   <div class="form-group">
     <div class="form-group">
@@ -29,4 +29,3 @@
   </div>
   <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
 <% end %>
-

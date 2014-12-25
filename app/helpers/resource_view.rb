@@ -11,9 +11,9 @@ class ResourceView
     @abilities = abilities
   end
 
-  #def title
-  #  resource.title
-  #end
+  def self.views_for(collection, abilities)
+    collection.map { |resource| self.new(resource, abilities) }
+  end
 
   def with_show_path
     path = show_path

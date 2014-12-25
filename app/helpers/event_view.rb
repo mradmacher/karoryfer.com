@@ -1,6 +1,8 @@
 class EventView < ResourceView
   def_delegators(:resource, :title, :body, :poster?, :poster,
-    :expired?, :location, :address, :event_time, :price, :free_entrance?,
+    :location, :address,
+    :expired?, :event_date, :event_time, :duration,
+    :price, :free_entrance?,
     :recognized_external_urls, :artist)
 
   def _path
