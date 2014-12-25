@@ -1,6 +1,6 @@
 class CurrentArtistController < ApplicationController
   before_filter do
-    @current_artist_view = CurrentArtistView.new(current_artist, abilities)
+    @current_artist_view = ArtistView.new(current_artist, abilities)
   end
 
   def index
