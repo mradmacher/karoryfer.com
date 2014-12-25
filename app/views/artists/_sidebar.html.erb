@@ -8,8 +8,8 @@
     </div>
     <div class="panel-body">
       <ul class="list-unstyled">
-      <% @current_artist_view.recent_pages.each do |page| %>
-         <li><%= link_to page.title, @current_artist_view.page_path(page) %></li>
+      <% @current_artist_view.recent_pages.each do |page_view| %>
+         <li><%= link_to page_view.title, page_view.show_path %></li>
       <% end %>
       </ul>
     </div>
@@ -31,11 +31,11 @@
     <% unless @current_artist_view.recent_events.empty? %>
       <div class="panel-body">
         <ul class="event-list">
-          <% @current_artist_view.recent_events.each do |event| %>
+          <% @current_artist_view.recent_events.each do |event_view| %>
             <li>
-              <a href="<%= @current_artist_view.event_path(event) %>"><%= event_date(event) %></a>
+              <a href="<%= event_view.show_path %>"><%= event_date(event_view) %></a>
               <br />
-              <%= event.title %>
+              <%= event_view.title %>
             </li>
           <% end %>
         </ul>
@@ -58,8 +58,8 @@
     </div>
     <div class="panel-body">
       <ul class="post-list">
-        <% @current_artist_view.recent_posts.each do |post| %>
-          <li><%= link_to post.title, @current_artist_view.post_path(post) %></li>
+        <% @current_artist_view.recent_posts.each do |post_view| %>
+          <li><%= link_to post_view.title, post_view.show_path %></li>
         <% end %>
       </ul>
     </div>
@@ -80,8 +80,8 @@
     </div>
     <div class="panel-body">
       <ul class="video-list">
-        <% @current_artist_view.recent_videos.each do |video| %>
-          <li><%= link_to video.title, @current_artist_view.video_path(video) %></li>
+        <% @current_artist_view.recent_videos.each do |video_view| %>
+          <li><%= link_to video_view.title, video_view.show_path %></li>
         <% end %>
       </ul>
     </div>
@@ -103,8 +103,8 @@
     </div>
     <div class="panel-body">
       <ul class="album-list">
-        <% @current_artist_view.recent_albums.each do |album| %>
-          <li><%= link_to album.title, @current_artist_view.album_path(album) %></li>
+        <% @current_artist_view.recent_albums.each do |album_view| %>
+          <li><%= link_to album_view.title, album_view.show_path %></li>
         <% end %>
       </ul>
     </div>
