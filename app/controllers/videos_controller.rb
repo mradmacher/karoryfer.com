@@ -1,10 +1,6 @@
 class VideosController < CurrentArtistController
   layout :set_layout
 
-  def index
-    @videos = resource.index
-  end
-
   private
 
   def redirect_update(obj)

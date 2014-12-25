@@ -1,14 +1,14 @@
-<%= render_title t( 'title.video.index' ) %>
+<%= render_title t('title.video.index') %>
 
 <h2 class="hidden"><%= t 'title.video.index' %></h2>
 
-<% if @videos.empty? %>
-  <%= t( 'label.nothing_here_yet' ) %>
+<% if @views.empty? %>
+  <%=t 'label.nothing_here_yet' %>
 <% end %>
 <ul class="row list-unstyled">
-<% @videos.each do |video| %>
+<% @views.each do |view| %>
   <li class="col-sm-3 col-md-3 col-lg-3">
-    <div class="thumbnail text-center"><%= render partial: 'video', locals: { video: VideoView.new(video, abilities) } %></div>
+    <div class="thumbnail text-center"><%= render partial: 'video', locals: { video: view } %></div>
   </li>
 <% end %>
 </ul>

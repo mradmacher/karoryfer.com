@@ -1,17 +1,16 @@
-<%= render_title t( 'label.posts' ) %>
+<%= render_title t('label.posts') %>
 
 <h2 class="hidden"><%= t 'label.posts' %></h2>
 
-<% if @posts.empty? %>
+<% if @views.empty? %>
   <%= t( 'label.nothing_here_yet' ) %>
 <% end %>
 <ul class="media-list">
-<% @posts.each do |post| %>
+<% @views.each do |view| %>
   <li class="media img-rounded">
     <div class="media-body">
-      <h5><%= post_icon %><%= link_to post.title, artist_post_path( post.artist, post ) %></h5>
+      <h5><%= post_icon %><%= link_to view.title, view.show_path %></h5>
     </div>
   </li>
 <% end %>
 </ul>
-

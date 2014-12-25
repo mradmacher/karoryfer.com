@@ -1,16 +1,16 @@
-<%= render_title @album.title %>
+<%= render_title @current_album_view.title %>
 <h2>
-  <%= @album.title %>
-  <% unless @album.published? %>
+  <%= @current_album_view.title %>
+  <% unless @current_album_view.published? %>
     <small><%= t('label.album.unpublished') %></span>
   <% end %>
 </h2>
 <h3><%= t( 'title.attachment.new' ) %></h3>
 <p>
-  <a href="<%= artist_album_path(@album.artist, @album) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+  <a href="<%= @current_album_view.show_path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
 
-<%= form_for [current_artist, @album, @attachment], :html => {:multipart => true} do |f| %>
+<%= form_for [current_artist, @current_album_view.resource, @attachment], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
   <div class="form-group">
     <%= f.label :file, t( "label.attachment.file" ) %>
@@ -18,4 +18,3 @@
   </div>
   <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
 <% end %>
-
