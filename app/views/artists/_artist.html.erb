@@ -1,9 +1,9 @@
-<% if artist.image? %>
+<% if artist_view.image? %>
 <p>
-  <a href="<%= artist_path(artist) %>">
-    <%= image_tag(artist.image.icon.url, alt: artist.name, title: artist.summary, class: 'img-rounded img-polaroid img-responsive') %>
+  <a href="<%= artist_view.show_path %>">
+    <%= image_tag(artist_view.image.icon.url, alt: artist_view.name, title: artist_view.summary, class: 'img-rounded img-polaroid img-responsive') %>
   </a>
 </p>
 <% end %>
-<p><a href="<%= artist_path(artist) %>"><%= artist.name %></a></p>
+<p><a href="<%= artist_view.show_path %>"><%= artist_view.name %></a></p>
 

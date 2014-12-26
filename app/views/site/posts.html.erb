@@ -1,22 +1,21 @@
-<%= render_title t( 'title.post.index' ) %>
+<%= render_title t('title.post.index') %>
 
 <%= render partial: 'sidebar' %>
 
-<h1><%= t 'title.post.index' %></h1>
+<h1><%=t 'title.post.index' %></h1>
 
-<% if @posts.empty? %>
-  <%= t( 'label.nothing_here_yet' ) %>
+<% if @post_views.empty? %>
+  <%=t 'label.nothing_here_yet' %>
 <% end %>
 <ul class="media-list">
-<% @posts.each do |post| %>
+<% @post_views.each do |view| %>
   <li class="media img-rounded">
     <div class="media-body">
-      <h5><%= post_icon %><%= link_to post.title, artist_post_path( post.artist, post ) %></h5>
-      <p><%= post.artist.name %></p>
+      <h5><%= post_icon %><%= link_to view.title, view.show_path %></h5>
+      <p><%= view.artist.name %></p>
     </div>
   </li>
 <% end %>
 </ul>
 
 <%= render :partial => 'events/calendar_js' %>
-

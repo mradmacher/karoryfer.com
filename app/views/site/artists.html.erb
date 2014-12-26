@@ -1,4 +1,4 @@
-<%= render_title t( 'title.artist.index' ) %>
+<%= render_title t('title.artist.index') %>
 <h1 class="hidden"><%=t 'title.artist.index' %></h1>
 <% if can? :write, Artist %>
   <% content_for :actions do %>
@@ -6,9 +6,9 @@
 	<% end %>
 <% end %>
 <ul class="row list-unstyled">
-<% @artists.each do |artist| %>
+<% @artist_views.each do |view| %>
   <li class="col-sm-2 col-md-2 col-lg-2">
-    <div class="thumbnail text-center"><%= render artist %></div>
+    <div class="thumbnail text-center"><%= render partial: 'artists/artist', locals: { artist_view: view } %></div>
   </li>
 <% end %>
 </ul>
