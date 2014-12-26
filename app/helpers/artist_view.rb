@@ -11,31 +11,6 @@ class ArtistView < ResourceView
     edit_artist_path(resource)
   end
 
-  def with_new_page_path
-    path = new_page_path
-    yield path if path
-  end
-
-  def with_new_event_path
-    path = new_event_path
-    yield path if path
-  end
-
-  def with_new_post_path
-    path = new_post_path
-    yield path if path
-  end
-
-  def with_new_video_path
-    path = new_video_path
-    yield path if path
-  end
-
-  def with_new_album_path
-    path = new_album_path
-    yield path if path
-  end
-
   def new_page_path
     new_artist_page_path(artist) if can_create_pages?
   end
