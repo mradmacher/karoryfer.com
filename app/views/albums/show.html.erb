@@ -91,11 +91,11 @@
 
 <%= render_text @view.description %>
 
-<% if !@view.tracks.empty? or can?(:write, Track, @view)%>
+<% if !@view.tracks.empty? or can?(:write, Track, @view.resource)%>
   <h4><%= t 'title.track.index' %></h4>
-  <% if can? :write, Track, @view %>
+  <% if can? :write, Track, @view.resource %>
     <p>
-      <a href="<%= new_artist_view_track_path(@view.artist, @view) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
+      <a href="<%= new_artist_album_track_path(@view.artist, @view.resource) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
     </p>
   <% end %>
   <ol id="tracklist">
@@ -107,10 +107,10 @@
         <% unless track.comment.blank? -%><br /><small><%= track.comment %></small> <% end -%>
         <% if can? :write, track %>
           <div class="btn-group pull-right">
-            <a href="<%= edit_artist_view_track_path(@view.artist, @view, track) %>" class="btn btn-default btn-xs">
+            <a href="<%= edit_artist_album_track_path(@view.artist, @view.resource, track) %>" class="btn btn-default btn-xs">
               <%=t 'action.edit' %>
             </a>
-            <a href="<%= artist_view_track_path(@view.artist, @view, track) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+            <a href="<%= artist_album_track_path(@view.artist, @view.resource, track) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
               <%=t 'action.delete' %>
             </a>
           </div>
@@ -156,11 +156,11 @@
   </div>
 <% end %>
 
-<% if !@view.attachments.empty? or can?(:write, Attachment, @view) %>
+<% if !@view.attachments.empty? or can?(:write, Attachment, @view.resource) %>
   <h4><%= t 'title.attachment.index' %></h4>
-  <% if can? :write, Attachment, @view %>
+  <% if can? :write, Attachment, @view.resource %>
     <p>
-      <a href="<%= new_artist_view_attachment_path(@view.artist, @view) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
+      <a href="<%= new_artist_album_attachment_path(@view.artist, @view.resource) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
     </p>
   <% end %>
   <ul>
@@ -168,7 +168,7 @@
       <li>
         <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
         <% if can? :write, attachment %>
-          <a href="<%= artist_view_attachment_path(@view.artist, @view, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+          <a href="<%= artist_album_attachment_path(@view.artist, @view.resource, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
             <%=t 'action.delete' %>
           </a>
         <% end %>

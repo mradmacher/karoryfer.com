@@ -15,6 +15,10 @@ class AttachmentsController < CurrentAlbumController
     redirect_to artist_album_url(current_artist, current_album)
   end
 
+  def view_class
+    AttachmentView
+  end
+
   def resource
     Resource::AttachmentResource.new(abilities, params, current_album)
   end

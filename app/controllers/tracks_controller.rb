@@ -6,36 +6,27 @@ class TracksController < CurrentAlbumController
     redirect_to track.file.url
   end
 
-  def new
-    @track = resource.new
-  end
-
-  def edit
-		@track = resource.edit
-  end
-
-  def create
-    resource.create
-    redirect_to artist_album_url(current_artist, current_album)
-  rescue Resource::InvalidResource => e
-		@track = e.resource
-    render :action => 'new'
-  end
-
-	def update
-    resource.update
-    redirect_to artist_album_url(current_artist, current_album)
-  rescue Resource::InvalidResource => e
-		@post = e.resource
-    render :action => 'edit'
-	end
-
-  def destroy
-    resource.destroy
-    redirect_to artist_album_url(current_artist, current_album)
-  end
-
   protected
+
+  def edit_view
+    'edit'
+  end
+
+  def redirect_create(obj)
+    redirect_to artist_album_url(current_artist, current_album)
+  end
+
+  def redirect_update(obj)
+    redirect_to artist_album_url(current_artist, current_album)
+  end
+
+  def redirect_destroy(obj)
+    redirect_to artist_album_url(current_artist, current_album)
+  end
+
+  def view_class
+    TrackView
+  end
 
   def resource
     Resource::TrackResource.new(abilities, params, current_album)

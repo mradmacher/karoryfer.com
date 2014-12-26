@@ -5,9 +5,8 @@
     <small><%= t('label.album.unpublished') %></span>
   <% end %>
 </h2>
-<h3><%= @track.title %></h3>
+<h3><%= @view.title %></h3>
 <p>
   <a href="<%= @current_album_view.show_path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
-<%= render :partial => 'form' %>
-
+<%= render :partial => 'form', locals: { resource: @view.resource } %>

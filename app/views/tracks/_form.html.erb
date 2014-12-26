@@ -1,4 +1,4 @@
-<%= form_for [current_artist, @current_album_view.resource, @track], :html => {:multipart => true} do |f| %>
+<%= form_for [current_artist, @current_album_view.resource, resource], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
   <div class="form-group">
     <div class="form-group">
@@ -15,8 +15,8 @@
     </div>
     <div class="form-group">
       <%= f.label :file, t( "label.track.file" ) %>
-      <% if @track.file? %>
-        <p class="help-block"><%= File.basename(@track.file.path) %></p>
+      <% if resource.file? %>
+        <p class="help-block"><%= File.basename(resource.file.path) %></p>
         <div class="checkbox">
           <%= f.label :remove_file do %>
             <%= f.check_box :remove_file %>
