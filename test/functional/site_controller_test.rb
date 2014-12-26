@@ -2,6 +2,7 @@ require 'test_helper'
 
 class SiteControllerTest < ActionController::TestCase
   def test_get_artists_succeeds
+    3.times { Artist.sham! }
     get :artists
     assert_response :success
   end
@@ -25,26 +26,35 @@ class SiteControllerTest < ActionController::TestCase
   end
 
   def test_get_home_succeeds
+    3.times { Artist.sham! }
+    3.times { Album.sham! }
+    3.times { Event.sham! }
+    3.times { Post.sham! }
+    3.times { Video.sham! }
     get :home
     assert_response :success
   end
 
   def test_get_events_succeeds
+    3.times { Event.sham! }
     get :events
     assert_response :success
   end
 
   def test_get_posts_succeeds
+    3.times { Post.sham! }
     get :posts
     assert_response :success
   end
 
   def test_get_videos_succeeds
+    3.times { Video.sham! }
     get :videos
     assert_response :success
   end
 
   def test_get_albums_succeeds
+    3.times { Album.sham! }
     get :albums
     assert_response :success
   end
@@ -91,4 +101,3 @@ class SiteControllerTest < ActionController::TestCase
     end
   end
 end
-

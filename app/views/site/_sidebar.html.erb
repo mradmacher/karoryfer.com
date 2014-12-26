@@ -5,14 +5,14 @@
       <h4><a href="<%= events_path %>"><%=t 'label.events' %></a></h4>
     </div>
     <div id="calendar"><div style="display:none"><%= @current_date %></div></div>
-    <% if @current_events %>
+    <% unless @recent_events.empty? %>
       <div class="panel-body">
         <ul class="event-list">
-          <% @current_events.each_with_index do |event, i| %>
+          <% @recent_events.each_with_index do |view, i| %>
             <li>
-              <a href="<%= artist_event_path(event.artist, event) %>"><%= event_date( event ) %></a> - <%= event.artist.name %>
+              <a href="<%= view.show_path %>"><%= event_date(view.resource) %></a> - <%= view.artist.name %>
               <br />
-              <%= event.title %>
+              <%= view.title %>
             </li>
           <% end %>
         </ul>
@@ -24,13 +24,13 @@
     <div class="panel-heading">
       <h4><a href="<%= posts_path %>"><%=t 'label.posts' %></a></h4>
     </div>
-    <% if @current_posts %>
+    <% unless @recent_posts.empty? %>
       <div class="panel-body">
         <ul class="post-list">
-        <% @current_posts.each do |post| %>
+        <% @recent_posts.each do |view| %>
           <li>
-            <%= post.artist.name %><br />
-            <a href="<%= artist_post_path( post.artist, post ) %>"><%= post.title %></a>
+            <%= view.artist.name %><br />
+            <a href="<%= view.show_path %>"><%= view.title %></a>
           </li>
         <% end %>
         </ul>
@@ -42,13 +42,13 @@
     <div class="panel-heading">
       <h4><a href="<%= videos_path %>"><%=t 'label.videos' %></a></h4>
     </div>
-    <% if @current_videos %>
+    <% unless @recent_videos.empty? %>
       <div class="panel-body">
         <ul class="video-list">
-        <% @current_videos.each do |video| %>
+        <% @recent_videos.each do |view| %>
           <li>
-            <%= video.artist.name %><br />
-            <a href="<%= artist_video_path( video.artist, video ) %>"><%= video.title %></a>
+            <%= view.artist.name %><br />
+            <a href="<%= view.show_path %>"><%= view.title %></a>
           </li>
         <% end %>
         </ul>
@@ -56,4 +56,3 @@
     <% end %>
   </div>
 <% end %>
-

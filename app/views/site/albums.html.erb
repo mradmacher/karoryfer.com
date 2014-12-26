@@ -1,9 +1,9 @@
-<%= render_title t( 'title.album.index') %>
+<%= render_title t('title.album.index') %>
 <h1 class="hidden"><%= t 'title.album.index' %></h1>
 <ul class="row list-unstyled">
-<% @albums.each do |album| %>
+<% @album_views.each do |view| %>
   <li class="col-sm-2 col-md-2 col-lg-2">
-    <div class="thumbnail text-center"><%= render album %></div>
+    <div class="thumbnail text-center"><%= render partial: 'albums/album', locals: { album_view: view } %></div>
   </li>
 <% end %>
 </ul>

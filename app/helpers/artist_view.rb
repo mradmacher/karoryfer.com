@@ -1,4 +1,6 @@
 class ArtistView < ResourceView
+  def_delegators(:resource, :name, :summary, :image?, :image)
+
   alias :artist :resource
 
   def _path
