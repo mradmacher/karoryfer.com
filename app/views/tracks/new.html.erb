@@ -9,4 +9,4 @@
 <p>
   <a href="<%= @current_album_view.show_path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
-<%= render :partial => 'form' %>
+<%= render :partial => 'form', locals: { resource: @view.resource } %>

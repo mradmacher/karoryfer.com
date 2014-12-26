@@ -17,7 +17,3 @@ module Resource
     end
   end
 end
-
-
-
-

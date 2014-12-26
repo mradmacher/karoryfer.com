@@ -13,7 +13,7 @@ class CurrentArtistController < ApplicationController
 
   def edit
     @view = view_class.new(resource.edit, abilities)
-    render 'shared/edit'
+    render edit_view
   end
 
   def new
@@ -24,17 +24,27 @@ class CurrentArtistController < ApplicationController
     redirect_update(resource.update)
   rescue Resource::InvalidResource => e
     @view = view_class.new(e.resource, abilities)
-    render 'shared/edit'
+    render edit_view
 	end
 
 	def create
     redirect_create(resource.create)
   rescue Resource::InvalidResource => e
 		@view = view_class.new(e.resource, abilities)
-    render action: 'new'
+    render new_view
 	end
 
 	def destroy
     redirect_destroy(resource.destroy)
 	end
+
+  protected
+
+  def edit_view
+    'shared/edit'
+  end
+
+  def new_view
+    'new'
+  end
 end
