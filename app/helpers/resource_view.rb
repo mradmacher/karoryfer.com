@@ -15,21 +15,6 @@ class ResourceView
     collection.map { |resource| self.new(resource, abilities) }
   end
 
-  def with_show_path
-    path = show_path
-    yield path if path
-  end
-
-  def with_edit_path
-    path = edit_path
-    yield path if path
-  end
-
-  def with_destroy_path
-    path = destroy_path
-    yield path if path
-  end
-
   def show_path
     if abilities.allow?(:read, resource)
       _path
@@ -45,6 +30,16 @@ class ResourceView
   def destroy_path
     if abilities.allow?(:write, resource)
       _path
+    end
+  end
+
+  def method_missing(m, *args, &block)
+    if m =~ /with_(.*_path)/
+      method = $1
+      path = send(method)
+      yield path if path
+    else
+      super
     end
   end
 
