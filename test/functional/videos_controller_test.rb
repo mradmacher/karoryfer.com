@@ -41,4 +41,3 @@ class VideosControllerTest < ActionController::TestCase
     end
   end
 end
-

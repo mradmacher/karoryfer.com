@@ -1,17 +1,17 @@
 <%= render_title %>
 <p>
-  <%= render partial: 'shared/show_actions', locals: { view: @current_view } %>
+  <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
 </p>
 <div class="media">
   <% if current_artist.image? %>
-    <%= link_to image_tag( current_artist.image.thumb.url, :alt => current_artist.name, :class => 'media-object' ),
+    <%= link_to image_tag(@presenter.image.thumb.url, :alt => @presenter.name, :class => 'media-object' ),
       artist_path( current_artist ), :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
-    <p class="lead"><%= @artist.summary %></p>
+    <p class="lead"><%= @presenter.summary %></p>
   </div>
 </div>
 <br />
 <div class="long-text">
-  <%= render_text @artist.description %>
+  <%= render_text @presenter.description %>
 </div>

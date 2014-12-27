@@ -8,11 +8,11 @@
     <% unless @recent_events.empty? %>
       <div class="panel-body">
         <ul class="event-list">
-          <% @recent_events.each_with_index do |view, i| %>
+          <% @recent_events.each_with_index do |presenter, i| %>
             <li>
-              <a href="<%= view.show_path %>"><%= event_date(view.resource) %></a> - <%= view.artist.name %>
+              <a href="<%= presenter.show_path %>"><%= event_date(presenter.resource) %></a> - <%= presenter.artist.name %>
               <br />
-              <%= view.title %>
+              <%= presenter.title %>
             </li>
           <% end %>
         </ul>
@@ -27,10 +27,10 @@
     <% unless @recent_posts.empty? %>
       <div class="panel-body">
         <ul class="post-list">
-        <% @recent_posts.each do |view| %>
+        <% @recent_posts.each do |presenter| %>
           <li>
-            <%= view.artist.name %><br />
-            <a href="<%= view.show_path %>"><%= view.title %></a>
+            <%= presenter.artist.name %><br />
+            <a href="<%= presenter.show_path %>"><%= presenter.title %></a>
           </li>
         <% end %>
         </ul>
@@ -45,10 +45,10 @@
     <% unless @recent_videos.empty? %>
       <div class="panel-body">
         <ul class="video-list">
-        <% @recent_videos.each do |view| %>
+        <% @recent_videos.each do |presenter| %>
           <li>
-            <%= view.artist.name %><br />
-            <a href="<%= view.show_path %>"><%= view.title %></a>
+            <%= presenter.artist.name %><br />
+            <a href="<%= presenter.show_path %>"><%= presenter.title %></a>
           </li>
         <% end %>
         </ul>

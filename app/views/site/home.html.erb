@@ -9,9 +9,9 @@
   <div class="panel-heading"><%= link_to t( 'title.artist.index' ), artists_url %></div>
   <div class="panel-body">
     <ul class="row list-unstyled">
-      <% @artist_views.each do |view| %>
+      <% @artist_presenters.each do |presenter| %>
         <li class="col-sm-3 col-md-3 col-lg-3">
-          <div class="thumbnail text-center"><%= render partial: 'artists/artist', locals: { artist_view: view } %></div>
+          <div class="thumbnail text-center"><%= render partial: 'artists/artist', locals: { artist_presenter: presenter } %></div>
         </li>
       <% end %>
     </ul>
@@ -22,9 +22,9 @@
   <div class="panel-heading"><%= link_to t( 'title.album.index' ), albums_url %></div>
   <div class="panel-body">
     <ul class="row list-unstyled">
-      <% @album_views.each do |view| %>
+      <% @album_presenters.each do |presenter| %>
         <li class="col-sm-3 col-md-3 col-lg-3">
-          <div class="thumbnail text-center"><%= render partial: 'albums/album', locals: { album_view: view } %></div>
+          <div class="thumbnail text-center"><%= render partial: 'albums/album', locals: { album_presenter: presenter } %></div>
         </li>
       <% end %>
     </ul>

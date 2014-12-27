@@ -1,38 +1,38 @@
-<%= render_title @view.title %>
-<h2><%= event_icon( @view.expired? ) %><%= @view.title %></h2>
+<%= render_title @presenter.title %>
+<h2><%= event_icon( @presenter.expired? ) %><%= @presenter.title %></h2>
 <p>
-  <%= render partial: 'shared/show_actions', locals: { view: @view } %>
+  <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
 </p>
 <div class="media">
-  <% if @view.poster? %>
-    <%= link_to image_tag(@view.poster.thumb.url, :alt => @view.title, :class => 'media-object media-object-normal'),
-      @view.poster.url, :class => 'pull-left' %>
+  <% if @presenter.poster? %>
+    <%= link_to image_tag(@presenter.poster.thumb.url, :alt => @presenter.title, :class => 'media-object media-object-normal'),
+      @presenter.poster.url, :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
     <p class="lead">
-      <%= event_date(@view.resource) %><br />
-      <%= @view.location %>
-      <% if @view.address.present? %>
+      <%= event_date(@presenter.resource) %><br />
+      <%= @presenter.location %>
+      <% if @presenter.address.present? %>
         <br />
-        <small><%= @view.address %></small>
+        <small><%= @presenter.address %></small>
       <% end %>
     </p>
   </div>
   <p>
-  <% if @view.event_time.present? %>
-    <strong><%=t 'label.event.event_time' %>:</strong> <%= @view.event_time %>
+  <% if @presenter.event_time.present? %>
+    <strong><%=t 'label.event.event_time' %>:</strong> <%= @presenter.event_time %>
   <% end %>
-  <% if @view.free_entrance? %>
+  <% if @presenter.free_entrance? %>
     <br />
     <strong><%=t 'label.event.free_entrance' %></strong>
-  <% elsif @view.price.present? %>
+  <% elsif @presenter.price.present? %>
     <br />
-    <strong><%=t 'label.event.price' %>:</strong> <%= @view.price %>
+    <strong><%=t 'label.event.price' %>:</strong> <%= @presenter.price %>
   <% end %>
   </p>
   <p>
     <ul class="list-unstyled">
-    <% @view.recognized_external_urls.each do |url, service| %>
+    <% @presenter.recognized_external_urls.each do |url, service| %>
       <li><%= link_to service, url, :target => '_blank' %></li>
     <% end %>
     </ul>
@@ -41,7 +41,7 @@
 <br />
 
 <div class="long-text">
-  <%= render_text @view.body %>
+  <%= render_text @presenter.body %>
 </div>
 <br />
 <%= render partial: 'embeds/all' %>

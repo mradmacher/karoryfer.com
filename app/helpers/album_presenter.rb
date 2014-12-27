@@ -1,4 +1,4 @@
-class AlbumView < ResourceView
+class AlbumPresenter < ResourcePresenter
   def_delegators(:resource, :title, :published?, :image?,
     :image, :license, :year, :donation, :description,
     :artist, :releases, :tracks, :attachments)

@@ -15,8 +15,8 @@ class PagesController < CurrentArtistController
     redirect_to artist_url(current_artist)
   end
 
-  def view_class
-    PageView
+  def presenter_class
+    PagePresenter
   end
 
   def resource

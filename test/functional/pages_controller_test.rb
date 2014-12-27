@@ -57,4 +57,3 @@ class PagesControllerTest < ActionController::TestCase
     end
   end
 end
-

@@ -1,12 +1,12 @@
-<%= render_title @current_album_view.title %>
+<%= render_title @current_album_presenter.title %>
 <h2>
-  <%= @current_album_view.title %>
-  <% unless @current_album_view.published? %>
+  <%= @current_album_presenter.title %>
+  <% unless @current_album_presenter.published? %>
     <small><%= t('label.album.unpublished') %></span>
   <% end %>
 </h2>
-<h3><%= @view.title %></h3>
+<h3><%= @presenter.title %></h3>
 <p>
-  <a href="<%= @current_album_view.show_path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+  <a href="<%= @current_album_presenter.show_path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
-<%= render :partial => 'form', locals: { resource: @view.resource } %>
+<%= render :partial => 'form', locals: { resource: @presenter.resource } %>

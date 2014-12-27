@@ -41,6 +41,7 @@ class ActiveSupport::TestCase
     alias :allow? :allowed?
 
     private
+
     def match_action?(expected, actual)
       expected == actual
     end

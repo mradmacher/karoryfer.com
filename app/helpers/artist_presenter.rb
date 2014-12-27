@@ -1,7 +1,8 @@
-class ArtistView < ResourceView
-  def_delegators(:resource, :name, :summary, :image?, :image)
+class ArtistPresenter < ResourcePresenter
+  def_delegators(:resource, :name, :summary, :description, :image?, :image)
 
   alias :artist :resource
+  alias :title :name
 
   def _path
     artist_path(resource)
@@ -49,23 +50,23 @@ class ArtistView < ResourceView
 
 
   def recent_pages
-    @recent_pages ||= PageView.views_for(artist.pages.some, abilities)
+    @recent_pages ||= PagePresenter.presenters_for(artist.pages.some, abilities)
   end
 
   def recent_events
-    @recent_events ||= EventView.views_for(artist.events.current, abilities)
+    @recent_events ||= EventPresenter.presenters_for(artist.events.current, abilities)
   end
 
   def recent_posts
-    @recent_posts ||= PostView.views_for(artist.posts.some, abilities)
+    @recent_posts ||= PostPresenter.presenters_for(artist.posts.some, abilities)
   end
 
   def recent_videos
-    @recent_videos ||= VideoView.views_for(artist.videos.some, abilities)
+    @recent_videos ||= VideoPresenter.presenters_for(artist.videos.some, abilities)
   end
 
   def recent_albums
-    @recent_albums ||= AlbumView.views_for(artist.albums.published, abilities)
+    @recent_albums ||= AlbumPresenter.presenters_for(artist.albums.published, abilities)
   end
 
 

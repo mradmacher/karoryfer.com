@@ -15,8 +15,8 @@ class PostsController < CurrentArtistController
     redirect_to artist_post_url(current_artist, obj)
   end
 
-  def view_class
-    PostView
+  def presenter_class
+    PostPresenter
   end
 
   def resource

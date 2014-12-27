@@ -1,5 +1,5 @@
-<%= render_title @view.title %>
-<h2><%= @view.title %></h2>
-<p><%= render partial: 'shared/edit_actions', locals: { view: @view } %></p>
+<%= render_title @presenter.title %>
+<h2><%= @presenter.title %></h2>
+<p><%= render partial: 'shared/edit_actions', locals: { presenter: @presenter } %></p>
 
-<%= render partial: 'form', locals: { resource: @view.resource } %>
+<%= render partial: 'form', locals: { resource: @presenter.resource } %>

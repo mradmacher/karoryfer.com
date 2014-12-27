@@ -1,6 +1,6 @@
 require 'forwardable'
 
-class ResourceView
+class ResourcePresenter
   extend Forwardable
   include Rails.application.routes.url_helpers
 
@@ -11,7 +11,7 @@ class ResourceView
     @abilities = abilities
   end
 
-  def self.views_for(collection, abilities)
+  def self.presenters_for(collection, abilities)
     collection.map { |resource| self.new(resource, abilities) }
   end
 

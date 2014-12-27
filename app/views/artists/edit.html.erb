@@ -1,6 +1,3 @@
 <%= render_title %>
-<p>
-  <a href="<%= artist_path(@artist) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_edit' %></a>
-</p>
-<%= render :partial => 'form' %>
-
+<p><%= render partial: 'shared/edit_actions', locals: { presenter: @presenter } %></p>
+<%= render :partial => 'form', locals: { resource: @presenter.resource } %>
