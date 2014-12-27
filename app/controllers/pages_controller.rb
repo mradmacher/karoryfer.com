@@ -19,7 +19,7 @@ class PagesController < CurrentArtistController
     PagePresenter
   end
 
-  def resource
-    Resource::PageResource.new(abilities, params, current_artist)
+  def cruder
+    PageCruder.new(abilities, params, current_artist)
   end
 end

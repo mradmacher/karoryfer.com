@@ -34,7 +34,7 @@ class EventsController < CurrentArtistController
     EventPresenter
   end
 
-  def resource
-    Resource::EventResource.new(abilities, params, current_artist)
+  def cruder
+    EventCruder.new(abilities, params, current_artist)
   end
 end

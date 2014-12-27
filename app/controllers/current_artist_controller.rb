@@ -4,38 +4,38 @@ class CurrentArtistController < ApplicationController
   end
 
   def index
-    @presenters = presenter_class.presenters_for(resource.index, abilities)
+    @presenters = presenter_class.presenters_for(cruder.index, abilities)
   end
 
   def show
-    @presenter = presenter_class.new(resource.show, abilities)
+    @presenter = presenter_class.new(cruder.show, abilities)
   end
 
   def edit
-    @presenter = presenter_class.new(resource.edit, abilities)
+    @presenter = presenter_class.new(cruder.edit, abilities)
     render edit_view
   end
 
   def new
-		@presenter = presenter_class.new(resource.new, abilities)
+		@presenter = presenter_class.new(cruder.new, abilities)
   end
 
 	def update
-    redirect_update(resource.update)
-  rescue Resource::InvalidResource => e
+    redirect_update(cruder.update)
+  rescue Cruder::InvalidResource => e
     @presenter = presenter_class.new(e.resource, abilities)
     render edit_view
 	end
 
 	def create
-    redirect_create(resource.create)
-  rescue Resource::InvalidResource => e
+    redirect_create(cruder.create)
+  rescue Cruder::InvalidResource => e
 		@presenter = presenter_class.new(e.resource, abilities)
     render new_view
 	end
 
 	def destroy
-    redirect_destroy(resource.destroy)
+    redirect_destroy(cruder.destroy)
 	end
 
   protected

@@ -19,8 +19,8 @@ class ArtistsController < CurrentArtistController
     ArtistPresenter
   end
 
-  def resource
-    Resource::ArtistResource.new(abilities, params)
+  def cruder
+    ArtistCruder.new(abilities, params)
   end
 
   def edit_view

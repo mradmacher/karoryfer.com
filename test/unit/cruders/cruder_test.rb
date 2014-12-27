@@ -50,7 +50,7 @@ class TestResource
   end
 end
 
-class TestResourceAccess < Resource::RegularResource
+class TestCruder < Cruder
   def resource_class
     TestResource
   end
@@ -61,37 +61,37 @@ class TestResourceAccess < Resource::RegularResource
 end
 
 # Tests for resource resource.
-class RegularResourceTest < ActiveSupport::TestCase
+class CruderTest < ActiveSupport::TestCase
   def test_index_is_authorized
     assert_authorization :read, TestResource do |abilities|
-      resource_access({}, abilities).index
+      cruder({}, abilities).index
     end
   end
 
   def test_show_is_authorized
     (resource = TestResource.new).save
     assert_authorization :read, resource do |abilities|
-      resource_access({ id: resource.id }, abilities).show
+      cruder({ id: resource.id }, abilities).show
     end
   end
 
   def test_show_returns_resource_with_provided_id
     (resource = TestResource.new).save
     with_permission_to :read, resource do |abilities|
-      result = resource_access({ id: resource.id }, abilities).show
+      result = cruder({ id: resource.id }, abilities).show
       assert_equal resource, result
     end
   end
 
   def test_new_is_authorized
     assert_authorization :write, TestResource do |abilities|
-      resource_access({}, abilities).new
+      cruder({}, abilities).new
     end
   end
 
   def test_new_returns_new_resource
     with_permission_to :write, TestResource do |abilities|
-      result = resource_access({}, abilities).new
+      result = cruder({}, abilities).new
       assert result.is_a? TestResource
       refute result.persisted?
     end
@@ -100,14 +100,14 @@ class RegularResourceTest < ActiveSupport::TestCase
   def test_edit_is_authorized
     (resource = TestResource.new).save
     assert_authorization :write, resource do |abilities|
-      resource_access({ id: resource.id }, abilities).edit
+      cruder({ id: resource.id }, abilities).edit
     end
   end
 
   def test_edit_returns_resource_with_provided_id
     (resource = TestResource.new).save
     with_permission_to :write, resource do |abilities|
-      result = resource_access({ id: resource.id }, abilities).edit
+      result = cruder({ id: resource.id }, abilities).edit
       assert_equal resource, result
     end
   end
@@ -115,7 +115,7 @@ class RegularResourceTest < ActiveSupport::TestCase
   def test_create_is_authorized
     attributes = { dummy: 1 }
     assert_authorization :write, TestResource do |abilities|
-      resource_access({ test_resource: attributes }, abilities).create
+      cruder({ test_resource: attributes }, abilities).create
     end
   end
 
@@ -123,7 +123,7 @@ class RegularResourceTest < ActiveSupport::TestCase
     attributes = { dummy: 1 }
     result = nil
     with_permission_to :write, TestResource do |abilities|
-      result = resource_access({ test_resource: attributes }, abilities).create
+      result = cruder({ test_resource: attributes }, abilities).create
     end
     refute result.nil?
     assert result.persisted?
@@ -133,7 +133,7 @@ class RegularResourceTest < ActiveSupport::TestCase
     attributes = { permitted: 'permitted', restricted: 'restricted' }
     result = nil
     with_permission_to :write, TestResource do |abilities|
-      result = resource_access({ test_resource: attributes }, abilities).create
+      result = cruder({ test_resource: attributes }, abilities).create
     end
     assert_equal 'permitted', result.permitted
     assert_nil result.restricted
@@ -141,8 +141,8 @@ class RegularResourceTest < ActiveSupport::TestCase
 
   def test_create_raises_exception_for_invalid_attributes
     with_permission_to :write, TestResource do |abilities|
-      assert_raises Resource::InvalidResource do
-        resource_access({ test_resource: { permitted: 'invalid' } }, abilities).create
+      assert_raises Cruder::InvalidResource do
+        cruder({ test_resource: { permitted: 'invalid' } }, abilities).create
       end
     end
   end
@@ -150,7 +150,7 @@ class RegularResourceTest < ActiveSupport::TestCase
   def test_update_is_authorized
     (resource = TestResource.new).save
     assert_authorization :write, resource do |abilities|
-      resource_access({ id: resource.id, test_resource: { dummy: 1 } }, abilities).update
+      cruder({ id: resource.id, test_resource: { dummy: 1 } }, abilities).update
     end
   end
 
@@ -159,7 +159,7 @@ class RegularResourceTest < ActiveSupport::TestCase
     result = nil
     result = with_permission_to :write, resource do |abilities|
       params = { id: resource.id, test_resource: { permitted: 'new' } }
-      resource_access(params, abilities).update
+      cruder(params, abilities).update
     end
     assert_equal 'new', result.permitted
     assert_equal resource, result
@@ -170,7 +170,7 @@ class RegularResourceTest < ActiveSupport::TestCase
     result = nil
     result = with_permission_to :write, resource do |abilities|
       params = { id: resource.id, test_resource: { permitted: 'new', restricted: 'new' } }
-      resource_access(params, abilities).update
+      cruder(params, abilities).update
     end
     assert_equal 'new', result.permitted
     assert_equal 'old', result.restricted
@@ -180,14 +180,14 @@ class RegularResourceTest < ActiveSupport::TestCase
   def test_update_raises_exception_for_invalid_attributes
     (resource = TestResource.new).save
     with_permission_to :write, resource do |abilities|
-      assert_raises Resource::InvalidResource do
+      assert_raises Cruder::InvalidResource do
         params = { id: resource.id, test_resource: { permitted: 'invalid' } }
-        resource_access(params, abilities).update
+        cruder(params, abilities).update
       end
     end
   end
 
-  def resource_access(params, abilities)
-    TestResourceAccess.new(abilities, params)
+  def cruder(params, abilities)
+    TestCruder.new(abilities, params)
   end
 end

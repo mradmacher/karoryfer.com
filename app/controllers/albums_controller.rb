@@ -40,7 +40,7 @@ class AlbumsController < CurrentArtistController
     AlbumPresenter
   end
 
-  def resource
-    Resource::AlbumResource.new(abilities, params, current_artist)
+  def cruder
+    AlbumCruder.new(abilities, params, current_artist)
   end
 end
