@@ -1,6 +1,6 @@
 require 'forwardable'
 
-class ResourcePresenter
+class Presenter
   extend Forwardable
   include Rails.application.routes.url_helpers
 

@@ -1,4 +1,4 @@
-class ArtistPresenter < ResourcePresenter
+class ArtistPresenter < Presenter
   def_delegators(:resource, :name, :summary, :description, :image?, :image)
 
   alias :artist :resource
