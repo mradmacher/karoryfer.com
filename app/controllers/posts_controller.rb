@@ -19,7 +19,7 @@ class PostsController < CurrentArtistController
     PostPresenter
   end
 
-  def resource
-    Resource::PostResource.new(abilities, params, current_artist)
+  def cruder
+    PostCruder.new(abilities, params, current_artist)
   end
 end

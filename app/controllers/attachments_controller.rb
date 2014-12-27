@@ -2,7 +2,7 @@ class AttachmentsController < CurrentAlbumController
   layout :set_layout
 
   def show
-    redirect_to resource.show.file.url
+    redirect_to cruder.show.file.url
   end
 
   private
@@ -19,7 +19,7 @@ class AttachmentsController < CurrentAlbumController
     AttachmentPresenter
   end
 
-  def resource
-    Resource::AttachmentResource.new(abilities, params, current_album)
+  def cruder
+    AttachmentCruder.new(abilities, params, current_album)
   end
 end

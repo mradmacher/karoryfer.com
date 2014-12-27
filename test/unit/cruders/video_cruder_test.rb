@@ -1,10 +1,10 @@
 require 'test_helper'
 
-# Tests for video resource.
-class VideoPostResourceTest < ActiveSupport::TestCase
+# Tests for video cruder.
+class VideoCruderTest < ActiveSupport::TestCase
   def test_resource_class_is_video
-    resource = Resource::VideoResource.new(Ability.new(nil), {})
-    assert_equal Video, resource.resource_class
+    cruder = VideoCruder.new(Ability.new(nil), {})
+    assert_equal Video, cruder.resource_class
   end
 
   def test_permits_all_allowed_params
@@ -18,13 +18,12 @@ class VideoPostResourceTest < ActiveSupport::TestCase
     }
     params = { video: permitted_params.merge(rejected_params) }
 
-    resource = Resource::VideoResource.new(Ability.new(nil), params)
+    cruder = VideoCruder.new(Ability.new(nil), params)
     permitted_params.keys.each do |p|
-      assert resource.permitted_params.include?(p)
+      assert cruder.permitted_params.include?(p)
     end
     rejected_params.keys.each do |p|
-      refute resource.permitted_params.include?(p)
+      refute cruder.permitted_params.include?(p)
     end
   end
 end
-

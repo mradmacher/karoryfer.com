@@ -1,10 +1,10 @@
 require 'test_helper'
 
-# Tests for page resource.
-class PagePostResourceTest < ActiveSupport::TestCase
+# Tests for page cruder.
+class PageCruderTest < ActiveSupport::TestCase
   def test_resource_class_is_video
-    resource = Resource::PageResource.new(Ability.new(nil), {})
-    assert_equal Page, resource.resource_class
+    cruder = PageCruder.new(Ability.new(nil), {})
+    assert_equal Page, cruder.resource_class
   end
 
   def test_permits_all_allowed_params
@@ -18,14 +18,12 @@ class PagePostResourceTest < ActiveSupport::TestCase
     }
     params = { page: permitted_params.merge(rejected_params) }
 
-    resource = Resource::PageResource.new(Ability.new(nil), params)
+    cruder = PageCruder.new(Ability.new(nil), params)
     permitted_params.keys.each do |p|
-      assert resource.permitted_params.include?(p)
+      assert cruder.permitted_params.include?(p)
     end
     rejected_params.keys.each do |p|
-      refute resource.permitted_params.include?(p)
+      refute cruder.permitted_params.include?(p)
     end
   end
 end
-
-

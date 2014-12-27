@@ -1,10 +1,10 @@
 require 'test_helper'
 
-# Tests for post resource.
-class PostResourceTest < ActiveSupport::TestCase
+# Tests for post cruder.
+class PostCruderTest < ActiveSupport::TestCase
   def test_resource_class_is_post
-    resource = Resource::PostResource.new(Ability.new(nil), {})
-    assert_equal Post, resource.resource_class
+    cruder = PostCruder.new(Ability.new(nil), {})
+    assert_equal Post, cruder.resource_class
   end
 
   def test_permits_all_allowed_params
@@ -17,12 +17,12 @@ class PostResourceTest < ActiveSupport::TestCase
     }
     params = { post: permitted_params.merge(rejected_params) }
 
-    resource = Resource::PostResource.new(Ability.new(nil), params)
+    cruder = PostCruder.new(Ability.new(nil), params)
     permitted_params.keys.each do |p|
-      assert resource.permitted_params.include?(p)
+      assert cruder.permitted_params.include?(p)
     end
     rejected_params.keys.each do |p|
-      refute resource.permitted_params.include?(p)
+      refute cruder.permitted_params.include?(p)
     end
   end
 end

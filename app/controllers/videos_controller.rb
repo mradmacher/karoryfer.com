@@ -19,7 +19,7 @@ class VideosController < CurrentArtistController
     VideoPresenter
   end
 
-  def resource
-    Resource::VideoResource.new(abilities, params, current_artist)
+  def cruder
+    VideoCruder.new(abilities, params, current_artist)
   end
 end

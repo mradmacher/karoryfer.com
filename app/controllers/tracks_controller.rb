@@ -2,7 +2,7 @@ class TracksController < CurrentAlbumController
   layout :set_layout
 
   def show
-    track = resource.show
+    track = cruder.show
     redirect_to track.file.url
   end
 
@@ -28,7 +28,7 @@ class TracksController < CurrentAlbumController
     TrackPresenter
   end
 
-  def resource
-    Resource::TrackResource.new(abilities, params, current_album)
+  def cruder
+    TrackCruder.new(abilities, params, current_album)
   end
 end

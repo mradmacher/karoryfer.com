@@ -19,4 +19,3 @@ class MembershipsController < ApplicationController
     params.require(:membership).permit!
   end
 end
-
