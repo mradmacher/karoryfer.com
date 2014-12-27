@@ -2,14 +2,14 @@
 
 <h2 class="hidden"><%= t 'label.posts' %></h2>
 
-<% if @views.empty? %>
+<% if @presenters.empty? %>
   <%= t( 'label.nothing_here_yet' ) %>
 <% end %>
 <ul class="media-list">
-<% @views.each do |view| %>
+<% @presenters.each do |presenter| %>
   <li class="media img-rounded">
     <div class="media-body">
-      <h5><%= post_icon %><%= link_to view.title, view.show_path %></h5>
+      <h5><%= post_icon %><%= link_to presenter.title, presenter.show_path %></h5>
     </div>
   </li>
 <% end %>

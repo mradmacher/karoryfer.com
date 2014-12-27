@@ -24,8 +24,8 @@ class TracksController < CurrentAlbumController
     redirect_to artist_album_url(current_artist, current_album)
   end
 
-  def view_class
-    TrackView
+  def presenter_class
+    TrackPresenter
   end
 
   def resource

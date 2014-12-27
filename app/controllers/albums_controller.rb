@@ -36,8 +36,8 @@ class AlbumsController < CurrentArtistController
     redirect_to artist_albums_url(current_artist)
   end
 
-  def view_class
-    AlbumView
+  def presenter_class
+    AlbumPresenter
   end
 
   def resource

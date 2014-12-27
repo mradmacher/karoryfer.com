@@ -1,12 +1,12 @@
 <%= render_title t('title.album.index') %>
 
-<% if @views.empty? %>
+<% if @presenters.empty? %>
   <%= t('label.nothing_here_yet') %>
 <% end %>
 <ul class="row list-unstyled">
-<% @views.each do |view| %>
+<% @presenters.each do |presenter| %>
   <li class="col-sm-3 col-md-3 col-lg-3">
-    <div class="thumbnail text-center"><%= render partial: 'album', locals: { album_view: view } %></div>
+    <div class="thumbnail text-center"><%= render partial: 'album', locals: { album_presenter: presenter } %></div>
   </li>
 <% end %>
 </ul>

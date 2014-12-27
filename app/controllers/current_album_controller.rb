@@ -1,6 +1,6 @@
 class CurrentAlbumController < CurrentArtistController
   before_filter do
-    @current_album_view = AlbumView.new(current_album, abilities)
+    @current_album_presenter = AlbumPresenter.new(current_album, abilities)
   end
 
   protected

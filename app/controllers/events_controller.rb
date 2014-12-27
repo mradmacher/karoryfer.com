@@ -30,8 +30,8 @@ class EventsController < CurrentArtistController
     redirect_to artist_events_url(current_artist)
   end
 
-  def view_class
-    EventView
+  def presenter_class
+    EventPresenter
   end
 
   def resource

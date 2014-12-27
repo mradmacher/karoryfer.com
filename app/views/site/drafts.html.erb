@@ -2,16 +2,16 @@
 
 <h2><%= t 'title.album.index' %></h2>
 <ul class="media-list">
-<% @album_views.each do |view| %>
+<% @album_presenters.each do |presenter| %>
   <li class="media img-rounded">
-    <% if view.image? %>
-      <a href="<%= view.show_path %>" class="pull-left">
-        <%= image_tag(view.image.icon.url, :alt => view.title, :class => 'media-object media-object-thumbnail img-rounded img-polaroid' ) %>
+    <% if presenter.image? %>
+      <a href="<%= presenter.show_path %>" class="pull-left">
+        <%= image_tag(presenter.image.icon.url, :alt => presenter.title, :class => 'media-object media-object-thumbnail img-rounded img-polaroid' ) %>
       </a>
     <% end %>
     <div class="media-body">
-      <h5><a href="<%= view.show_path %>"><%= view.title %></a></h5>
-      <p><%= view.artist.name %></p>
+      <h5><a href="<%= presenter.show_path %>"><%= presenter.title %></a></h5>
+      <p><%= presenter.artist.name %></p>
     </div>
   </li>
 <% end %>

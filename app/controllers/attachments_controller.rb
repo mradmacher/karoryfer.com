@@ -15,8 +15,8 @@ class AttachmentsController < CurrentAlbumController
     redirect_to artist_album_url(current_artist, current_album)
   end
 
-  def view_class
-    AttachmentView
+  def presenter_class
+    AttachmentPresenter
   end
 
   def resource

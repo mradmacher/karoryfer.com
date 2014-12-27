@@ -3,16 +3,16 @@ class SiteController < ApplicationController
   before_filter :set_resources
 
   def home
-    @album_views = AlbumView.views_for(Album.published.sample(4), abilities)
-    @artist_views = ArtistView.views_for(Artist.all.sample(4), abilities)
+    @album_presenters = AlbumPresenter.presenters_for(Album.published.sample(4), abilities)
+    @artist_presenters = ArtistPresenter.presenters_for(Artist.all.sample(4), abilities)
   end
 
   def albums
-		@album_views = AlbumView.views_for(Album.published.shared, abilities)
+		@album_presenters = AlbumPresenter.presenters_for(Album.published.shared, abilities)
   end
 
   def artists
-		@artist_views = ArtistView.views_for(Artist.order(:name), abilities)
+		@artist_presenters = ArtistPresenter.presenters_for(Artist.order(:name), abilities)
   end
 
   def events
@@ -26,29 +26,29 @@ class SiteController < ApplicationController
     elsif params[:year]
       events = events.for_year( params[:year] )
     end
-    @event_views = EventView.views_for(events, abilities)
+    @event_presenters = EventPresenter.presenters_for(events, abilities)
   end
 
   def posts
     @selected_year = "#{params[:year]}"
     posts = Post.all
     posts = posts.created_in_year( params[:year] ) if params[:year]
-    @post_views = PostView.views_for(posts, abilities)
+    @post_presenters = PostPresenter.presenters_for(posts, abilities)
   end
 
   def videos
-    @video_views = VideoView.views_for(Video.all, abilities)
+    @video_presenters = VideoPresenter.presenters_for(Video.all, abilities)
   end
 
   def drafts
-    @album_views = AlbumView.views_for(current_user.unpublished_albums, abilities)
+    @album_presenters = AlbumPresenter.presenters_for(current_user.unpublished_albums, abilities)
   end
 
   private
 
   def set_resources
-    @recent_posts = PostView.views_for(Post.some, abilities)
-    @recent_events = EventView.views_for(Event.some.current, abilities)
-    @recent_videos = VideoView.views_for(Video.some, abilities)
+    @recent_posts = PostPresenter.presenters_for(Post.some, abilities)
+    @recent_events = EventPresenter.presenters_for(Event.some.current, abilities)
+    @recent_videos = VideoPresenter.presenters_for(Video.some, abilities)
   end
 end

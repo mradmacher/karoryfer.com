@@ -15,8 +15,8 @@ class VideosController < CurrentArtistController
     redirect_to artist_videos_url(current_artist)
   end
 
-  def view_class
-    VideoView
+  def presenter_class
+    VideoPresenter
   end
 
   def resource

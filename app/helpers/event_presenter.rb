@@ -1,4 +1,4 @@
-class EventView < ResourceView
+class EventPresenter < ResourcePresenter
   def_delegators(:resource, :title, :body, :poster?, :poster,
     :location, :address,
     :expired?, :event_date, :event_time, :duration,

@@ -42,15 +42,8 @@ class ArtistsControllerTest < ActionController::TestCase
     artist = Artist.sham!
     allow(:write, artist)
     get :edit, :id => artist.to_param
-    assert_select "title", build_title( artist.name )
+    assert_select "title", build_title(artist.name)
     assert_select 'h1', artist.name
-  end
-
-  def test_get_edit_displays_actions_when_authorized
-    artist = Artist.sham!
-    allow(:write, artist)
-    get :edit, :id => artist.to_param
-    assert_select 'a[href=?]', artist_path( artist ), I18n.t( 'action.cancel_edit' )
   end
 
   def test_get_edit_displays_form_when_authorized

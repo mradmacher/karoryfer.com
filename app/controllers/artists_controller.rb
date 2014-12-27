@@ -1,41 +1,33 @@
 class ArtistsController < CurrentArtistController
   layout 'current_artist', :except => [:index, :new, :create]
 
-  def show
-		@artist = resource.show
-    @current_view = ArtistView.new(@artist, abilities)
-  end
-
-  def index
-		@artists = resource.index
-  end
-
-  def new
-		@artist = resource.new
-  end
-
-  def edit
-		@artist = resource.edit
-  end
-
-	def create
-    redirect_to artist_url(resource.create)
-  rescue Resource::InvalidResource => e
-    @artist = e.resource
-    render action: 'new'
-	end
-
-	def update
-    redirect_to artist_url(resource.update)
-  rescue Resource::InvalidResource => e
-    @artist = e.resource
-    render action: 'edit'
-	end
-
   private
+
+  def redirect_update(obj)
+    redirect_to artist_url(obj)
+  end
+
+  def redirect_create(obj)
+    redirect_to artist_url(obj)
+  end
+
+  def redirect_destroy(obj)
+    redirect_to artists_url
+  end
+
+  def presenter_class
+    ArtistPresenter
+  end
 
   def resource
     Resource::ArtistResource.new(abilities, params)
   end
-end
 
+  def edit_view
+    'edit'
+  end
+
+  def new_vew
+    'new'
+  end
+end

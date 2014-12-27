@@ -6,9 +6,9 @@
 	<% end %>
 <% end %>
 <ul class="row list-unstyled">
-<% @artist_views.each do |view| %>
+<% @artist_presenters.each do |presenter| %>
   <li class="col-sm-2 col-md-2 col-lg-2">
-    <div class="thumbnail text-center"><%= render partial: 'artists/artist', locals: { artist_view: view } %></div>
+    <div class="thumbnail text-center"><%= render partial: 'artists/artist', locals: { artist_presenter: presenter } %></div>
   </li>
 <% end %>
 </ul>

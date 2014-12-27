@@ -1,4 +1,4 @@
-class TrackView < ResourceView
+class TrackPresenter < ResourcePresenter
   def_delegators(:resource, :title)
 
   def _path

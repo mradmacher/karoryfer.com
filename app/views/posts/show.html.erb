@@ -1,10 +1,10 @@
-<%= render_title @view.title %>
-<h2><%= post_icon %><%= @view.title %></h2>
+<%= render_title @presenter.title %>
+<h2><%= post_icon %><%= @presenter.title %></h2>
 <p>
-  <%= render partial: 'shared/show_actions', locals: { view: @view } %>
+  <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
 </p>
 <p>
-  <%= render_text @view.body %>
+  <%= render_text @presenter.body %>
 </p>
 <br />
 <%= render partial: 'embeds/all' %>

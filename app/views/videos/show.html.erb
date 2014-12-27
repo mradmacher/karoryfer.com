@@ -1,15 +1,15 @@
-<%= render_title @view.title %>
-<h2><%= @view.title %></h2>
+<%= render_title @presenter.title %>
+<h2><%= @presenter.title %></h2>
 <p>
-  <%= render partial: 'shared/show_actions', locals: { view: @view } %>
+  <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
 </p>
 <p>
-  <% if @view.embed_url %>
-    <iframe width="420" height="315" src="<%= @view.embed_url %>" frameborder="0" allowfullscreen></iframe>
+  <% if @presenter.embed_url %>
+    <iframe width="420" height="315" src="<%= @presenter.embed_url %>" frameborder="0" allowfullscreen></iframe>
   <% end %>
 </p>
 <p>
-  <%= render_text @view.body %>
+  <%= render_text @presenter.body %>
 </p>
 <br />
 <%= render partial: 'embeds/all' %>

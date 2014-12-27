@@ -1,4 +1,4 @@
-class PageView < ResourceView
+class PagePresenter < ResourcePresenter
   def_delegators(:resource, :title, :content)
 
   def _path

@@ -1,32 +1,32 @@
-<%= render_title @view.title %>
+<%= render_title @presenter.title %>
 <h2>
-  <%= @view.title %>
-  <% unless @view.published? %>
+  <%= @presenter.title %>
+  <% unless @presenter.published? %>
     <small><%= t('label.album.unpublished') %></small>
   <% end %>
 </h2>
 <p>
-  <%= render partial: 'shared/show_actions', locals: { view: @view } %>
+  <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
 </p>
 
 <div class="media">
-  <% if @view.image? %>
-    <%= link_to image_tag( @view.image.thumb.url, :alt => @view.title, :class => 'media-object' ), @view.image.url,
+  <% if @presenter.image? %>
+    <%= link_to image_tag( @presenter.image.thumb.url, :alt => @presenter.title, :class => 'media-object' ), @presenter.image.url,
       :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
-    <p class="lead"><%= @view.year.to_s %></p>
+    <p class="lead"><%= @presenter.year.to_s %></p>
 
     <p>
-    <% if @view.license.present? %>
+    <% if @presenter.license.present? %>
       <%= render :partial => 'licenses/cc',
-        :locals => { :author => @view.artist, :license => @view.license } %>
+        :locals => { :author => @presenter.artist, :license => @presenter.license } %>
     <% end %>
     </p>
-    <% if can? :write, @view %>
-      <%=t 'label.release.downloads' %>: <%= @view.releases.sum(:downloads) %>
+    <% if can? :write, @presenter %>
+      <%=t 'label.release.downloads' %>: <%= @presenter.releases.sum(:downloads) %>
       <ul>
-        <% @view.releases.each do |release| %>
+        <% @presenter.releases.each do |release| %>
           <li><%= release.format %>: <%= release.downloads %></li>
         <% end %>
       </ul>
@@ -36,19 +36,19 @@
 
 <br />
 
-<% if !@view.releases.empty? %>
+<% if !@presenter.releases.empty? %>
   <div class="row">
     <div class="span12">
       <div class="text-info"><%= flash[:notice] %></div>
-      <% @view.releases.each do |release| %>
+      <% @presenter.releases.each do |release| %>
         <% if release.file? %>
-          <a href="<%= download_artist_view_path( @view.artist, @view, release.format ) %>">
+          <a href="<%= download_artist_presenter_path( @presenter.artist, @presenter, release.format ) %>">
             <button class="pull-left download-button img-circle">
               <%= release.format %>
             </button>
           </a>
         <% else %>
-          <a href="<%= download_artist_view_path( @view.artist, @view, release.format ) %>" data-format="<%= release.format %>">
+          <a href="<%= download_artist_presenter_path( @presenter.artist, @presenter, release.format ) %>" data-format="<%= release.format %>">
             <button class="pull-left download-button img-circle create-release-button">
               <%= release.format %>
             </button>
@@ -60,7 +60,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="download-message-label"><%= @view.artist.name %> - <%= @view.title %></h4>
+              <h4 class="modal-title" id="download-message-label"><%= @presenter.artist.name %> - <%= @presenter.title %></h4>
               <h5 class="modal-title format"></h5>
             </div>
             <div class="modal-body">
@@ -80,26 +80,26 @@
   </div>
 <% end %>
 
-<% unless @view.donation.blank? %>
+<% unless @presenter.donation.blank? %>
   <div class="well donations">
-    <%=raw @view.donation %>
+    <%=raw @presenter.donation %>
     <% if Setting.get( 'donations_info_url' ) %>
       <div><small><i><%= link_to 'Informacja na temat darowizn', Setting.get( 'donations_info_url' ) %></i></small></div>
     <% end %>
   </div>
 <% end %>
 
-<%= render_text @view.description %>
+<%= render_text @presenter.description %>
 
-<% if !@view.tracks.empty? or can?(:write, Track, @view.resource)%>
+<% if !@presenter.tracks.empty? or can?(:write, Track, @presenter.resource)%>
   <h4><%= t 'title.track.index' %></h4>
-  <% if can? :write, Track, @view.resource %>
+  <% if can? :write, Track, @presenter.resource %>
     <p>
-      <a href="<%= new_artist_album_track_path(@view.artist, @view.resource) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
+      <a href="<%= new_artist_album_track_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
     </p>
   <% end %>
   <ol id="tracklist">
-    <% @view.tracks.each do |track| %>
+    <% @presenter.tracks.each do |track| %>
       <li data-track-id="<%= track.id %>">
       <span class="title">
         <%= track.rank %>.
@@ -107,10 +107,10 @@
         <% unless track.comment.blank? -%><br /><small><%= track.comment %></small> <% end -%>
         <% if can? :write, track %>
           <div class="btn-group pull-right">
-            <a href="<%= edit_artist_album_track_path(@view.artist, @view.resource, track) %>" class="btn btn-default btn-xs">
+            <a href="<%= edit_artist_album_track_path(@presenter.artist, @presenter.resource, track) %>" class="btn btn-default btn-xs">
               <%=t 'action.edit' %>
             </a>
-            <a href="<%= artist_album_track_path(@view.artist, @view.resource, track) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+            <a href="<%= artist_album_track_path(@presenter.artist, @presenter.resource, track) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
               <%=t 'action.delete' %>
             </a>
           </div>
@@ -156,19 +156,19 @@
   </div>
 <% end %>
 
-<% if !@view.attachments.empty? or can?(:write, Attachment, @view.resource) %>
+<% if !@presenter.attachments.empty? or can?(:write, Attachment, @presenter.resource) %>
   <h4><%= t 'title.attachment.index' %></h4>
-  <% if can? :write, Attachment, @view.resource %>
+  <% if can? :write, Attachment, @presenter.resource %>
     <p>
-      <a href="<%= new_artist_album_attachment_path(@view.artist, @view.resource) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
+      <a href="<%= new_artist_album_attachment_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
     </p>
   <% end %>
   <ul>
-    <% @view.attachments.each do |attachment| %>
+    <% @presenter.attachments.each do |attachment| %>
       <li>
         <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
         <% if can? :write, attachment %>
-          <a href="<%= artist_album_attachment_path(@view.artist, @view.resource, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+          <a href="<%= artist_album_attachment_path(@presenter.artist, @presenter.resource, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
             <%=t 'action.delete' %>
           </a>
         <% end %>

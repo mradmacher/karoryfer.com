@@ -2,25 +2,25 @@
 
 <h2 class="hidden"><%= t 'label.events' %></h2>
 
-<% if @views.empty? %>
+<% if @presenters.empty? %>
  <p><%= t('label.nothing_here_yet') %></p>
 <% end %>
 <ul class="media-list">
-<% @views.each do |view| %>
+<% @presenters.each do |presenter| %>
   <li class="media img-rounded">
-    <% if view.poster? %>
-      <%= link_to image_tag(view.poster.icon.url, :alt => view.title,
+    <% if presenter.poster? %>
+      <%= link_to image_tag(presenter.poster.icon.url, :alt => presenter.title,
         :class => 'media-object media-object-thumbnail img-polaroid img-rounded'),
-        view.show_path, :class => 'pull-left' %>
+        presenter.show_path, :class => 'pull-left' %>
     <% end %>
     <div class="media-body">
-      <h5><%= event_icon(view.expired?) %><%= link_to view.title, view.show_path %></h5>
+      <h5><%= event_icon(presenter.expired?) %><%= link_to presenter.title, presenter.show_path %></h5>
       <p>
-        <%= event_date(view) %><br />
-        <%= view.location %>
-        <% if view.address.present? %>
+        <%= event_date(presenter) %><br />
+        <%= presenter.location %>
+        <% if presenter.address.present? %>
           <br />
-          <small><%= view.address %></small>
+          <small><%= presenter.address %></small>
         <% end %>
       </p>
     </div>
