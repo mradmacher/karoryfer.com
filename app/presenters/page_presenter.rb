@@ -1,4 +1,4 @@
-class PagePresenter < ResourcePresenter
+class PagePresenter < Presenter
   def_delegators(:resource, :title, :content)
 
   def _path

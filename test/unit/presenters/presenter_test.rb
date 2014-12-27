@@ -3,7 +3,7 @@ require 'test_helper'
 class TestResource
 end
 
-class TestPresenter < ResourcePresenter
+class TestPresenter < Presenter
   def _path
     'path'
   end
@@ -13,7 +13,7 @@ class TestPresenter < ResourcePresenter
   end
 end
 
-class ResourcePresenterTest < ActiveSupport::TestCase
+class PresenterTest < ActiveSupport::TestCase
   def test_with_edit_path_yields_only_when_authorized
     resource = TestResource.new
     result = nil

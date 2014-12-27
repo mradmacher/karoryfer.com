@@ -1,4 +1,4 @@
-class AttachmentPresenter < ResourcePresenter
+class AttachmentPresenter < Presenter
   def _path
     artist_album_attachment_path(resource.album.artist, resource.album, resource)
   end

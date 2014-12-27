@@ -1,4 +1,4 @@
-class VideoPresenter < ResourcePresenter
+class VideoPresenter < Presenter
   def_delegators(:resource, :title, :body, :url, :artist)
 
   def _path
