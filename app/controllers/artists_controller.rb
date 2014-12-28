@@ -3,6 +3,10 @@ class ArtistsController < CurrentArtistController
 
   private
 
+  def edit_view
+    'edit'
+  end
+
   def redirect_update(obj)
     redirect_to artist_url(obj)
   end
@@ -21,13 +25,5 @@ class ArtistsController < CurrentArtistController
 
   def cruder
     ArtistCruder.new(abilities, params)
-  end
-
-  def edit_view
-    'edit'
-  end
-
-  def new_vew
-    'new'
   end
 end

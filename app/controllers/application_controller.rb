@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
 	private
+
 	def redirect_subdomain
 		if request.subdomain.present?
       if Artist.pluck(:reference).include? request.subdomain
