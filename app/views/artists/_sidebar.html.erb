@@ -1,14 +1,14 @@
-<% if @current_artist_presenter.show_recent_pages? %>
+<% if @artist_presenter.show_recent_pages? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4"><%=t 'label.pages' %></span>
-      <% @current_artist_presenter.with_new_page_path do |path| %>
+      <% @artist_presenter.with_new_page_path do |path| %>
         <a href="<%= path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
       <% end %>
     </div>
     <div class="panel-body">
       <ul class="list-unstyled">
-      <% @current_artist_presenter.recent_pages.each do |page_presenter| %>
+      <% @artist_presenter.recent_pages.each do |page_presenter| %>
          <li><%= link_to page_presenter.title, page_presenter.show_path %></li>
       <% end %>
       </ul>
@@ -16,22 +16,22 @@
   </div>
 <% end %>
 
-<% if @current_artist_presenter.show_recent_events? %>
+<% if @artist_presenter.show_recent_events? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
         <%=t 'label.events' %>
-        <a href="<%= @current_artist_presenter.events_path %>">
-          <span class="badge"><%= @current_artist_presenter.events_count %></span></a>
+        <a href="<%= @artist_presenter.events_path %>">
+          <span class="badge"><%= @artist_presenter.events_count %></span></a>
       </span>
-      <% @current_artist_presenter.with_new_event_path do |path| %>
+      <% @artist_presenter.with_new_event_path do |path| %>
         <a href="<%= path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
       <% end %>
     </div>
-    <% unless @current_artist_presenter.recent_events.empty? %>
+    <% unless @artist_presenter.recent_events.empty? %>
       <div class="panel-body">
         <ul class="event-list">
-          <% @current_artist_presenter.recent_events.each do |event_presenter| %>
+          <% @artist_presenter.recent_events.each do |event_presenter| %>
             <li>
               <a href="<%= event_presenter.show_path %>"><%= event_date(event_presenter) %></a>
               <br />
@@ -44,21 +44,21 @@
   </div>
 <% end %>
 
-<% if @current_artist_presenter.show_recent_posts? %>
+<% if @artist_presenter.show_recent_posts? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
         <%=t 'label.posts' %>
-        <a href="<%= @current_artist_presenter.posts_path %>">
-          <span class="badge"><%= @current_artist_presenter.posts_count %></span></a>
+        <a href="<%= @artist_presenter.posts_path %>">
+          <span class="badge"><%= @artist_presenter.posts_count %></span></a>
       </span>
-      <% @current_artist_presenter.with_new_post_path do |path| %>
+      <% @artist_presenter.with_new_post_path do |path| %>
         <a href="<%= path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
       <% end %>
     </div>
     <div class="panel-body">
       <ul class="post-list">
-        <% @current_artist_presenter.recent_posts.each do |post_presenter| %>
+        <% @artist_presenter.recent_posts.each do |post_presenter| %>
           <li><%= link_to post_presenter.title, post_presenter.show_path %></li>
         <% end %>
       </ul>
@@ -66,21 +66,21 @@
   </div>
 <% end %>
 
-<% if @current_artist_presenter.show_recent_videos? %>
+<% if @artist_presenter.show_recent_videos? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
         <%=t 'label.videos' %>
-        <a href="<%= @current_artist_presenter.videos_path %>">
-          <span class="badge"><%= @current_artist_presenter.videos_count %></span></a>
+        <a href="<%= @artist_presenter.videos_path %>">
+          <span class="badge"><%= @artist_presenter.videos_count %></span></a>
       </span>
-      <% @current_artist_presenter.with_new_video_path do |path| %>
+      <% @artist_presenter.with_new_video_path do |path| %>
         <a href="<%= path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
       <% end %>
     </div>
     <div class="panel-body">
       <ul class="video-list">
-        <% @current_artist_presenter.recent_videos.each do |video_presenter| %>
+        <% @artist_presenter.recent_videos.each do |video_presenter| %>
           <li><%= link_to video_presenter.title, video_presenter.show_path %></li>
         <% end %>
       </ul>
@@ -88,22 +88,22 @@
   </div>
 <% end %>
 
-<% if @current_artist_presenter.show_recent_albums? %>
+<% if @artist_presenter.show_recent_albums? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
         <%=t 'label.albums' %>
-        <a href="<%= @current_artist_presenter.albums_path %>">
-          <span class="badge"><%= @current_artist_presenter.albums_count %></span>
+        <a href="<%= @artist_presenter.albums_path %>">
+          <span class="badge"><%= @artist_presenter.albums_count %></span>
         </a>
       </span>
-      <% @current_artist_presenter.with_new_album_path do |path| %>
+      <% @artist_presenter.with_new_album_path do |path| %>
         <a href="<%= path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
       <% end %>
     </div>
     <div class="panel-body">
       <ul class="album-list">
-        <% @current_artist_presenter.recent_albums.each do |album_presenter| %>
+        <% @artist_presenter.recent_albums.each do |album_presenter| %>
           <li><%= link_to album_presenter.title, album_presenter.show_path %></li>
         <% end %>
       </ul>
