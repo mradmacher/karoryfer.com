@@ -13,6 +13,7 @@ class TrackCruder < Cruder
 
   def permitted_params
     strong_parameters.require(:track).permit(
+      :artist_name,
       :title,
       :rank,
       :comment,

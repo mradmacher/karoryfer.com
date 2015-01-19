@@ -1,9 +1,6 @@
 require 'test_helper'
-require 'release_helper'
 
 class CustomReleaseTest < ActiveSupport::TestCase
-  include ReleaseHelper
-
   def setup
     @tmp_dir = Dir.mktmpdir
     Uploader::Release.album_store_dir = File.join( @tmp_dir, 'albums' )

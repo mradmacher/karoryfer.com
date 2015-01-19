@@ -104,7 +104,9 @@
       <span class="title">
         <%= track.rank %>.
         <%= track.title %>
-        <% unless track.comment.blank? -%><br /><small><%= track.comment %></small> <% end -%>
+        <% if !track.artist_name.blank? or !track.comment.blank? -%>
+          <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
+        <% end -%>
         <% if can? :write, track %>
           <div class="btn-group pull-right">
             <a href="<%= edit_artist_album_track_path(@presenter.artist, @presenter.resource, track) %>" class="btn btn-default btn-xs">

@@ -14,6 +14,11 @@
       <%= f.text_field :comment, class: 'form-control' %>
     </div>
     <div class="form-group">
+      <%= f.label :artist_name, t('label.track.artist_name') %>
+      <p class="help-block">(<%= t('label.defaults_to') %> <%= resource.artist.name %>)</p>
+      <%= f.text_field :artist_name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
       <%= f.label :file, t( "label.track.file" ) %>
       <% if resource.file? %>
         <p class="help-block"><%= File.basename(resource.file.path) %></p>
