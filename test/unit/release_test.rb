@@ -6,8 +6,8 @@ class ReleaseTest < ActiveSupport::TestCase
     release = Release.sham! :build
     release.track = nil
     release.album = nil
-		refute release.valid?
-		assert release.errors[:base].include? I18n.t(
+    refute release.valid?
+    assert release.errors[:base].include? I18n.t(
       'activerecord.errors.models.release.album_or_track.none' )
 
     release.album = nil
@@ -24,8 +24,8 @@ class ReleaseTest < ActiveSupport::TestCase
     release = Release.sham! :build
     release.track = track
     release.album = track.album
-		refute release.valid?
-		assert release.errors[:base].include? I18n.t(
+    refute release.valid?
+    assert release.errors[:base].include? I18n.t(
       'activerecord.errors.models.release.album_or_track.both' )
   end
 

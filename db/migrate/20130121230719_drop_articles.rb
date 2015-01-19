@@ -7,7 +7,7 @@ class DropArticles < ActiveRecord::Migration
     create_table :articles do |t|
       t.string :title
       t.text :body
-			t.references :group
+      t.references :group
 
       t.timestamps
     end

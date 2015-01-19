@@ -1,14 +1,14 @@
 class Event < ActiveRecord::Base
-	belongs_to :artist
+  belongs_to :artist
 
   SOME_LIMIT = 4
-	TITLE_MAX_LENGTH = 80
+  TITLE_MAX_LENGTH = 80
 
-	validates :title, :presence => true
-	validates :title, :length => { :maximum => TITLE_MAX_LENGTH }
-	validates :artist_id, :presence => true
+  validates :title, :presence => true
+  validates :title, :length => { :maximum => TITLE_MAX_LENGTH }
+  validates :artist_id, :presence => true
   validates :event_date, :presence => true
-	validates :free_entrance, :inclusion => { :in => [true, false] }
+  validates :free_entrance, :inclusion => { :in => [true, false] }
 
   default_scope -> { order( '(CASE WHEN event_date - current_date >= 0 THEN 1 ELSE 0 END) DESC, abs(event_date - current_date) ASC' ) }
 

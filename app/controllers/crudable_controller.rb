@@ -15,26 +15,26 @@ module CrudableController
   end
 
   def new
-		@presenter = build_presenter(cruder.new)
+    @presenter = build_presenter(cruder.new)
   end
 
-	def update
+  def update
     redirect_update(cruder.update)
   rescue Cruder::InvalidResource => e
     @presenter = build_presenter(e.resource)
     render edit_view
-	end
+  end
 
-	def create
+  def create
     redirect_create(cruder.create)
   rescue Cruder::InvalidResource => e
     @presenter = build_presenter(e.resource)
     render new_view
-	end
+  end
 
-	def destroy
+  def destroy
     redirect_destroy(cruder.destroy)
-	end
+  end
 
   protected
 
@@ -55,6 +55,6 @@ module CrudableController
   private
 
   def build_presenter(obj)
-		presenter_class.new(obj, abilities)
+    presenter_class.new(obj, abilities)
   end
 end

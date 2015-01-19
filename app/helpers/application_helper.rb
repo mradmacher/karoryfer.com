@@ -1,18 +1,18 @@
 module ApplicationHelper
-	def render_text(text)
-		text = '' unless text
+  def render_text(text)
+    text = '' unless text
     raw RDiscount.new(text).to_html
-	end
+  end
 
-	def render_title(*title)
-		if current_artist? then
-			title << current_artist.name
-		end
-		title << 'Karoryfer Lecolds'
-		content_for :title do
-			title.join(' - ')
-		end
-	end
+  def render_title(*title)
+    if current_artist? then
+      title << current_artist.name
+    end
+    title << 'Karoryfer Lecolds'
+    content_for :title do
+      title.join(' - ')
+    end
+  end
 
   def event_details(event)
     loc = []
@@ -52,7 +52,7 @@ module ApplicationHelper
     link_to title, link, options.merge(:class => 'btn btn-warning btn-xs')
   end
 
-	alias format_text render_text
+  alias format_text render_text
 
   def main_menu_items
     active = if current_artist?

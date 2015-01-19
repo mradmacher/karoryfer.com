@@ -8,11 +8,11 @@ class SiteController < ApplicationController
   end
 
   def albums
-		@album_presenters = AlbumPresenter.presenters_for(Album.published.shared, abilities)
+    @album_presenters = AlbumPresenter.presenters_for(Album.published.shared, abilities)
   end
 
   def artists
-		@artist_presenters = ArtistPresenter.presenters_for(Artist.order(:name), abilities)
+    @artist_presenters = ArtistPresenter.presenters_for(Artist.order(:name), abilities)
   end
 
   def events

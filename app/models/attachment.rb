@@ -2,7 +2,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :album
 
   validates :album_id, presence: true
-	validate :validate_file, :presence => true, :uniqueness => { :scope => :album_id }
+  validate :validate_file, :presence => true, :uniqueness => { :scope => :album_id }
   before_destroy :remove_file!
 
   class Uploader < CarrierWave::Uploader::Base

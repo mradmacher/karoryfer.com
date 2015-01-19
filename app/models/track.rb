@@ -2,15 +2,15 @@ class Track < ActiveRecord::Base
   TITLE_MAX_LENGTH = 80
   COMMENT_MAX_LENGTH = 255
 
-	belongs_to :album
+  belongs_to :album
   has_many :releases
 
-	validates :title, :presence => true, :length => {:maximum => TITLE_MAX_LENGTH}
-	validates :album_id, :presence => true
-	validates :rank, :presence => true, :uniqueness => { :scope => :album_id }
-	validates :comment, :length => {:maximum => COMMENT_MAX_LENGTH}
+  validates :title, :presence => true, :length => {:maximum => TITLE_MAX_LENGTH}
+  validates :album_id, :presence => true
+  validates :rank, :presence => true, :uniqueness => { :scope => :album_id }
+  validates :comment, :length => {:maximum => COMMENT_MAX_LENGTH}
 
-	default_scope -> { order( 'rank asc' ) }
+  default_scope -> { order( 'rank asc' ) }
 
   class Uploader < CarrierWave::Uploader::Base
     cattr_accessor :store_dir

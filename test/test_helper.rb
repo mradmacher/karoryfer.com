@@ -10,11 +10,11 @@ DB = Sequel.connect("postgres://#{dbconfig['username']}@localhost/#{dbconfig['da
 FIXTURES_DIR = File.expand_path('../fixtures', __FILE__)
 
 module I18n
-	def self.raise_missing_translation( *args )
-		puts args.first
-		puts args.first.class
-		raise args.first.to_exception
-	end
+  def self.raise_missing_translation( *args )
+    puts args.first
+    puts args.first.class
+    raise args.first.to_exception
+  end
 end
 I18n.exception_handler = :raise_missing_translation
 
@@ -79,23 +79,23 @@ class ActiveSupport::TestCase
   end
 
 
-	DEFAULT_TITLE = 'Karoryfer Lecolds'
-	TITLE_SEPARATOR = ' - '
+  DEFAULT_TITLE = 'Karoryfer Lecolds'
+  TITLE_SEPARATOR = ' - '
 
-	def build_title *args
-		args << DEFAULT_TITLE
-		args.join TITLE_SEPARATOR
-	end
+  def build_title *args
+    args << DEFAULT_TITLE
+    args.join TITLE_SEPARATOR
+  end
 
-	def assert_headers( h1, h2 = nil, h3 = nil )
-		assert_select "h1", h1
-		assert_select "h2", h2 unless h2.nil?
-		assert_select "h3", h3 unless h3.nil?
-	end
+  def assert_headers( h1, h2 = nil, h3 = nil )
+    assert_select "h1", h1
+    assert_select "h2", h2 unless h2.nil?
+    assert_select "h3", h3 unless h3.nil?
+  end
 
-	def assert_title( *args )
-		assert_select 'title', build_title( args )
-	end
+  def assert_title( *args )
+    assert_select 'title', build_title( args )
+  end
 
   def login(user)
     activate_authlogic
@@ -145,4 +145,3 @@ class ActiveSupport::TestCase
     end
   end
 end
-
