@@ -42,13 +42,13 @@
       <div class="text-info"><%= flash[:notice] %></div>
       <% @presenter.releases.each do |release| %>
         <% if release.file? %>
-          <a href="<%= download_artist_presenter_path( @presenter.artist, @presenter, release.format ) %>">
+          <a href="<%= download_artist_album_path(@presenter.artist, @presenter.resource, release.format) %>">
             <button class="pull-left download-button img-circle">
               <%= release.format %>
             </button>
           </a>
         <% else %>
-          <a href="<%= download_artist_presenter_path( @presenter.artist, @presenter, release.format ) %>" data-format="<%= release.format %>">
+          <a href="<%= download_artist_album_path( @presenter.artist, @presenter.resource, release.format) %>" data-format="<%= release.format %>">
             <button class="pull-left download-button img-circle create-release-button">
               <%= release.format %>
             </button>
