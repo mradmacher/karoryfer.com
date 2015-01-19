@@ -4,7 +4,7 @@ class CreateDescriptions < ActiveRecord::Migration
       t.string :title
       t.text :summary
       t.text :content
-			t.references :descriptable, :polymorphic => true
+      t.references :descriptable, :polymorphic => true
 
       t.timestamps
     end

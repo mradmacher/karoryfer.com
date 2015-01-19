@@ -3,7 +3,7 @@ class AlbumsController < CurrentArtistController
 
   def download
     @artist = Artist.find_by_reference( params[:artist_id] )
-		@album = @artist.albums.find_by_reference( params[:id] )
+    @album = @artist.albums.find_by_reference( params[:id] )
     release = @album.releases.in_format( params[:format] ).first!
     if release.file?
       release.increment!(:downloads)

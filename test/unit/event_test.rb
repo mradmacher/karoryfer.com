@@ -2,53 +2,53 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-	def test_validates_title_presence
-		event = Event.sham! :build
-		event.title = nil
-		refute event.valid?
-		assert event.errors[:title].include? I18n.t(
+  def test_validates_title_presence
+    event = Event.sham! :build
+    event.title = nil
+    refute event.valid?
+    assert event.errors[:title].include? I18n.t(
       'activerecord.errors.models.event.attributes.title.blank' )
 
-		event.title = '  '
-		refute event.valid?
-		assert event.errors[:title].include? I18n.t(
+    event.title = '  '
+    refute event.valid?
+    assert event.errors[:title].include? I18n.t(
       'activerecord.errors.models.event.attributes.title.blank' )
-	end
+  end
 
-	def test_validates_title_length
-		event = Event.sham! :build
-		event.title = 'a'*(Event::TITLE_MAX_LENGTH+1)
-		refute event.valid?
-		assert event.errors[:title].include? I18n.t(
+  def test_validates_title_length
+    event = Event.sham! :build
+    event.title = 'a'*(Event::TITLE_MAX_LENGTH+1)
+    refute event.valid?
+    assert event.errors[:title].include? I18n.t(
       'activerecord.errors.models.event.attributes.title.too_long' )
 
-		event.title = 'a'*(Event::TITLE_MAX_LENGTH)
-		assert event.valid?
-	end
+    event.title = 'a'*(Event::TITLE_MAX_LENGTH)
+    assert event.valid?
+  end
 
-	def test_validates_artist_presence
-		event = Event.sham! :build
-		event.artist_id = nil
-		refute event.valid?
-		assert event.errors[ :artist_id ].include? I18n.t(
+  def test_validates_artist_presence
+    event = Event.sham! :build
+    event.artist_id = nil
+    refute event.valid?
+    assert event.errors[ :artist_id ].include? I18n.t(
       'activerecord.errors.models.event.attributes.artist_id.blank' )
-	end
+  end
 
   def test_has_not_free_entrance_by_default
     refute Event.new.free_entrance?
   end
 
   def test_has_free_enctrance_or_not
-		event = Event.sham! :build
-		[true, false].each do |v|
-			event.free_entrance = v
-			assert event.valid?
-		end
-		event.free_entrance = nil
-		refute event.valid?
-		assert event.errors[:free_entrance].include? I18n.t(
+    event = Event.sham! :build
+    [true, false].each do |v|
+      event.free_entrance = v
+      assert event.valid?
+    end
+    event.free_entrance = nil
+    refute event.valid?
+    assert event.errors[:free_entrance].include? I18n.t(
       'activerecord.errors.models.event.attributes.free_entrance.inclusion' )
-	end
+  end
 
   def test_validates_date_presence
     event = Event.sham! :build

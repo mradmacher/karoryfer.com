@@ -1,14 +1,14 @@
 Karoryfer::Application.routes.draw do
-	scope 'admin', :as => 'admin' do
-		resources :user_sessions, only: [:create]
-		get 'login' => "user_sessions#new", :as => :login
-		get 'logout' => "user_sessions#destroy", :as => :logout
-		scope path_names: { edit: 'zmien', new: 'dodaj' } do
-			resources :users, path: 'uzytkownicy'
+  scope 'admin', :as => 'admin' do
+    resources :user_sessions, only: [:create]
+    get 'login' => "user_sessions#new", :as => :login
+    get 'logout' => "user_sessions#destroy", :as => :logout
+    scope path_names: { edit: 'zmien', new: 'dodaj' } do
+      resources :users, path: 'uzytkownicy'
       resources :memberships, only: [:create, :destroy]
-		end
-		get 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
-	end
+    end
+    get 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
+  end
 
   root :to => 'site#home'
 
@@ -22,12 +22,12 @@ Karoryfer::Application.routes.draw do
   get 'artysci', to: 'site#artists', as: 'artists'
   get 'szkice', to: 'site#drafts', as: 'drafts'
 
-	scope path_names: { new: 'dodaj', edit: 'zmien' } do
-		resources :artists, path: '', only: [:show, :edit, :new, :update]
-		resources :artists, path: 'artysci', only: [:create]
-	end
+  scope path_names: { new: 'dodaj', edit: 'zmien' } do
+    resources :artists, path: '', only: [:show, :edit, :new, :update]
+    resources :artists, path: 'artysci', only: [:create]
+  end
 
-	scope ':artist_id', as: 'artist', path_names: { new: 'dodaj', edit: 'zmien' } do
+  scope ':artist_id', as: 'artist', path_names: { new: 'dodaj', edit: 'zmien' } do
     resources :albums, path: 'wydawnictwa' do
       member do
         get ':format', to: 'albums#download', as: 'download', constraints: { format: /.{1,4}/ }
@@ -35,10 +35,10 @@ Karoryfer::Application.routes.draw do
       resources :attachments, path: 'zalaczniki', only: [:show, :new, :create, :destroy]
       resources :tracks, path: 'sciezki', only: [:show, :new, :edit, :create, :update, :destroy]
     end
-		resources :videos, path: 'filmy'
-		resources :posts, path: 'wiadomosci'
-		resources :events, path: 'wydarzenia'
+    resources :videos, path: 'filmy'
+    resources :posts, path: 'wiadomosci'
+    resources :events, path: 'wydarzenia'
     resources :pages, path: 'informacje'
-	end
+  end
 end
 

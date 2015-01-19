@@ -2,15 +2,15 @@ class User < ActiveRecord::Base
   class AccessDenied < Exception
   end
 
-	acts_as_authentic do |c|
-		c.validate_email_field = false
+  acts_as_authentic do |c|
+    c.validate_email_field = false
     c.crypto_provider = Authlogic::CryptoProviders::Sha512
-	end
+  end
 
   has_many :memberships
 
-	validates :admin, :inclusion => { :in => [true, false] }
-	validates :publisher, :inclusion => { :in => [true, false] }
+  validates :admin, :inclusion => { :in => [true, false] }
+  validates :publisher, :inclusion => { :in => [true, false] }
 
   def artists
     Artist.joins( :memberships ).where( 'memberships.user_id' => self.id )
@@ -25,13 +25,13 @@ class User < ActiveRecord::Base
     end
   end
 
-	def unpublished_posts
+  def unpublished_posts
     Post.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'posts.published' => false )
-	end
+  end
 
-	def unpublished_events
+  def unpublished_events
     Event.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'events.published' => false )
-	end
+  end
 
   def unpublished_albums
     Album.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'albums.published' => false )

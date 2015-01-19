@@ -4,9 +4,9 @@ class DropGroupsPosts < ActiveRecord::Migration
   end
 
   def down
-		create_table :groups_posts, :id => false do |t|
-			t.references :group
-			t.references :post
-		end
+    create_table :groups_posts, :id => false do |t|
+      t.references :group
+      t.references :post
+    end
   end
 end

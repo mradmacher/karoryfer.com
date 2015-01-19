@@ -1,11 +1,11 @@
 class Setting
-	@@values = {}
+  @@values = {}
 
-	def self.set( key, value )
-		@@values[key] = value
-	end
+  def self.set( key, value )
+    @@values[key] = value
+  end
 
-	def self.get( key )
-		@@values[key]
-	end
+  def self.get( key )
+    @@values[key]
+  end
 end
