@@ -257,6 +257,7 @@ pl:
     release_message: Wydawnictwo jest przygotowywane do pobrania i będzie gotowe za kilka minut. Możesz w tym czasie spokojnie poklikać po stronie. (Your download is being processed. It will be ready in a few minutes. Feel free to use the website in the meantime.)
     nothing_here_yet: Nic tu jeszcze nie ma.
     nothing_here: Brak
+    defaults_to: domyślnie
     unpublished: Szkice
     true_value: tak
     false_value: nie
@@ -344,6 +345,7 @@ pl:
       file: Plik
       title: Tytuł
       comment: Dodatkowe informacje
+      artist_name: Artysta
       rank: Kolejność
     site:
       name: Karoryfer Lecolds

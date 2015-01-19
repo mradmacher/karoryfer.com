@@ -1,16 +1,12 @@
 #encoding: utf-8
 require 'test_helper'
-require 'release_helper'
 
 class TrackReleaseTest < ActiveSupport::TestCase
-  FIXTURES_DIR = File.expand_path('../../fixtures', __FILE__)
-  include ReleaseHelper
-
   def setup
     @tmp_dir = Dir.mktmpdir
     Uploader::Release.track_store_dir = @tmp_dir
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
-    @track = Track.sham! file: File.open( File.join( FIXTURES_DIR, 'tracks', "1.wav" ) )
+    @track = Track.sham! file: File.open(File.join(FIXTURES_DIR, 'tracks', "1.wav"))
   end
 
   def teardown
@@ -18,31 +14,42 @@ class TrackReleaseTest < ActiveSupport::TestCase
   end
 
   def test_creates_ogg_release
-    release = Release.create( owner: @track, format: Release::OGG )
+    release = Release.create(owner: @track, format: Release::OGG)
     release.generate!
     check_track_release release
   end
 
   def test_creates_mp3_release
-    release = Release.create( owner: @track, format: Release::MP3 )
+    release = Release.create(owner: @track, format: Release::MP3)
     release.generate!
     check_track_release release
   end
 
-  def expected_release_url( track )
+  def test_creates_mp3_releas_with_overriden_tags
+    @track.artist_name = 'Some artist'
+    release = Release.create(owner: @track, format: Release::MP3)
+    release.generate!
+  end
+
+  def test_creates_ogg_releas_with_overriden_tags
+    @track.artist_name = 'Some artist'
+    release = Release.create(owner: @track, format: Release::OGG)
+    release.generate!
+  end
+
+  def expected_release_url(track)
     "#{Publisher.instance.url}/#{track.artist.reference}/wydawnictwa/#{track.album.reference}"
   end
 
-  def check_track_release( release )
+  def check_track_release(release)
     track = release.owner
     file_path = release.file.path
 
     assert File.exists? file_path
     assert_equal "#{track.id}.#{release.format}", File.basename( file_path )
-    assert_tags file_path, track, Publisher.instance, expected_release_url( track )
 
     (Release::FORMATS - [release.format]).each do |format|
-      assert Dir.glob( File.join( File.dirname( file_path ), "*.#{format}" ) ).empty?
+      assert Dir.glob(File.join(File.dirname(file_path), "*.#{format}")).empty?
     end
 
     #FIXME
@@ -54,4 +61,3 @@ class TrackReleaseTest < ActiveSupport::TestCase
     #assert `file #{file_path}` =~ /#{type}/
   end
 end
-
