@@ -4,6 +4,7 @@ gem 'rails', '4.1.8'
 
 gem 'thin'
 gem 'unicorn'
+gem 'newrelic_rpm'
 gem 'pg'
 gem 'rdiscount'
 gem 'mini_magick'
