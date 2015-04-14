@@ -23,7 +23,7 @@
         :locals => { :author => @presenter.artist, :license => @presenter.license } %>
     <% end %>
     </p>
-    <% if can? :write, @presenter %>
+    <% if can? :write, @presenter.resource %>
       <%=t 'label.release.downloads' %>: <%= @presenter.releases.sum(:downloads) %>
       <ul>
         <% @presenter.releases.each do |release| %>
