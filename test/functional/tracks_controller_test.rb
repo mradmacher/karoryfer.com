@@ -8,13 +8,6 @@ class TracksControllerTest < ActionController::TestCase
     end
   end
 
-  def test_get_new_is_authorized
-    album = Album.sham!
-    assert_authorized :write, Track, album do
-      get :new, artist_id: album.artist.to_param, album_id: album.to_param
-    end
-  end
-
   def test_get_show_is_authorized
     track = Track.sham!(:with_file)
     assert_authorized :read, track do
@@ -44,4 +37,3 @@ class TracksControllerTest < ActionController::TestCase
     end
   end
 end
-

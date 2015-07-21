@@ -32,8 +32,8 @@ Karoryfer::Application.routes.draw do
       member do
         get ':format', to: 'albums#download', as: 'download', constraints: { format: /.{1,4}/ }
       end
-      resources :attachments, path: 'zalaczniki', only: [:show, :new, :create, :destroy]
-      resources :tracks, path: 'sciezki', only: [:show, :new, :edit, :create, :update, :destroy]
+      resources :attachments, path: 'zalaczniki', only: [:index, :show, :create, :destroy]
+      resources :tracks, path: 'sciezki', except: [:new]
     end
     resources :videos, path: 'filmy'
     resources :posts, path: 'wiadomosci'

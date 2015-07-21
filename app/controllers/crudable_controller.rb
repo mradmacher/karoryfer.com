@@ -52,8 +52,6 @@ module CrudableController
     'new'
   end
 
-  private
-
   def build_presenter(obj)
     presenter_class.new(obj, abilities)
   end
