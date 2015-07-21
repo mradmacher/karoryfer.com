@@ -104,6 +104,24 @@ class TrackTest < ActiveSupport::TestCase
     assert track.valid?
   end
 
+  def test_accepts_existing_file_path
+    Settings.filer_root = '/tmp/filer'
+    FileUtils.mkdir_p(Settings.filer_root)
+    FileUtils.cp(File.join(FIXTURES_DIR, '1.wav'), Settings.filer_root)
+    track = Track.sham!(file: '1.wav')
+    assert track.valid?
+    assert track.file?
+  end
+
+  def test_rejects_not_existing_file_path
+    Settings.filer_root = '/tmp/filer'
+    FileUtils.mkdir_p(Settings.filer_root)
+    FileUtils.cp(File.join(FIXTURES_DIR, '1.wav'), Settings.filer_root)
+    track = Track.sham!(file: '2.wav')
+    assert track.valid?
+    refute track.file?
+  end
+
   def test_on_save_places_file_in_proper_dir
     track = Track.sham! file: File.open( File.join( FIXTURES_DIR, '1.wav' ) )
     filename = track.file.identifier

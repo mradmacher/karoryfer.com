@@ -3,23 +3,23 @@
   <div class="row">
     <div class="col-md-8">
       <ul class="list-inline">
-        <% if page_url = Setting.get( 'karoryfer.facebook.url' ) %>
+        <% if page_url = Settings.get('karoryfer.facebook.url') %>
           <li><a href="<%= page_url %>" target="_blank">
             <%= image_tag( 'social/facebook.png', :alt => 'Facebook', :title => 'Facebook' ) %></a></li>
         <% end %>
-        <% if page_url = Setting.get( 'karoryfer.twitter.url' ) %>
+        <% if page_url = Settings.get('karoryfer.twitter.url') %>
           <li><a href="<%= page_url %>" target="_blank">
             <%= image_tag( 'social/twitter.png', :alt => 'Twitter', :title => 'Twitter' ) %></a></li>
         <% end %>
-        <% if page_url = Setting.get( 'karoryfer.flattr.url' ) %>
+        <% if page_url = Settings.get('karoryfer.flattr.url') %>
           <li><a href="<%= page_url %>" target="_blank">
             <%= image_tag( 'social/flattr.png', :alt => 'Flattr', :title => 'Flattr' ) %></a></li>
         <% end %>
-        <% if page_url = Setting.get( 'karoryfer.youtube.url' ) %>
+        <% if page_url = Settings.get('karoryfer.youtube.url') %>
           <li><a href="<%= page_url %>" target="_blank">
             <%= image_tag( 'social/youtube.png', :alt => 'YouTube', :title => 'YouTube' ) %></a></li>
         <% end %>
-        <% if page_url = Setting.get( 'karoryfer.gplus.url' ) %>
+        <% if page_url = Settings.get('karoryfer.gplus.url') %>
           <li><a href="<%= page_url %>" rel="publisher" target="_blank">
             <%= image_tag( 'social/gplus.png', :alt => 'Google+', :title => 'Google+' ) %></a></li>
         <% end %>
@@ -40,6 +40,4 @@
       </ul>
     </div>
   </div>
-
 </div>
-

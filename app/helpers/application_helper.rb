@@ -66,7 +66,7 @@ module ApplicationHelper
     items = []
     items << ['Artyści', artists_url, active == 'artists']
     items <<  ['Wydawnictwa', albums_url, active == 'albums']
-    (Setting.get('highlighted') || []).each do |hc|
+    (Settings.get('highlighted') || []).each do |hc|
       items << [hc['title'], artist_url( hc['reference'] ), active == hc['reference']]
     end
     if current_user?
