@@ -83,8 +83,8 @@
 <% unless @presenter.donation.blank? %>
   <div class="well donations">
     <%=raw @presenter.donation %>
-    <% if Setting.get( 'donations_info_url' ) %>
-      <div><small><i><%= link_to 'Informacja na temat darowizn', Setting.get( 'donations_info_url' ) %></i></small></div>
+    <% if Settings.get('donations_info_url') %>
+      <div><small><i><%= link_to 'Informacja na temat darowizn', Settings.get('donations_info_url') %></i></small></div>
     <% end %>
   </div>
 <% end %>

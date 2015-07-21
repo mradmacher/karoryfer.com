@@ -28,6 +28,7 @@ class Track < ActiveRecord::Base
     end
 
     protected
+
     def secure_token
       var = :"@#{mounted_as}_secure_token"
       model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
@@ -36,6 +37,14 @@ class Track < ActiveRecord::Base
 
   mount_uploader :file, Uploader
   before_destroy :remove_file!
+
+  def file=(value)
+    if value.is_a? String
+      path = Settings.filer.path_to(value)
+      value = File.open(path) if path
+    end
+    super
+  end
 
   def artist
     album.artist unless album.nil?

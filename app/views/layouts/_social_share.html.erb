@@ -1,8 +1,8 @@
 <p>
-<% if page_url = Setting.get( 'karoryfer.twitter.url' ) %>
+<% if page_url = Settings.get('karoryfer.twitter.url') %>
 	<%= link_to image_tag( 'social/twitter.png' ), page_url, :target => '_blank', :class => 'social' -%>
 <% end %>
-<% if page_url = Setting.get( 'karoryfer.facebook.url' ) %>
+<% if page_url = Settings.get('karoryfer.facebook.url') %>
 	<%= link_to image_tag( 'social/facebook.png' ), page_url, :target => '_blank', :class => 'social' -%>
 <% end %>
 </p>
