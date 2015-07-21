@@ -18,9 +18,9 @@ class AttachmentsControllerTest < ActionController::TestCase
     end
   end
 
-  def test_get_new_without_album_is_not_routable
+  def test_get_index_without_album_is_not_routable
     assert_raises ActionController::UrlGenerationError do
-      get :new
+      get :index
     end
   end
 
@@ -50,6 +50,6 @@ class AttachmentsControllerTest < ActionController::TestCase
     allow(:write, attachment)
     delete :destroy, artist_id: attachment.album.artist.to_param,
       album_id: attachment.album.to_param, :id => attachment.to_param
-    assert_redirected_to artist_album_path( attachment.album.artist, attachment.album )
+    assert_redirected_to artist_album_attachments_path(attachment.album.artist, attachment.album)
   end
 end

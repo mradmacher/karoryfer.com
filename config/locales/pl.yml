@@ -195,6 +195,10 @@ pl:
               blank: ^proszę wybrać użytkownika
 
   action:
+    track:
+      index: Utwory
+    attachment:
+      index: Załączniki
     artist:
       new: Dodaj artystę
       edit: Zmień artystę

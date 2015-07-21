@@ -6,6 +6,15 @@
   <% end %>
 </h2>
 <p>
+  <div class="btn-group">
+    <% if can? :write, Track, @presenter.resource %>
+      <a href="<%= artist_album_tracks_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.track.index' %></a>
+    <% end %>
+    <% if can? :write, Attachment, @presenter.resource %>
+      <a href="<%= artist_album_attachments_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.attachment.index' %></a>
+    <% end %>
+  </div>
+  &nbsp;
   <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
 </p>
 
@@ -91,13 +100,8 @@
 
 <%= render_text @presenter.description %>
 
-<% if !@presenter.tracks.empty? or can?(:write, Track, @presenter.resource)%>
+<% if !@presenter.tracks.empty? %>
   <h4><%= t 'title.track.index' %></h4>
-  <% if can? :write, Track, @presenter.resource %>
-    <p>
-      <a href="<%= new_artist_album_track_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
-    </p>
-  <% end %>
   <ol id="tracklist">
     <% @presenter.tracks.each do |track| %>
       <li data-track-id="<%= track.id %>">
@@ -107,16 +111,6 @@
         <% if !track.artist_name.blank? or !track.comment.blank? -%>
           <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
         <% end -%>
-        <% if can? :write, track %>
-          <div class="btn-group pull-right">
-            <a href="<%= edit_artist_album_track_path(@presenter.artist, @presenter.resource, track) %>" class="btn btn-default btn-xs">
-              <%=t 'action.edit' %>
-            </a>
-            <a href="<%= artist_album_track_path(@presenter.artist, @presenter.resource, track) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
-              <%=t 'action.delete' %>
-            </a>
-          </div>
-        <% end %>
       </span>
       <% track.releases.each do |release| %>
         <span data-url="<%= release.file.url %>" data-format="<%= release.format %>" />
@@ -158,23 +152,11 @@
   </div>
 <% end %>
 
-<% if !@presenter.attachments.empty? or can?(:write, Attachment, @presenter.resource) %>
+<% if !@presenter.attachments.empty? %>
   <h4><%= t 'title.attachment.index' %></h4>
-  <% if can? :write, Attachment, @presenter.resource %>
-    <p>
-      <a href="<%= new_artist_album_attachment_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.new' %></a>
-    </p>
-  <% end %>
   <ul>
     <% @presenter.attachments.each do |attachment| %>
-      <li>
-        <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
-        <% if can? :write, attachment %>
-          <a href="<%= artist_album_attachment_path(@presenter.artist, @presenter.resource, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
-            <%=t 'action.delete' %>
-          </a>
-        <% end %>
-      </li>
+      <li><a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a></li>
     <% end %>
   </ul>
 <% end %>

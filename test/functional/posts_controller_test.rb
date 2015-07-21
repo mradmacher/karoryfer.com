@@ -37,4 +37,3 @@ class PostsControllerTest < ActionController::TestCase
     end
   end
 end
-
