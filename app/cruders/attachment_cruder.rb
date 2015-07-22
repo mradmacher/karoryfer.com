@@ -1,10 +1,11 @@
 # Provides access to attachment resource.
 class AttachmentCruder < Cruder
-
-  protected
-
   def resource_class
     Attachment
+  end
+
+  def presenter_class
+    AttachmentPresenter
   end
 
   def resource_scope

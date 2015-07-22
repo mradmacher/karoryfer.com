@@ -2,33 +2,33 @@ module CrudableController
   extend ActiveSupport::Concern
 
   def index
-    @presenters = presenter_class.presenters_for(cruder.index, abilities)
+    @presenters = cruder.index
   end
 
   def show
-    @presenter = build_presenter(cruder.show)
+    @presenter = cruder.show
   end
 
   def edit
-    @presenter = build_presenter(cruder.edit)
+    @presenter = cruder.edit
     render edit_view
   end
 
   def new
-    @presenter = build_presenter(cruder.new)
+    @presenter = cruder.new
   end
 
   def update
     redirect_update(cruder.update)
   rescue Cruder::InvalidResource => e
-    @presenter = build_presenter(e.resource)
+    @presenter = e.resource
     render edit_view
   end
 
   def create
     redirect_create(cruder.create)
   rescue Cruder::InvalidResource => e
-    @presenter = build_presenter(e.resource)
+    @presenter = e.resource
     render new_view
   end
 
@@ -37,9 +37,6 @@ module CrudableController
   end
 
   protected
-
-  def presenter_class
-  end
 
   def cruder
   end
@@ -50,9 +47,5 @@ module CrudableController
 
   def new_view
     'new'
-  end
-
-  def build_presenter(obj)
-    presenter_class.new(obj, abilities)
   end
 end

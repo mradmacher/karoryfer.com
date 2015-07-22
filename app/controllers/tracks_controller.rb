@@ -2,7 +2,7 @@ class TracksController < CurrentAlbumController
   layout :set_layout
 
   def index
-    @presenter = build_presenter(cruder.new)
+    @presenter = cruder.new
     super
   end
 
@@ -31,10 +31,6 @@ class TracksController < CurrentAlbumController
 
   def redirect_destroy(obj)
     redirect_to artist_album_tracks_url(current_artist, current_album)
-  end
-
-  def presenter_class
-    TrackPresenter
   end
 
   def cruder

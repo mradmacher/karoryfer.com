@@ -4,6 +4,10 @@ class PageCruder < Cruder
     Page
   end
 
+  def presenter_class
+    PagePresenter
+  end
+
   def permitted_params
     strong_parameters.require(:page).permit(
       :title,

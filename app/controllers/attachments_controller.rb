@@ -2,7 +2,7 @@ class AttachmentsController < CurrentAlbumController
   layout :set_layout
 
   def index
-    @presenter = build_presenter(cruder.new)
+    @presenter = cruder.new
     super
   end
 
@@ -18,10 +18,6 @@ class AttachmentsController < CurrentAlbumController
 
   def redirect_destroy(obj)
     redirect_to artist_album_attachments_url(current_artist, current_album)
-  end
-
-  def presenter_class
-    AttachmentPresenter
   end
 
   def cruder

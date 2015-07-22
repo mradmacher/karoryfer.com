@@ -1,10 +1,11 @@
 # Provides access to artist resource.
 class ArtistCruder < Cruder
-
-  protected
-
   def resource_class
     Artist
+  end
+
+  def presenter_class
+    ArtistPresenter
   end
 
   def find_method

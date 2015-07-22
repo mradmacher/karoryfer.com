@@ -1,5 +1,5 @@
 class TrackPresenter < Presenter
-  def_delegators(:resource, :title)
+  def_delegators(:resource, :title, :file, :file?)
 
   def available_files
     Settings.filer.list('*.wav')

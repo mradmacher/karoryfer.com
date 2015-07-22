@@ -1,10 +1,11 @@
 # Provides access to video resource.
 class TrackCruder < Cruder
-
-  protected
-
   def resource_class
     Track
+  end
+
+  def presenter_class
+    TrackPresenter
   end
 
   def resource_scope

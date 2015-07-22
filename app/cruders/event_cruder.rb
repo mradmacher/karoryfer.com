@@ -4,6 +4,10 @@ class EventCruder < Cruder
     Event
   end
 
+  def presenter_class
+    EventPresenter
+  end
+
   def permitted_params
     strong_parameters.require(:event).permit(
       :title,

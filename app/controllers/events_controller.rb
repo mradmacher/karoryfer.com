@@ -30,10 +30,6 @@ class EventsController < CurrentArtistController
     redirect_to artist_events_url(current_artist)
   end
 
-  def presenter_class
-    EventPresenter
-  end
-
   def cruder
     EventCruder.new(abilities, params, current_artist)
   end

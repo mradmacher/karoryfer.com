@@ -17,30 +17,30 @@ class Cruder
 
   def index
     authorize! :read, resource_class, owner
-    resource_scope
+    decorate_all(resource_scope)
   end
 
   def show
     resource = resource_scope.send(find_method, params[:id])
     authorize! :read, resource
-    resource
+    decorate(resource)
   end
 
   def new
     authorize! :write, resource_class, owner
-    resource_scope.new
+    decorate(resource_scope.new)
   end
 
   def edit
     resource = resource_scope.send(find_method, params[:id])
     authorize! :write, resource
-    resource
+    decorate(resource)
   end
 
   def create
     authorize! :write, resource_class, owner
     resource = resource_scope.new(permitted_params)
-    fail InvalidResource, resource unless resource.save
+    fail InvalidResource, decorate(resource) unless resource.save
     resource
   end
 
@@ -49,7 +49,7 @@ class Cruder
     authorize! :write, resource
 
     unless resource.update_attributes(permitted_params)
-      fail InvalidResource, resource
+      fail InvalidResource, decorate(resource)
     end
     resource
   end
@@ -59,6 +59,9 @@ class Cruder
     authorize! :write, resource
     resource.destroy
     resource
+  end
+
+  def presenter_class
   end
 
   def resource_class
@@ -85,5 +88,13 @@ class Cruder
 
   def resource_scope
     resource_class.all
+  end
+
+  def decorate_all(objs)
+    presenter_class.nil?? objs : presenter_class.presenters_for(objs, abilities)
+  end
+
+  def decorate(obj)
+    presenter_class.nil?? obj : presenter_class.new(obj, abilities)
   end
 end

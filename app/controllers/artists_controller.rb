@@ -19,10 +19,6 @@ class ArtistsController < CurrentArtistController
     redirect_to artists_url
   end
 
-  def presenter_class
-    ArtistPresenter
-  end
-
   def cruder
     ArtistCruder.new(abilities, params)
   end
