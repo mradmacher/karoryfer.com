@@ -4,6 +4,10 @@ class PostCruder < Cruder
     Post
   end
 
+  def presenter_class
+    PostPresenter
+  end
+
   def permitted_params
     strong_parameters.require(:post).permit(
       :title,

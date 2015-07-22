@@ -1,9 +1,13 @@
 class Settings
   class << self
-    attr_accessor :filer_root
+    attr_writer :filer_root
+
+    def filer_root
+      @filer_root || File.join(Rails.root, 'db', 'ftp')
+    end
 
     def filer
-      Uploader::Filer.new(File.join(Rails.root, 'db', 'ftp'))
+      Uploader::Filer.new(filer_root)
     end
 
     def donations_info_url

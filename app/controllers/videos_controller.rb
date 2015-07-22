@@ -15,10 +15,6 @@ class VideosController < CurrentArtistController
     redirect_to artist_videos_url(current_artist)
   end
 
-  def presenter_class
-    VideoPresenter
-  end
-
   def cruder
     VideoCruder.new(abilities, params, current_artist)
   end

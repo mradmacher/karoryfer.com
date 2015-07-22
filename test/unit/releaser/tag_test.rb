@@ -106,6 +106,7 @@ class TagTest < ActiveSupport::TestCase
       tcop = found.frame_list('TCOP').first
       assert tcop.kind_of? TagLib::ID3v2::TextIdentificationFrame
       assert_equal "#{expected.copyright}. #{expected.copyright_description}", tcop.to_s
+    else
       assert found.frame_list('WCOP').empty?
       assert found.frame_list('WOAF').empty?
       assert found.frame_list('TCOP').empty?

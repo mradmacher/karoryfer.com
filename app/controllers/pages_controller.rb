@@ -15,10 +15,6 @@ class PagesController < CurrentArtistController
     redirect_to artist_url(current_artist)
   end
 
-  def presenter_class
-    PagePresenter
-  end
-
   def cruder
     PageCruder.new(abilities, params, current_artist)
   end

@@ -1,8 +1,5 @@
 # Provides access to user resource.
 class UserCruder < Cruder
-
-  protected
-
   def resource_class
     User
   end

@@ -4,6 +4,10 @@ class VideoCruder < Cruder
     Video
   end
 
+  def presenter_class
+    VideoPresenter
+  end
+
   def permitted_params
     strong_parameters.require(:video).permit(
       :title,
@@ -11,8 +15,6 @@ class VideoCruder < Cruder
       :body
     )
   end
-
-  protected
 
   def resource_scope
     owner.videos

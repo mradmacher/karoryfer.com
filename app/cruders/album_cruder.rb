@@ -1,13 +1,11 @@
 # Provides access to album resource.
 class AlbumCruder < Cruder
-  def index
-    abilities.allow?(:write, Album, owner) ? super : super.published
-  end
-
-  protected
-
   def resource_class
     Album
+  end
+
+  def presenter_class
+    AlbumPresenter
   end
 
   def find_method
@@ -15,7 +13,11 @@ class AlbumCruder < Cruder
   end
 
   def resource_scope
-    owner.albums
+    if abilities.allow?(:write, Album, owner)
+      owner.albums
+    else
+      owner.albums.published
+    end
   end
 
   def permitted_params

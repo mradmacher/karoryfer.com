@@ -15,10 +15,6 @@ class PostsController < CurrentArtistController
     redirect_to artist_post_url(current_artist, obj)
   end
 
-  def presenter_class
-    PostPresenter
-  end
-
   def cruder
     PostCruder.new(abilities, params, current_artist)
   end
