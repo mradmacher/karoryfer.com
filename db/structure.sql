@@ -327,7 +327,6 @@ CREATE TABLE releases (
     file character varying(255),
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
-    generated boolean DEFAULT true NOT NULL,
     downloads integer DEFAULT 0 NOT NULL,
     CONSTRAINT releases_format_check_blank CHECK ((btrim((format)::text) <> ''::text)),
     CONSTRAINT releases_releaseable_check CHECK ((((album_id IS NOT NULL) AND (track_id IS NULL)) OR ((album_id IS NULL) AND (track_id IS NOT NULL))))
@@ -1127,4 +1126,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140728134446');
 INSERT INTO schema_migrations (version) VALUES ('20141205001752');
 
 INSERT INTO schema_migrations (version) VALUES ('20150119150413');
+
+INSERT INTO schema_migrations (version) VALUES ('20150723092758');
 

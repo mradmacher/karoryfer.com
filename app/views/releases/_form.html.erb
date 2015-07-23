@@ -1,0 +1,24 @@
+<%= form_for [current_artist, @album_presenter.resource, resource], :html => {:multipart => true} do |f| %>
+	<%= f.error_messages %>
+  <div class="form-group">
+    <%= f.hidden_field :format, value: Release::ZIP %>
+    <div class="form-group">
+      <%= f.label :format, t('label.release.format') %>
+      <%= f.select :format, [Release::ZIP], class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :file, t( "label.release.file" ) %>
+      <% if resource.file? %>
+        <p class="help-block"><%= File.basename(resource.file.path) %></p>
+        <div class="checkbox">
+          <%= f.label :remove_file do %>
+            <%= f.check_box :remove_file %>
+            <%= t( "action.remove_file" ) %>
+          <% end %>
+        </div>
+      <% end %>
+      <%= f.collection_select :file, @presenter.available_files, :to_s, :to_s, { include_blank: true } %>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
+<% end %>

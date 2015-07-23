@@ -22,4 +22,3 @@ module Uploader
     end
   end
 end
-

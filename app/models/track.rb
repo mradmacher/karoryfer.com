@@ -54,4 +54,3 @@ class Track < ActiveRecord::Base
     album.license unless album.nil?
   end
 end
-

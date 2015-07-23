@@ -11,8 +11,7 @@ class CustomReleaseTest < ActiveSupport::TestCase
     @album = Album.sham! title: 'Największe przeboje', artist: @artist,
       reference: 'najwieksze-przeboje'
     @track = Track.sham! album: @album
-    @file_path = File.join( FIXTURES_DIR, 'attachments', 'att2.pdf' )
-    @other_file_path = File.join( FIXTURES_DIR, 'attachments', 'att1.jpg' )
+    @file_path = File.join(FIXTURES_DIR, 'release.zip')
   end
 
   def teardown
@@ -20,40 +19,29 @@ class CustomReleaseTest < ActiveSupport::TestCase
   end
 
   def test_stores_album_release_without_suffix_if_same_as_extension
-    release = Release.new( format: 'pdf', album: @album, generated: false )
+    release = Release.new(format: Release::ZIP, album: @album)
     release.file = File.open( @file_path )
     release.save
 
     release_file_path = File.join( @tmp_dir, 'albums', 'jeczace-brzekodzwieki',
-      'jeczace-brzekodzwieki-najwieksze-przeboje.pdf' )
-    assert_equal release_file_path, release.file.path
-    assert File.exists? release_file_path
-  end
-
-  def test_stores_album_release_with_suffix
-    release = Release.new( format: 'img', album: @album, generated: false )
-    release.file = File.open( @other_file_path )
-    release.save
-
-    release_file_path = File.join( @tmp_dir, 'albums', 'jeczace-brzekodzwieki',
-      'jeczace-brzekodzwieki-najwieksze-przeboje-img.jpg' )
+      'jeczace-brzekodzwieki-najwieksze-przeboje.zip' )
     assert_equal release_file_path, release.file.path
     assert File.exists? release_file_path
   end
 
   def test_stores_track_release_file
-    release = Release.new( format: 'pdf', track: @track, generated: false )
+    release = Release.new(format: Release::ZIP, track: @track)
     release.file = File.open( @file_path )
     release.save
 
-    release_file_path = File.join( @tmp_dir, 'tracks', (@track.id/1000).to_s, "#{@track.id}.pdf" )
+    release_file_path = File.join(@tmp_dir, 'tracks', (@track.id/1000).to_s, "#{@track.id}.zip")
     assert_equal release_file_path, release.file.path
     assert File.exists? release_file_path
   end
 
   def test_on_delete_removes_album_release
-    release = Release.create( format: 'pdf', album: @album,
-      generated: false, file: File.open( @file_path ) )
+    release = Release.create(format: Release::ZIP, album: @album,
+      file: File.open(@file_path))
     release_file_path = release.file.path
     assert File.exists? release_file_path
     release.destroy
@@ -61,12 +49,11 @@ class CustomReleaseTest < ActiveSupport::TestCase
   end
 
   def test_on_delete_removes_track_release
-    release = Release.create( format: 'pdf', track: @track,
-      generated: false, file: File.open( @file_path ) )
+    release = Release.create(format: Release::ZIP, track: @track,
+      file: File.open(@file_path))
     release_file_path = release.file.path
     assert File.exists? release_file_path
     release.destroy
     refute File.exists? release_file_path
   end
 end
-

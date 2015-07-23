@@ -36,6 +36,11 @@ class Ability
             rules << :read
           end
         end
+      when 'Release'
+        if subject.album.present? && is_member_of?(subject.album.artist_id) && user.publisher?
+          rules << :read
+          rules << :write
+        end
       when 'Album'
         if is_member_of?(subject.artist_id)
           rules << :read
@@ -66,7 +71,7 @@ class Ability
             if user.publisher? && !scope.nil? && is_member_of?(scope.id)
               rules << :write
             end
-          when 'Attachment', 'Track'
+          when 'Attachment', 'Track', 'Release'
             if user.publisher? && !scope.nil? && (scope.class == Album) && is_member_of?(scope.artist_id)
               rules << :read
               rules << :write

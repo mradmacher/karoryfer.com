@@ -196,5 +196,12 @@ class Ability::GuestTest < ActiveSupport::TestCase
     membership = Membership.sham!
     refute @ability.allowed?(:write, membership)
   end
-end
 
+  def test_accessing_release_is_denied
+    release = Release.sham!
+    refute @ability.allowed?(:read, release)
+    refute @ability.allowed?(:write, release)
+    refute @ability.allowed?(:write, Release, release.album)
+    refute @ability.allowed?(:read, Release, release.album)
+  end
+end
