@@ -13,6 +13,9 @@
     <% if can? :write, Attachment, @presenter.resource %>
       <a href="<%= artist_album_attachments_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.attachment.index' %></a>
     <% end %>
+    <% if can? :write, Release, @presenter.resource %>
+      <a href="<%= artist_album_releases_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.release.index' %></a>
+    <% end %>
   </div>
   &nbsp;
   <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>

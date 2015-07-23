@@ -199,6 +199,8 @@ pl:
       index: Utwory
     attachment:
       index: Załączniki
+    release:
+      index: Wydania
     artist:
       new: Dodaj artystę
       edit: Zmień artystę
@@ -256,6 +258,9 @@ pl:
     attachment:
       new: <Nowy załącznik>
       index: Załączniki
+    release:
+      new: <Nowe wydanie>
+      index: Wydania
 
   label:
     release_message: Wydawnictwo jest przygotowywane do pobrania i będzie gotowe za kilka minut. Możesz w tym czasie spokojnie poklikać po stronie. (Your download is being processed. It will be ready in a few minutes. Feel free to use the website in the meantime.)
@@ -343,6 +348,7 @@ pl:
       description: Opis
     release:
       downloads: Ilość pobrań
+      format: Format
     attachment:
       file: Plik
     track:

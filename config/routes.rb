@@ -34,6 +34,7 @@ Karoryfer::Application.routes.draw do
       end
       resources :attachments, path: 'zalaczniki', only: [:index, :show, :create, :destroy]
       resources :tracks, path: 'sciezki', except: [:new]
+      resources :releases, path: 'wydania', except: [:new, :edit]
     end
     resources :videos, path: 'filmy'
     resources :posts, path: 'wiadomosci'

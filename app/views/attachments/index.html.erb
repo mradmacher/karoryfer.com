@@ -23,7 +23,7 @@
   <% end %>
 </ul>
 
-<h3><%= t( 'title.attachment.new' ) %></h3>
+<h3><%=t 'title.attachment.new' %></h3>
 <%= form_for [current_artist, @album_presenter.resource, @presenter.resource], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
   <div class="form-group">

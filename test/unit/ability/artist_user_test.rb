@@ -211,4 +211,24 @@ class Ability::ArtistUserTest < ActiveSupport::TestCase
     @membership.user.save
     assert @ability.allowed?(:write, Album, @membership.artist)
   end
+
+  def test_accessing_release_is_denied
+    album = Album.sham!(:build, artist: @membership.artist)
+    release = Release.sham!(owner: album)
+    refute @ability.allowed?(:read, release)
+    refute @ability.allowed?(:write, release)
+    refute @ability.allowed?(:read, Release, release.album)
+    refute @ability.allowed?(:write, Release, release.album)
+  end
+
+  def test_accessing_release_as_publisher_is_allowed
+    @membership.user.publisher = true
+    @membership.user.save
+    album = Album.sham!(:build, artist: @membership.artist)
+    release = Release.sham!(owner: album)
+    assert @ability.allowed?(:read, release)
+    assert @ability.allowed?(:write, release)
+    assert @ability.allowed?(:read, Release, release.album)
+    assert @ability.allowed?(:write, Release, release.album)
+  end
 end

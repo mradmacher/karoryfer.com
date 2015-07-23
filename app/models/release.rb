@@ -4,7 +4,8 @@ class Release < ActiveRecord::Base
   OGG = 'ogg'
   FLAC = 'flac'
   MP3 = 'mp3'
-  FORMATS = [MP3, OGG, FLAC]
+  ZIP = 'zip'
+  FORMATS = [MP3, OGG, FLAC, ZIP]
 
   belongs_to :album
   belongs_to :track
@@ -13,13 +14,16 @@ class Release < ActiveRecord::Base
 
   validate :owner_presence
   validates :format, presence: true
-  validates :format, inclusion: {
-    in: ['ogg', 'mp3', 'flac'] }, if: :generated?
+  validates :format, inclusion: { in: FORMATS }
   validates :file, presence: true, unless: :generated?
 
   mount_uploader :file, Uploader::Release
 
   scope :in_format, -> (format) { where( format: format ) }
+
+  def generated?
+    [MP3, OGG, FLAC].include?(format)
+  end
 
   def generate!
     releaser = if owner.is_a? Album
@@ -60,6 +64,14 @@ class Release < ActiveRecord::Base
     else
       self.album
     end
+  end
+
+  def file=(value)
+    if value.is_a? String
+      path = Settings.filer.path_to(value)
+      value = File.open(path) if path
+    end
+    super
   end
 
   private

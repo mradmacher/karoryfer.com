@@ -39,9 +39,8 @@ class ReleaseTest < ActiveSupport::TestCase
     end
   end
 
-  def test_validates_format_inclusion_if_generated
+  def test_validates_format_inclusion
     release = Release.sham! :build
-    release.generated = true
     ['oga', 'mp', 'floc'].each do |format|
       release.format = format
       refute release.valid?
@@ -49,30 +48,20 @@ class ReleaseTest < ActiveSupport::TestCase
         'activerecord.errors.models.release.attributes.format.inclusion' )
     end
 
-    ['ogg', 'mp3', 'flac'].each do |format|
+    Release::FORMATS.each do |format|
       release.format = format
       assert release.valid?
     end
-
-    release.generated = false
-    ['oga', 'mp5', 'floc'].each do |format|
-      release.format = format
-      assert release.valid?
-    end
-  end
-
-  def test_is_generated_by_default
-    release = Release.new
-    assert release.generated?
   end
 
   def test_requires_file_unless_generated
     release = Release.sham! :build
     release.remove_file!
-    release.generated = true
-    assert release.valid?
-    release.generated = false
+    [Release::MP3, Release::OGG, Release::FLAC].each do |format|
+      release.format = format
+      assert release.valid?
+    end
+    release.format = Release::ZIP
     refute release.valid?
   end
 end
-
