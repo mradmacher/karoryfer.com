@@ -1,6 +1,6 @@
 <% if album_presenter.image? %>
 <p>
-  <a href="<%= album_presenter.show_path %>">
+  <a href="<%= album_presenter.path %>">
     <%= image_tag(album_presenter.image.icon.url, alt: album_presenter.title, class: 'img-rounded img-polaroid img-responsive') %>
   </a>
 </p>
@@ -8,4 +8,4 @@
 <% unless current_artist? %>
   <p><%= album_presenter.artist.name %></p>
 <% end %>
-<p><a href="<%= album_presenter.show_path %>"><%= album_presenter.title %></a></p>
+<p><a href="<%= album_presenter.path %>"><%= album_presenter.title %></a></p>

@@ -1,55 +1,54 @@
-<%= render_title @user.login, t( 'title.user.index' ) %>
+<%= render_title @presenter.login, t('title.user.index') %>
 <h1><%= t 'title.user.index' %></h1>
-<h2><%= @user.login %></h2>
+<h2><%= @presenter.login %></h2>
 <p>
   <div class="btn-group">
-  <% if can? :write, @user %>
-      <a href="<%= admin_edit_password_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit_password' %></a>
-      <a href="<%= edit_admin_user_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit' %></a>
-      <a href="<%= admin_user_path(@user) %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.user.destroy' %></a>
+  <% if can? :write, @presenter.resource %>
+      <a href="<%= @presenter.edit_password_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit_password' %></a>
+      <a href="<%= @presenter.edit_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit' %></a>
+      <a href="<%= @presenter.path %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.user.destroy' %></a>
     <% end %>
   </div>
 </p>
 <dl class="dl-horizontal">
 	<dt><%=t 'label.user.login' %></dt>
-		<dd><%= @user.login %></dd>
-  <% unless @user.email.blank? %>
+		<dd><%= @presenter.login %></dd>
+  <% unless @presenter.email.blank? %>
     <dt><%=t 'label.user.email' %></dt>
-      <dd><%= @user.email %></dd>
+      <dd><%= @presenter.email %></dd>
   <% end %>
 	<dt><%=t 'label.user.admin' %></dt>
-		<dd><%= @user.admin? ? t( 'label.true_value' ) : t( 'label.false_value' )%></dd>
+		<dd><%= @presenter.admin? ? t('label.true_value') : t('label.false_value')%></dd>
 	<dt><%=t 'label.user.publisher' %></dt>
-		<dd><%= @user.publisher? ? t( 'label.true_value' ) : t( 'label.false_value' )%></dd>
+		<dd><%= @presenter.publisher? ? t('label.true_value') : t('label.false_value')%></dd>
 	<dt><%=t 'label.user.login_count' %></dt>
-		<dd><%= @user.login_count %></dd>
+		<dd><%= @presenter.login_count %></dd>
 	<dt><%=t 'label.user.failed_login_count' %></dt>
-		<dd><%= @user.failed_login_count %></dd>
+		<dd><%= @presenter.failed_login_count %></dd>
 	<dt><%=t 'label.user.last_login_at' %></dt>
-		<dd><%=l( @user.last_login_at ) if @user.last_login_at %></dd>
+		<dd><%=l( @presenter.last_login_at ) if @presenter.last_login_at %></dd>
 	<dt><%=t 'label.user.created_at' %></dt>
-		<dd><%=l @user.created_at %></dd>
+		<dd><%=l @presenter.created_at %></dd>
 	<dt><%=t 'label.user.updated_at' %></dt>
-		<dd><%=l @user.updated_at %></dd>
+		<dd><%=l @presenter.updated_at %></dd>
 </dl>
 <h3><%=t 'title.membership.index' %></h3>
 <ul class="user-memberships">
-  <% @user.memberships.each do |membership| %>
+  <% @presenter.memberships.each do |membership| %>
     <li><%= membership.artist.name %>
-      <% if can? :write, membership %>
-        <%= link_to t( 'action.membership.destroy' ), admin_membership_path( membership ), :method => :delete, :class => 'btn btn-warning btn-xs' %>
+      <% if can? :write_membership, @presenter.resource %>
+        <%= link_to t('action.membership.destroy'), admin_user_membership_path(@presenter.resource, membership), :method => :delete, :class => 'btn btn-warning btn-xs' %>
       <% end %>
     </li>
   <% end %>
 </ul>
-<% if can? :write, Membership, @user %>
-  <%= form_for [:admin, @membership] do |f| %>
+<% if can? :write_membership, @presenter.resource %>
+  <%= form_for [:admin, @presenter.resource, @membership] do |f| %>
     <%= f.hidden_field :user_id %>
     <div class="form-group">
-      <%= f.label :artist_id, t( "label.membership.artist_id" ) %>
-      <%= f.collection_select :artist_id, @user.other_artists, :id, :name %>
+      <%= f.label :artist_id, t('label.membership.artist_id') %>
+      <%= f.collection_select :artist_id, @presenter.other_artists, :id, :name %>
     </div>
     <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
   <% end %>
 <% end %>
-

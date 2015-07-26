@@ -5,9 +5,9 @@
     <small><%= t('label.album.unpublished') %></span>
   <% end %>
 </h2>
-<h3><%= t 'title.attachment.index' %></h3>
+<h3><%= t 'title.release.index' %></h3>
 <p>
-  <a href="<%= @album_presenter.show_path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+  <a href="<%= @album_presenter.path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
 
 <ul>
@@ -26,5 +26,7 @@
   <% end %>
 </ul>
 
-<h3><%=t 'title.release.new' %></h3>
-<%= render :partial => 'form', locals: { resource: @presenter.resource } %>
+<% if can? :write, Release %>
+  <h3><%=t 'title.release.new' %></h3>
+  <%= render :partial => 'form', locals: { resource: @presenter.resource } %>
+<% end %>

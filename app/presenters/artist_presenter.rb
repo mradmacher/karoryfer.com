@@ -4,32 +4,32 @@ class ArtistPresenter < Presenter
   alias :artist :resource
   alias :title :name
 
-  def _path
+  def path
     artist_path(resource)
   end
 
-  def _edit_path
+  def edit_path
     edit_artist_path(resource)
   end
 
   def new_page_path
-    new_artist_page_path(artist) if can_create_pages?
+    new_artist_page_path(artist)
   end
 
   def new_event_path
-    new_artist_event_path(artist) if can_create_events?
+    new_artist_event_path(artist)
   end
 
   def new_post_path
-    new_artist_post_path(artist) if can_create_posts?
+    new_artist_post_path(artist)
   end
 
   def new_video_path
-    new_artist_video_path(artist) if can_create_videos?
+    new_artist_video_path(artist)
   end
 
   def new_album_path
-    new_artist_album_path(artist) if can_create_albums?
+    new_artist_album_path(artist)
   end
 
   def events_path
@@ -127,25 +127,31 @@ class ArtistPresenter < Presenter
     !recent_albums.empty? or can_create_albums?
   end
 
-  private
+  def can_be_updated?
+    abilities.allow?(:write, artist)
+  end
+
+  def can_be_deleted?
+    abilities.allow?(:write, artist)
+  end
 
   def can_create_pages?
-    abilities.allow?(:write, Page, artist)
+    abilities.allow?(:write_page, artist)
   end
 
   def can_create_events?
-    abilities.allow?(:write, Event, artist)
+    abilities.allow?(:write_event, artist)
   end
 
   def can_create_posts?
-    abilities.allow?(:write, Post, artist)
+    abilities.allow?(:write_post, artist)
   end
 
   def can_create_videos?
-    abilities.allow?(:write, Video, artist)
+    abilities.allow?(:write_video, artist)
   end
 
   def can_create_albums?
-    abilities.allow?(:write, Album, artist)
+    abilities.allow?(:write_album, artist)
   end
 end

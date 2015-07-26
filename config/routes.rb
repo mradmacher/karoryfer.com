@@ -4,8 +4,9 @@ Karoryfer::Application.routes.draw do
     get 'login' => "user_sessions#new", :as => :login
     get 'logout' => "user_sessions#destroy", :as => :logout
     scope path_names: { edit: 'zmien', new: 'dodaj' } do
-      resources :users, path: 'uzytkownicy'
-      resources :memberships, only: [:create, :destroy]
+      resources :users, path: 'uzytkownicy' do
+        resources :memberships, only: [:create, :destroy]
+      end
     end
     get 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
   end

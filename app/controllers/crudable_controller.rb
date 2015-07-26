@@ -19,21 +19,21 @@ module CrudableController
   end
 
   def update
-    redirect_update(cruder.update)
+    redirect_to update_redirect_path(cruder.update)
   rescue Cruder::InvalidResource => e
     @presenter = e.resource
     render edit_view
   end
 
   def create
-    redirect_create(cruder.create)
+    redirect_to create_redirect_path(cruder.create)
   rescue Cruder::InvalidResource => e
     @presenter = e.resource
     render new_view
   end
 
   def destroy
-    redirect_destroy(cruder.destroy)
+    redirect_to destroy_redirect_path(cruder.destroy)
   end
 
   protected
@@ -47,5 +47,13 @@ module CrudableController
 
   def new_view
     'new'
+  end
+
+  def update_redirect_path(presenter)
+    presenter.path
+  end
+
+  def create_redirect_path(presenter)
+    presenter.path
   end
 end

@@ -28,14 +28,14 @@
 
     <div class="col-md-4">
       <ul class="list-inline">
-        <% if current_user? -%>
+        <% if can? :read, current_user -%>
           <li class="pull-right"><a href="<%= admin_logout_url %>" class="btn btn-default btn-xs">Pa</a></li>
           <li class="pull-right"><a href="<%= admin_user_path(current_user) %>" class="btn btn-default btn-xs">Moje konto</a></li>
         <% else -%>
           <li class="pull-right"><a href="<%= admin_login_url %>" class="btn btn-default btn-xs">Zaloguj się</a></li>
         <% end %>
-        <% if can? :write, User %>
-          <li class="pull-right"><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t( 'title.user.index' ) %></a></li>
+        <% if can? :read, :user %>
+          <li class="pull-right"><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t('title.user.index') %></a></li>
         <% end %>
       </ul>
     </div>

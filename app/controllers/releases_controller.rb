@@ -18,16 +18,15 @@ class ReleasesController < CurrentAlbumController
 
   private
 
-  def redirect_create(obj)
-    redirect_to artist_album_releases_url(current_artist, current_album)
+  def create_redirect_path(obj)
+    artist_album_releases_url(current_artist, current_album)
   end
 
-  def redirect_destroy(obj)
-    redirect_to artist_album_releases_url(current_artist, current_album)
+  def destroy_redirect_path(obj)
+    artist_album_releases_url(current_artist, current_album)
   end
 
   def cruder
     ReleaseCruder.new(abilities, params, current_album)
   end
 end
-

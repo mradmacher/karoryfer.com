@@ -18,16 +18,8 @@ class EventsController < CurrentArtistController
 
   private
 
-  def redirect_update(obj)
-    redirect_to artist_event_url(current_artist, obj)
-  end
-
-  def redirect_create(obj)
-    redirect_to artist_event_url(current_artist, obj)
-  end
-
-  def redirect_destroy(obj)
-    redirect_to artist_events_url(current_artist)
+  def destroy_redirect_path(obj)
+    artist_events_url(current_artist)
   end
 
   def cruder

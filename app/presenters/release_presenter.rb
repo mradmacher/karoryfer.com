@@ -5,11 +5,19 @@ class ReleasePresenter < Presenter
     Settings.filer.list('*.zip')
   end
 
-  def _path
+  def path
     artist_album_release_path(resource.album.artist, resource.album, resource)
   end
 
-  def _edit_path
+  def edit_path
     edit_artist_album_release_path(resource.album.artist, resource.album, resource)
+  end
+
+  def can_be_updated?
+    abilities.allow?(:write_release, resource.album)
+  end
+
+  def can_be_deleted?
+    can_be_updated?
   end
 end

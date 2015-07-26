@@ -10,7 +10,7 @@
         <ul class="event-list">
           <% @recent_events.each_with_index do |presenter, i| %>
             <li>
-              <a href="<%= presenter.show_path %>"><%= event_date(presenter.resource) %></a> - <%= presenter.artist.name %>
+              <a href="<%= presenter.path %>"><%= event_date(presenter.resource) %></a> - <%= presenter.artist.name %>
               <br />
               <%= presenter.title %>
             </li>
@@ -30,7 +30,7 @@
         <% @recent_posts.each do |presenter| %>
           <li>
             <%= presenter.artist.name %><br />
-            <a href="<%= presenter.show_path %>"><%= presenter.title %></a>
+            <a href="<%= presenter.path %>"><%= presenter.title %></a>
           </li>
         <% end %>
         </ul>
@@ -48,7 +48,7 @@
         <% @recent_videos.each do |presenter| %>
           <li>
             <%= presenter.artist.name %><br />
-            <a href="<%= presenter.show_path %>"><%= presenter.title %></a>
+            <a href="<%= presenter.path %>"><%= presenter.title %></a>
           </li>
         <% end %>
         </ul>

@@ -29,7 +29,7 @@ class PagesControllerTest < ActionController::TestCase
 
   def test_get_edit_for_artist_user_displays_form
     membership = login_artist_user
-    page = Page.sham!( artist: membership.artist )
+    page = Page.sham!(artist: membership.artist)
     get :edit, artist_id: page.artist.to_param, id: page.to_param
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.page.title' )

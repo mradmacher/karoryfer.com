@@ -7,13 +7,13 @@
 </h2>
 <p>
   <div class="btn-group">
-    <% if can? :write, Track, @presenter.resource %>
+    <% if can? :write_track, @presenter.resource %>
       <a href="<%= artist_album_tracks_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.track.index' %></a>
     <% end %>
-    <% if can? :write, Attachment, @presenter.resource %>
+    <% if can? :write_attachment, @presenter.resource%>
       <a href="<%= artist_album_attachments_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.attachment.index' %></a>
     <% end %>
-    <% if can? :write, Release, @presenter.resource %>
+    <% if can? :write_release, @presenter.resource%>
       <a href="<%= artist_album_releases_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.release.index' %></a>
     <% end %>
   </div>

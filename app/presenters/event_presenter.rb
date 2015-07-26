@@ -5,11 +5,19 @@ class EventPresenter < Presenter
     :price, :free_entrance?,
     :recognized_external_urls, :artist)
 
-  def _path
+  def path
     artist_event_path(resource.artist, resource)
   end
 
-  def _edit_path
+  def edit_path
     edit_artist_event_path(resource.artist, resource)
+  end
+
+  def can_be_updated?
+    abilities.allow?(:write_event, resource.artist)
+  end
+
+  def can_be_deleted?
+    can_be_updated?
   end
 end

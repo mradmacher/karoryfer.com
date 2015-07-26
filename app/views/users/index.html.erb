@@ -1,14 +1,14 @@
-<%= render_title t( 'title.user.index' ) %>
+<%= render_title t('title.user.index') %>
 <h1><%=t 'title.user.index' %></h1>
 <% content_for :actions do %>
 	<ul>
 		<% if can? :write, User %>
-			<%= link_to_action t( 'action.user.new' ), new_admin_user_path %>
+			<%= link_to_action t('action.user.new'), new_admin_user_path %>
 		<% end %>
 	</ul>
 <% end %>
 <ul>
-	<% @users.each do |user| %>
-		<li><%= link_to user.login, admin_user_path( user ) %></li>
+	<% @presenters.each do |presenter| %>
+		<li><%= link_to presenter.login, presenter.path %></li>
 	<% end %>
 </ul>

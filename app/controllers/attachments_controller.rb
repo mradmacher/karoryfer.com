@@ -12,12 +12,12 @@ class AttachmentsController < CurrentAlbumController
 
   private
 
-  def redirect_create(obj)
-    redirect_to artist_album_attachments_url(current_artist, current_album)
+  def create_redirect_path(obj)
+    artist_album_attachments_url(current_artist, current_album)
   end
 
-  def redirect_destroy(obj)
-    redirect_to artist_album_attachments_url(current_artist, current_album)
+  def destroy_redirect_path(obj)
+    artist_album_attachments_url(current_artist, current_album)
   end
 
   def cruder

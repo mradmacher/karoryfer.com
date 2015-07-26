@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   rescue_from User::AccessDenied, :with => Proc.new { redirect_to admin_login_url } if Rails.env != 'test'
 
-  helper_method :abilities, :can?
+  helper_method :can?
 
   def abilities=(abilities)
     @abilities = abilities
@@ -17,12 +17,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def can?(action, subject, scope = nil)
-    abilities.allowed?(action, subject, scope)
+  def can?(action, subject)
+    abilities.allow?(action, subject)
   end
 
-  def authorize!(action, subject, scope = nil)
-    raise User::AccessDenied unless abilities.allowed?(action, subject, scope)
+  def authorize!(action, subject)
+    raise User::AccessDenied unless abilities.allowed?(action, subject)
   end
 
   private
@@ -41,14 +41,14 @@ class ApplicationController < ActionController::Base
 
   def set_current_artist
     @current_artist = if params[:controller] == 'artists'
-      params[:id] ? Artist.find_by_reference( params[:id] ) : nil
+      params[:id] ? Artist.find_by_reference(params[:id]) : nil
     else
-      params[:artist_id] ? Artist.find_by_reference( params[:artist_id] ) : nil
+      params[:artist_id] ? Artist.find_by_reference(params[:artist_id]) : nil
     end
   end
 
   def current_user_session
-    return @current_user_session if defined?( @current_user_session )
+    return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
   end
 
@@ -80,6 +80,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
   def set_layout
     current_artist?? 'current_artist' : 'application'
   end
