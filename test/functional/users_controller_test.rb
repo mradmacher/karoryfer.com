@@ -46,18 +46,18 @@ class UsersControllerTest < ActionController::TestCase
   def test_not_authorized_get_show_does_not_displays_delete_actions_for_memberships
     user = User.sham!
     allow(:read,  user)
-    membership = Membership.sham!( user: user )
+    membership = Membership.sham!(user: user)
     get :show, :id => user.to_param
-    assert_select 'a[href=?][data-method=delete]', admin_membership_path( membership ), 0
+    assert_select 'a[href=?][data-method=delete]', admin_user_membership_path(user, membership), 0
   end
 
   def test_authorized_get_show_displays_delete_actions_for_memberships
     user = User.sham!
     membership = Membership.sham!(user: user)
     allow(:read, user)
-    allow(:write, membership)
+    allow(:write_membership, user)
     get :show, :id => user.to_param
-    assert_select 'a[href=?][data-method=delete]', admin_membership_path(membership)
+    assert_select 'a[href=?][data-method=delete]', admin_user_membership_path(user, membership)
   end
 
   def test_authorized_get_edit_for_user_displays_headers
@@ -85,7 +85,7 @@ class UsersControllerTest < ActionController::TestCase
 
 
   def test_authorized_get_index_succeeds
-    allow(:read, User)
+    allow(:read, :user)
     get :index
     assert_response :success
   end
@@ -105,10 +105,10 @@ class UsersControllerTest < ActionController::TestCase
   def test_authorized_get_show_for_admin_displays_form_to_add_membership
     user = User.sham!
     allow(:read, user)
-    allow(:write, Membership, user)
+    allow(:write_membership, user)
     get :show, :id => user.to_param
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'label.membership.artist_id' )
+      assert_select 'label', I18n.t('label.membership.artist_id')
       assert_select 'select[name=?]', 'membership[artist_id]'
       assert_select 'input[type=hidden][name=?]', 'membership[user_id]'
     end
@@ -117,7 +117,7 @@ class UsersControllerTest < ActionController::TestCase
   def test_authorized_get_show_for_admin_displays_on_form_only_artist_user_is_not_member_of
     user = User.sham!
     allow(:read, user)
-    allow(:write, Membership, user)
+    allow(:write_membership, user)
     membership = Membership.sham!(user: user)
     artist = Artist.sham!
     get :show, :id => user.to_param
@@ -130,20 +130,20 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   def test_authorized_get_new_succeeds
-    allow(:write, User)
+    allow(:write, :user)
     get :new
     assert_response :success
   end
 
   def test_authorized_get_new_displays_headers
-    allow(:write, User)
+    allow(:write, :user)
     get :new
     assert_title CGI.escape_html( I18n.t( 'title.user.new' ) ), I18n.t( 'title.user.index' )
     assert_headers I18n.t( 'title.user.index' ), CGI.escape_html( I18n.t( 'title.user.new' ) )
   end
 
   def test_authorized_get_index_displays_headers
-    allow(:read, User)
+    allow(:read, :user)
     get :index
     assert_select "title", build_title( I18n.t( 'title.user.index' ) )
     assert_select "h1", I18n.t( 'title.user.index' )

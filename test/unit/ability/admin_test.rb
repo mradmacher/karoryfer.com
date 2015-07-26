@@ -1,79 +1,36 @@
 require 'test_helper'
+require_relative 'for_user'
+require_relative 'for_artist_user'
 
 class Ability::AdminTest < ActiveSupport::TestCase
   def setup
-    @ability = Ability.new(User.sham!(:build, :admin))
+    @user = User.sham!
+    @artist = Artist.sham!
+    @album = Album.sham!
+    @membership = Membership.sham!
+    @account = @membership.user
+    @account.update_attributes(admin: true)
+    @account_artist = @membership.artist
+    @account_album = Album.sham!(artist: @account_artist)
+    @ability = Ability.new(@account)
   end
 
-  def test_write_album_is_denied
-    album = Album.sham!(:build)
-    refute @ability.allowed?(:write, album)
+  include Ability::ForUser
+  include Ability::ForArtistUser
+
+  def test_creating_artist_as_admin_is_allowed
+    assert @ability.allows?(:write, :artist)
   end
 
-  def test_create_album_is_denied
-    artist = Artist.sham!
-    refute @ability.allowed?(:write, Album)
-    refute @ability.allowed?(:write, Album, artist)
+  def test_accessing_user_resources_as_admin_is_allowed
+    assert @ability.allows?(:read, :user)
+    assert @ability.allows?(:read, @user)
+    assert @ability.allows?(:read_membership, @user)
   end
 
-  def test_write_attachment_is_denied
-    attachment = Attachment.sham!(:build)
-    refute @ability.allowed?(:write, attachment)
-  end
-
-  def test_create_attachment_is_denied
-    album = Album.sham!
-    refute @ability.allowed?(:write, Attachment)
-    refute @ability.allowed?(:write, Attachment, album)
-  end
-
-  def test_write_track_is_denied
-    track = Track.sham!(:build)
-    refute @ability.allowed?(:write, track)
-  end
-
-  def test_create_track_is_denied
-    album = Album.sham!
-    refute @ability.allowed?(:write, Track)
-    refute @ability.allowed?(:write, Track, album)
-  end
-
-  def test_create_artist_is_allowed
-    assert @ability.allowed?(:write, Artist)
-  end
-
-  def test_read_user_is_allowed
-    user = User.sham!
-    assert @ability.allowed?(:read, user)
-  end
-
-  def test_read_users_is_allowed
-    assert @ability.allowed?(:read, User)
-  end
-
-  def test_write_user_is_allowed
-    user = User.sham!
-    assert @ability.allowed?(:read, user)
-  end
-
-  def test_create_user_is_allowed
-    assert @ability.allowed?(:read, User)
-  end
-
-  def test_read_membership_is_allowed
-    membership = Membership.sham!
-    assert @ability.allowed?(:read, membership)
-  end
-
-  def test_write_membership_is_allowed
-    membership = Membership.sham!
-    assert @ability.allowed?(:write, membership)
-  end
-
-  def test_create_membership_is_allowed
-    user = User.sham!
-    refute @ability.allowed?(:write, Membership)
-    assert @ability.allowed?(:write, Membership, user)
+  def test_managing_user_resources_as_admin_is_allowed
+    assert @ability.allows?(:write, :user)
+    assert @ability.allows?(:write, @user)
+    assert @ability.allows?(:write_membership, @user)
   end
 end
-

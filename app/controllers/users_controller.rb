@@ -1,47 +1,26 @@
 class UsersController < ApplicationController
-  def index
-    @users = cruder.index
-  end
+  include CrudableController
 
   def show
-    @user = cruder.show
+    @presenter = cruder.show
     @membership = Membership.new
-    @membership.user = @user
-  end
-
-  def new
-    @user = cruder.new
-  end
-
-  def edit
-    @user = cruder.edit
+    @membership.user = @presenter.resource
   end
 
   def edit_password
-    @user = cruder.edit
-  end
-
-  def update
-    redirect_to admin_user_url(cruder.update)
-  rescue Resource::InvalidResource => e
-    @user = e.cruder
-    render action: (request.referrer == admin_edit_password_url(@user) ?
-      'edit_password' : 'edit')
-  end
-
-  def create
-    redirect_to admin_user_url(cruder.create)
-  rescue Resource::InvalidResource => e
-    @user = e.cruder
-    render :action => 'new'
-  end
-
-  def destroy
-    user = cruder.destroy
-    redirect_to (user == current_user ? root_url : admin_users_url)
+    @presenter = cruder.edit
   end
 
   private
+
+  def edit_view
+    request.referrer == admin_edit_password_url(@presenter.resource) ?
+      'edit_password' : 'edit'
+  end
+
+  def destroy_redirect_path(obj)
+    obj == current_user ? root_url : admin_users_url
+  end
 
   def cruder
     UserCruder.new(abilities, params)

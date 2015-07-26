@@ -16,7 +16,8 @@ class UserCruderTest < ActiveSupport::TestCase
   def test_allows_mass_assignment_of_admin_flag_by_admin
     user = User.sham!
     other_user = User.sham!(admin: false)
-    with_permission_to :write, User do |abilities|
+    with_permission_to :write, other_user do |abilities|
+      abilities.allow(:write, :user)
       cruder({ id: other_user.to_param,
         user: { admin: true } }, abilities).update
     end
@@ -36,9 +37,10 @@ class UserCruderTest < ActiveSupport::TestCase
   end
 
   def test_allows_mass_assignment_of_publisher_flag_by_admin
-    user = User.sham!(:admin)
+    user = User.sham!
     other_user = User.sham!(publisher: false)
-    with_permission_to :write, User do |abilities|
+    with_permission_to :write, other_user do |abilities|
+      abilities.allow(:write, :user)
       cruder({ id: other_user.to_param,
         user: { publisher: true } }, abilities).update
     end

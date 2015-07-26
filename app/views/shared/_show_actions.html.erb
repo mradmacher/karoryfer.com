@@ -1,8 +1,8 @@
 <div class="btn-group">
-  <% presenter.with_edit_path do |path| %>
-    <a href="<%= path %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
+  <% if presenter.can_be_updated? %>
+    <a href="<%= presenter.edit_path %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
   <% end %>
-  <% presenter.with_destroy_path do |path| %>
-    <a href="<%= path %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
+  <% if presenter.can_be_deleted? %>
+    <a href="<%= presenter.path %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.delete' %></a>
   <% end %>
 </div>

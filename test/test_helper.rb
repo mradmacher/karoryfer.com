@@ -27,57 +27,32 @@ Publisher.instance.url = 'http://www.lecolds.com'
 
 class ActiveSupport::TestCase
   class TestAbility
+    attr_accessor :scope
+
     def initialize
       @allowed = []
     end
 
-    def allow(action, subject, scope = nil)
-      @allowed << [action, subject, scope]
+    def allow(action, subject)
+      @allowed << [action, subject]
     end
 
-    def allowed?(action, subject, scope = nil)
-      !@allowed.select{ |e| match_action?(e[0], action) and match_subject?(e[1], subject) and e[2] == scope }.empty?
-    end
-    alias :allow? :allowed?
-
-    private
-
-    def match_action?(expected, actual)
-      expected == actual
+    def allow?(action, subject)
+      @allowed.detect{ |e| (e[0] == action) && (e[1] == subject) }
     end
 
-    def match_subject?(expected, actual)
-      if expected.class == Class and actual.class == Class
-        expected == actual
-      elsif expected.class == Class
-        expected == actual.class
-      else
-        expected == actual
-      end
-    end
+    alias :allows? :allow?
   end
 
-  def with_permission_to(action, subject, scope = nil)
+  def with_permission_to(action, subject)
     abilities = TestAbility.new
-    abilities.allow(action, subject, scope)
+    abilities.allow(action, subject)
     yield abilities
   end
 
   def without_permissions
     yield TestAbility.new
   end
-
-  def assert_authorization(action, subject, scope = nil, &block)
-    abilities = TestAbility.new
-    assert_raises User::AccessDenied do
-      block.call(abilities)
-    end
-    abilities.allow(action, subject, scope)
-    assert_nothing_raised User::AccessDenied do
-      block.call(abilities)
-    end
-  end
-
 
   DEFAULT_TITLE = 'Karoryfer Lecolds'
   TITLE_SEPARATOR = ' - '
@@ -87,7 +62,7 @@ class ActiveSupport::TestCase
     args.join TITLE_SEPARATOR
   end
 
-  def assert_headers( h1, h2 = nil, h3 = nil )
+  def assert_headers(h1, h2 = nil, h3 = nil)
     assert_select "h1", h1
     assert_select "h2", h2 unless h2.nil?
     assert_select "h3", h3 unless h3.nil?
@@ -120,12 +95,12 @@ class ActiveSupport::TestCase
     membership
   end
 
-  def allow(action, subject, scope = nil)
+  def allow(action, subject)
     activate_authlogic
     unless @controller.abilities.class == TestAbility
       @controller.abilities = TestAbility.new
     end
-    @controller.abilities.allow(action, subject, scope)
+    @controller.abilities.allow(action, subject)
   end
 
   def deny(action, subject)
@@ -133,13 +108,13 @@ class ActiveSupport::TestCase
     @controller.abilities = TestAbility.new
   end
 
-  def assert_authorized(action, subject, scope = nil, &block)
+  def assert_authorized(action, subject, &block)
     activate_authlogic
     @controller.abilities = TestAbility.new
     assert_raises User::AccessDenied do
       block.call
     end
-    @controller.abilities.allow(action, subject, scope)
+    @controller.abilities.allow(action, subject)
     assert_nothing_raised User::AccessDenied do
       block.call
     end

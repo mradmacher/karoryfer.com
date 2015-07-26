@@ -7,16 +7,8 @@ class ArtistsController < CurrentArtistController
     'edit'
   end
 
-  def redirect_update(obj)
-    redirect_to artist_url(obj)
-  end
-
-  def redirect_create(obj)
-    redirect_to artist_url(obj)
-  end
-
-  def redirect_destroy(obj)
-    redirect_to artists_url
+  def destroy_redirect_path(obj)
+    artists_url
   end
 
   def cruder

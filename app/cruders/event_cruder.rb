@@ -1,11 +1,34 @@
 # Provides access to event resource.
-class EventCruder < Cruder
-  def resource_class
-    Event
+class EventCruder < SimpleCruder
+  attr_reader :artist
+
+  def initialize(abilities, params, artist)
+    super(abilities, params)
+    @artist = artist
   end
 
-  def presenter_class
-    EventPresenter
+  def find
+    artist.events.find(params[:id])
+  end
+
+  def build(attrs = {})
+    artist.events.new(attrs)
+  end
+
+  def search
+    artist.events
+  end
+
+  def permissions(action)
+    case action
+      when :index then [:read_event, artist]
+      when :show then [:read_event, artist]
+      when :new then [:write_event, artist]
+      when :edit then [:write_event, artist]
+      when :create then [:write_event, artist]
+      when :update then [:write_event, artist]
+      when :destroy then [:write_event, artist]
+    end
   end
 
   def permitted_params
@@ -23,11 +46,5 @@ class EventCruder < Cruder
       :body,
       :external_urls
     )
-  end
-
-  protected
-
-  def resource_scope
-    owner.events
   end
 end

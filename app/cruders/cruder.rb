@@ -1,5 +1,7 @@
 class Cruder
-  class InvalidResource < Exception
+  attr_reader :abilities, :params
+
+  class InvalidResource < StandardError
     attr_reader :resource
 
     def initialize(resource)
@@ -7,65 +9,51 @@ class Cruder
     end
   end
 
-  attr_reader :params, :abilities, :owner
+  class ValidationError < StandardError
+  end
 
-  def initialize(abilities, params, owner = nil)
+  def initialize(abilities, params)
     @abilities = abilities
     @params = params
-    @owner = owner
   end
 
   def index
-    authorize! :read, resource_class, owner
-    decorate_all(resource_scope)
+    authorize! :index
+    decorate_all(search)
   end
 
   def show
-    resource = resource_scope.send(find_method, params[:id])
-    authorize! :read, resource
-    decorate(resource)
+    authorize! :show
+    decorate(find)
   end
 
   def new
-    authorize! :write, resource_class, owner
-    decorate(resource_scope.new)
+    authorize! :new
+    decorate(build)
   end
 
   def edit
-    resource = resource_scope.send(find_method, params[:id])
-    authorize! :write, resource
-    decorate(resource)
+    authorize! :edit
+    decorate(find)
   end
 
   def create
-    authorize! :write, resource_class, owner
-    resource = resource_scope.new(permitted_params)
-    fail InvalidResource, decorate(resource) unless resource.save
-    resource
+    authorize! :create
+    save(build)
   end
 
   def update
-    resource = resource_scope.send(find_method, params[:id])
-    authorize! :write, resource
-
-    unless resource.update_attributes(permitted_params)
-      fail InvalidResource, decorate(resource)
-    end
-    resource
+    authorize! :update
+    save(find)
   end
 
   def destroy
-    resource = resource_scope.send(find_method, params[:id])
-    authorize! :write, resource
-    resource.destroy
-    resource
+    authorize! :destroy
+    delete(find)
   end
 
   def presenter_class
-  end
-
-  def resource_class
-    fail 'define me'
+    @presenter_class ||= self.class.name.sub('Cruder', 'Presenter').constantize
   end
 
   def permitted_params
@@ -74,20 +62,33 @@ class Cruder
 
   protected
 
-  def authorize!(action, subject, scope = nil)
-    raise User::AccessDenied unless abilities.allowed?(action, subject, scope)
+  def search
+  end
+
+  def build
+  end
+
+  def find
+  end
+
+  def authorize!(action)
+    raise User::AccessDenied unless abilities.allow?(*permissions(action))
+  end
+
+  def permissions
+    {
+      index: :read,
+      show: :read,
+      new: :write,
+      edit: :write,
+      create: :write,
+      update: :write,
+      destroy: :write,
+    }
   end
 
   def strong_parameters
     ActionController::Parameters.new(params)
-  end
-
-  def find_method
-    :find
-  end
-
-  def resource_scope
-    resource_class.all
   end
 
   def decorate_all(objs)
@@ -96,5 +97,21 @@ class Cruder
 
   def decorate(obj)
     presenter_class.nil?? obj : presenter_class.new(obj, abilities)
+  end
+
+  private
+
+  def save(resource)
+    begin
+      save_operation(resource, permitted_params)
+    rescue ValidationError => e
+      fail InvalidResource, decorate(resource)
+    end
+    decorate(resource)
+  end
+
+  def delete(resource)
+    delete_operation(resource)
+    decorate(resource)
   end
 end

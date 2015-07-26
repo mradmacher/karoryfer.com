@@ -3,16 +3,8 @@ class PostsController < CurrentArtistController
 
   private
 
-  def redirect_update(obj)
-    redirect_to artist_post_url(current_artist, obj)
-  end
-
-  def redirect_destroy(obj)
-    redirect_to artist_posts_url(current_artist)
-  end
-
-  def redirect_create(obj)
-    redirect_to artist_post_url(current_artist, obj)
+  def destroy_redirect_path(obj)
+    artist_posts_url(current_artist)
   end
 
   def cruder

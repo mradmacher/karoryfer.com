@@ -1,13 +1,13 @@
-<%= render_title t( 'title.user.edit' ), @user.login, t( 'title.user.index' ) %>
+<%= render_title t('title.user.edit'), @presenter.login, t('title.user.index') %>
 <h1><%= t 'title.user.index'  %></h1>
-<h2><%= @user.login %></h2>
+<h2><%= @presenter.login %></h2>
 <h3><%= t 'title.user.edit' %></h3>
 <% content_for :actions do %>
-  <%= link_to_action t( 'action.cancel_edit' ), admin_user_path( @user ) %>
+  <%= link_to_action t('action.cancel_edit'), @presenter.path %>
 <% end %>
-<%= form_for [:admin, @user] do |f| %>
+<%= form_for [:admin, @presenter.resource] do |f| %>
 	<%= f.error_messages %>
-  <% if can? :manage, @user %>
+  <% if can? :write, :user %>
     <div class="checkbox">
 			<%= f.label :admin, t( 'label.user.admin' ) %>
 			<%= f.check_box :admin, class: 'form-control' %>
@@ -27,4 +27,3 @@
   </div>
   <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
 <% end %>
-

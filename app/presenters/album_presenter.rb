@@ -3,11 +3,19 @@ class AlbumPresenter < Presenter
     :image, :license, :year, :donation, :description,
     :artist, :releases, :tracks, :attachments)
 
-  def _path
+  def path
     artist_album_path(resource.artist, resource)
   end
 
-  def _edit_path
+  def edit_path
     edit_artist_album_path(resource.artist, resource)
+  end
+
+  def can_be_updated?
+    abilities.allow?(:write, resource)
+  end
+
+  def can_be_deleted?
+    can_be_updated?
   end
 end

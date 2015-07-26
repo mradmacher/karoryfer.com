@@ -14,10 +14,10 @@
     <% if presenter.poster? %>
       <%= link_to image_tag(presenter.poster.icon.url, :alt => presenter.title,
         :class => 'media-object media-object-thumbnail img-polaroid img-rounded'),
-        presenter.show_path, :class => 'pull-left' %>
+        presenter.path, :class => 'pull-left' %>
     <% end %>
     <div class="media-body">
-      <h5><%= event_icon(presenter.expired?) %><%= link_to presenter.title, presenter.show_path %></h5>
+      <h5><%= event_icon(presenter.expired?) %><%= link_to presenter.title, presenter.path %></h5>
       <p>
         <%= presenter.artist.name %><br />
         <%= event_date(presenter) %><br />

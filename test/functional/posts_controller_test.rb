@@ -14,8 +14,8 @@ class PostsControllerTest < ActionController::TestCase
 
   def test_authorized_get_edit_displays_form
     artist = Artist.sham!
-    post = Post.sham!( artist: artist )
-    allow( :write, post )
+    post = Post.sham!(artist: artist)
+    allow(:write_post, artist)
     get :edit, artist_id: post.artist.to_param, id: post.to_param
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.post.title' )
@@ -27,7 +27,7 @@ class PostsControllerTest < ActionController::TestCase
 
   def test_authorized_get_new_displays_form
     artist = Artist.sham!
-    allow( :write, Post, artist )
+    allow(:write_post, artist)
     get :new, artist_id: artist
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.post.title' )

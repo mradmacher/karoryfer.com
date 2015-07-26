@@ -11,7 +11,7 @@
 <% @post_presenters.each do |presenter| %>
   <li class="media img-rounded">
     <div class="media-body">
-      <h5><%= post_icon %><%= link_to presenter.title, presenter.show_path %></h5>
+      <h5><%= post_icon %><small><%= post_date(presenter) %></small>&nbsp;<%= link_to presenter.title, presenter.path %></h5>
       <p><%= presenter.artist.name %></p>
     </div>
   </li>

@@ -138,7 +138,7 @@ class AlbumsControllerTest < ActionController::TestCase
     album = Album.sham!
     allow(:write, album)
     get :edit, :artist_id => album.artist.to_param, :id => album.to_param
-    assert_select "title", build_title( album.title, album.artist.name )
+    assert_select "title", build_title(album.title, album.artist.name)
     assert_select 'h1', album.artist.name
     assert_select 'h2', album.title
   end
@@ -182,22 +182,22 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_get_index_not_authorized_does_not_display_actions
     artist = Artist.sham!
-    allow(:read, Album, artist)
+    allow(:read_album, artist)
     get :index, artist_id: artist.to_param
     assert_select 'a[href=?]', new_artist_album_path(artist), 0
   end
 
   def test_get_index_authorized_displays_actions
     artist = Artist.sham!
-    allow(:write, Album, artist)
-    allow(:read, Album, artist)
+    allow(:write_album, artist)
+    allow(:read_album, artist)
     get :index, artist_id: artist.to_param
     assert_select 'a[href=?]', new_artist_album_path(artist), I18n.t( 'action.new' )
   end
 
   def test_get_index_for_guest_does_not_display_unpublished
     artist = Artist.sham!
-    allow(:read, Album, artist)
+    allow(:read_album, artist)
     2.times { Album.sham!( :published, artist: artist ) }
     2.times { Album.sham!( :unpublished, artist: artist ) }
     get :index, artist_id: artist.to_param
@@ -208,7 +208,7 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_get_index_for_guest_displays_published
     artist = Artist.sham!
-    allow(:read, Album, artist)
+    allow(:read_album, artist)
     2.times { Album.sham!( :published, artist: artist ) }
     2.times { Album.sham!( :unpublished, artist: artist ) }
     get :index, artist_id: artist.to_param
@@ -219,7 +219,7 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_get_index_for_guest_displays_only_albums_for_artist
     artist = Artist.sham!
-    allow(:read, Album, artist)
+    allow(:read_album, artist)
     for_artist = []
     not_for_artist = []
     5.times { for_artist << Album.sham!( :published, artist: artist ) }
@@ -236,7 +236,7 @@ class AlbumsControllerTest < ActionController::TestCase
   def test_get_index_for_user_does_not_display_unpublished_albums
     login_user
     artist = Artist.sham!
-    allow(:read, Album, artist)
+    allow(:read_album, artist)
     3.times { Album.sham!( :unpublished, artist: artist ) }
     get :index, artist_id: artist.to_param
     Album.unpublished.each do |a|
@@ -246,7 +246,7 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_new_displays_headers
     artist = Artist.sham!
-    allow(:write, Album, artist)
+    allow(:write_album, artist)
     get :new, artist_id: artist.to_param
     title = CGI.escape_html( build_title( I18n.t( 'title.album.new' ), artist.name ) )
     assert_select "title", CGI.escape_html( build_title( I18n.t( 'title.album.new' ), artist.name ) )
@@ -256,7 +256,7 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_new_displays_form
     artist = Artist.sham!
-    allow(:write, Album, artist)
+    allow(:write_album, artist)
     get :new, artist_id: artist.to_param
     assert_select 'form[enctype="multipart/form-data"]' do
       assert_select 'label', I18n.t( 'label.album.title' )
@@ -282,7 +282,7 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_new_displays_actions
     artist = Artist.sham!
-    allow(:write, Album, artist)
+    allow(:write_album, artist)
     get :new, artist_id: artist.to_param
     assert_select 'a[href=?]', artist_path( artist ), I18n.t( 'action.cancel_new' )
   end

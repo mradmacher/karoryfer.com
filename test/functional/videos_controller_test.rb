@@ -14,8 +14,8 @@ class VideosControllerTest < ActionController::TestCase
 
   def test_authorized_get_edit_displays_form
     artist = Artist.sham!
-    video = Video.sham!( artist: artist )
-    allow( :write, video )
+    video = Video.sham!(artist: artist)
+    allow(:write_video, artist)
     get :edit, artist_id: video.artist.to_param, id: video.to_param
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.video.title' )
@@ -29,7 +29,7 @@ class VideosControllerTest < ActionController::TestCase
 
   def test_authorized_get_new_displays_form
     artist = Artist.sham!
-    allow( :write, Video, artist )
+    allow(:write_video, artist)
     get :new, artist_id: artist
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.video.title' )

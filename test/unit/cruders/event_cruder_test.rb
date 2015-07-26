@@ -2,11 +2,6 @@ require 'test_helper'
 
 # Tests for event cruder.
 class EventCruderTest < ActiveSupport::TestCase
-  def test_resource_class_is_event
-    cruder = EventCruder.new(Ability.new(nil), {})
-    assert_equal Event, cruder.resource_class
-  end
-
   def test_permits_all_allowed_params
     permitted_params = {
       title: 1,
@@ -27,7 +22,7 @@ class EventCruderTest < ActiveSupport::TestCase
     }
     params = { event: permitted_params.merge(rejected_params) }
 
-    cruder = EventCruder.new(Ability.new(nil), params)
+    cruder = EventCruder.new(Ability.new(nil), params, nil)
     permitted_params.keys.each do |p|
       assert cruder.permitted_params.include?(p)
     end

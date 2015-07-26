@@ -36,6 +36,10 @@ module ApplicationHelper
     end
   end
 
+  def post_date(post)
+    post.date.strftime('%d.%m.%Y')
+  end
+
   def post_icon
     image_tag 'tags/note.png', alt: t('activerecord.models.post'), title: t('activerecord.models.post')
   end

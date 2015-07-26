@@ -15,14 +15,14 @@ class ArtistsControllerTest < ActionController::TestCase
   end
 
   def test_get_new_displays_headers_when_authorized
-    allow(:write, Artist)
+    allow(:write, :artist)
     get :new
     assert_select "title", CGI.escape_html( build_title( I18n.t( 'title.artist.new' ) ) )
     assert_select "h1", CGI.escape_html( I18n.t( 'title.artist.new' ) )
   end
 
   def test_get_new_displays_form_when_authorized
-    allow(:write, Artist)
+    allow(:write, :artist)
     get :new
     assert_select 'form[enctype="multipart/form-data"]' do
       assert_select 'label', I18n.t( 'label.artist.name' )

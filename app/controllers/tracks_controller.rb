@@ -21,16 +21,16 @@ class TracksController < CurrentAlbumController
     'edit'
   end
 
-  def redirect_create(obj)
-    redirect_to artist_album_tracks_url(current_artist, current_album)
+  def create_redirect_path(obj)
+    artist_album_tracks_url(current_artist, current_album)
   end
 
-  def redirect_update(obj)
-    redirect_to artist_album_tracks_url(current_artist, current_album)
+  def update_redirect_path(obj)
+    artist_album_tracks_url(current_artist, current_album)
   end
 
-  def redirect_destroy(obj)
-    redirect_to artist_album_tracks_url(current_artist, current_album)
+  def destroy_redirect_path(obj)
+    artist_album_tracks_url(current_artist, current_album)
   end
 
   def cruder

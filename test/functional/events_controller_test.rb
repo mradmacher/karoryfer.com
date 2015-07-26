@@ -14,8 +14,8 @@ class EventsControllerTest < ActionController::TestCase
 
   def test_authorized_get_edit_displays_form
     artist = Artist.sham!
-    event = Event.sham!( artist: artist )
-    allow( :write, event )
+    event = Event.sham!(artist: artist)
+    allow(:write_event, artist)
     get :edit, artist_id: event.artist.to_param, id: event.to_param
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.event.title' )
@@ -28,7 +28,7 @@ class EventsControllerTest < ActionController::TestCase
 
   def test_authorized_get_new_displays_form
     artist = Artist.sham!
-    allow( :write, Event, artist )
+    allow(:write_event, artist)
     get :new, artist_id: artist
     assert_select 'form' do
       assert_select 'label', I18n.t( 'label.event.title' )

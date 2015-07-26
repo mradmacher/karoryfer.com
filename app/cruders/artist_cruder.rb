@@ -1,15 +1,27 @@
 # Provides access to artist resource.
-class ArtistCruder < Cruder
-  def resource_class
-    Artist
+class ArtistCruder < SimpleCruder
+  def find
+    Artist.find_by_reference(params[:id])
   end
 
-  def presenter_class
-    ArtistPresenter
+  def build
+    Artist.new
   end
 
-  def find_method
-    :find_by_reference
+  def search
+    Artist.all
+  end
+
+  def permissions(action)
+    case action
+      when :index then [:read, :artist]
+      when :show then [:read, find]
+      when :new then [:write, :artist]
+      when :edit then [:write, find]
+      when :create then [:write, :artist]
+      when :update then [:write, find]
+      when :destroy then [:write, find]
+    end
   end
 
   def permitted_params

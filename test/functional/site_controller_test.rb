@@ -14,13 +14,13 @@ class SiteControllerTest < ActionController::TestCase
   end
 
   def test_get_artists_does_not_display_actions_when_not_authorized
-    deny(:write, Artist)
+    deny(:write, :artist)
     get :artists
     assert_select 'a[href=?]', new_artist_path, 0
   end
 
   def test_get_artists_displays_actions_when_authorized
-    allow(:write, Artist)
+    allow(:write, :artist)
     get :artists
     assert_select 'a[href=?]', new_artist_path
   end
