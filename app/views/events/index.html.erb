@@ -23,7 +23,9 @@
           <small><%= presenter.address %></small>
         <% end %>
       </p>
-      <div class="long-text"><%= render_text presenter.body %></div>
+      <% unless presenter.expired? %>
+        <div class="long-text"><%= render_text presenter.body %></div>
+      <% end %>
     </div>
   </li>
 <% end %>
