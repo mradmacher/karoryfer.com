@@ -19,7 +19,7 @@
         <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
       <% end -%>
       <br />
-      <% if can? :write, track %>
+      <% if can? :write_track, @album_presenter.resource %>
         <div class="btn-group">
           <a href="<%= edit_artist_album_track_path(@album_presenter.artist, @album_presenter.resource, track) %>" class="btn btn-default btn-xs">
             <%=t 'action.edit' %>
