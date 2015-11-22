@@ -1,9 +1,9 @@
 Publisher.instance.name = 'Karoryfer Lecolds'
 Publisher.instance.url = 'http://www.karoryfer.com'
-Uploader::Release.album_store_dir = File.join(Rails.root, 'public', 'downloads', 'wydawnictwa')
-Attachment::Uploader.store_dir = File.join(Rails.root, 'public', 'uploads', 'attachments')
+Uploader::Release.store_dir = File.join(Rails.root, 'public', 'downloads', 'wydawnictwa')
 Uploader::TrackSource.store_dir = File.join(Rails.root, 'db', 'tracks')
 Uploader::TrackPreview.store_dir = File.join(Rails.root, 'public', 'downloads', 'tracks')
 Uploader::ArtistImage.store_dir = File.join(Rails.root, 'public', 'uploads', 'obrazki', 'artysci')
 Uploader::AlbumImage.store_dir = File.join(Rails.root, 'public', 'uploads', 'obrazki', 'wydawnictwa')
 Uploader::EventImage.store_dir = File.join(Rails.root, 'public', 'uploads', 'obrazki', 'wydarzenia')
+Attachment::Uploader.store_dir = File.join(Rails.root, 'public', 'uploads', 'attachments')

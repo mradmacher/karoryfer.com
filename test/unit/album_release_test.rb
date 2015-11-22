@@ -4,7 +4,7 @@ require 'test_helper'
 class AlbumReleaseTest < ActiveSupport::TestCase
   def setup
     @tmp_dir = Dir.mktmpdir
-    Uploader::Release.album_store_dir = @tmp_dir
+    Uploader::Release.store_dir = @tmp_dir
 
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
     @album = Album.sham! title: 'Tłuczące pokrowce jeżozwierza',
@@ -27,19 +27,19 @@ class AlbumReleaseTest < ActiveSupport::TestCase
   end
 
   def test_creates_ogg_release
-    release = Release.create(owner: @album, format: Release::OGG)
+    release = Release.create(album: @album, format: Release::OGG)
     release.generate!
     check_album_release release
   end
 
   def test_creates_flac_release
-    release = Release.create(owner: @album, format: Release::FLAC)
+    release = Release.create(album: @album, format: Release::FLAC)
     release.generate!
     check_album_release release
   end
 
   def test_creates_mp3_release
-    release = Release.create(owner: @album, format: Release::MP3)
+    release = Release.create(album: @album, format: Release::MP3)
     release.generate!
     check_album_release release
   end
@@ -47,7 +47,7 @@ class AlbumReleaseTest < ActiveSupport::TestCase
   def test_creates_releases_with_overriden_tags
     @album.tracks.each{ |t| t.artist_name = 'Some artist' }
     [Release::OGG, Release::FLAC, Release::MP3].each do |format|
-      release = Release.create(owner: @album, format: format)
+      release = Release.create(album: @album, format: format)
       release.generate!
       check_album_release release
     end
@@ -58,7 +58,7 @@ class AlbumReleaseTest < ActiveSupport::TestCase
   end
 
   def check_album_release(release)
-    album = release.owner
+    album = release.album
     artist_reference = album.artist.reference
     album_reference = album.reference
     file_path = release.file.path

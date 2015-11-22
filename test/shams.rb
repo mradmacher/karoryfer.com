@@ -79,34 +79,34 @@ Sham.config( Album, :unpublished ) do |c|
     end
 end
 
-Sham.config( Attachment ) do |c|
+Sham.config(Attachment) do |c|
   c.attributes do {
-    album: Sham::Nested.new( Album ),
-    file: File.open( "#{fixtures_dir}/attachments/att1.jpg" )
+    album: Sham::Nested.new(Album),
+    file: File.open("#{fixtures_dir}/attachments/att1.jpg")
   } end
 end
 
-Sham.config( Release ) do |c|
+Sham.config(Release) do |c|
   c.attributes do {
-    owner: [0, 1].sample == 1 ? Sham::Nested.new( Album ) : Sham::Nested.new( Track ),
+    album: Sham::Nested.new(Album),
     format: Release::FORMATS.sample,
-    file: File.open( "#{fixtures_dir}/release.zip" )
+    file: File.open("#{fixtures_dir}/release.zip")
   } end
 end
 
-Sham.config( Track ) do |c|
+Sham.config(Track) do |c|
   c.attributes do {
-    album: Sham::Nested.new( Album ),
-    title: Faker::Lorem.words.join( ' ' ),
+    album: Sham::Nested.new(Album),
+    title: Faker::Lorem.words.join(' '),
     rank: (Track.maximum(:rank) || 0) + 1
   } end
 end
-Sham.config( Track, :with_file ) do |c|
+Sham.config(Track, :with_file) do |c|
   c.attributes do {
-    album: Sham::Nested.new( Album ),
-    title: Faker::Lorem.words.join( ' ' ),
+    album: Sham::Nested.new(Album),
+    title: Faker::Lorem.words.join(' '),
     rank: (Track.maximum(:rank) || 0) + 1,
-    file: File.open( "#{fixtures_dir}/tracks/1.wav" )
+    file: File.open("#{fixtures_dir}/tracks/1.wav")
   } end
 end
 

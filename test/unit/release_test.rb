@@ -1,32 +1,15 @@
 require 'test_helper'
 
 class ReleaseTest < ActiveSupport::TestCase
-  def test_validates_album_or_track_presence
-    track = Track.sham!
+  def test_validates_album_presence
     release = Release.sham! :build
-    release.track = nil
     release.album = nil
     refute release.valid?
-    assert release.errors[:base].include? I18n.t(
-      'activerecord.errors.models.release.album_or_track.none' )
+    assert release.errors[:album_id].include? I18n.t(
+      'activerecord.errors.models.release.attributes.album_id.blank' )
 
-    release.album = nil
-    release.track = track
+    release.album = Album.sham!
     assert release.valid?
-
-    release.track = nil
-    release.album = track.album
-    assert release.valid?
-  end
-
-  def test_validates_if_not_both_for_album_and_track
-    track = Track.sham!
-    release = Release.sham! :build
-    release.track = track
-    release.album = track.album
-    refute release.valid?
-    assert release.errors[:base].include? I18n.t(
-      'activerecord.errors.models.release.album_or_track.both' )
   end
 
   def test_validates_format_presence

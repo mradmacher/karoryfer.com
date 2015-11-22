@@ -97,10 +97,6 @@ pl:
             comment:
               too_long: ^podany komentarz jest za długi (dopuszczalne jest 255 znaków)
         release:
-          album_or_track:
-            both: ^proszę wybrać album albo utwór
-            none: ^proszę wybrać album albo utwór
-            missing_files: ^co najmniej jedna ścieżka nie ma przypisanego pliku
           attributes:
             album_id:
               blank: ^proszę wybrać album
