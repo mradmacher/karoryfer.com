@@ -19,9 +19,9 @@ end
 I18n.exception_handler = :raise_missing_translation
 
 Uploader::Release.album_store_dir = "/tmp"
-Uploader::Release.track_store_dir = "/tmp"
 Attachment::Uploader.store_dir = "/tmp"
-Track::Uploader.store_dir = "/tmp"
+Uploader::TrackSource.store_dir = "/tmp"
+Uploader::TrackPreview.store_dir = "/tmp"
 Publisher.instance.name = 'Lecolds'
 Publisher.instance.url = 'http://www.lecolds.com'
 

@@ -1,9 +1,9 @@
 Publisher.instance.name = 'Karoryfer Lecolds'
 Publisher.instance.url = 'http://www.karoryfer.com'
-Uploader::Release.album_store_dir = File.join( Rails.root, 'public', 'downloads', 'wydawnictwa' )
-Uploader::Release.track_store_dir = File.join( Rails.root, 'public', 'downloads', 'tracks' )
-Attachment::Uploader.store_dir = File.join( Rails.root, 'public', 'uploads', 'attachments' )
-Track::Uploader.store_dir = File.join( Rails.root, 'db', 'tracks' )
-Uploader::ArtistImage.store_dir = File.join( Rails.root, 'public', 'uploads', 'obrazki', 'artysci' )
-Uploader::AlbumImage.store_dir = File.join( Rails.root, 'public', 'uploads', 'obrazki', 'wydawnictwa' )
-Uploader::EventImage.store_dir = File.join( Rails.root, 'public', 'uploads', 'obrazki', 'wydarzenia' )
+Uploader::Release.album_store_dir = File.join(Rails.root, 'public', 'downloads', 'wydawnictwa')
+Attachment::Uploader.store_dir = File.join(Rails.root, 'public', 'uploads', 'attachments')
+Uploader::TrackSource.store_dir = File.join(Rails.root, 'db', 'tracks')
+Uploader::TrackPreview.store_dir = File.join(Rails.root, 'public', 'downloads', 'tracks')
+Uploader::ArtistImage.store_dir = File.join(Rails.root, 'public', 'uploads', 'obrazki', 'artysci')
+Uploader::AlbumImage.store_dir = File.join(Rails.root, 'public', 'uploads', 'obrazki', 'wydawnictwa')
+Uploader::EventImage.store_dir = File.join(Rails.root, 'public', 'uploads', 'obrazki', 'wydarzenia')

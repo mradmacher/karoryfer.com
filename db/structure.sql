@@ -375,6 +375,8 @@ CREATE TABLE tracks (
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     file character varying(255),
     artist_name character varying(255),
+    ogg_preview character varying(255),
+    mp3_preview character varying(255),
     CONSTRAINT tracks_rank_check CHECK ((rank > 0))
 );
 
@@ -1128,4 +1130,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141205001752');
 INSERT INTO schema_migrations (version) VALUES ('20150119150413');
 
 INSERT INTO schema_migrations (version) VALUES ('20150723092758');
+
+INSERT INTO schema_migrations (version) VALUES ('20151122053733');
 

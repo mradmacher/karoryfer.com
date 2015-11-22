@@ -4,7 +4,7 @@ require 'test_helper'
 class TrackReleaseTest < ActiveSupport::TestCase
   def setup
     @tmp_dir = Dir.mktmpdir
-    Uploader::Release.track_store_dir = @tmp_dir
+    Uploader::TrackPreview.store_dir = @tmp_dir
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
     @track = Track.sham! file: File.open(File.join(FIXTURES_DIR, 'tracks', "1.wav"))
   end
@@ -13,51 +13,23 @@ class TrackReleaseTest < ActiveSupport::TestCase
     FileUtils.remove_entry_secure @tmp_dir
   end
 
-  def test_creates_ogg_release
-    release = Release.create(owner: @track, format: Release::OGG)
-    release.generate!
-    check_track_release release
-  end
+  def test_creates_ogg_and_mp3_preview
+    @track.generate_preview!
 
-  def test_creates_mp3_release
-    release = Release.create(owner: @track, format: Release::MP3)
-    release.generate!
-    check_track_release release
-  end
+    assert @track.ogg_preview?
+    assert @track.mp3_preview?
+    ogg_file_path = @track.ogg_preview.path
+    mp3_file_path = @track.mp3_preview.path
 
-  def test_creates_mp3_releas_with_overriden_tags
-    @track.artist_name = 'Some artist'
-    release = Release.create(owner: @track, format: Release::MP3)
-    release.generate!
-  end
-
-  def test_creates_ogg_releas_with_overriden_tags
-    @track.artist_name = 'Some artist'
-    release = Release.create(owner: @track, format: Release::OGG)
-    release.generate!
+    assert File.exists? ogg_file_path
+    assert_equal "#{@track.id}.ogg", File.basename(ogg_file_path)
+    assert `file #{ogg_file_path}` =~ /Ogg/
+    assert File.exists? mp3_file_path
+    assert_equal "#{@track.id}.mp3", File.basename(mp3_file_path)
+    assert `file #{mp3_file_path}` =~ /MPEG/
   end
 
   def expected_release_url(track)
     "#{Publisher.instance.url}/#{track.artist.reference}/wydawnictwa/#{track.album.reference}"
-  end
-
-  def check_track_release(release)
-    track = release.owner
-    file_path = release.file.path
-
-    assert File.exists? file_path
-    assert_equal "#{track.id}.#{release.format}", File.basename( file_path )
-
-    (Release::FORMATS - [release.format]).each do |format|
-      assert Dir.glob(File.join(File.dirname(file_path), "*.#{format}")).empty?
-    end
-
-    #FIXME
-    #type = case release.format
-    #  when Release::OGG then 'Ogg'
-    #  when Release::MP3 then 'MPEG'
-    #  when Release::FLAC then 'FLAC'
-    #end
-    #assert `file #{file_path}` =~ /#{type}/
   end
 end
