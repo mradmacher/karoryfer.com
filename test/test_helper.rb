@@ -18,7 +18,7 @@ module I18n
 end
 I18n.exception_handler = :raise_missing_translation
 
-Uploader::Release.album_store_dir = "/tmp"
+Uploader::Release.store_dir = "/tmp"
 Attachment::Uploader.store_dir = "/tmp"
 Uploader::TrackSource.store_dir = "/tmp"
 Uploader::TrackPreview.store_dir = "/tmp"

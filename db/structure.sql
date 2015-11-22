@@ -321,15 +321,13 @@ ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
 
 CREATE TABLE releases (
     id integer NOT NULL,
-    album_id integer,
-    track_id integer,
+    album_id integer NOT NULL,
     format character varying(10) NOT NULL,
     file character varying(255),
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     downloads integer DEFAULT 0 NOT NULL,
-    CONSTRAINT releases_format_check_blank CHECK ((btrim((format)::text) <> ''::text)),
-    CONSTRAINT releases_releaseable_check CHECK ((((album_id IS NOT NULL) AND (track_id IS NULL)) OR ((album_id IS NULL) AND (track_id IS NOT NULL))))
+    CONSTRAINT releases_format_check_blank CHECK ((btrim((format)::text) <> ''::text))
 );
 
 
@@ -665,14 +663,6 @@ ALTER TABLE ONLY releases
 
 
 --
--- Name: releases_track_format_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY releases
-    ADD CONSTRAINT releases_track_format_key UNIQUE (track_id, format);
-
-
---
 -- Name: schema_migrations_version_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -769,13 +759,6 @@ CREATE INDEX releases_album_id_index ON releases USING btree (album_id);
 
 
 --
--- Name: releases_track_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX releases_track_id_index ON releases USING btree (track_id);
-
-
---
 -- Name: tracks_album_id_index; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -859,14 +842,6 @@ ALTER TABLE ONLY posts
 
 ALTER TABLE ONLY releases
     ADD CONSTRAINT releases_album_id_fkey FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE;
-
-
---
--- Name: releases_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY releases
-    ADD CONSTRAINT releases_track_id_fkey FOREIGN KEY (track_id) REFERENCES tracks(id) ON DELETE CASCADE;
 
 
 --
@@ -1132,4 +1107,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150119150413');
 INSERT INTO schema_migrations (version) VALUES ('20150723092758');
 
 INSERT INTO schema_migrations (version) VALUES ('20151122053733');
+
+INSERT INTO schema_migrations (version) VALUES ('20151122204023');
 
