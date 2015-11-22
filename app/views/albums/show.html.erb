@@ -115,9 +115,8 @@
           <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
         <% end -%>
       </span>
-      <% track.releases.each do |release| %>
-        <span data-url="<%= release.file.url %>" data-format="<%= release.format %>" />
-      <% end %>
+      <span data-url="<%= track.ogg_preview.url %>" data-format="ogg" />
+      <span data-url="<%= track.mp3_preview.url %>" data-format="mp3" />
       </li>
     <% end %>
   </ol>

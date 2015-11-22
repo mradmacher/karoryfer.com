@@ -5,38 +5,20 @@ class Track < ActiveRecord::Base
   belongs_to :album
   has_many :releases
 
-  validates :title, :presence => true, :length => {:maximum => TITLE_MAX_LENGTH}
+  validates :title, :presence => true, :length => { :maximum => TITLE_MAX_LENGTH }
   validates :album_id, :presence => true
   validates :rank, :presence => true, :uniqueness => { :scope => :album_id }
-  validates :comment, :length => {:maximum => COMMENT_MAX_LENGTH}
+  validates :comment, :length => { :maximum => COMMENT_MAX_LENGTH }
+
+  mount_uploader :ogg_preview, Uploader::TrackPreview
+  mount_uploader :mp3_preview, Uploader::TrackPreview
+  mount_uploader :file, Uploader::TrackSource
 
   default_scope -> { order( 'rank asc' ) }
 
-  class Uploader < CarrierWave::Uploader::Base
-    cattr_accessor :store_dir
-
-     def extension_white_list
-       %w(wav)
-     end
-
-    def filename
-      "#{secure_token}.#{file.extension}" if original_filename.present?
-    end
-
-    def store_dir
-      File.join( @@store_dir, (model.id / 1000).to_s )
-    end
-
-    protected
-
-    def secure_token
-      var = :"@#{mounted_as}_secure_token"
-      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
-    end
-  end
-
-  mount_uploader :file, Uploader
   before_destroy :remove_file!
+  before_destroy :remove_ogg_preview!
+  before_destroy :remove_mp3_preview!
 
   def file=(value)
     if value.is_a? String
@@ -52,5 +34,23 @@ class Track < ActiveRecord::Base
 
   def license
     album.license unless album.nil?
+  end
+
+  def generate_preview!
+    releaser('ogg').generate { |path| self.ogg_preview = File.open(path) }
+    releaser('mp3').generate { |path| self.mp3_preview = File.open(path) }
+    save
+  end
+
+  def remove_preview!
+    self.remove_ogg_preview = true
+    self.remove_mp3_preview = true
+    save
+  end
+
+  private
+
+  def releaser(format)
+    Releaser::TrackReleaser.new(Publisher.instance, self, format)
   end
 end

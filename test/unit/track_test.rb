@@ -123,27 +123,27 @@ class TrackTest < ActiveSupport::TestCase
   end
 
   def test_on_save_places_file_in_proper_dir
-    track = Track.sham! file: File.open( File.join( FIXTURES_DIR, '1.wav' ) )
+    track = Track.sham! file: File.open(File.join(FIXTURES_DIR, '1.wav'))
     filename = track.file.identifier
     track = Track.find track.id
-    file_path = File.join( Track::Uploader.store_dir, (track.id / 1000).to_s, "#{File.basename(filename, '.wav')}.wav" )
+    file_path = File.join(Uploader::TrackSource.store_dir, (track.id / 1000).to_s, "#{File.basename(filename, '.wav')}.wav")
     assert_equal file_path, track.file.current_path
     assert File.exists? file_path
   end
 
   def test_on_save_replaces_old_file_with_new_one
-    track = Track.sham! file: File.open( File.join( FIXTURES_DIR, '1.wav' ) )
+    track = Track.sham! file: File.open(File.join(FIXTURES_DIR, '1.wav'))
     old_file_path = track.file.current_path
     assert File.exists? old_file_path
 
-    track.file = File.open( File.join( FIXTURES_DIR, '2.wav' ) )
+    track.file = File.open(File.join(FIXTURES_DIR, '2.wav'))
     track.save
     assert_equal old_file_path, track.file.current_path
     assert File.exists? old_file_path
   end
 
   def test_on_destroy_removes_file_from_storage
-    track = Track.sham! file: File.open( File.join( FIXTURES_DIR, '1.wav' ) )
+    track = Track.sham! file: File.open(File.join(FIXTURES_DIR, '1.wav'))
     file_path = track.file.current_path
     assert File.exists? file_path
 
