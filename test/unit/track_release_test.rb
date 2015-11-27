@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 require 'test_helper'
 
 class TrackReleaseTest < ActiveSupport::TestCase
@@ -6,7 +6,7 @@ class TrackReleaseTest < ActiveSupport::TestCase
     @tmp_dir = Dir.mktmpdir
     Uploader::TrackPreview.store_dir = @tmp_dir
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
-    @track = Track.sham! file: File.open(File.join(FIXTURES_DIR, 'tracks', "1.wav"))
+    @track = Track.sham! file: File.open(File.join(FIXTURES_DIR, 'tracks', '1.wav'))
   end
 
   def teardown
@@ -21,10 +21,10 @@ class TrackReleaseTest < ActiveSupport::TestCase
     ogg_file_path = @track.ogg_preview.path
     mp3_file_path = @track.mp3_preview.path
 
-    assert File.exists? ogg_file_path
+    assert File.exist? ogg_file_path
     assert_equal "#{@track.id}.ogg", File.basename(ogg_file_path)
     assert `file #{ogg_file_path}` =~ /Ogg/
-    assert File.exists? mp3_file_path
+    assert File.exist? mp3_file_path
     assert_equal "#{@track.id}.mp3", File.basename(mp3_file_path)
     assert `file #{mp3_file_path}` =~ /MPEG/
   end

@@ -1,7 +1,17 @@
 class AlbumPresenter < Presenter
-  def_delegators(:resource, :title, :published?, :image?,
-    :image, :license, :year, :donation, :description,
-    :artist, :releases, :tracks, :attachments)
+  def_delegators(:resource,
+                 :title,
+                 :published?,
+                 :image?,
+                 :image,
+                 :license,
+                 :year,
+                 :donation,
+                 :description,
+                 :artist,
+                 :releases,
+                 :tracks,
+                 :attachments)
 
   def path
     artist_album_path(resource.artist, resource)

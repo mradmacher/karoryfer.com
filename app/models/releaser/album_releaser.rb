@@ -9,10 +9,9 @@ module Releaser
     end
 
     def release_url
-      unless releaseable.nil?
-        Rails.application.routes.url_helpers.artist_album_url(
-          releaseable.artist, releaseable, :host => publisher.host)
-      end
+      return if releaseable.nil?
+      Rails.application.routes.url_helpers.artist_album_url(
+        releaseable.artist, releaseable, host: publisher.host)
     end
 
     def prepare_release(working_dir)

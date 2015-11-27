@@ -21,13 +21,13 @@ class EventCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read_event, artist]
-      when :show then [:read_event, artist]
-      when :new then [:write_event, artist]
-      when :edit then [:write_event, artist]
-      when :create then [:write_event, artist]
-      when :update then [:write_event, artist]
-      when :destroy then [:write_event, artist]
+    when :index then [:read_event, artist]
+    when :show then [:read_event, artist]
+    when :new then [:write_event, artist]
+    when :edit then [:write_event, artist]
+    when :create then [:write_event, artist]
+    when :update then [:write_event, artist]
+    when :destroy then [:write_event, artist]
     end
   end
 

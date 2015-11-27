@@ -6,9 +6,10 @@ class CustomReleaseTest < ActiveSupport::TestCase
     Uploader::Release.store_dir = File.join(@tmp_dir, 'albums')
 
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki',
-      reference: 'jeczace-brzekodzwieki'
-    @album = Album.sham! title: 'Największe przeboje', artist: @artist,
-      reference: 'najwieksze-przeboje'
+                           reference: 'jeczace-brzekodzwieki'
+    @album = Album.sham! title: 'Największe przeboje',
+                         artist: @artist,
+                         reference: 'najwieksze-przeboje'
     @file_path = File.join(FIXTURES_DIR, 'release.zip')
   end
 
@@ -21,18 +22,22 @@ class CustomReleaseTest < ActiveSupport::TestCase
     release.file = File.open(@file_path)
     release.save
 
-    release_file_path = File.join(@tmp_dir, 'albums', 'jeczace-brzekodzwieki',
+    release_file_path = File.join(
+      @tmp_dir,
+      'albums',
+      'jeczace-brzekodzwieki',
       'jeczace-brzekodzwieki-najwieksze-przeboje.zip')
     assert_equal release_file_path, release.file.path
-    assert File.exists? release_file_path
+    assert File.exist? release_file_path
   end
 
   def test_on_delete_removes_release
-    release = Release.create(format: Release::ZIP, album: @album,
-      file: File.open(@file_path))
+    release = Release.create(format: Release::ZIP,
+                             album: @album,
+                             file: File.open(@file_path))
     release_file_path = release.file.path
-    assert File.exists? release_file_path
+    assert File.exist? release_file_path
     release.destroy
-    refute File.exists? release_file_path
+    refute File.exist? release_file_path
   end
 end

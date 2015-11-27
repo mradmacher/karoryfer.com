@@ -21,13 +21,13 @@ class ReleaseCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read_release, album]
-      when :show then [:read_release, album]
-      when :new then [:write_release, album]
-      when :edit then [:write_release, album]
-      when :create then [:write_release, album]
-      when :update then [:write_release, album]
-      when :destroy then [:write_release, album]
+    when :index then [:read_release, album]
+    when :show then [:read_release, album]
+    when :new then [:write_release, album]
+    when :edit then [:write_release, album]
+    when :create then [:write_release, album]
+    when :update then [:write_release, album]
+    when :destroy then [:write_release, album]
     end
   end
 

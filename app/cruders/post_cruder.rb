@@ -21,13 +21,13 @@ class PostCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read_post, artist]
-      when :show then [:read_post, artist]
-      when :new then [:write_post, artist]
-      when :edit then [:write_post, artist]
-      when :create then [:write_post, artist]
-      when :update then [:write_post, artist]
-      when :destroy then [:write_post, artist]
+    when :index then [:read_post, artist]
+    when :show then [:read_post, artist]
+    when :new then [:write_post, artist]
+    when :edit then [:write_post, artist]
+    when :create then [:write_post, artist]
+    when :update then [:write_post, artist]
+    when :destroy then [:write_post, artist]
     end
   end
 

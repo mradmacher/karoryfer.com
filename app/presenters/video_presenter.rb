@@ -28,7 +28,7 @@ class VideoPresenter < Presenter
   private
 
   def identifier
-    match = resource.url.match( /youtu\.be\/(.*)/ )
+    match = resource.url.match(%r{youtu\.be\/(.*)})
     return match[1] if match && match.size > 1
   end
 end

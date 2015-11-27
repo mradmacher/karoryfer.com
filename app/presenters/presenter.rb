@@ -12,7 +12,7 @@ class Presenter
   end
 
   def self.presenters_for(collection, abilities)
-    collection.map { |resource| self.new(resource, abilities) }
+    collection.map { |resource| new(resource, abilities) }
   end
 
   def path
