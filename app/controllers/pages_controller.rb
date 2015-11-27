@@ -3,7 +3,7 @@ class PagesController < CurrentArtistController
 
   private
 
-  def destroy_redirect_path(obj)
+  def destroy_redirect_path(_)
     artist_url(current_artist)
   end
 

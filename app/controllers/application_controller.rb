@@ -1,9 +1,15 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_artist, :current_artist?, :current_user, :current_user?, :current_user_session
-  before_filter :redirect_subdomain
-  before_filter :set_current_artist
+  helper_method :current_artist,
+                :current_artist?,
+                :current_user,
+                :current_user?,
+                :current_user_session
+  before_action :redirect_subdomain
+  before_action :set_current_artist
   protect_from_forgery
-  rescue_from User::AccessDenied, :with => Proc.new { redirect_to admin_login_url } if Rails.env != 'test'
+  if Rails.env != 'test'
+    rescue_from User::AccessDenied, with: proc { redirect_to admin_login_url }
+  end
 
   helper_method :can?
 
@@ -28,15 +34,13 @@ class ApplicationController < ActionController::Base
   private
 
   def redirect_subdomain
-    if request.subdomain.present?
-      if Artist.pluck(:reference).include? request.subdomain
-        url = "#{request.protocol}www"
-        url << request.host_with_port.gsub( "#{request.subdomain}", '' )
-        url << "/#{request.subdomains.first}"
-        url << request.fullpath unless request.fullpath == '/'
-        redirect_to url, :status => 301
-      end
-    end
+    return unless request.subdomain.present?
+    return unless Artist.pluck(:reference).include?(request.subdomain)
+    url = "#{request.protocol}www"
+    url << request.host_with_port.gsub("#{request.subdomain}", '')
+    url << "/#{request.subdomains.first}"
+    url << request.fullpath unless request.fullpath == '/'
+    redirect_to url, status: 301
   end
 
   def set_current_artist
@@ -70,18 +74,16 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    raise User::AccessDenied unless current_user
+    fail User::AccessDenied unless current_user
   end
 
   def require_no_user
-    if current_user
-      return false
-    end
+    false if current_user
   end
 
   protected
 
   def set_layout
-    current_artist?? 'current_artist' : 'application'
+    current_artist? ? 'current_artist' : 'application'
   end
 end

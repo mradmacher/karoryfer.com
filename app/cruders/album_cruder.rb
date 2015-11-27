@@ -21,13 +21,13 @@ class AlbumCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read_album, artist]
-      when :show then [:read, find]
-      when :new then [:write_album, artist]
-      when :edit then [:write, find]
-      when :create then [:write_album, artist]
-      when :update then [:write, find]
-      when :destroy then [:write, find]
+    when :index then [:read_album, artist]
+    when :show then [:read, find]
+    when :new then [:write_album, artist]
+    when :edit then [:write, find]
+    when :create then [:write_album, artist]
+    when :update then [:write, find]
+    when :destroy then [:write, find]
     end
   end
 
@@ -42,9 +42,7 @@ class AlbumCruder < SimpleCruder
       :donation,
       :description
     ]
-    if abilities.allow?(:write_album, artist)
-      fields << :published
-    end
+    fields << :published if abilities.allow?(:write_album, artist)
     strong_parameters.require(:album).permit(fields)
   end
 end

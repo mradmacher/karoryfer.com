@@ -32,9 +32,7 @@ class Release < ActiveRecord::Base
 
   def generate_in_background!
     argv = "release-#{album_id}-#{format}"
-    unless `ps aux`.include? argv
-      Spawnling.new(argv: argv) { generate! }
-    end
+    Spawnling.new(argv: argv) { generate! } unless `ps aux`.include? argv
   end
 
   def file=(value)

@@ -7,7 +7,7 @@ module Releaser
     end
 
     def gen_ogg(output, quality)
-      system  "oggenc #{@input} -q #{quality} -o #{output}.ogg"
+      system "oggenc #{@input} -q #{quality} -o #{output}.ogg"
     end
 
     def gen_mp3(output, quality)

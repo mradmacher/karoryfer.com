@@ -72,7 +72,7 @@ class Cruder
   end
 
   def authorize!(action)
-    raise User::AccessDenied unless abilities.allow?(*permissions(action))
+    fail User::AccessDenied unless abilities.allow?(*permissions(action))
   end
 
   def permissions
@@ -83,7 +83,7 @@ class Cruder
       edit: :write,
       create: :write,
       update: :write,
-      destroy: :write,
+      destroy: :write
     }
   end
 
@@ -92,11 +92,11 @@ class Cruder
   end
 
   def decorate_all(objs)
-    presenter_class.nil?? objs : presenter_class.presenters_for(objs, abilities)
+    presenter_class.nil? ? objs : presenter_class.presenters_for(objs, abilities)
   end
 
   def decorate(obj)
-    presenter_class.nil?? obj : presenter_class.new(obj, abilities)
+    presenter_class.nil? ? obj : presenter_class.new(obj, abilities)
   end
 
   private
@@ -104,8 +104,8 @@ class Cruder
   def save(resource)
     begin
       save_operation(resource, permitted_params)
-    rescue ValidationError => e
-      fail InvalidResource, decorate(resource)
+    rescue ValidationError
+      raise InvalidResource, decorate(resource)
     end
     decorate(resource)
   end

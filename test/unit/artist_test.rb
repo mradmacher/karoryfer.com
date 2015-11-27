@@ -3,7 +3,7 @@ require 'test_helper'
 
 class ArtistTest < ActiveSupport::TestCase
   def test_has_valid_sham
-    assert Artist.sham!( :build ).valid?
+    assert Artist.sham!(:build).valid?
   end
 
   def test_validates_name_presence
@@ -11,17 +11,17 @@ class ArtistTest < ActiveSupport::TestCase
     artist.name = nil
     refute artist.valid?
     assert artist.errors[:name].include? I18n.t(
-      'activerecord.errors.models.artist.attributes.name.blank' )
+      'activerecord.errors.models.artist.attributes.name.blank')
   end
 
   def test_validates_name_length
     artist = Artist.sham! :build
-    artist.name = 'a'*(Artist::NAME_MAX_LENGTH+1)
+    artist.name = 'a' * (Artist::NAME_MAX_LENGTH + 1)
     refute artist.valid?
     assert artist.errors[:name].include? I18n.t(
-      'activerecord.errors.models.artist.attributes.name.too_long' )
+      'activerecord.errors.models.artist.attributes.name.too_long')
 
-    artist.name = 'a'*(Artist::NAME_MAX_LENGTH)
+    artist.name = 'a' * (Artist::NAME_MAX_LENGTH)
     assert artist.valid?
   end
 
@@ -30,12 +30,13 @@ class ArtistTest < ActiveSupport::TestCase
     artist.reference = nil
     refute artist.valid?
     assert artist.errors[:reference].include? I18n.t(
-      'activerecord.errors.models.artist.attributes.reference.blank' )
+      'activerecord.errors.models.artist.attributes.reference.blank')
   end
 
   def test_rejects_invalid_reference_formats
-    artist = Artist.sham!( :build )
-    [ 'invalid ref name',
+    artist = Artist.sham!(:build)
+    [
+      'invalid ref name',
       'invalid () char@cter$',
       '-invalid',
       '_invalid',
@@ -46,14 +47,15 @@ class ArtistTest < ActiveSupport::TestCase
     ].each do |reference|
       artist.reference = reference
       refute artist.valid?, reference
-      assert artist.errors[ :reference ].include? I18n.t(
-        'activerecord.errors.models.artist.attributes.reference.invalid' )
+      assert artist.errors[:reference].include? I18n.t(
+        'activerecord.errors.models.artist.attributes.reference.invalid')
     end
   end
 
   def test_accepts_valid_reference_formats
     artist = Artist.sham! :build
-    [ 'validname',
+    [
+      'validname',
       'valid-name',
       'valid_name',
       '5nizza',
@@ -66,36 +68,38 @@ class ArtistTest < ActiveSupport::TestCase
 
   def test_validates_reference_length
     artist = Artist.sham! :build
-    artist.reference = 'a'*(Artist::REFERENCE_MAX_LENGTH+1)
+    artist.reference = 'a' * (Artist::REFERENCE_MAX_LENGTH + 1)
     refute artist.valid?
     assert artist.errors[:reference].include? I18n.t(
-      'activerecord.errors.models.artist.attributes.reference.too_long' )
+      'activerecord.errors.models.artist.attributes.reference.too_long')
 
-    artist.reference = 'a'*(Artist::REFERENCE_MAX_LENGTH)
+    artist.reference = 'a' * Artist::REFERENCE_MAX_LENGTH
     assert artist.valid?
   end
 
   def test_validates_reference_exclusion
     artist = Artist.sham! :build
-    [ 'aktualnosci',
-      'wydarzenia',
-      'wiadomosci',
-      'filmy',
-      'informacje',
-      'artysci',
-      'wydawnictwa'
-    ].each do |reserved|
+    %w(
+      aktualnosci
+      wydarzenia
+      wiadomosci
+      filmy
+      informacje
+      artysci
+      wydawnictwa
+    ).each do |reserved|
       artist.reference = reserved
       refute artist.valid?, reserved
-      assert artist.errors[:reference].include?  I18n.t(
-        'activerecord.errors.models.artist.attributes.reference.exclusion' )
+      assert artist.errors[:reference].include? I18n.t(
+        'activerecord.errors.models.artist.attributes.reference.exclusion')
     end
   end
 
   def test_validates_reference_uniqueness
     existing = Artist.sham!
     artist = Artist.sham! :build
-    [ existing.reference,
+    [
+      existing.reference,
       existing.reference.upcase,
       existing.reference.capitalize,
       existing.reference.swapcase
@@ -103,7 +107,7 @@ class ArtistTest < ActiveSupport::TestCase
       artist.reference = ref
       refute artist.valid?
       assert artist.errors[:reference].include? I18n.t(
-        'activerecord.errors.models.artist.attributes.reference.taken' )
+        'activerecord.errors.models.artist.attributes.reference.taken')
     end
   end
 

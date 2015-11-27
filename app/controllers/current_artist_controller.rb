@@ -1,7 +1,7 @@
 class CurrentArtistController < ApplicationController
   include CrudableController
 
-  before_filter do
+  before_action do
     @artist_presenter = ArtistPresenter.new(current_artist, abilities)
   end
 

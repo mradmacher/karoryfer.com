@@ -1,10 +1,15 @@
 class AccountPresenter < Presenter
   def_delegators(:resource,
-    :login, :email, :admin?, :publisher?,
-    :created_at, :updated_at,
-    :login_count, :failed_login_count, :last_login_at,
-    :memberships
-  )
+                 :login,
+                 :email,
+                 :admin?,
+                 :publisher?,
+                 :created_at,
+                 :updated_at,
+                 :login_count,
+                 :failed_login_count,
+                 :last_login_at,
+                 :memberships)
 
   def path
     admin_account_path

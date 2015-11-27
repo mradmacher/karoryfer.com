@@ -6,26 +6,24 @@ class Album < ActiveRecord::Base
 
   belongs_to :artist
   belongs_to :license
-  has_many :tracks, :dependent => :destroy
-  has_many :attachments, :dependent => :destroy
+  has_many :tracks, dependent: :destroy
+  has_many :attachments, dependent: :destroy
   has_many :releases
 
   before_destroy do
-    unless self.releases.empty?
-      return false
-    end
+    return false unless releases.empty?
   end
 
-  validates :artist_id, :title, :presence => true
-  validates :title, :length => { :maximum => TITLE_MAX_LENGTH }
-  validates :year, :length => { :is => 4 }
-  validates :year, :numericality => true
-  validates :published, :inclusion => { :in => [true, false] }
+  validates :artist_id, :title, presence: true
+  validates :title, length: { maximum: TITLE_MAX_LENGTH }
+  validates :year, length: { is: 4 }
+  validates :year, numericality: true
+  validates :published, inclusion: { in: [true, false] }
 
-  validates :reference, :presence => true
-  validates :reference, :length => { :maximum => REFERENCE_MAX_LENGTH }
-  validates :reference, :format => { :with => /\A[a-z0-9]+([-]?[a-z0-9]+)*\z/ }
-  validates :reference, :uniqueness => { :case_sensitive => false }
+  validates :reference, presence: true
+  validates :reference, length: { maximum: REFERENCE_MAX_LENGTH }
+  validates :reference, format: { with: /\A[a-z0-9]+([-]?[a-z0-9]+)*\z/ }
+  validates :reference, uniqueness: { case_sensitiv: false }
 
   mount_uploader :image, Uploader::AlbumImage
 
@@ -44,7 +42,7 @@ class Album < ActiveRecord::Base
   end
 
   def related
-    self.artist.albums.published.delete_if { |a| a == self }
+    artist.albums.published.delete_if { |a| a == self }
   end
 end
 

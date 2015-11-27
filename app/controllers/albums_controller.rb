@@ -2,9 +2,9 @@ class AlbumsController < CurrentArtistController
   layout :set_layout
 
   def download
-    @artist = Artist.find_by_reference( params[:artist_id] )
-    @album = @artist.albums.find_by_reference( params[:id] )
-    release = @album.releases.in_format( params[:format] ).first!
+    @artist = Artist.find_by_reference(params[:artist_id])
+    @album = @artist.albums.find_by_reference(params[:id])
+    release = @album.releases.in_format(params[:format]).first!
     if release.file?
       release.increment!(:downloads)
       if request.xhr?
@@ -24,7 +24,7 @@ class AlbumsController < CurrentArtistController
 
   private
 
-  def destroy_redirect_path(obj)
+  def destroy_redirect_path(_)
     artist_albums_url(current_artist)
   end
 

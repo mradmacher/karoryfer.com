@@ -7,9 +7,7 @@ module Uploader
     end
 
     def filename
-      if original_filename
-        "#{model.id.to_s}.#{file.extension}"
-      end
+      "#{model.id}.#{file.extension}" if original_filename
     end
   end
 end

@@ -16,7 +16,7 @@ class UserTest < ActiveSupport::TestCase
     user.admin = nil
     refute user.valid?
     assert user.errors[:admin].include? I18n.t(
-      'activerecord.errors.models.user.attributes.admin.inclusion' )
+      'activerecord.errors.models.user.attributes.admin.inclusion')
   end
 
   def test_is_publisher_or_not
@@ -24,7 +24,6 @@ class UserTest < ActiveSupport::TestCase
     user.publisher = nil
     refute user.valid?
     assert user.errors[:publisher].include? I18n.t(
-      'activerecord.errors.models.user.attributes.publisher.inclusion' )
+      'activerecord.errors.models.user.attributes.publisher.inclusion')
   end
 end
-

@@ -1,5 +1,5 @@
 class License < ActiveRecord::Base
-  validates_presence_of :symbol, :version, :name
+  validates :symbol, :version, :name, presence: true
   has_many :albums
 
   def url
@@ -11,8 +11,6 @@ class License < ActiveRecord::Base
   end
 
   def full_name
-    I18n.t( "license.cc-#{symbol}-#{version.parameterize}" )
+    I18n.t("license.cc-#{symbol}-#{version.parameterize}")
   end
-
 end
-
