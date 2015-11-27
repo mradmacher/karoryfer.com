@@ -37,15 +37,15 @@ module Releaser
 
       generator = ::Releaser::Generator.new(input)
       case self.format
-        when 'flac'
-          generator.gen_flac(output)
-          tag_for(track).apply_to("#{output}.flac")
-        when 'ogg'
-          generator.gen_ogg(output, self.ogg_quality)
-          tag_for(track).apply_to( "#{output}.ogg")
-        when 'mp3'
-          generator.gen_mp3(output, self.mp3_quality)
-          tag_for(track).apply_to("#{output}.mp3")
+      when 'flac'
+        generator.gen_flac(output)
+        tag_for(track).apply_to("#{output}.flac")
+      when 'ogg'
+        generator.gen_ogg(output, ogg_quality)
+        tag_for(track).apply_to( "#{output}.ogg")
+      when 'mp3'
+        generator.gen_mp3(output, mp3_quality)
+        tag_for(track).apply_to("#{output}.mp3")
       end
     end
 
@@ -55,16 +55,20 @@ module Releaser
 
     def tag_for(track)
       tag = ::Releaser::Tag.new
-      tag.artist = track.artist_name.blank?? track.artist.name : track.artist_name
+      tag.artist = if track.artist_name.blank?
+        track.artist.name
+      else
+        track.artist_name
+      end
       tag.album = track.album.title
       tag.year = track.album.year
       tag.title = track.title
       tag.track = track.rank
       tag.comment = track.comment unless track.comment.blank?
 
-      tag.contact_url = self.release_url
-      tag.organization_name = self.publisher.name
-      tag.organization_url = self.publisher.url
+      tag.contact_url = release_url
+      tag.organization_name = publisher.name
+      tag.organization_url = publisher.url
       tag.license_name = track.license.name if track.license
       tag.copyright = "#{track.album.year} #{track.artist.name}"
       tag

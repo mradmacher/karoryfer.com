@@ -21,13 +21,13 @@ class MembershipCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read_membership, user]
-      when :show then [:read_membership, user]
-      when :new then [:write_membership, user]
-      when :edit then [:write_membership, user]
-      when :create then [:write_membership, user]
-      when :update then [:write_membership, user]
-      when :destroy then [:write_membership, user]
+    when :index then [:read_membership, user]
+    when :show then [:read_membership, user]
+    when :new then [:write_membership, user]
+    when :edit then [:write_membership, user]
+    when :create then [:write_membership, user]
+    when :update then [:write_membership, user]
+    when :destroy then [:write_membership, user]
     end
   end
 

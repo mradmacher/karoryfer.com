@@ -18,12 +18,12 @@ class VideosControllerTest < ActionController::TestCase
     allow(:write_video, artist)
     get :edit, artist_id: video.artist.to_param, id: video.to_param
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'label.video.title' )
+      assert_select 'label', I18n.t('label.video.title')
       assert_select 'input[type=text][name=?][value=?]', 'video[title]', video.title
-      assert_select 'label', I18n.t( 'label.video.url' )
+      assert_select 'label', I18n.t('label.video.url')
       assert_select 'input[type=text][name=?][value=?]', 'video[url]', video.url
-      assert_select 'label', I18n.t( 'label.video.body' )
-      assert_select 'textarea[name=?]', 'video[body]', :text => video.body
+      assert_select 'label', I18n.t('label.video.body')
+      assert_select 'textarea[name=?]', 'video[body]', text: video.body
     end
   end
 
@@ -32,11 +32,11 @@ class VideosControllerTest < ActionController::TestCase
     allow(:write_video, artist)
     get :new, artist_id: artist
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'label.video.title' )
+      assert_select 'label', I18n.t('label.video.title')
       assert_select 'input[type=text][name=?]', 'video[title]'
-      assert_select 'label', I18n.t( 'label.video.url' )
+      assert_select 'label', I18n.t('label.video.url')
       assert_select 'input[type=text][name=?]', 'video[url]'
-      assert_select 'label', I18n.t( 'label.video.body' )
+      assert_select 'label', I18n.t('label.video.body')
       assert_select 'textarea[name=?]', 'video[body]'
     end
   end

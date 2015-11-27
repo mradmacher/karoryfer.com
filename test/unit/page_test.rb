@@ -6,7 +6,7 @@ class PageTest < ActiveSupport::TestCase
     page.artist = nil
     refute page.valid?
     assert page.errors[:artist_id].include? I18n.t(
-      'activerecord.errors.models.page.attributes.artist_id.blank' )
+      'activerecord.errors.models.page.attributes.artist_id.blank')
   end
 
   def test_validates_reference_presence
@@ -14,7 +14,7 @@ class PageTest < ActiveSupport::TestCase
     page.reference = nil
     refute page.valid?
     assert page.errors[:reference].include? I18n.t(
-      'activerecord.errors.models.page.attributes.reference.blank' )
+      'activerecord.errors.models.page.attributes.reference.blank')
   end
 
   def test_rejects_invalid_reference_formats
@@ -31,7 +31,7 @@ class PageTest < ActiveSupport::TestCase
       page.reference = reference
       refute page.valid?, 'should not accept ' + reference
       assert page.errors[:reference].include? I18n.t(
-        'activerecord.errors.models.page.attributes.reference.invalid' )
+        'activerecord.errors.models.page.attributes.reference.invalid')
     end
   end
 
@@ -51,8 +51,9 @@ class PageTest < ActiveSupport::TestCase
 
   def test_validates_reference_uniqueness_in_artist_scope
     existing = Page.sham!
-    page = Page.sham!( :build, artist: existing.artist )
-    [ existing.reference,
+    page = Page.sham!(:build, artist: existing.artist)
+    [
+      existing.reference,
       existing.reference.upcase,
       existing.reference.capitalize,
       existing.reference.swapcase
@@ -60,13 +61,13 @@ class PageTest < ActiveSupport::TestCase
       page.reference = u
       refute page.valid?, u
       assert page.errors[:reference].include? I18n.t(
-        'activerecord.errors.models.page.attributes.reference.taken' )
+        'activerecord.errors.models.page.attributes.reference.taken')
     end
   end
 
   def test_validates_reference_uniqueness_only_in_artist_scope
     existing = Page.sham!
-    page = Page.sham!( :build, artist: Artist.sham! )
+    page = Page.sham!(:build, artist: Artist.sham!)
     page.reference = existing.reference
     assert page.valid?
   end
@@ -77,19 +78,18 @@ class PageTest < ActiveSupport::TestCase
       page.title = t
       refute page.valid?
       assert page.errors[:title].include? I18n.t(
-        'activerecord.errors.models.page.attributes.title.blank' )
+        'activerecord.errors.models.page.attributes.title.blank')
     end
   end
 
   def test_validates_title_length
     page = Page.sham! :build
-    page.title = 'a'*(Page::TITLE_MAX_LENGTH+1)
+    page.title = 'a' * (Page::TITLE_MAX_LENGTH + 1)
     refute page.valid?
     assert page.errors[:title].include? I18n.t(
-      'activerecord.errors.models.page.attributes.title.too_long' )
+      'activerecord.errors.models.page.attributes.title.too_long')
 
-    page.title = 'a'*(Page::TITLE_MAX_LENGTH)
+    page.title = 'a' * (Page::TITLE_MAX_LENGTH)
     assert page.valid?
   end
 end
-

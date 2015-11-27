@@ -5,7 +5,6 @@ class Publisher
   attr_accessor :url, :name
 
   def host
-    url.sub(/https?:\/\//, '')
+    url.sub(%r{https?:\/\/}, '')
   end
 end
-

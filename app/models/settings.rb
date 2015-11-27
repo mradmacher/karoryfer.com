@@ -36,11 +36,13 @@ class Settings
 
     def highlighted
       [
-        { 'title' => 'Sample',
-          'reference' => 'karoryfer-samples'},
         {
+          'title' => 'Sample',
+          'reference' => 'karoryfer-samples'
+        }, {
           'title' => 'O nas',
-          'reference' => 'karoryfer-lecolds'}
+          'reference' => 'karoryfer-lecolds'
+        }
       ]
     end
   end

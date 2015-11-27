@@ -1,9 +1,19 @@
 class EventPresenter < Presenter
-  def_delegators(:resource, :title, :body, :poster?, :poster,
-    :location, :address,
-    :expired?, :event_date, :event_time, :duration,
-    :price, :free_entrance?,
-    :recognized_external_urls, :artist)
+  def_delegators(:resource,
+                 :title,
+                 :body,
+                 :poster?,
+                 :poster,
+                 :location,
+                 :address,
+                 :expired?,
+                 :event_date,
+                 :event_time,
+                 :duration,
+                 :price,
+                 :free_entrance?,
+                 :recognized_external_urls,
+                 :artist)
 
   def path
     artist_event_path(resource.artist, resource)

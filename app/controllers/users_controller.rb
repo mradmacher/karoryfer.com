@@ -14,8 +14,11 @@ class UsersController < ApplicationController
   private
 
   def edit_view
-    request.referrer == admin_edit_password_url(@presenter.resource) ?
-      'edit_password' : 'edit'
+    if request.referrer == admin_edit_password_url(@presenter.resource)
+      'edit_password'
+    else
+      'edit'
+    end
   end
 
   def destroy_redirect_path(obj)

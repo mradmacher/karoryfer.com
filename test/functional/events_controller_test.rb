@@ -18,11 +18,10 @@ class EventsControllerTest < ActionController::TestCase
     allow(:write_event, artist)
     get :edit, artist_id: event.artist.to_param, id: event.to_param
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'label.event.title' )
+      assert_select 'label', I18n.t('label.event.title')
       assert_select 'input[type=text][name=?][value=?]', 'event[title]', event.title
-      assert_select 'label', I18n.t( 'label.event.body' )
-      assert_select 'textarea[name=?]', 'event[body]',
-        :text => event.body
+      assert_select 'label', I18n.t('label.event.body')
+      assert_select 'textarea[name=?]', 'event[body]', text: event.body
     end
   end
 
@@ -31,9 +30,9 @@ class EventsControllerTest < ActionController::TestCase
     allow(:write_event, artist)
     get :new, artist_id: artist
     assert_select 'form' do
-      assert_select 'label', I18n.t( 'label.event.title' )
+      assert_select 'label', I18n.t('label.event.title')
       assert_select 'input[type=text][name=?]', 'event[title]'
-      assert_select 'label', I18n.t( 'label.event.body' )
+      assert_select 'label', I18n.t('label.event.body')
       assert_select 'textarea[name=?]', 'event[body]'
     end
   end

@@ -21,7 +21,7 @@ class ReleaseDBTest < ActiveSupport::TestCase
     exception = assert_raises Sequel::UniqueConstraintViolation do
       DB[:releases].insert(album_id: @album_id, file: 'otherfile.flac', format: 'flac')
     end
-    assert_match( /releases_album_format_key/, exception.message )
+    assert_match(/releases_album_format_key/, exception.message)
   end
 
   def test_does_not_complains_about_duplicated_formats_for_different_albums

@@ -9,11 +9,11 @@ class User < ActiveRecord::Base
 
   has_many :memberships
 
-  validates :admin, :inclusion => { :in => [true, false] }
-  validates :publisher, :inclusion => { :in => [true, false] }
+  validates :admin, inclusion: { in: [true, false] }
+  validates :publisher, inclusion: { in: [true, false] }
 
   def artists
-    Artist.joins( :memberships ).where( 'memberships.user_id' => self.id )
+    Artist.joins(:memberships).where('memberships.user_id' => self.id)
   end
 
   def other_artists
@@ -21,20 +21,24 @@ class User < ActiveRecord::Base
     if artist_ids.empty?
       Artist.all
     else
-      Artist.where( 'id not in (?)', artist_ids )
+      Artist.where('id not in (?)', artist_ids)
     end
   end
 
   def unpublished_posts
-    Post.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'posts.published' => false )
+    Post.joins(:artist).joins(artist: :memberships)
+      .where('memberships.user_id' => self.id)
+      .where('posts.published' => false)
   end
 
   def unpublished_events
-    Event.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'events.published' => false )
+    Event.joins(:artist).joins(artist: :memberships)
+      .where('memberships.user_id' => self.id).where('events.published' => false)
   end
 
   def unpublished_albums
-    Album.joins( :artist ).joins( :artist => :memberships ).where( 'memberships.user_id' => self.id ).where( 'albums.published' => false )
+    Album.joins(:artist).joins(artist: :memberships)
+      .where('memberships.user_id' => self.id)
+      .where('albums.published' => false)
   end
 end
-

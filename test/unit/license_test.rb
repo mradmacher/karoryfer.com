@@ -7,7 +7,7 @@ class LicenseTest < ActiveSupport::TestCase
       license.symbol = s
       refute license.valid?
       assert license.errors[:symbol].include? I18n.t(
-        'activerecord.errors.models.license.attributes.symbol.blank' )
+        'activerecord.errors.models.license.attributes.symbol.blank')
     end
   end
 
@@ -17,7 +17,7 @@ class LicenseTest < ActiveSupport::TestCase
       license.version = v
       refute license.valid?
       assert license.errors[:version].include? I18n.t(
-        'activerecord.errors.models.license.attributes.version.blank' )
+        'activerecord.errors.models.license.attributes.version.blank')
     end
   end
 
@@ -27,7 +27,7 @@ class LicenseTest < ActiveSupport::TestCase
       license.name = n
       refute license.valid?
       assert license.errors[:name].include? I18n.t(
-        'activerecord.errors.models.license.attributes.name.blank' )
+        'activerecord.errors.models.license.attributes.name.blank')
     end
   end
 
@@ -39,13 +39,14 @@ class LicenseTest < ActiveSupport::TestCase
 
   def test_has_full_name_for_standard_licenses
     license = License.sham! :build
-    [['by', '3.0'],
-    ['by-sa', '3.0'],
-    ['by-nc-sa', '3.0']].each do |symbol, version|
+    [
+      ['by', '3.0'],
+      ['by-sa', '3.0'],
+      ['by-nc-sa', '3.0']
+    ].each do |symbol, version|
       license.symbol = symbol
       license.version = version
       refute_nil license.full_name
     end
   end
 end
-

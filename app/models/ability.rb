@@ -9,7 +9,7 @@ class Ability
     rules_for(subject).include?(action)
   end
 
-  alias :allow? :allows?
+  alias_method :allow?, :allows?
 
   private
 
@@ -22,23 +22,54 @@ class Ability
       subject_rules = []
       case subject.class.to_s
       when 'Artist'
-        subject_rules.concat([:read, :read_post, :read_video, :read_page, :read_event, :read_album])
-        if is_member_of?(subject.id)
-          subject_rules.concat([:write, :write_post, :write_video, :write_page, :write_event])
+        subject_rules.concat([
+          :read,
+          :read_post,
+          :read_video,
+          :read_page,
+          :read_event,
+          :read_album
+        ])
+        if member_of?(subject.id)
+          subject_rules.concat([
+            :write,
+            :write_post,
+            :write_video,
+            :write_page,
+            :write_event
+          ])
           subject_rules.concat([:write_album]) if user.publisher?
         end
       when 'Album'
-        if user.publisher? && is_member_of?(subject.artist_id)
-          subject_rules.concat([:read, :read_attachment, :read_track, :read_release,
-            :write, :write_attachment, :write_track, :write_release])
-        elsif subject.published? || is_member_of?(subject.artist_id)
+        if user.publisher? && member_of?(subject.artist_id)
+          subject_rules.concat([
+            :read,
+            :read_attachment,
+            :read_track,
+            :read_release,
+            :write,
+            :write_attachment,
+            :write_track,
+            :write_release
+          ])
+        elsif subject.published? || member_of?(subject.artist_id)
           subject_rules.concat([:read, :read_attachment, :read_track])
         end
       when 'User'
         if user.admin?
-          subject_rules.concat([:read, :read_membership, :write, :write_membership])
+          subject_rules.concat([
+            :read,
+            :read_membership,
+            :write,
+            :write_membership
+          ])
         elsif user == subject
-          subject_rules.concat([:read, :read_membership, :write, :write_membership])
+          subject_rules.concat([
+            :read,
+            :read_membership,
+            :write,
+            :write_membership
+          ])
         end
       when 'Symbol'
         case subject
@@ -58,10 +89,10 @@ class Ability
     rules[subject]
   end
 
-  def is_member_of?(artist_id)
+  def member_of?(artist_id)
     if @membership_ids.nil?
       @membership_ids = user.memberships.map(&:artist_id)
     end
-    !@membership_ids.select{ |id| id == artist_id }.empty?
+    !@membership_ids.select { |id| id == artist_id }.empty?
   end
 end

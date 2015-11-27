@@ -9,8 +9,8 @@ class SiteControllerTest < ActionController::TestCase
 
   def test_get_artists_displays_headers
     get :artists
-    assert_select "title", build_title( I18n.t( 'title.artist.index' ) )
-    assert_select "h1", I18n.t( 'title.artist.index' )
+    assert_select 'title', build_title(I18n.t('title.artist.index'))
+    assert_select 'h1', I18n.t('title.artist.index')
   end
 
   def test_get_artists_does_not_display_actions_when_not_authorized
@@ -67,21 +67,23 @@ class SiteControllerTest < ActionController::TestCase
 
   def test_get_drafts_for_user_displays_nothing
     login_user
-    albums = 3.times.to_a.map{ |i| Album.sham!( published: false ) }
+    albums = 3.times.to_a.map { Album.sham!(published: false) }
     get :drafts
 
     albums.each do |r|
-      assert_select "a", {text: r.title, count: 0}
+      assert_select 'a', text: r.title, count: 0
     end
   end
 
   def test_get_drafts_for_artist_user_displays_drafts
     membership = login_artist_user
-    albums = 3.times.to_a.map{ |i| Album.sham!( published: false, artist: membership.artist ) }
+    albums = 3.times.to_a.map do
+      Album.sham!(published: false, artist: membership.artist)
+    end
     get :drafts
 
     albums.each do |r|
-      assert_select "a", r.title
+      assert_select 'a', r.title
     end
   end
 
@@ -90,14 +92,14 @@ class SiteControllerTest < ActionController::TestCase
     artist = membership.artist
     for_artist = []
     not_for_artist = []
-    5.times { for_artist << Album.sham!( :unpublished, artist: artist ) }
-    5.times { not_for_artist << Album.sham!( :unpublished ) }
+    5.times { for_artist << Album.sham!(:unpublished, artist: artist) }
+    5.times { not_for_artist << Album.sham!(:unpublished) }
     get :drafts
     for_artist.each do |a|
       assert_select 'a', a.title
     end
     not_for_artist.each do |a|
-      assert_select '*', { text: a.title, count: 0 }
+      assert_select '*', text: a.title, count: 0
     end
   end
 end

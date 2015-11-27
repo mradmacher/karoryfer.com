@@ -1,0 +1,30 @@
+AllCops:
+  RunRailsCops: true
+  Exclude:
+    - db/**/*.rb
+
+Metrics/AbcSize:
+  Exclude:
+    - test/**/*.rb
+    - config/**/*.rb
+
+Metrics/LineLength:
+  Exclude:
+    - test/**/*.rb
+    - config/**/*.rb
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - test/**/*.rb
+
+# these are not particularly helpful
+Metrics/ClassLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+# Metrics/ParameterLists:
+#   Enabled: false
+# Metrics/CyclomaticComplexity:
+#   Enabled: false

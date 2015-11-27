@@ -21,13 +21,13 @@ class VideoCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read_video, artist]
-      when :show then [:read_video, artist]
-      when :new then [:write_video, artist]
-      when :edit then [:write_video, artist]
-      when :create then [:write_video, artist]
-      when :update then [:write_video, artist]
-      when :destroy then [:write_video, artist]
+    when :index then [:read_video, artist]
+    when :show then [:read_video, artist]
+    when :new then [:write_video, artist]
+    when :edit then [:write_video, artist]
+    when :create then [:write_video, artist]
+    when :update then [:write_video, artist]
+    when :destroy then [:write_video, artist]
     end
   end
 

@@ -21,13 +21,13 @@ class AttachmentCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read_attachment, album]
-      when :show then [:read_attachment, album]
-      when :new then [:write_attachment, album]
-      when :edit then [:write_attachment, album]
-      when :create then [:write_attachment, album]
-      when :update then [:write_attachment, album]
-      when :destroy then [:write_attachment, album]
+    when :index then [:read_attachment, album]
+    when :show then [:read_attachment, album]
+    when :new then [:write_attachment, album]
+    when :edit then [:write_attachment, album]
+    when :create then [:write_attachment, album]
+    when :update then [:write_attachment, album]
+    when :destroy then [:write_attachment, album]
     end
   end
 
