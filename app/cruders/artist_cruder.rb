@@ -14,13 +14,13 @@ class ArtistCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read, :artist]
-      when :show then [:read, find]
-      when :new then [:write, :artist]
-      when :edit then [:write, find]
-      when :create then [:write, :artist]
-      when :update then [:write, find]
-      when :destroy then [:write, find]
+    when :index then [:read, :artist]
+    when :show then [:read, find]
+    when :new then [:write, :artist]
+    when :edit then [:write, find]
+    when :create then [:write, :artist]
+    when :update then [:write, find]
+    when :destroy then [:write, find]
     end
   end
 

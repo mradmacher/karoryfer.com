@@ -1,5 +1,5 @@
 class ArtistsController < CurrentArtistController
-  layout 'current_artist', :except => [:index, :new, :create]
+  layout 'current_artist', except: [:index, :new, :create]
 
   private
 
@@ -7,7 +7,7 @@ class ArtistsController < CurrentArtistController
     'edit'
   end
 
-  def destroy_redirect_path(obj)
+  def destroy_redirect_path(_)
     artists_url
   end
 

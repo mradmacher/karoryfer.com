@@ -10,7 +10,9 @@ class ReleasePresenter < Presenter
   end
 
   def edit_path
-    edit_artist_album_release_path(resource.album.artist, resource.album, resource)
+    edit_artist_album_release_path(resource.album.artist,
+                                   resource.album,
+                                   resource)
   end
 
   def can_be_updated?

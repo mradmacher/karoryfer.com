@@ -3,16 +3,16 @@ require 'taglib'
 module Releaser
   class Tag
     attr_accessor :artist,
-      :album,
-      :year,
-      :title,
-      :track,
-      :comment,
-      :contact_url,
-      :organization_name,
-      :organization_url,
-      :license_name,
-      :copyright
+                  :album,
+                  :year,
+                  :title,
+                  :track,
+                  :comment,
+                  :contact_url,
+                  :organization_name,
+                  :organization_url,
+                  :license_name,
+                  :copyright
 
     def copyright_description
       "Licensed to the public under #{@license_name} verify at #{@contact_url}"
@@ -21,7 +21,7 @@ module Releaser
     def apply_to(file_path)
       for_file(file_path) do |tag|
         apply_common(tag) if tag
-        if tag.is_a?  TagLib::Ogg::XiphComment
+        if tag.is_a? TagLib::Ogg::XiphComment
           apply_xiph_specific(tag)
         elsif tag.is_a? TagLib::ID3v2::Tag
           apply_id3v2_specific(tag)
@@ -34,12 +34,12 @@ module Releaser
     def for_file(file_path)
       extname = File.extname(file_path)
       case extname
-        when '.ogg'
-          for_ogg(file_path) { |tag| yield tag }
-        when '.flac'
-          for_flac(file_path) { |tag| yield tag }
-        when '.mp3'
-          for_mp3(file_path) { |tag| yield tag }
+      when '.ogg'
+        for_ogg(file_path) { |tag| yield tag }
+      when '.flac'
+        for_flac(file_path) { |tag| yield tag }
+      when '.mp3'
+        for_mp3(file_path) { |tag| yield tag }
       end
     end
 
@@ -79,7 +79,7 @@ module Releaser
       tag.add_field('ORGANIZATION', @organization_name, true)
       unless @license_name.nil?
         tag.add_field('LICENSE', @license_name, true)
-        tag.add_field('COPYRIGHT', self.copyright, true)
+        tag.add_field('COPYRIGHT', copyright, true)
       end
     end
 
@@ -104,7 +104,7 @@ module Releaser
         tag.add_frame(frame)
 
         frame = TagLib::ID3v2::TextIdentificationFrame.new('TCOP', TagLib::String::UTF8)
-        frame.text = self.copyright + '. ' + self.copyright_description
+        frame.text = copyright + '. ' + copyright_description
         tag.add_frame(frame)
       end
     end

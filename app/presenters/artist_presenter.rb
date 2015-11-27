@@ -1,8 +1,8 @@
 class ArtistPresenter < Presenter
   def_delegators(:resource, :name, :summary, :description, :image?, :image)
 
-  alias :artist :resource
-  alias :title :name
+  alias_method :artist, :resource
+  alias_method :title, :name
 
   def path
     artist_path(resource)
@@ -48,27 +48,30 @@ class ArtistPresenter < Presenter
     artist_albums_path(artist)
   end
 
-
   def recent_pages
-    @recent_pages ||= PagePresenter.presenters_for(artist.pages.some, abilities)
+    @recent_pages ||= PagePresenter.presenters_for(artist.pages.some,
+                                                   abilities)
   end
 
   def recent_events
-    @recent_events ||= EventPresenter.presenters_for(artist.events.current, abilities)
+    @recent_events ||= EventPresenter.presenters_for(artist.events.current,
+                                                     abilities)
   end
 
   def recent_posts
-    @recent_posts ||= PostPresenter.presenters_for(artist.posts.some, abilities)
+    @recent_posts ||= PostPresenter.presenters_for(artist.posts.some,
+                                                   abilities)
   end
 
   def recent_videos
-    @recent_videos ||= VideoPresenter.presenters_for(artist.videos.some, abilities)
+    @recent_videos ||= VideoPresenter.presenters_for(artist.videos.some,
+                                                     abilities)
   end
 
   def recent_albums
-    @recent_albums ||= AlbumPresenter.presenters_for(artist.albums.published, abilities)
+    @recent_albums ||= AlbumPresenter.presenters_for(artist.albums.published,
+                                                     abilities)
   end
-
 
   def events_count
     artist.events.current.count
@@ -85,7 +88,6 @@ class ArtistPresenter < Presenter
   def albums_count
     artist.albums.published.count
   end
-
 
   def show_pages?
     !recent_pages.empty?
@@ -108,23 +110,23 @@ class ArtistPresenter < Presenter
   end
 
   def show_recent_pages?
-    !recent_pages.empty? or can_create_pages?
+    !recent_pages.empty? || can_create_pages?
   end
 
   def show_recent_events?
-    !artist.events.current.empty? or can_create_events?
+    !artist.events.current.empty? || can_create_events?
   end
 
   def show_recent_posts?
-    !recent_posts.empty? or can_create_posts?
+    !recent_posts.empty? || can_create_posts?
   end
 
   def show_recent_videos?
-    !recent_videos.empty? or can_create_videos?
+    !recent_videos.empty? || can_create_videos?
   end
 
   def show_recent_albums?
-    !recent_albums.empty? or can_create_albums?
+    !recent_albums.empty? || can_create_albums?
   end
 
   def can_be_updated?

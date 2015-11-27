@@ -1,8 +1,8 @@
 Karoryfer::Application.routes.draw do
-  scope 'admin', :as => 'admin' do
+  scope 'admin', as: 'admin' do
     resources :user_sessions, only: [:create]
-    get 'login' => "user_sessions#new", :as => :login
-    get 'logout' => "user_sessions#destroy", :as => :logout
+    get 'login' => 'user_sessions#new', :as => :login
+    get 'logout' => 'user_sessions#destroy', :as => :logout
     scope path_names: { edit: 'zmien', new: 'dodaj' } do
       resources :users, path: 'uzytkownicy' do
         resources :memberships, only: [:create, :destroy]
@@ -11,7 +11,7 @@ Karoryfer::Application.routes.draw do
     get 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
   end
 
-  root :to => 'site#home'
+  root to: 'site#home'
 
   get 'wydarzenia/kalendarz', to: 'events#calendar', as: 'calendar_events'
   get 'wydarzenia/z/:year(/:month(/:day))', to: 'site#events', as: 'events_from'
@@ -43,4 +43,3 @@ Karoryfer::Application.routes.draw do
     resources :pages, path: 'informacje'
   end
 end
-

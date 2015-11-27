@@ -90,21 +90,21 @@ class TagTest < ActiveSupport::TestCase
     assert_nil found.frame_list('WOAR').first
 
     wpub = found.frame_list('WPUB').first
-    assert wpub.kind_of? TagLib::ID3v2::UrlLinkFrame
+    assert wpub.is_a? TagLib::ID3v2::UrlLinkFrame
     assert_equal expected.organization_url, wpub.to_s
     tpub = found.frame_list('TPUB').first
-    assert tpub.kind_of? TagLib::ID3v2::TextIdentificationFrame
+    assert tpub.is_a? TagLib::ID3v2::TextIdentificationFrame
     assert_equal expected.organization_name, tpub.to_s
 
     if expected.license_name
       wcop = found.frame_list('WCOP').first
-      assert wcop.kind_of? TagLib::ID3v2::UrlLinkFrame
+      assert wcop.is_a? TagLib::ID3v2::UrlLinkFrame
       assert_equal expected.license_name, wcop.to_s
       woaf = found.frame_list('WOAF').first
-      assert woaf.kind_of? TagLib::ID3v2::UrlLinkFrame
+      assert woaf.is_a? TagLib::ID3v2::UrlLinkFrame
       assert_equal expected.contact_url, woaf.to_s
       tcop = found.frame_list('TCOP').first
-      assert tcop.kind_of? TagLib::ID3v2::TextIdentificationFrame
+      assert tcop.is_a? TagLib::ID3v2::TextIdentificationFrame
       assert_equal "#{expected.copyright}. #{expected.copyright_description}", tcop.to_s
     else
       assert found.frame_list('WCOP').empty?
@@ -117,7 +117,7 @@ class TagTest < ActiveSupport::TestCase
     @tag = Releaser::Tag.new
     @tag.contact_url = 'http://www.example.com.pl'
     @tag.license_name = 'CC-BY-SA'
-    assert_equal 'Licensed to the public under CC-BY-SA verify at http://www.example.com.pl',
-      @tag.copyright_description
+    expected = 'Licensed to the public under CC-BY-SA verify at http://www.example.com.pl'
+    assert_equal expected, @tag.copyright_description
   end
 end

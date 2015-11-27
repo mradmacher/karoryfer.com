@@ -3,7 +3,7 @@ class VideosController < CurrentArtistController
 
   private
 
-  def destroy_redirect_path(obj)
+  def destroy_redirect_path(_)
     artist_videos_url(current_artist)
   end
 

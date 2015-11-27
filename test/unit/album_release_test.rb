@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 require 'test_helper'
 
 class AlbumReleaseTest < ActiveSupport::TestCase
@@ -7,11 +7,13 @@ class AlbumReleaseTest < ActiveSupport::TestCase
     Uploader::Release.store_dir = @tmp_dir
 
     @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
-    @album = Album.sham! title: 'Tłuczące pokrowce jeżozwierza',
-      image: File.open(File.join(FIXTURES_DIR, 'okladka.jpg'))
+    @album = Album.sham!(
+      title: 'Tłuczące pokrowce jeżozwierza',
+      image: File.open(File.join(FIXTURES_DIR, 'okladka.jpg')))
     3.times do |i|
-      Track.sham! album: @album,
-        file: File.open(File.join(FIXTURES_DIR, 'tracks', "#{i+1}.wav"))
+      Track.sham!(
+        album: @album,
+        file: File.open(File.join(FIXTURES_DIR, 'tracks', "#{i + 1}.wav")))
     end
     @album.tracks.each do |track|
       puts track.file
@@ -45,7 +47,7 @@ class AlbumReleaseTest < ActiveSupport::TestCase
   end
 
   def test_creates_releases_with_overriden_tags
-    @album.tracks.each{ |t| t.artist_name = 'Some artist' }
+    @album.tracks.each { |t| t.artist_name = 'Some artist' }
     [Release::OGG, Release::FLAC, Release::MP3].each do |format|
       release = Release.create(album: @album, format: format)
       release.generate!
@@ -53,7 +55,7 @@ class AlbumReleaseTest < ActiveSupport::TestCase
     end
   end
 
-  def expected_release_url( album )
+  def expected_release_url(album)
     "#{Publisher.instance.url}/#{album.artist.reference}/wydawnictwa/#{album.reference}"
   end
 
@@ -63,35 +65,36 @@ class AlbumReleaseTest < ActiveSupport::TestCase
     album_reference = album.reference
     file_path = release.file.path
 
-    assert File.exists?(file_path)
+    assert File.exist?(file_path)
     assert_equal "#{artist_reference}-#{album_reference}-#{release.format}.zip", File.basename(file_path)
 
     Dir.mktmpdir do |tmp_dir|
       system "unzip #{file_path} -d #{tmp_dir}"
 
       album_path = File.join(tmp_dir, artist_reference, album_reference)
-      assert File.exists? album_path
+      assert File.exist? album_path
 
-      assert File.exists? File.join(album_path, 'att1.jpg')
-      assert File.exists? File.join(album_path, 'att2.pdf')
-      assert File.exists? File.join(album_path, 'att3.txt')
+      assert File.exist? File.join(album_path, 'att1.jpg')
+      assert File.exist? File.join(album_path, 'att2.pdf')
+      assert File.exist? File.join(album_path, 'att3.txt')
       album.tracks.each do |track|
-        track_reference = track.title.parameterize( '_' )
+        track_reference = track.title.parameterize('_')
 
-       track_path = File.join(album_path, "#{sprintf('%02d', track.rank)}-#{track_reference}.#{release.format}" )
-        assert File.exists? track_path
+        filename = "#{format('%02d', track.rank)}-#{track_reference}.#{release.format}"
+        track_path = File.join(album_path, filename)
+        assert File.exist? track_path
 
-        #FIXME
-        #type = case release.format
-        #  when Release::OGG then 'Ogg'
-        #  when Release::MP3 then 'MPEG'
-        #  when Release::FLAC then 'FLAC'
-        #end
-        #assert `file #{track_path}` =~ /#{type}/
+        # FIXME
+        # type = case release.format
+        #   when Release::OGG then 'Ogg'
+        #   when Release::MP3 then 'MPEG'
+        #   when Release::FLAC then 'FLAC'
+        # end
+        # assert `file #{track_path}` =~ /#{type}/
       end
 
       (Release::FORMATS - [release.format]).each do |format|
-        refute File.exists? File.join(album_path, "*.#{format}")
+        refute File.exist? File.join(album_path, "*.#{format}")
       end
     end
   end

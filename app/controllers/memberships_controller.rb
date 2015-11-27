@@ -1,5 +1,4 @@
 class MembershipsController < CurrentUserController
-
   private
 
   def create_redirect_path(obj)

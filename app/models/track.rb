@@ -5,16 +5,16 @@ class Track < ActiveRecord::Base
   belongs_to :album
   has_many :releases
 
-  validates :title, :presence => true, :length => { :maximum => TITLE_MAX_LENGTH }
-  validates :album_id, :presence => true
-  validates :rank, :presence => true, :uniqueness => { :scope => :album_id }
-  validates :comment, :length => { :maximum => COMMENT_MAX_LENGTH }
+  validates :title, presence: true, length: { maximum: TITLE_MAX_LENGTH }
+  validates :album_id, presence: true
+  validates :rank, presence: true, uniqueness: { scope: :album_id }
+  validates :comment, length: { maximum: COMMENT_MAX_LENGTH }
 
   mount_uploader :ogg_preview, Uploader::TrackPreview
   mount_uploader :mp3_preview, Uploader::TrackPreview
   mount_uploader :file, Uploader::TrackSource
 
-  default_scope -> { order( 'rank asc' ) }
+  default_scope -> { order('rank asc') }
 
   before_destroy :remove_file!
   before_destroy :remove_ogg_preview!

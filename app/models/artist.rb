@@ -8,14 +8,14 @@ class Artist < ActiveRecord::Base
 
   NAME_MAX_LENGTH = 32
   REFERENCE_MAX_LENGTH = 24
-  validates :name, :presence => true
-  validates :name, :length => { :maximum => NAME_MAX_LENGTH }
+  validates :name, presence: true
+  validates :name, length: { maximum: NAME_MAX_LENGTH }
 
-  validates :reference, :presence => true
-  validates :reference, :length => { :maximum => REFERENCE_MAX_LENGTH }
-  validates :reference, :format => { :with => /\A[a-z0-9]+([-_]?[a-z0-9]+)*\z/ }
-  validates :reference, :uniqueness => { :case_sensitive => false }
-  validates :reference, :exclusion => { :in => %w( aktualnosci wydarzenia wiadomosci filmy wydawnictwa informacje artysci ) }
+  validates :reference, presence: true
+  validates :reference, length: { maximum: REFERENCE_MAX_LENGTH }
+  validates :reference, format: { with: /\A[a-z0-9]+([-_]?[a-z0-9]+)*\z/ }
+  validates :reference, uniqueness: { case_sensitive: false }
+  validates :reference, exclusion: { in: %w(aktualnosci wydarzenia wiadomosci filmy wydawnictwa informacje artysci) }
 
   mount_uploader :image, Uploader::ArtistImage
 
@@ -23,7 +23,7 @@ class Artist < ActiveRecord::Base
     reference
   end
 
-  def self.find_by_reference( ref )
+  def self.find_by_reference(ref)
     super ref.downcase
   end
 end

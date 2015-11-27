@@ -7,10 +7,9 @@ module Uploader
     end
 
     def filename
-      if original_filename
-        suffix = (file.extension == model.format) ? '' : "-#{model.format}"
-        "#{model.album.artist.reference}-#{model.album.reference}#{suffix}.#{file.extension}"
-      end
+      return unless original_filename
+      suffix = (file.extension == model.format) ? '' : "-#{model.format}"
+      "#{model.album.artist.reference}-#{model.album.reference}#{suffix}.#{file.extension}"
     end
   end
 end

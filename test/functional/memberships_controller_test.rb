@@ -4,14 +4,16 @@ class MembershipsControllerTest < ActionController::TestCase
   def test_post_create_is_authorized
     user = User.sham!
     assert_authorized :write_membership, user do
-      post :create, user_id: user.to_param, membership: Membership.sham!(:build).attributes
+      post :create, user_id: user.to_param,
+                    membership: Membership.sham!(:build).attributes
     end
   end
 
   def test_delete_destroy_is_authorized
     membership = Membership.sham!
     assert_authorized :write_membership, membership.user do
-      delete :destroy, user_id: membership.user.to_param, id: membership.to_param
+      delete :destroy, user_id: membership.user.to_param,
+                       id: membership.to_param
     end
   end
 

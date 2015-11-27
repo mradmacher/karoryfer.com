@@ -1,5 +1,5 @@
 class CurrentAlbumController < CurrentArtistController
-  before_filter do
+  before_action do
     @album_presenter = AlbumPresenter.new(current_album, abilities)
   end
 

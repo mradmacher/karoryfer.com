@@ -21,13 +21,13 @@ class PageCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read_page, artist]
-      when :show then [:read_page, artist]
-      when :new then [:write_page, artist]
-      when :edit then [:write_page, artist]
-      when :create then [:write_page, artist]
-      when :update then [:write_page, artist]
-      when :destroy then [:write_page, artist]
+    when :index then [:read_page, artist]
+    when :show then [:read_page, artist]
+    when :new then [:write_page, artist]
+    when :edit then [:write_page, artist]
+    when :create then [:write_page, artist]
+    when :update then [:write_page, artist]
+    when :destroy then [:write_page, artist]
     end
   end
 

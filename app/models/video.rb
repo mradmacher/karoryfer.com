@@ -5,15 +5,15 @@ class Video < ActiveRecord::Base
 
   TITLE_MAX_LENGTH = 80
 
-  validates_presence_of :title
-  validates_length_of :title, :maximum => TITLE_MAX_LENGTH
-  validates_presence_of :url
-  validates_presence_of :artist_id
+  validates :title, presence: true
+  validates :title, length: { maximum: TITLE_MAX_LENGTH }
+  validates :url, presence: true
+  validates :artist_id, presence: true
 
-  default_scope -> { order( 'created_at desc' ) }
-  scope :some, -> { limit( SOME_LIMIT ) }
+  default_scope -> { order('created_at desc') }
+  scope :some, -> { limit(SOME_LIMIT) }
 
   def related
-    Video.where( artist_id: self.artist_id )
+    Video.where(artist_id: self.artist_id)
   end
 end

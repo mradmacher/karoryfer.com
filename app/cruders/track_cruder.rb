@@ -21,13 +21,13 @@ class TrackCruder < SimpleCruder
 
   def permissions(action)
     case action
-      when :index then [:read_track, album]
-      when :show then [:read_track, album]
-      when :new then [:write_track, album]
-      when :edit then [:write_track, album]
-      when :create then [:write_track, album]
-      when :update then [:write_track, album]
-      when :destroy then [:write_track, album]
+    when :index then [:read_track, album]
+    when :show then [:read_track, album]
+    when :new then [:write_track, album]
+    when :edit then [:write_track, album]
+    when :create then [:write_track, album]
+    when :update then [:write_track, album]
+    when :destroy then [:write_track, album]
     end
   end
 

@@ -14,6 +14,8 @@ gem 'taglib-ruby'
 gem 'authlogic'
 gem 'spawnling', '~>2.1'
 
+gem 'rubocop', require: false
+
 group :test do
   gem 'sham'
   gem 'faker'
