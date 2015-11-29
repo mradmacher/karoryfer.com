@@ -1,15 +1,13 @@
 .jumbotron {
   background: url("/images/splash.jpg") no-repeat left;
   color: white;
-  height: 330px;
 }
 
 .thumbnail {
-  background: #eee;
+  border: none;
 }
 
 .media-list .media {
-  background: #eee;
   padding: 5px;
 }
 
@@ -57,4 +55,3 @@
   height: 50px;
   margin: 10px;
 }
-

@@ -3,11 +3,8 @@ class SiteController < ApplicationController
   before_action :set_resources
 
   def home
-    @album_presenters = AlbumPresenter.presenters_for(
-      Album.published.sample(4),
-      abilities)
     @artist_presenters = ArtistPresenter.presenters_for(
-      Artist.all.sample(4),
+      Artist.all,
       abilities)
   end
 
@@ -53,8 +50,8 @@ class SiteController < ApplicationController
   private
 
   def set_resources
-    @recent_posts = PostPresenter.presenters_for(Post.some, abilities)
+    @recent_posts = PostPresenter.presenters_for(Post.some.current, abilities)
     @recent_events = EventPresenter.presenters_for(Event.some.current, abilities)
-    @recent_videos = VideoPresenter.presenters_for(Video.some, abilities)
+    @recent_videos = VideoPresenter.presenters_for(Video.some.current, abilities)
   end
 end
