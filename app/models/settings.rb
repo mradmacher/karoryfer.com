@@ -26,14 +26,6 @@ class Settings
       'http://www.twitter.com/karoryfer'
     end
 
-    def flattr_url
-      'http://flattr.com/profile/karoryfer'
-    end
-
-    def gplus_url
-      'https://plus.google.com/101590945458103175168'
-    end
-
     def highlighted
       [
         {

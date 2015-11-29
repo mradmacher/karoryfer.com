@@ -4,6 +4,6 @@
   </a>
 <% end %>
 <% unless current_artist? %>
-  <p><%= video.artist.name %></p>
+  <span class="label label-default"><%= video.artist.name %></span>
 <% end %>
-<h5><%= link_to video.title, video.path %></h5>
+<p><%= link_to video.title, video.path %></p>

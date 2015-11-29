@@ -103,6 +103,8 @@ GEM
       rake
     sequel (4.17.0)
     sham (1.1.0)
+    skylight (0.10.0)
+      activesupport (>= 3.0.0)
     spawnling (2.1.5)
     sprockets (2.12.3)
       hike (~> 1.2)
@@ -145,6 +147,7 @@ DEPENDENCIES
   rubocop
   sequel
   sham
+  skylight
   spawnling (~> 2.1)
   taglib-ruby
   thin
