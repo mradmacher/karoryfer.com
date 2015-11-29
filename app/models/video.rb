@@ -12,6 +12,7 @@ class Video < ActiveRecord::Base
 
   default_scope -> { order('created_at desc') }
   scope :some, -> { limit(SOME_LIMIT) }
+  scope :current, -> { where('current_date - date(videos.created_at) <= 14') }
 
   def related
     Video.where(artist_id: self.artist_id)

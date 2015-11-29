@@ -30,4 +30,8 @@ class EventPresenter < Presenter
   def can_be_deleted?
     can_be_updated?
   end
+
+  def short_summary
+    [resource.artist.name, resource.location].map { |e| e.blank? ? nil : e }.compact.join(', ')
+  end
 end
