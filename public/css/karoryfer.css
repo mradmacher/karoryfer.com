@@ -7,6 +7,10 @@
   border: none;
 }
 
+.thumbnail a:link, .thumbnail a:visited {
+  color: #000;
+}
+
 .media-list .media {
   padding: 5px;
 }
