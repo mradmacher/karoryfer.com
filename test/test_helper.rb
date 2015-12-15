@@ -6,7 +6,7 @@ require 'sequel'
 require 'shams'
 
 dbconfig = Rails.configuration.database_configuration['test']
-DB = Sequel.connect("postgres://#{dbconfig['username']}@localhost/#{dbconfig['database']}")
+DB = Sequel.connect("postgres://#{dbconfig['username']}:#{dbconfig['password']}@localhost/#{dbconfig['database']}")
 FIXTURES_DIR = File.expand_path('../fixtures', __FILE__)
 
 module I18n

@@ -20,6 +20,7 @@ capybara-*.html
 /spec/tmp/*
 /config/database.yml
 /config/newrelic.yml
+/config/secrets.yml
 **.orig
 *~
 *.swp

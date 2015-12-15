@@ -3,12 +3,28 @@
     <div class="col-md-3">
       <%= link_to image_tag('logo.jpg', alt: 'Karoryfer Lecolds', title: 'Karoryfer Lecolds' ), root_url %>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-9">
       <ul class="nav nav-tabs">
         <% main_menu_items.each do |title, url, is_active| %>
           <li class="<%= is_active ? 'active' : 'normal' %>">
             <%= link_to title, url, :class => 'main-menu-link' %></li>
         <% end %>
+        <li class="pull-right">
+          <div class="inline-block">
+          <% if page_url = Settings.facebook_url %>
+            <a href="<%= page_url %>" target="_blank">
+              <%= image_tag('social/facebook.png', alt: 'Facebook', title: 'Facebook') %></a>
+          <% end %>
+          <% if page_url = Settings.twitter_url %>
+            <a href="<%= page_url %>" target="_blank">
+              <%= image_tag('social/twitter.png', alt: 'Twitter', title: 'Twitter') %></a>
+          <% end %>
+          <% if page_url = Settings.youtube_url %>
+            <a href="<%= page_url %>" target="_blank">
+              <%= image_tag('social/youtube.png', alt: 'YouTube', title: 'YouTube') %></a>
+          <% end %>
+          </div>
+        </li>
       </ul>
     </div>
   </div>

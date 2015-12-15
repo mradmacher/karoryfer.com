@@ -38,6 +38,10 @@
   color: #000;
   text-transform: uppercase;
 }
+.nav img {
+  height: 25px;
+  margin-top: 10px;
+}
 
 .hidden {
   display: none;
