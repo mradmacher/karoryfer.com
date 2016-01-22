@@ -19,7 +19,7 @@
     <div class="media-body">
       <h5><%= event_icon(presenter.expired?) %><%= link_to presenter.title, presenter.path %></h5>
       <p>
-        <%= presenter.artist.name %><br />
+        <span class="label label-default"><%= presenter.artist.name %></span><br />
         <%= event_date(presenter) %><br />
         <%= presenter.location %>
         <% if presenter.address.present? %>

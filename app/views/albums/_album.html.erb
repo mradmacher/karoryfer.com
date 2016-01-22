@@ -5,9 +5,7 @@
   </a>
 </p>
 <% end %>
-<p>
 <% unless current_artist? %>
-  <%= album_presenter.artist.name %><br />
+  <span class="label label-default"><%= album_presenter.artist.name %></span>
 <% end %>
-  <a href="<%= album_presenter.path %>"><%= album_presenter.title %></a>
-</p>
+<p><a href="<%= album_presenter.path %>"><%= album_presenter.title %></a></p>
