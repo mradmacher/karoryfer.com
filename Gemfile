@@ -4,7 +4,6 @@ gem 'rails', '4.1.8'
 
 gem 'thin'
 gem 'unicorn'
-gem 'newrelic_rpm', '>=3.8.0'
 gem 'pg'
 gem 'rdiscount'
 gem 'mini_magick'
@@ -14,6 +13,8 @@ gem 'taglib-ruby'
 gem 'authlogic'
 gem 'spawnling', '~>2.1'
 
+gem 'newrelic_rpm', '>=3.8.0'
+gem 'skylight'
 gem 'rubocop', require: false
 
 group :test do
