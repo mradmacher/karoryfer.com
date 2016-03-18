@@ -10,14 +10,9 @@ class Event < ActiveRecord::Base
   validates :event_date, presence: true
   validates :free_entrance, inclusion: { in: [true, false] }
 
-  default_scope -> { order('(CASE WHEN event_date - current_date >= 0 THEN 1 ELSE 0 END) DESC, abs(event_date - current_date) ASC') }
-
-  scope :current, -> { where('event_date - current_date >= 0') }
-  scope :expired, -> { where('event_date - current_date < 0') }
+  scope :current, -> { where('event_date >= ?', Time.current.beginning_of_day) }
+  scope :expired, -> { where('event_date < ?', Time.current.beginning_of_day) }
   scope :some, -> { limit(SOME_LIMIT) }
-  scope :for_day, -> (y, m, d) { where('extract(day from event_date) = ? and extract(month from event_date) = ? and extract(year from event_date) = ?', d, m, y) }
-  scope :for_month, -> (y, m) { where('extract(month from event_date) = ? and extract(year from event_date) = ?', m, y) }
-  scope :for_year, -> (y) { where('extract(year from event_date) = ?', y) }
 
   mount_uploader :poster, Uploader::EventImage
 
@@ -33,4 +28,3 @@ class Event < ActiveRecord::Base
     result
   end
 end
-

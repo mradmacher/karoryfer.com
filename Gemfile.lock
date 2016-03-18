@@ -101,7 +101,6 @@ GEM
     scrypt (1.2.1)
       ffi-compiler (>= 0.0.2)
       rake
-    sequel (4.17.0)
     sham (1.1.0)
     skylight (0.10.0)
       activesupport (>= 3.0.0)
@@ -145,7 +144,6 @@ DEPENDENCIES
   rails (= 4.1.8)
   rdiscount
   rubocop
-  sequel
   sham
   skylight
   spawnling (~> 2.1)

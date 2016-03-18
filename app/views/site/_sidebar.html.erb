@@ -1,61 +1,8 @@
 <% content_for :sidebar do %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><a href="<%= events_path %>"><%=t 'label.events' %></a></h4>
-    </div>
-    <% unless @recent_events.empty? %>
-      <div class="panel-body">
-        <ul class="event-list">
-          <% @recent_events.each_with_index do |presenter, i| %>
-            <li>
-              <a href="<%= presenter.path %>"><%= event_date(presenter.resource) %></a> - <%= presenter.short_summary %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  </div>
-
-<div class="panel panel-default">
-  <div class="panel-body">
-    <%= render partial: 'embeds/facebook_sdk' %>
-    <div class="fb-page" data-href="https://www.facebook.com/karoryfer" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/karoryfer"><a href="https://www.facebook.com/karoryfer">Karoryfer Lecolds</a></blockquote></div></div>
-  </div>
-</div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><a href="<%= posts_path %>"><%=t 'label.posts' %></a></h4>
+    <div class="panel-body">
+      <div class="fb-page" data-href="https://www.facebook.com/karoryfer" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/karoryfer"><a href="https://www.facebook.com/karoryfer">Karoryfer Lecolds</a></blockquote></div></div>
     </div>
-    <% unless @recent_posts.empty? %>
-      <div class="panel-body">
-        <ul class="post-list">
-        <% @recent_posts.each do |presenter| %>
-          <li>
-            <%= presenter.artist.name %><br />
-            <a href="<%= presenter.path %>"><%= presenter.title %></a>
-          </li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><a href="<%= videos_path %>"><%=t 'label.videos' %></a></h4>
-    </div>
-    <% unless @recent_videos.empty? %>
-      <div class="panel-body">
-        <ul class="video-list">
-        <% @recent_videos.each do |presenter| %>
-          <li>
-            <%= presenter.artist.name %><br />
-            <a href="<%= presenter.path %>"><%= presenter.title %></a>
-          </li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
   </div>
 <% end %>

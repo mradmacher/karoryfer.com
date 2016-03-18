@@ -13,12 +13,11 @@ Karoryfer::Application.routes.draw do
 
   root to: 'site#home'
 
-  get 'wydarzenia/kalendarz', to: 'events#calendar', as: 'calendar_events'
-  get 'wydarzenia/z/:year(/:month(/:day))', to: 'site#events', as: 'events_from'
-  get 'wiadomosci/z/:year', to: 'site#posts', as: :posts_from
-  get 'wydarzenia', to: 'site#events', as: 'events'
-  get 'wiadomosci', to: 'site#posts', as: 'posts'
-  get 'filmy', to: 'site#videos', as: 'videos'
+  # get 'wydarzenia/z/:year(/:month(/:day))', to: 'site#events', as: 'events_from'
+  # get 'wiadomosci/z/:year', to: 'site#posts', as: :posts_from
+  # get 'wydarzenia', to: 'site#events', as: 'events'
+  # get 'wiadomosci', to: 'site#posts', as: 'posts'
+  # get 'filmy', to: 'site#videos', as: 'videos'
   get 'wydawnictwa', to: 'site#albums', as: 'albums'
   get 'artysci', to: 'site#artists', as: 'artists'
   get 'szkice', to: 'site#drafts', as: 'drafts'
@@ -37,9 +36,9 @@ Karoryfer::Application.routes.draw do
       resources :tracks, path: 'sciezki', except: [:new]
       resources :releases, path: 'wydania', except: [:new, :edit]
     end
-    resources :videos, path: 'filmy'
-    resources :posts, path: 'wiadomosci'
-    resources :events, path: 'wydarzenia'
+    # resources :videos, path: 'filmy'
+    # resources :posts, path: 'wiadomosci'
+    # resources :events, path: 'wydarzenia'
     resources :pages, path: 'informacje'
   end
 end
