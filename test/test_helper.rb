@@ -2,11 +2,9 @@ ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'authlogic/test_case'
-require 'sequel'
 require 'shams'
 
 dbconfig = Rails.configuration.database_configuration['test']
-DB = Sequel.connect("postgres://#{dbconfig['username']}:#{dbconfig['password']}@localhost/#{dbconfig['database']}")
 FIXTURES_DIR = File.expand_path('../fixtures', __FILE__)
 
 module I18n

@@ -19,24 +19,11 @@ class SiteController < ApplicationController
   end
 
   def events
-    @current_date = "#{params[:day]}/#{params[:month]}/#{params[:year]}"
-    events = Event.all
-
-    if params[:day] && params[:month] && params[:year]
-      events = events.for_day(params[:year], params[:month], params[:day])
-    elsif params[:month] && params[:year]
-      events = events.for_month(params[:year], params[:month])
-    elsif params[:year]
-      events = events.for_year(params[:year])
-    end
-    @event_presenters = EventPresenter.presenters_for(events, abilities)
+    @event_presenters = EventPresenter.presenters_for(Event.all, abilities)
   end
 
   def posts
-    @selected_year = "#{params[:year]}"
-    posts = Post.all
-    posts = posts.created_in_year(params[:year]) if params[:year]
-    @post_presenters = PostPresenter.presenters_for(posts, abilities)
+    @post_presenters = PostPresenter.presenters_for(Post.all, abilities)
   end
 
   def videos

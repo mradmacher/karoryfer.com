@@ -8,30 +8,6 @@
       <div class="panel-heading">
         <h1><a href="<%= @artist_presenter.path %>" class="main-menu-link"><%= @artist_presenter.title %></a></h1>
       </div>
-      <div class="panel-body">
-        <ul class="nav nav-pills">
-          <% if @artist_presenter.show_events? %>
-            <li class="<%= controller_name == 'events' ? 'active' : 'normal' %>">
-              <a href="<%= @artist_presenter.events_path %>" class="main-menu-link"><%=t 'label.events' %></a>
-            </li>
-          <% end %>
-          <% if @artist_presenter.show_posts? %>
-            <li class="<%= controller_name == 'posts' ? 'active' : 'normal' %>">
-              <a href="<%= @artist_presenter.posts_path %>" class="main-menu-link"><%=t 'label.posts' %></a>
-            </li>
-          <% end %>
-          <% if @artist_presenter.show_albums? %>
-            <li class="<%= (controller_name == 'albums' || controller_name == 'attachments') ? 'active' : 'normal' %>">
-              <a href="<%= @artist_presenter.albums_path %>" class="main-menu-link"><%=t 'label.albums' %></a>
-            </li>
-          <% end %>
-          <% if @artist_presenter.show_videos? %>
-            <li class="<%= controller_name == 'videos' ? 'active' : 'normal' %>">
-              <a href="<%= @artist_presenter.videos_path %>" class="main-menu-link"><%=t 'label.videos' %></a>
-            </li>
-          <% end %>
-        </ul>
-      </div>
     </div>
     <%= yield %>
   <% end %>
