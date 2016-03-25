@@ -23,7 +23,7 @@ class Album < ActiveRecord::Base
   validates :reference, presence: true
   validates :reference, length: { maximum: REFERENCE_MAX_LENGTH }
   validates :reference, format: { with: /\A[a-z0-9]+([-]?[a-z0-9]+)*\z/ }
-  validates :reference, uniqueness: { case_sensitiv: false }
+  validates :reference, uniqueness: { case_sensitive: false }
 
   mount_uploader :image, Uploader::AlbumImage
 

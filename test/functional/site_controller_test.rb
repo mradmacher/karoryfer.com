@@ -35,12 +35,6 @@ class SiteControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  def test_get_videos_succeeds
-    3.times { Video.sham! }
-    get :videos
-    assert_response :success
-  end
-
   def test_get_albums_succeeds
     3.times { Album.sham! }
     get :albums
