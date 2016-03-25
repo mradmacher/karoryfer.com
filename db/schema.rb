@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122204023) do
+ActiveRecord::Schema.define(version: 20160325100456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20151122204023) do
     t.datetime "created_at",             default: "now()", null: false
     t.datetime "updated_at",             default: "now()", null: false
     t.string   "image"
+    t.boolean  "shared",                 default: true,    null: false
   end
 
   add_index "artists", ["reference"], name: "artists_reference_key", unique: true, using: :btree

@@ -19,6 +19,8 @@ class Artist < ActiveRecord::Base
 
   mount_uploader :image, Uploader::ArtistImage
 
+  scope :shared, -> { where(shared: true) }
+
   def to_param
     reference
   end
