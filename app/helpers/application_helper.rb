@@ -69,6 +69,7 @@ module ApplicationHelper
              end
 
     items = []
+    items << ['Artyści', artists_url, active == 'artists']
     items << ['Wydawnictwa', albums_url, active == 'albums']
     Settings.highlighted.each do |hc|
       items << [
