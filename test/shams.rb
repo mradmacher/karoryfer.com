@@ -131,39 +131,6 @@ Sham.config(Page) do |c|
   end
 end
 
-Sham.config(Post) do |c|
-  c.attributes do
-    {
-      artist: Sham::Nested.new(Artist),
-      title: Faker::Name.name,
-      body: Faker::Lorem.paragraph
-    }
-  end
-end
-
-Sham.config(Event) do |c|
-  c.attributes do
-    {
-      artist: Sham::Nested.new(Artist),
-      title: Faker::Name.name,
-      event_date: Time.now.utc.to_date,
-      location: Faker::Address.city,
-      body: Faker::Lorem.paragraph
-    }
-  end
-end
-
-Sham.config(Video) do |c|
-  c.attributes do
-    {
-      artist: Sham::Nested.new(Artist),
-      title: Faker::Name.name,
-      url: Faker::Internet.url,
-      body: Faker::Lorem.paragraph
-    }
-  end
-end
-
 Sham.config(User) do |c|
   c.assign do
     {

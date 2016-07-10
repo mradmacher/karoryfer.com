@@ -4,15 +4,14 @@ class Presenter
   extend Forwardable
   include Rails.application.routes.url_helpers
 
-  attr_reader :resource, :abilities
+  attr_reader :resource
 
-  def initialize(resource, abilities)
+  def initialize(resource)
     @resource = resource
-    @abilities = abilities
   end
 
-  def self.presenters_for(collection, abilities)
-    collection.map { |resource| new(resource, abilities) }
+  def self.presenters_for(collection)
+    collection.map { |resource| new(resource) }
   end
 
   def path

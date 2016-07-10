@@ -1,34 +1,17 @@
-# Provides access to video resource.
+# Provides access to track resource.
 class TrackCruder < SimpleCruder
-  attr_reader :album
+  alias_method :album, :context
 
-  def initialize(abilities, params, album)
-    super(abilities, params)
-    @album = album
+  def list
+    album.tracks
   end
 
   def find
     album.tracks.find(params[:id])
   end
 
-  def build(attrs = {})
-    album.tracks.new(attrs)
-  end
-
-  def search
-    album.tracks
-  end
-
-  def permissions(action)
-    case action
-    when :index then [:read_track, album]
-    when :show then [:read_track, album]
-    when :new then [:write_track, album]
-    when :edit then [:write_track, album]
-    when :create then [:write_track, album]
-    when :update then [:write_track, album]
-    when :destroy then [:write_track, album]
-    end
+  def build
+    album.tracks.new
   end
 
   def permitted_params

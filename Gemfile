@@ -20,4 +20,5 @@ gem 'rubocop', require: false
 group :test do
   gem 'sham'
   gem 'faker'
+  gem 'sqlite3'
 end

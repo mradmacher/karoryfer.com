@@ -29,6 +29,6 @@ class AlbumsController < CurrentArtistController
   end
 
   def cruder
-    AlbumCruder.new(abilities, params, current_artist)
+    AlbumCruder.new(params, policy, current_artist)
   end
 end

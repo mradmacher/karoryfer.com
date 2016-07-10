@@ -3,13 +3,13 @@
   <div class="row">
     <div class="col-md-4">
       <ul class="list-inline">
-        <% if can? :read, current_user -%>
-          <li><a href="<%= admin_logout_url %>" class="btn btn-default btn-xs">Pa</a></li>
-          <li><a href="<%= admin_user_path(current_user) %>" class="btn btn-default btn-xs">Moje konto</a></li>
+        <% if current_user.can_manage_account? -%>
+          <li><a href="<%= current_user.logout_path %>" class="btn btn-default btn-xs">Pa</a></li>
+          <li><a href="<%= current_user.account_path %>" class="btn btn-default btn-xs">Moje konto</a></li>
         <% else -%>
-          <li><a href="<%= admin_login_url %>" class="btn btn-default btn-xs">Zaloguj się</a></li>
+          <li><a href="<%= current_user.login_path %>" class="btn btn-default btn-xs">Zaloguj się</a></li>
         <% end %>
-        <% if can? :read, :user %>
+        <% if current_user.can_manage_users? %>
           <li><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t('title.user.index') %></a></li>
         <% end %>
       </ul>

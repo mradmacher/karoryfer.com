@@ -123,8 +123,9 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_delete_destroy_properly_redirects
     album = Album.sham!
-    allow(:write, album)
-    delete :destroy, artist_id: album.artist.to_param, id: album.to_param
+    assert_authorized do
+      delete :destroy, artist_id: album.artist.to_param, id: album.to_param
+    end
     assert_redirected_to artist_albums_path(album.artist)
   end
 
@@ -136,8 +137,9 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_edit_displays_headers
     album = Album.sham!
-    allow(:write, album)
-    get :edit, artist_id: album.artist.to_param, id: album.to_param
+    assert_authorized do
+      get :edit, artist_id: album.artist.to_param, id: album.to_param
+    end
     assert_select 'title', build_title(album.title, album.artist.name)
     assert_select 'h1', album.artist.name
     assert_select 'h2', album.title
@@ -145,8 +147,9 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_edit_displays_form
     album = Album.sham!
-    allow(:write, album)
-    get :edit, artist_id: album.artist.to_param, id: album.to_param
+    assert_authorized do
+      get :edit, artist_id: album.artist.to_param, id: album.to_param
+    end
     assert_select 'form[enctype="multipart/form-data"]' do
       assert_select 'label', I18n.t('label.album.title')
       assert_select 'input[type=text][name=?][value=?]', 'album[title]', album.title
@@ -182,25 +185,29 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_get_index_not_authorized_does_not_display_actions
     artist = Artist.sham!
-    allow(:read_album, artist)
-    get :index, artist_id: artist.to_param
+    assert_authorized do
+      get :index, artist_id: artist.to_param
+    end
     assert_select 'a[href=?]', new_artist_album_path(artist), 0
   end
 
   def test_get_index_authorized_displays_actions
     artist = Artist.sham!
-    allow(:write_album, artist)
-    allow(:read_album, artist)
-    get :index, artist_id: artist.to_param
+    assert_authorized do
+      @controller.current_user.stub(:can_create_album?, true) do
+        get :index, artist_id: artist.to_param
+      end
+    end
     assert_select 'a[href=?]', new_artist_album_path(artist), I18n.t('action.new')
   end
 
   def test_get_index_for_guest_does_not_display_unpublished
     artist = Artist.sham!
-    allow(:read_album, artist)
     2.times { Album.sham!(:published, artist: artist) }
     2.times { Album.sham!(:unpublished, artist: artist) }
-    get :index, artist_id: artist.to_param
+    assert_authorized do
+      get :index, artist_id: artist.to_param
+    end
     Album.unpublished.each do |a|
       assert_select '*', text: a.title, count: 0
     end
@@ -208,10 +215,11 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_get_index_for_guest_displays_published
     artist = Artist.sham!
-    allow(:read_album, artist)
     2.times { Album.sham!(:published, artist: artist) }
     2.times { Album.sham!(:unpublished, artist: artist) }
-    get :index, artist_id: artist.to_param
+    assert_authorized do
+      get :index, artist_id: artist.to_param
+    end
     Album.published.each do |a|
       assert_select 'a', a.title
     end
@@ -219,12 +227,13 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_get_index_for_guest_displays_only_albums_for_artist
     artist = Artist.sham!
-    allow(:read_album, artist)
     for_artist = []
     not_for_artist = []
     5.times { for_artist << Album.sham!(:published, artist: artist) }
     5.times { not_for_artist << Album.sham!(:published) }
-    get :index, artist_id: artist.to_param
+    assert_authorized do
+      get :index, artist_id: artist.to_param
+    end
     for_artist.each do |a|
       assert_select 'a', a.title
     end
@@ -236,9 +245,10 @@ class AlbumsControllerTest < ActionController::TestCase
   def test_get_index_for_user_does_not_display_unpublished_albums
     login_user
     artist = Artist.sham!
-    allow(:read_album, artist)
     3.times { Album.sham!(:unpublished, artist: artist) }
-    get :index, artist_id: artist.to_param
+    assert_authorized do
+      get :index, artist_id: artist.to_param
+    end
     Album.unpublished.each do |a|
       assert_select '*', text: a.title, count: 0
     end
@@ -246,8 +256,9 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_new_displays_headers
     artist = Artist.sham!
-    allow(:write_album, artist)
-    get :new, artist_id: artist.to_param
+    assert_authorized do
+      get :new, artist_id: artist.to_param
+    end
     title = CGI.escape_html(build_title(I18n.t('title.album.new'), artist.name))
     assert_select 'title', title, artist.name
     assert_select 'h1', artist.name
@@ -256,8 +267,9 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_new_displays_form
     artist = Artist.sham!
-    allow(:write_album, artist)
-    get :new, artist_id: artist.to_param
+    assert_authorized do
+      get :new, artist_id: artist.to_param
+    end
     assert_select 'form[enctype="multipart/form-data"]' do
       assert_select 'label', I18n.t('label.album.title')
       assert_select 'input[type=text][name=?]', 'album[title]'
@@ -282,8 +294,9 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_new_displays_actions
     artist = Artist.sham!
-    allow(:write_album, artist)
-    get :new, artist_id: artist.to_param
+    assert_authorized do
+      get :new, artist_id: artist.to_param
+    end
     assert_select 'a[href=?]', artist_path(artist), I18n.t('action.cancel_new')
   end
 
@@ -295,8 +308,9 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_show_displays_headers
     album = Album.sham!
-    allow(:read, album)
-    get :show, artist_id: album.artist.to_param, id: album.to_param
+    assert_authorized do
+      get :show, artist_id: album.artist.to_param, id: album.to_param
+    end
     assert_select 'title', build_title(album.title, album.artist.name)
     assert_select 'h1', album.artist.name
     assert_select 'h2', album.title
@@ -304,11 +318,12 @@ class AlbumsControllerTest < ActionController::TestCase
 
   def test_authorized_get_show_displays_urls_to_attached_files
     album = Album.sham!
-    allow(:read, album)
     att1 = album.attachments.create(file: File.open(File.join(FIXTURES_DIR, 'attachments', 'att1.jpg')))
     att2 = album.attachments.create(file: File.open(File.join(FIXTURES_DIR, 'attachments', 'att2.pdf')))
     att3 = album.attachments.create(file: File.open(File.join(FIXTURES_DIR, 'attachments', 'att3.txt')))
-    get :show, artist_id: album.artist.to_param, id: album.to_param
+    assert_authorized do
+      get :show, artist_id: album.artist.to_param, id: album.to_param
+    end
     assert_select 'a[href=?]',  att1.file.url, 'att1.jpg'
     assert_select 'a[href=?]',  att2.file.url, 'att2.pdf'
     assert_select 'a[href=?]',  att3.file.url, 'att3.txt'

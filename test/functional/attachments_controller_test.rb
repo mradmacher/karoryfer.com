@@ -50,11 +50,12 @@ class AttachmentsControllerTest < ActionController::TestCase
 
   def test_delete_destroy_for_admin_properly_redirects
     attachment = Attachment.sham!
-    allow(:write_attachment, attachment.album)
-    delete :destroy,
-           artist_id: attachment.album.artist.to_param,
-           album_id: attachment.album.to_param,
-           id: attachment.to_param
+    assert_authorized do
+      delete :destroy,
+             artist_id: attachment.album.artist.to_param,
+             album_id: attachment.album.to_param,
+             id: attachment.to_param
+    end
     assert_redirected_to artist_album_attachments_path(attachment.album.artist, attachment.album)
   end
 end

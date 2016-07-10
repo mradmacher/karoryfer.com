@@ -1,5 +1,5 @@
 class Cruder
-  attr_reader :abilities, :params
+  attr_reader :params, :policy, :context
 
   class InvalidResource < StandardError
     attr_reader :resource
@@ -9,109 +9,102 @@ class Cruder
     end
   end
 
-  class ValidationError < StandardError
-  end
-
-  def initialize(abilities, params)
-    @abilities = abilities
+  def initialize(params, policy, context = nil)
     @params = params
+    @policy = policy
+    @context = context
   end
 
   def index
-    authorize! :index
-    decorate_all(search)
+    authorize policy.read_access?
+    list
   end
 
   def show
-    authorize! :show
-    decorate(find)
+    authorize policy.read_access?
+    find.tap { |resource| authorize policy.read?(resource) }
   end
 
   def new
-    authorize! :new
-    decorate(build)
+    authorize policy.write_access?
+    # build.tap { |resource| authorize policy.write?(resource) }
+    build
   end
 
   def edit
-    authorize! :edit
-    decorate(find)
+    authorize policy.write_access?
+    find.tap { |resource| authorize policy.write?(resource) }
   end
 
   def create
-    authorize! :create
-    save(build)
+    authorize policy.write_access?
+    build.tap do |resource|
+      assign(resource)
+      # authorize policy.write?(resource)
+      validate(resource) { |r| save(r) }
+    end
   end
 
   def update
-    authorize! :update
-    save(find)
+    authorize policy.write_access?
+    find.tap do |resource|
+      assign(resource)
+      authorize policy.write?(resource)
+      validate(resource) { |r| save(r) }
+    end
   end
 
   def destroy
-    authorize! :destroy
-    delete(find)
-  end
-
-  def presenter_class
-    @presenter_class ||= self.class.name.sub('Cruder', 'Presenter').constantize
-  end
-
-  def permitted_params
-    fail 'define me'
+    authorize policy.write_access?
+    find.tap do |resource|
+      authorize policy.write?(resource)
+      validate(resource) { |r| delete(r) }
+    end
   end
 
   protected
 
-  def search
+  def save
+    fail 'write me'
   end
 
-  def build
+  def delete
+    fail 'write me'
+  end
+
+  def list
+    fail 'write me'
   end
 
   def find
+    fail 'write me'
   end
 
-  def authorize!(action)
-    fail User::AccessDenied unless abilities.allow?(*permissions(action))
+  def build
+    fail 'write me'
   end
 
-  def permissions
-    {
-      index: :read,
-      show: :read,
-      new: :write,
-      edit: :write,
-      create: :write,
-      update: :write,
-      destroy: :write
-    }
+  def assign(_resource)
+    fail 'write me'
+  end
+
+  def model_name
+    @model_name ||= self.class.name.sub('Cruder', '')
+  end
+
+  def authorize(permitted)
+    fail User::AccessDenied unless permitted
   end
 
   def strong_parameters
     ActionController::Parameters.new(params)
   end
 
-  def decorate_all(objs)
-    presenter_class.nil? ? objs : presenter_class.presenters_for(objs, abilities)
+  def permitted_params
+    strong_parameters
   end
 
-  def decorate(obj)
-    presenter_class.nil? ? obj : presenter_class.new(obj, abilities)
-  end
-
-  private
-
-  def save(resource)
-    begin
-      save_operation(resource, permitted_params)
-    rescue ValidationError
-      raise InvalidResource, decorate(resource)
-    end
-    decorate(resource)
-  end
-
-  def delete(resource)
-    delete_operation(resource)
-    decorate(resource)
+  def validate(resource)
+    fail InvalidResource, resource unless yield resource
   end
 end

@@ -1,34 +1,17 @@
 # Provides access to attachment resource.
 class AttachmentCruder < SimpleCruder
-  attr_reader :album
+  alias_method :album, :context
 
-  def initialize(abilities, params, album)
-    super(abilities, params)
-    @album = album
+  def list
+    album.attachments
   end
 
   def find
     album.attachments.find(params[:id])
   end
 
-  def build(attrs = {})
-    album.attachments.new(attrs)
-  end
-
-  def search
-    album.attachments
-  end
-
-  def permissions(action)
-    case action
-    when :index then [:read_attachment, album]
-    when :show then [:read_attachment, album]
-    when :new then [:write_attachment, album]
-    when :edit then [:write_attachment, album]
-    when :create then [:write_attachment, album]
-    when :update then [:write_attachment, album]
-    when :destroy then [:write_attachment, album]
-    end
+  def build
+    album.attachments.new
   end
 
   def permitted_params

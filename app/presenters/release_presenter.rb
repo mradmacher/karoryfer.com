@@ -14,12 +14,4 @@ class ReleasePresenter < Presenter
                                    resource.album,
                                    resource)
   end
-
-  def can_be_updated?
-    abilities.allow?(:write_release, resource.album)
-  end
-
-  def can_be_deleted?
-    can_be_updated?
-  end
 end

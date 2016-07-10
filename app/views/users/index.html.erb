@@ -2,7 +2,7 @@
 <h1><%=t 'title.user.index' %></h1>
 <% content_for :actions do %>
 	<ul>
-		<% if can? :write, User %>
+		<% if current_user.can_manage_users? %>
 			<%= link_to_action t('action.user.new'), new_admin_user_path %>
 		<% end %>
 	</ul>

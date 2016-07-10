@@ -3,7 +3,7 @@ require 'test_helper'
 class TracksControllerTest < ActionController::TestCase
   def test_get_edit_is_authorized
     track = Track.sham!
-    assert_authorized :write_track, track.album do
+    assert_authorized do
       get :edit,
           artist_id: track.album.artist.to_param,
           album_id: track.album.to_param,
@@ -13,7 +13,7 @@ class TracksControllerTest < ActionController::TestCase
 
   def test_get_show_is_authorized
     track = Track.sham!(:with_file)
-    assert_authorized :read_track, track.album do
+    assert_authorized do
       get :show,
           artist_id: track.album.artist.to_param,
           album_id: track.album.to_param,
@@ -23,7 +23,7 @@ class TracksControllerTest < ActionController::TestCase
 
   def test_delete_destroy_is_authorized
     track = Track.sham!
-    assert_authorized :write_track, track.album do
+    assert_authorized do
       delete :destroy,
              artist_id: track.album.artist.to_param,
              album_id: track.album.to_param,
@@ -33,7 +33,7 @@ class TracksControllerTest < ActionController::TestCase
 
   def test_post_create_is_authorized
     album = Album.sham!
-    assert_authorized :write_track, album do
+    assert_authorized do
       post :create,
            artist_id: album.artist.to_param,
            album_id: album.to_param,
@@ -43,7 +43,7 @@ class TracksControllerTest < ActionController::TestCase
 
   def test_put_update_is_authorized
     track = Track.sham!
-    assert_authorized :write_track, track.album do
+    assert_authorized do
       put :update,
           artist_id: track.album.artist.to_param,
           album_id: track.album.to_param,

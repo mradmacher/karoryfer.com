@@ -1,34 +1,17 @@
 # Provides access to membership resource.
 class MembershipCruder < SimpleCruder
-  attr_reader :user
+  alias_method :user, :context
 
-  def initialize(abilities, params, user)
-    super(abilities, params)
-    @user = user
+  def list
+    user.memberships
   end
 
   def find
     user.memberships.find(params[:id])
   end
 
-  def build(attrs = {})
-    user.memberships.new(attrs)
-  end
-
-  def search
-    user.memberships
-  end
-
-  def permissions(action)
-    case action
-    when :index then [:read_membership, user]
-    when :show then [:read_membership, user]
-    when :new then [:write_membership, user]
-    when :edit then [:write_membership, user]
-    when :create then [:write_membership, user]
-    when :update then [:write_membership, user]
-    when :destroy then [:write_membership, user]
-    end
+  def build
+    user.memberships.new(permitted_params)
   end
 
   def permitted_params

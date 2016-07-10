@@ -1,6 +1,6 @@
 <%= render_title t('title.artist.index') %>
 <h1 class="hidden"><%=t 'title.artist.index' %></h1>
-<% if can? :write, :artist %>
+<% if current_user.can_create_artist? %>
   <% content_for :actions do %>
 		<%= link_to_action t('action.artist.new'), new_artist_path %>
 	<% end %>

@@ -3,7 +3,7 @@
 <h2><%= @presenter.login %></h2>
 <p>
   <div class="btn-group">
-  <% if can? :write, @presenter.resource %>
+  <% if current_user.can_manage_account? %>
       <a href="<%= @presenter.edit_password_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit_password' %></a>
       <a href="<%= @presenter.edit_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit' %></a>
       <a href="<%= @presenter.path %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.user.destroy' %></a>
@@ -36,13 +36,13 @@
 <ul class="user-memberships">
   <% @presenter.memberships.each do |membership| %>
     <li><%= membership.artist.name %>
-      <% if can? :write_membership, @presenter.resource %>
+      <% if current_user.can_manage_memberships? %>
         <%= link_to t('action.membership.destroy'), admin_user_membership_path(@presenter.resource, membership), :method => :delete, :class => 'btn btn-warning btn-xs' %>
       <% end %>
     </li>
   <% end %>
 </ul>
-<% if can? :write_membership, @presenter.resource %>
+<% if current_user.can_manage_memberships? %>
   <%= form_for [:admin, @presenter.resource, @membership] do |f| %>
     <%= f.hidden_field :user_id %>
     <div class="form-group">

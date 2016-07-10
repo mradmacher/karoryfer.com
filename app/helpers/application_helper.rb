@@ -78,7 +78,7 @@ module ApplicationHelper
         active == hc['reference']
       ]
     end
-    items << ['Szkice', drafts_url, active == 'drafts'] if current_user?
+    items << ['Szkice', drafts_url, active == 'drafts'] if AlbumPolicy.new(current_user.resource).write_access?
     items
   end
 end

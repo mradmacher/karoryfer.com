@@ -10,6 +10,6 @@ class MembershipsController < CurrentUserController
   end
 
   def cruder
-    MembershipCruder.new(abilities, params, @user_presenter.resource)
+    MembershipCruder.new(params, policy, @user_presenter.resource)
   end
 end

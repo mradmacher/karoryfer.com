@@ -2,7 +2,7 @@ class TracksController < CurrentAlbumController
   layout :set_layout
 
   def index
-    @presenter = cruder.new
+    @presenter = decorate(cruder.new)
     super
   end
 
@@ -34,6 +34,6 @@ class TracksController < CurrentAlbumController
   end
 
   def cruder
-    TrackCruder.new(abilities, params, current_album)
+    TrackCruder.new(params, policy, current_album)
   end
 end

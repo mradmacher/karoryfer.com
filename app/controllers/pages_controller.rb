@@ -8,6 +8,6 @@ class PagesController < CurrentArtistController
   end
 
   def cruder
-    PageCruder.new(abilities, params, current_artist)
+    PageCruder.new(params, policy, current_artist)
   end
 end

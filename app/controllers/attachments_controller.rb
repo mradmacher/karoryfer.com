@@ -2,7 +2,7 @@ class AttachmentsController < CurrentAlbumController
   layout :set_layout
 
   def index
-    @presenter = cruder.new
+    @presenter = decorate(cruder.new)
     super
   end
 
@@ -21,6 +21,6 @@ class AttachmentsController < CurrentAlbumController
   end
 
   def cruder
-    AttachmentCruder.new(abilities, params, current_album)
+    AttachmentCruder.new(params, policy, current_album)
   end
 end
