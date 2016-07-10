@@ -1,34 +1,17 @@
 # Provides access to page resource.
 class PageCruder < SimpleCruder
-  attr_reader :artist
+  alias_method :artist, :context
 
-  def initialize(abilities, params, artist)
-    super(abilities, params)
-    @artist = artist
+  def list
+    artist.pages
   end
 
   def find
     artist.pages.find_by_reference(params[:id])
   end
 
-  def build(attrs = {})
-    artist.pages.new(attrs)
-  end
-
-  def search
-    artist.pages
-  end
-
-  def permissions(action)
-    case action
-    when :index then [:read_page, artist]
-    when :show then [:read_page, artist]
-    when :new then [:write_page, artist]
-    when :edit then [:write_page, artist]
-    when :create then [:write_page, artist]
-    when :update then [:write_page, artist]
-    when :destroy then [:write_page, artist]
-    end
+  def build
+    artist.pages.new
   end
 
   def permitted_params

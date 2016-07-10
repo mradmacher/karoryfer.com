@@ -1,9 +1,0 @@
-<% unless video.url.blank? %>
-  <a href="<%= video.path %>">
-    <%= image_tag(video.image_url, :alt => video.title, :class => 'img-rounded img-polaroid') %>
-  </a>
-<% end %>
-<% unless current_artist? %>
-  <span class="label label-default"><%= video.artist.name %></span>
-<% end %>
-<p><%= link_to video.title, video.path %></p>

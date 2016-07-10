@@ -1,24 +1,24 @@
-<%= render_title @album_presenter.title %>
+<%= render_title album.title %>
 <h2>
-  <%= @album_presenter.title %>
-  <% unless @album_presenter.published? %>
+  <%= album.title %>
+  <% unless album.published? %>
     <small><%= t('label.album.unpublished') %></span>
   <% end %>
 </h2>
 <h3><%= t 'title.release.index' %></h3>
 <p>
-  <a href="<%= @album_presenter.path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+  <a href="<%= album.path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
 
 <ul>
-  <% @album_presenter.releases.each do |release| %>
+  <% album.releases.each do |release| %>
     <li>
       <%= release.format %>&nbsp;(<%= File.basename(release.file.path) %>)
       <br />
       <%=t 'label.release.downloads' %>: <%= release.downloads %>
       <br />
-      <% if can? :write_release, @album_presenter.resource %>
-        <a href="<%= artist_album_release_path(@album_presenter.artist, @album_presenter.resource, release) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+      <% if current_user.can_manage_releases?(album.resource) %>
+        <a href="<%= artist_album_release_path(album.artist, album.resource, release) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
           <%=t 'action.delete' %>
         </a>
       <% end %>
@@ -26,7 +26,7 @@
   <% end %>
 </ul>
 
-<% if can? :write_release, @album_presenter.resource %>
+<% if current_user.can_manage_releases?(album.resource) %>
   <h3><%=t 'title.release.new' %></h3>
   <%= render :partial => 'form', locals: { resource: @presenter.resource } %>
 <% end %>

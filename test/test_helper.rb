@@ -3,6 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'authlogic/test_case'
 require 'shams'
+require 'minitest/mock'
 
 dbconfig = Rails.configuration.database_configuration['test']
 FIXTURES_DIR = File.expand_path('../fixtures', __FILE__)
@@ -24,32 +25,22 @@ Publisher.instance.name = 'Lecolds'
 Publisher.instance.url = 'http://www.lecolds.com'
 
 class ActiveSupport::TestCase
-  class TestAbility
-    attr_accessor :scope
-
-    def initialize
-      @allowed = []
+  class AllowAllPolicy < BasePolicy
+    def write?(_)
+      true
     end
 
-    def allow(action, subject)
-      @allowed << [action, subject]
+    def read?(_)
+      true
     end
 
-    def allow?(action, subject)
-      @allowed.detect { |e| (e[0] == action) && (e[1] == subject) }
+    def write_access?
+      true
     end
 
-    alias_method :allows?, :allow?
-  end
-
-  def with_permission_to(action, subject)
-    abilities = TestAbility.new
-    abilities.allow(action, subject)
-    yield abilities
-  end
-
-  def without_permissions
-    yield TestAbility.new
+    def read_access?
+      true
+    end
   end
 
   DEFAULT_TITLE = 'Karoryfer Lecolds'
@@ -93,28 +84,9 @@ class ActiveSupport::TestCase
     membership
   end
 
-  def allow(action, subject)
-    activate_authlogic
-    unless @controller.abilities.class == TestAbility
-      @controller.abilities = TestAbility.new
-    end
-    @controller.abilities.allow(action, subject)
-  end
-
-  def deny(_, _)
-    activate_authlogic
-    @controller.abilities = TestAbility.new
-  end
-
-  def assert_authorized(action, subject, &block)
-    activate_authlogic
-    @controller.abilities = TestAbility.new
-    assert_raises User::AccessDenied do
-      block.call
-    end
-    @controller.abilities.allow(action, subject)
-    assert_nothing_raised User::AccessDenied do
-      block.call
+  def assert_authorized
+    @controller.stub(:policy_class, AllowAllPolicy) do
+      yield
     end
   end
 end

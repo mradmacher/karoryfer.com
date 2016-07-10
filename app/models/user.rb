@@ -24,21 +24,4 @@ class User < ActiveRecord::Base
       Artist.where('id not in (?)', artist_ids)
     end
   end
-
-  def unpublished_posts
-    Post.joins(:artist).joins(artist: :memberships)
-      .where('memberships.user_id' => self.id)
-      .where('posts.published' => false)
-  end
-
-  def unpublished_events
-    Event.joins(:artist).joins(artist: :memberships)
-      .where('memberships.user_id' => self.id).where('events.published' => false)
-  end
-
-  def unpublished_albums
-    Album.joins(:artist).joins(artist: :memberships)
-      .where('memberships.user_id' => self.id)
-      .where('albums.published' => false)
-  end
 end

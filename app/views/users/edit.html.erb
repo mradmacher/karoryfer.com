@@ -7,7 +7,7 @@
 <% end %>
 <%= form_for [:admin, @presenter.resource] do |f| %>
 	<%= f.error_messages %>
-  <% if can? :write, :user %>
+  <% if current_user.can_manage_users? %>
     <div class="checkbox">
 			<%= f.label :admin, t( 'label.user.admin' ) %>
 			<%= f.check_box :admin, class: 'form-control' %>

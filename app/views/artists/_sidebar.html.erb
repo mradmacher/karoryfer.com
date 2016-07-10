@@ -1,14 +1,14 @@
-<% if @artist_presenter.show_recent_pages? %>
+<% if artist.show_pages? || current_user.can_manage_pages?(artist.resource) %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4"><%=t 'label.pages' %></span>
-      <% if @artist_presenter.can_create_pages? %>
-        <a href="<%= @artist_presenter.new_page_path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
+      <% if current_user.can_manage_pages?(artist.resource) %>
+        <a href="<%= artist.new_page_path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
       <% end %>
     </div>
     <div class="panel-body">
       <ul class="list-unstyled">
-      <% @artist_presenter.recent_pages.each do |page_presenter| %>
+      <% artist.recent_pages.each do |page_presenter| %>
          <li><%= link_to page_presenter.title, page_presenter.path %></li>
       <% end %>
       </ul>
@@ -16,22 +16,22 @@
   </div>
 <% end %>
 
-<% if @artist_presenter.show_recent_albums? %>
+<% if artist.show_albums? || current_user.can_create_album?(artist.resource) %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
         <%=t 'label.albums' %>
-        <a href="<%= @artist_presenter.albums_path %>">
-          <span class="badge"><%= @artist_presenter.albums_count %></span>
+        <a href="<%= artist.albums_path %>">
+          <span class="badge"><%= artist.albums_count %></span>
         </a>
       </span>
-      <% if @artist_presenter.can_create_albums? %>
-        <a href="<%= @artist_presenter.new_album_path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
+      <% if current_user.can_create_album?(artist.resource) %>
+        <a href="<%= artist.new_album_path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
       <% end %>
     </div>
     <div class="panel-body">
       <ul class="album-list">
-        <% @artist_presenter.recent_albums.each do |album_presenter| %>
+        <% artist.recent_albums.each do |album_presenter| %>
           <li><%= link_to album_presenter.title, album_presenter.path %></li>
         <% end %>
       </ul>

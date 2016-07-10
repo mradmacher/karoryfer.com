@@ -7,18 +7,20 @@
 </h2>
 <p>
   <div class="btn-group">
-    <% if can? :write_track, @presenter.resource %>
+    <% if current_user.can_manage_tracks?(@presenter.resource) %>
       <a href="<%= artist_album_tracks_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.track.index' %></a>
     <% end %>
-    <% if can? :write_attachment, @presenter.resource%>
+    <% if current_user.can_manage_attachments?(@presenter.resource) %>
       <a href="<%= artist_album_attachments_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.attachment.index' %></a>
     <% end %>
-    <% if can? :write_release, @presenter.resource%>
+    <% if current_user.can_manage_releases?(@presenter.resource) %>
       <a href="<%= artist_album_releases_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.release.index' %></a>
     <% end %>
   </div>
   &nbsp;
-  <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
+  <% if current_user.can_manage_album?(@presenter.resource) %>
+    <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
+  <% end %>
 </p>
 
 <div class="media">
@@ -35,7 +37,7 @@
         :locals => { :author => @presenter.artist, :license => @presenter.license } %>
     <% end %>
     </p>
-    <% if can? :write, @presenter.resource %>
+    <% if current_user.can_manage_album?(@presenter.resource) %>
       <%=t 'label.release.downloads' %>: <%= @presenter.releases.sum(:downloads) %>
       <ul>
         <% @presenter.releases.each do |release| %>

@@ -7,28 +7,14 @@ class ApplicationController < ActionController::Base
   before_action :redirect_subdomain
   before_action :set_current_artist
   protect_from_forgery
-  if Rails.env != 'test'
+  unless ['test', 'development'].include?(Rails.env)
     rescue_from User::AccessDenied, with: proc { redirect_to admin_login_url }
   end
 
-  helper_method :can?
-
-  def abilities=(abilities)
-    @abilities = abilities
-  end
-
-  def abilities
-    @abilities ||= Ability.new(current_user)
-  end
-
-  protected
-
-  def can?(action, subject)
-    abilities.allow?(action, subject)
-  end
-
-  def authorize!(action, subject)
-    raise User::AccessDenied unless abilities.allowed?(action, subject)
+  def current_user
+    return @current_user if defined?(@current_user)
+    current_user = current_user_session && current_user_session.user || User.new
+    @current_user = CurrentUserPresenter.new(current_user)
   end
 
   private
@@ -64,21 +50,16 @@ class ApplicationController < ActionController::Base
     !@current_artist.nil?
   end
 
-  def current_user
-    return @current_user if defined?(@current_user)
-    @current_user = current_user_session && current_user_session.user
-  end
-
   def current_user?
     !current_user.nil?
   end
 
   def require_user
-    fail User::AccessDenied unless current_user
+    fail User::AccessDenied unless current_user.resource.persisted?
   end
 
   def require_no_user
-    false if current_user
+    !current_user.resource.persisted?
   end
 
   protected

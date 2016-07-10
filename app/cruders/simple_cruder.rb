@@ -1,10 +1,13 @@
 class SimpleCruder < Cruder
-  def save_operation(resource, attrs)
-    resource.assign_attributes(attrs)
-    fail ValidationError unless resource.save
+  def save(resource)
+    resource.save
   end
 
-  def delete_operation(resource)
-    resource.destroy
+  def delete(resource)
+    resource.delete
+  end
+
+  def assign(resource)
+    resource.assign_attributes(permitted_params)
   end
 end

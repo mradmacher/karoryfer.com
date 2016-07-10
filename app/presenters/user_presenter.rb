@@ -6,19 +6,21 @@ class UserPresenter < Presenter
     :memberships, :other_artists
   )
 
+  alias_method :user, :resource
+
   def path
-    admin_user_path(resource)
+    admin_user_path(user)
   end
 
   def edit_path
-    edit_admin_user_path(resource)
+    edit_admin_user_path(user)
   end
 
   def _new_path
-    new_admin_user_path(resource)
+    new_admin_user_path(user)
   end
 
   def edit_password_path
-    admin_edit_password_path(resource)
+    admin_edit_password_path(user)
   end
 end

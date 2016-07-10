@@ -1,38 +1,22 @@
 # Provides access to album resource.
 class AlbumCruder < SimpleCruder
-  attr_reader :artist
+  alias_method :artist, :context
 
-  def initialize(abilities, params, artist)
-    super(abilities, params)
-    @artist = artist
+  def list
+    artist.albums.published
   end
 
   def find
     artist.albums.find_by_reference(params[:id])
   end
 
-  def build(attrs = {})
-    artist.albums.new(attrs)
-  end
-
-  def search
-    artist.albums.published
-  end
-
-  def permissions(action)
-    case action
-    when :index then [:read_album, artist]
-    when :show then [:read, find]
-    when :new then [:write_album, artist]
-    when :edit then [:write, find]
-    when :create then [:write_album, artist]
-    when :update then [:write, find]
-    when :destroy then [:write, find]
-    end
+  def build
+    artist.albums.new
   end
 
   def permitted_params
     fields = [
+      :artist_id,
       :title,
       :reference,
       :year,
@@ -42,7 +26,7 @@ class AlbumCruder < SimpleCruder
       :donation,
       :description
     ]
-    fields << :published if abilities.allow?(:write_album, artist)
+    fields << :published if policy.write_access?
     strong_parameters.require(:album).permit(fields)
   end
 end

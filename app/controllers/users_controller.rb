@@ -2,13 +2,13 @@ class UsersController < ApplicationController
   include CrudableController
 
   def show
-    @presenter = cruder.show
+    @presenter = decorate(cruder.show)
     @membership = Membership.new
     @membership.user = @presenter.resource
   end
 
   def edit_password
-    @presenter = cruder.edit
+    @presenter = decorate(cruder.edit)
   end
 
   private
@@ -26,6 +26,6 @@ class UsersController < ApplicationController
   end
 
   def cruder
-    UserCruder.new(abilities, params)
+    UserCruder.new(params, policy)
   end
 end

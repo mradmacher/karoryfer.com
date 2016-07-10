@@ -8,12 +8,4 @@ class PagePresenter < Presenter
   def edit_path
     edit_artist_page_path(resource.artist, resource)
   end
-
-  def can_be_updated?
-    abilities.allow?(:write_page, resource.artist)
-  end
-
-  def can_be_deleted?
-    can_be_updated?
-  end
 end

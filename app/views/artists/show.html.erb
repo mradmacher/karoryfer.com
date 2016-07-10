@@ -1,7 +1,7 @@
 <%= render_title %>
-<p>
-  <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
-</p>
+<% if current_user.can_manage_artist?(@presenter.resource) %>
+  <p><%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %></p>
+<% end %>
 <div class="media">
   <% if current_artist.image? %>
     <%= link_to image_tag(@presenter.image.thumb.url, :alt => @presenter.name, :class => 'media-object' ),
