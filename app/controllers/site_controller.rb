@@ -4,7 +4,7 @@ class SiteController < ApplicationController
 
   def home
     @artist_presenters = ArtistPresenter.presenters_for(
-      Artist.shared,
+      Artist.shared.shuffle,
       abilities)
   end
 
