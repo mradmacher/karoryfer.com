@@ -94,14 +94,7 @@
   </div>
 <% end %>
 
-<% unless @presenter.donation.blank? %>
-  <div class="well donations">
-    <%=raw @presenter.donation %>
-    <% if Settings.donations_info_url %>
-      <div><small><i><%= link_to 'Informacja na temat darowizn', Settings.donations_info_url %></i></small></div>
-    <% end %>
-  </div>
-<% end %>
+<div class="well"><%=raw @presenter.donation %></div>
 
 <%= render_text @presenter.description %>
 
