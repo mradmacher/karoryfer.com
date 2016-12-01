@@ -94,7 +94,9 @@
   </div>
 <% end %>
 
+<% unless @presenter.donation.blank? %>
 <div class="well"><%=raw @presenter.donation %></div>
+<% end %>
 
 <%= render_text @presenter.description %>
 
