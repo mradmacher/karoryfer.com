@@ -37,6 +37,17 @@ class ReleaseTest < ActiveSupport::TestCase
     end
   end
 
+  def test_validates_bandcamp_url_format
+    release = Release.sham! :build
+    release.format = Release::BANDCAMP
+    release.bandcamp_url = 'https://not.bandcamp.com'
+    refute release.valid?
+    assert release.errors[:bandcamp_url].include? I18n.t(
+      'activerecord.errors.models.release.attributes.bandcamp_url.invalid')
+    release.bandcamp_url = 'https://bumtralala.bandcamp.com/album/krowka'
+    assert release.valid?
+  end
+
   def test_requires_file_unless_generated
     release = Release.sham! :build
     release.remove_file!

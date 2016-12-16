@@ -15,6 +15,6 @@ class ReleaseCruder < SimpleCruder
   end
 
   def permitted_params
-    strong_parameters.require(:release).permit(:album_id, :format, :file)
+    strong_parameters.require(:release).permit(:album_id, :format, :file, :bandcamp_url)
   end
 end

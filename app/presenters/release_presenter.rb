@@ -1,8 +1,12 @@
 class ReleasePresenter < Presenter
-  def_delegators(:resource, :album, :format, :file?)
+  def_delegators(:resource, :album, :downloads, :format, :url, :file?)
 
   def available_files
     Settings.filer.list('*.zip')
+  end
+
+  def download_path
+    download_artist_album_path(resource.album.artist, resource.album, resource.format)
   end
 
   def path

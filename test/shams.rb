@@ -95,7 +95,8 @@ Sham.config(Release) do |c|
     {
       album: Sham::Nested.new(Album),
       format: Release::FORMATS.sample,
-      file: File.open("#{fixtures_dir}/release.zip")
+      file: File.open("#{fixtures_dir}/release.zip"),
+      bandcamp_url: 'https://test.bandcamp.com/album/test'
     }
   end
 end
