@@ -4,7 +4,6 @@
 capybara-*.html
 .rspec
 .rvmrc
-.ruby-version
 .ruby-gemset
 .environment
 /.bundle
