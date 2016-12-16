@@ -13,12 +13,12 @@
 <ul>
   <% album.releases.each do |release| %>
     <li>
-      <%= release.format %>&nbsp;(<%= File.basename(release.file.path) %>)
+      <%= release.format %>&nbsp;(<%= release.url %>)
       <br />
       <%=t 'label.release.downloads' %>: <%= release.downloads %>
       <br />
       <% if current_user.can_manage_releases?(album.resource) %>
-        <a href="<%= artist_album_release_path(album.artist, album.resource, release) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+        <a href="<%= artist_album_release_path(album.artist, album.resource, release.resource) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
           <%=t 'action.delete' %>
         </a>
       <% end %>

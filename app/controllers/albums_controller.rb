@@ -5,20 +5,11 @@ class AlbumsController < CurrentArtistController
     @artist = Artist.find_by_reference(params[:artist_id])
     @album = @artist.albums.find_by_reference(params[:id])
     release = @album.releases.in_format(params[:format]).first!
-    if release.file?
+    if release.url
       release.increment!(:downloads)
-      if request.xhr?
-        render json: { success: true, url: release.file.url }
-      else
-        redirect_to release.file.url
-      end
+      redirect_to release.url
     else
-      release.generate_in_background!
-      if request.xhr?
-        render json: { success: false }
-      else
-        redirect_to artist_album_url(@artist, @album), notice: I18n.t('label.release_message')
-      end
+      redirect_to artist_album_url(@artist, @album)
     end
   end
 

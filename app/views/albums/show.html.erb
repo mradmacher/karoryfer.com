@@ -38,7 +38,7 @@
     <% end %>
     </p>
     <% if current_user.can_manage_album?(@presenter.resource) %>
-      <%=t 'label.release.downloads' %>: <%= @presenter.releases.sum(:downloads) %>
+      <%=t 'label.release.downloads' %>: <%= @presenter.downloads %>
       <ul>
         <% @presenter.releases.each do |release| %>
           <li><%= release.format %>: <%= release.downloads %></li>
@@ -55,19 +55,11 @@
     <div class="span12">
       <div class="text-info"><%= flash[:notice] %></div>
       <% @presenter.releases.each do |release| %>
-        <% if release.file? %>
-          <a href="<%= download_artist_album_path(@presenter.artist, @presenter.resource, release.format) %>">
-            <button class="pull-left download-button img-circle">
-              <%= release.format %>
-            </button>
-          </a>
-        <% else %>
-          <a href="<%= download_artist_album_path( @presenter.artist, @presenter.resource, release.format) %>" data-format="<%= release.format %>">
-            <button class="pull-left download-button img-circle create-release-button">
-              <%= release.format %>
-            </button>
-          </a>
-        <% end %>
+        <a href="<%= release.download_path %>">
+          <button class="pull-left download-button img-circle">
+            <%= release.format %>
+          </button>
+        </a>
       <% end %>
       <div class="modal fade" id="download-message" tabindex="-1" role="dialog" aria-labelledby="download-message-label" aria-hidden="true">
         <div class="modal-dialog">

@@ -105,6 +105,8 @@ pl:
               inclusion: ^dopuszczalne formaty to ogg, mp3 i flac
             file:
               blank: ^proszę załączyć plik
+            bandcamp_url:
+              invalid: ^proszę podać poprawne URL
         artist:
           attributes:
             name:
@@ -345,6 +347,8 @@ pl:
     release:
       downloads: Ilość pobrań
       format: Format
+      file: Plik
+      bandcamp_url: Bandcamp URL
     attachment:
       file: Plik
     track:
