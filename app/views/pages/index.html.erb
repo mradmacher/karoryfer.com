@@ -1,0 +1,12 @@
+<%= render_title t('title.page.index') %>
+
+<% if @presenters.empty? %>
+  <%= t('label.nothing_here_yet') %>
+<% end %>
+<ul class="row list-unstyled">
+<% @presenters.each do |presenter| %>
+  <li class="col-sm-3 col-md-3 col-lg-3">
+    <div class="thumbnail text-center"><%= render partial: 'page', locals: { presenter: presenter } %></div>
+  </li>
+<% end %>
+</ul>

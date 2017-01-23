@@ -10,7 +10,7 @@
   </div>
   <div class="form-group">
     <%= f.label :content, t( 'label.page.content' ) %>
-    <%= f.text_area :content, class: 'form-control' %>
+    <%= f.text_area :content, class: 'form-control', rows: 20 %>
   </div>
   <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
 <% end %>

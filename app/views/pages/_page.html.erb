@@ -1,0 +1,4 @@
+<p><a href="<%= presenter.path %>"><%= presenter.title %></a></p>
+<% if current_user.can_manage_pages?(artist.resource) %>
+  <p><%= presenter.path %></p>
+<% end %>

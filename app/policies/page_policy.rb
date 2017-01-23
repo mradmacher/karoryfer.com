@@ -11,7 +11,7 @@ class PagePolicy < ApplicationPolicy
     artist_policy.read_access?
   end
 
-  def write_policy?
+  def write_access?
     artist_policy.write_access?
   end
 

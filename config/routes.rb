@@ -39,6 +39,6 @@ Karoryfer::Application.routes.draw do
     # resources :videos, path: 'filmy'
     # resources :posts, path: 'wiadomosci'
     # resources :events, path: 'wydarzenia'
-    resources :pages, path: 'informacje'
+    resources :pages, path: '-'
   end
 end
