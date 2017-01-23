@@ -24,6 +24,10 @@ class ArtistPresenter < Presenter
     artist_albums_path(artist)
   end
 
+  def pages_path
+    artist_pages_path(artist)
+  end
+
   def recent_pages
     @recent_pages ||= PagePresenter.presenters_for(artist.pages.some)
   end
@@ -36,8 +40,8 @@ class ArtistPresenter < Presenter
     artist.albums.published.count
   end
 
-  def show_pages?
-    !recent_pages.empty?
+  def pages_count
+    artist.pages.count
   end
 
   def show_albums?

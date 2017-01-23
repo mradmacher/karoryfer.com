@@ -1,29 +1,9 @@
-<% if artist.show_pages? || current_user.can_manage_pages?(artist.resource) %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <span class="h4"><%=t 'label.pages' %></span>
-      <% if current_user.can_manage_pages?(artist.resource) %>
-        <a href="<%= artist.new_page_path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
-      <% end %>
-    </div>
-    <div class="panel-body">
-      <ul class="list-unstyled">
-      <% artist.recent_pages.each do |page_presenter| %>
-         <li><%= link_to page_presenter.title, page_presenter.path %></li>
-      <% end %>
-      </ul>
-    </div>
-  </div>
-<% end %>
-
 <% if artist.show_albums? || current_user.can_create_album?(artist.resource) %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
-        <%=t 'label.albums' %>
-        <a href="<%= artist.albums_path %>">
-          <span class="badge"><%= artist.albums_count %></span>
-        </a>
+        <a href="<%= artist.albums_path %>" class="main-menu-link"><%=t 'label.albums' %></a>
+        <span class="badge"><%= artist.albums_count %></span>
       </span>
       <% if current_user.can_create_album?(artist.resource) %>
         <a href="<%= artist.new_album_path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
@@ -34,6 +14,27 @@
         <% artist.recent_albums.each do |album_presenter| %>
           <li><%= link_to album_presenter.title, album_presenter.path %></li>
         <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<% if current_user.can_manage_pages?(artist.resource) %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <span class="h4">
+        <a href="<%= artist.pages_path %>" class="main-menu-link"><%=t 'label.pages' %></a>
+        <span class="badge"><%= artist.pages_count %></span>
+      <% if current_user.can_manage_pages?(artist.resource) %>
+        <a href="<%= artist.new_page_path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
+      <% end %>
+      </span>
+    </div>
+    <div class="panel-body">
+      <ul class="list-unstyled">
+      <% artist.recent_pages.each do |page_presenter| %>
+         <li><%= link_to page_presenter.title, page_presenter.path %></li>
+      <% end %>
       </ul>
     </div>
   </div>

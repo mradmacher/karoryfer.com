@@ -1,5 +1,5 @@
 class PagePresenter < Presenter
-  def_delegators(:resource, :title, :content)
+  def_delegators(:resource, :title, :content, :reference)
 
   def path
     artist_page_path(resource.artist, resource)
