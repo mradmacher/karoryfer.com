@@ -1,9 +1,9 @@
 class ArtistPolicy < ApplicationPolicy
-  def read?(_artist)
+  def read_access_to?(_artist)
     true
   end
 
-  def write?(artist)
+  def write_access_to?(artist)
     member_of?(artist)
   end
 

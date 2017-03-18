@@ -1,10 +1,10 @@
 class MembershipPolicy < ApplicationPolicy
-  def read?(membership)
-    user_policy.read?(membership.user)
+  def read_access_to?(membership)
+    user_policy.read_access_to?(membership.user)
   end
 
-  def write?(membership)
-    current_user.admin? && user_policy.write?(membership.user)
+  def write_access_to?(membership)
+    current_user.admin? && user_policy.write_access_to?(membership.user)
   end
 
   def read_access?

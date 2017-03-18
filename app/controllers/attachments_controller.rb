@@ -21,6 +21,6 @@ class AttachmentsController < CurrentAlbumController
   end
 
   def cruder
-    AttachmentCruder.new(params, policy, current_album)
+    AttachmentCruder.new(policy, params, current_album)
   end
 end

@@ -1,10 +1,10 @@
 class TrackPolicy < ApplicationPolicy
-  def read?(track)
-    album_policy.read?(track.album)
+  def read_access_to?(track)
+    album_policy.read_access_to?(track.album)
   end
 
-  def write?(track)
-    album_policy.write?(track.album)
+  def write_access_to?(track)
+    album_policy.write_access_to?(track.album)
   end
 
   def read_access?

@@ -1,10 +1,10 @@
 class PagePolicy < ApplicationPolicy
-  def read?(page)
-    artist_policy.read?(page.artist)
+  def read_access_to?(page)
+    artist_policy.read_access_to?(page.artist)
   end
 
-  def write?(page)
-    artist_policy.write?(page.artist)
+  def write_access_to?(page)
+    artist_policy.write_access_to?(page.artist)
   end
 
   def read_access?

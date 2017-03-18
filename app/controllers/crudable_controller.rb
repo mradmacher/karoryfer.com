@@ -16,18 +16,19 @@ module CrudableController
 
   def new
     @presenter = decorate(cruder.new)
+    render new_view
   end
 
   def update
     redirect_to update_redirect_path(decorate(cruder.update))
-  rescue Cruder::InvalidResource => e
+  rescue Crudable::InvalidResource => e
     @presenter = decorate(e.resource)
     render edit_view
   end
 
   def create
     redirect_to create_redirect_path(decorate(cruder.create))
-  rescue Cruder::InvalidResource => e
+  rescue Crudable::InvalidResource => e
     @presenter = decorate(e.resource)
     render new_view
   end

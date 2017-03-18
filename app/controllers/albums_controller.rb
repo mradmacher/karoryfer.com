@@ -2,9 +2,9 @@ class AlbumsController < CurrentArtistController
   layout :set_layout
 
   def download
-    @artist = Artist.find_by_reference(params[:artist_id])
-    @album = @artist.albums.find_by_reference(params[:id])
-    release = @album.releases.in_format(params[:format]).first!
+    artist = Artist.find_by_reference(params[:artist_id])
+    album = artist.albums.find_by_reference(params[:id])
+    release = album.releases.in_format(params[:format]).first!
     if release.url
       release.increment!(:downloads)
       redirect_to release.url
@@ -20,6 +20,6 @@ class AlbumsController < CurrentArtistController
   end
 
   def cruder
-    AlbumCruder.new(params, policy, current_artist)
+    AlbumCruder.new(policy, params, current_artist)
   end
 end

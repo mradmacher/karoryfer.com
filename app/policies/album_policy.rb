@@ -1,10 +1,10 @@
 class AlbumPolicy < ApplicationPolicy
-  def read?(album)
+  def read_access_to?(album)
     album.published? || member_of?(album.artist)
   end
 
-  def write?(album)
-    current_user.publisher? && member_of?(album.artist)
+  def write_access_to?(album)
+    member_of?(album.artist)
   end
 
   def write_access?

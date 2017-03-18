@@ -1,10 +1,10 @@
 class UserPolicy < ApplicationPolicy
-  def read?(user)
+  def read_access_to?(user)
     current_user.admin? || current_user == user
   end
 
-  def write?(user)
-    read?(user)
+  def write_access_to?(user)
+    read_access_to?(user)
   end
 
   def read_access?

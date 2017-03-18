@@ -27,6 +27,6 @@ class ReleasesController < CurrentAlbumController
   end
 
   def cruder
-    ReleaseCruder.new(params, policy, current_album)
+    ReleaseCruder.new(policy, params, current_album)
   end
 end

@@ -12,6 +12,6 @@ class ArtistsController < CurrentArtistController
   end
 
   def cruder
-    ArtistCruder.new(params, policy)
+    ArtistCruder.new(policy, params)
   end
 end

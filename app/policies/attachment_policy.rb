@@ -1,10 +1,10 @@
 class AttachmentPolicy < ApplicationPolicy
-  def read?(attachment)
-    album_policy.read?(attachment.album)
+  def read_access_to?(attachment)
+    album_policy.read_access_to?(attachment.album)
   end
 
-  def write?(attachment)
-    album_policy.write?(attachment.album)
+  def write_access_to?(attachment)
+    album_policy.write_access_to?(attachment.album)
   end
 
   def read_access?

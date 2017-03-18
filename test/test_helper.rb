@@ -26,11 +26,11 @@ Publisher.instance.url = 'http://www.lecolds.com'
 
 class ActiveSupport::TestCase
   class AllowAllPolicy < BasePolicy
-    def write?(_)
+    def write_access_to?(_)
       true
     end
 
-    def read?(_)
+    def read_access_to?(_)
       true
     end
 

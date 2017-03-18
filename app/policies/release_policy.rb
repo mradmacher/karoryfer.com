@@ -1,10 +1,10 @@
 class ReleasePolicy < ApplicationPolicy
-  def read?(release)
-    album_policy.read?(release.album)
+  def read_access_to?(release)
+    album_policy.read_access_to?(release.album)
   end
 
-  def write?(release)
-    album_policy.write?(release.album)
+  def write_access_to?(release)
+    album_policy.write_access_to?(release.album)
   end
 
   def read_access?
