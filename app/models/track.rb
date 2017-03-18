@@ -42,6 +42,10 @@ class Track < ActiveRecord::Base
     save
   end
 
+  def preview?
+    ogg_preview? && mp3_preview?
+  end
+
   def remove_preview!
     self.remove_ogg_preview = true
     self.remove_mp3_preview = true

@@ -92,10 +92,10 @@
 
 <%= render_text @presenter.description %>
 
-<% if !@presenter.tracks.empty? %>
+<% if !@presenter.tracks.empty? && @presenter.tracks.any?(&:preview?) %>
   <h4><%= t 'title.track.index' %></h4>
   <ol id="tracklist">
-    <% @presenter.tracks.each do |track| %>
+    <% @presenter.tracks.select(&:preview?).each do |track| %>
       <li data-track-id="<%= track.id %>">
       <span class="title">
         <%= track.rank %>.
