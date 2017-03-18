@@ -5,11 +5,11 @@ class BasePolicy
     @current_user = current_user
   end
 
-  def write?(_resource)
+  def write_access_to?(_resource)
     false
   end
 
-  def read?(_resource)
+  def read_access_to?(_resource)
     false
   end
 

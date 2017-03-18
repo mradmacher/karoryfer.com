@@ -5,12 +5,12 @@ class ApplicationPolicy
     @current_user = current_user
   end
 
-  def read?(_record)
-    false
+  def read?(record)
+    read_access? && read_access_to?(record)
   end
 
-  def write?(_record)
-    false
+  def write?(record)
+    write_access? && write_access_to?(record)
   end
 
   def read_access?
@@ -19,6 +19,14 @@ class ApplicationPolicy
 
   def write_access?
     true
+  end
+
+  def read_access_to?(_record)
+    false
+  end
+
+  def write_access_to?(_record)
+    false
   end
 
   def member_of?(artist)

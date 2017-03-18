@@ -26,6 +26,6 @@ class UsersController < ApplicationController
   end
 
   def cruder
-    UserCruder.new(params, policy)
+    UserCruder.new(policy, params)
   end
 end

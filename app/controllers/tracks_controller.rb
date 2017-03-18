@@ -7,8 +7,7 @@ class TracksController < CurrentAlbumController
   end
 
   def show
-    track = cruder.show
-    redirect_to track.file.url
+    redirect_to cruder.show.file.url
   end
 
   protected
@@ -34,6 +33,6 @@ class TracksController < CurrentAlbumController
   end
 
   def cruder
-    TrackCruder.new(params, policy, current_album)
+    TrackCruder.new(policy, params, current_album)
   end
 end

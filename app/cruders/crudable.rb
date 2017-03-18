@@ -1,18 +1,10 @@
-class Cruder
-  attr_reader :params, :policy, :context
-
+module Crudable
   class InvalidResource < StandardError
     attr_reader :resource
 
     def initialize(resource)
       @resource = resource
     end
-  end
-
-  def initialize(params, policy, context = nil)
-    @params = params
-    @policy = policy
-    @context = context
   end
 
   def index
@@ -22,25 +14,23 @@ class Cruder
 
   def show
     authorize policy.read_access?
-    find.tap { |resource| authorize policy.read?(resource) }
-  end
-
-  def new
-    authorize policy.write_access?
-    # build.tap { |resource| authorize policy.write?(resource) }
-    build
+    find.tap { |resource| authorize policy.read_access_to?(resource) }
   end
 
   def edit
     authorize policy.write_access?
-    find.tap { |resource| authorize policy.write?(resource) }
+    find.tap { |resource| authorize policy.write_access_to?(resource) }
+  end
+
+  def new
+    authorize policy.write_access?
+    build
   end
 
   def create
     authorize policy.write_access?
     build.tap do |resource|
       assign(resource)
-      # authorize policy.write?(resource)
       validate(resource) { |r| save(r) }
     end
   end
@@ -48,8 +38,8 @@ class Cruder
   def update
     authorize policy.write_access?
     find.tap do |resource|
+      authorize policy.write_access_to?(resource)
       assign(resource)
-      authorize policy.write?(resource)
       validate(resource) { |r| save(r) }
     end
   end
@@ -57,8 +47,8 @@ class Cruder
   def destroy
     authorize policy.write_access?
     find.tap do |resource|
-      authorize policy.write?(resource)
-      validate(resource) { |r| delete(r) }
+      authorize policy.write_access_to?(resource)
+      delete(resource)
     end
   end
 
