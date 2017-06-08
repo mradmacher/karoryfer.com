@@ -2,11 +2,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
-        <a href="<%= artist.albums_path %>" class="main-menu-link"><%=t 'label.albums' %></a>
+        <a href="<%= artist.albums_path %>" class="main-menu-link"><%=t 'title.albums' %></a>
         <span class="badge"><%= artist.albums_count %></span>
       </span>
       <% if current_user.can_create_album?(artist.resource) %>
-        <a href="<%= artist.new_album_path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
+        <a href="<%= artist.new_album_path %>" class="btn btn-default btn-xs"><%= t('action.add') %></a>
       <% end %>
     </div>
     <div class="panel-body">
@@ -23,10 +23,10 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="h4">
-        <a href="<%= artist.pages_path %>" class="main-menu-link"><%=t 'label.pages' %></a>
+        <a href="<%= artist.pages_path %>" class="main-menu-link"><%=t 'title.pages' %></a>
         <span class="badge"><%= artist.pages_count %></span>
       <% if current_user.can_manage_pages?(artist.resource) %>
-        <a href="<%= artist.new_page_path %>" class="btn btn-default btn-xs"><%= t('action.new') %></a>
+        <a href="<%= artist.new_page_path %>" class="btn btn-default btn-xs"><%= t('action.add') %></a>
       <% end %>
       </span>
     </div>

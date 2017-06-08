@@ -1,5 +1,5 @@
-<%= render_title @presenter.login, t('title.user.index') %>
-<h1><%= t 'title.user.index' %></h1>
+<%= render_title @presenter.login, t('title.users') %>
+<h1><%= t 'title.users' %></h1>
 <h2><%= @presenter.login %></h2>
 <p>
   <div class="btn-group">
@@ -32,12 +32,12 @@
 	<dt><%=t 'label.user.updated_at' %></dt>
 		<dd><%=l @presenter.updated_at %></dd>
 </dl>
-<h3><%=t 'title.membership.index' %></h3>
+<h3><%=t 'title.memberships' %></h3>
 <ul class="user-memberships">
   <% @presenter.memberships.each do |membership| %>
     <li><%= membership.artist.name %>
       <% if current_user.can_manage_memberships? %>
-        <%= link_to t('action.membership.destroy'), admin_user_membership_path(@presenter.resource, membership), :method => :delete, :class => 'btn btn-warning btn-xs' %>
+        <%= link_to t('action.delete'), admin_user_membership_path(@presenter.resource, membership), :method => :delete, :class => 'btn btn-warning btn-xs' %>
       <% end %>
     </li>
   <% end %>

@@ -5,7 +5,7 @@
     <small><%= t('label.album.unpublished') %></span>
   <% end %>
 </h2>
-<h3><%= t 'title.release.index' %></h3>
+<h3><%= t 'title.releases' %></h3>
 <p>
   <a href="<%= album.path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
@@ -27,6 +27,6 @@
 </ul>
 
 <% if current_user.can_manage_releases?(album.resource) %>
-  <h3><%=t 'title.release.new' %></h3>
+  <h3><%=t 'title.new_release' %></h3>
   <%= render :partial => 'form', locals: { resource: @presenter.resource } %>
 <% end %>

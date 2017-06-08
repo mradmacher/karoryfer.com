@@ -22,7 +22,7 @@ class AlbumCruder < SimpleCruder
       :year,
       :image,
       :remove_image,
-      :license_id,
+      :license_symbol,
       :donation,
       :description
     ]

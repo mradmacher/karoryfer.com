@@ -33,11 +33,11 @@
       <%= f.file_field :image %>
     </div>
     <div class="form-group">
-      <%= f.label :license_id, t( "label.album.license_id" ) %>
-      <%= f.collection_select :license_id, License.all, :id, :name, {:include_blank => true} %>
+      <%= f.label :license_symbol, t('label.album.license_symbol') %>
+      <%= f.collection_select :license_symbol, License.all, :symbol, :name, { include_blank: true } %>
     </div>
     <div class="form-group">
-      <%= f.label :donation , t( "label.album.donation" )%>
+      <%= f.label :donation , t( "label.album.player" )%>
       <%= f.text_area :donation, class: 'form-control' %>
     </div>
     <div class="form-group">

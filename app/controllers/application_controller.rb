@@ -4,9 +4,10 @@ class ApplicationController < ActionController::Base
                 :current_user,
                 :current_user?,
                 :current_user_session
-  before_action :redirect_subdomain
+  before_action :change_locale
   before_action :set_current_artist
   protect_from_forgery
+
   unless ['test', 'development'].include?(Rails.env)
     rescue_from User::AccessDenied, with: proc { redirect_to admin_login_url }
   end
@@ -17,16 +18,30 @@ class ApplicationController < ActionController::Base
     @current_user = CurrentUserPresenter.new(current_user)
   end
 
-  private
+  def change_locale
+    I18n.locale = locale_from_params || locale_from_cookies || locale_from_header || I18n.default_locale
+  end
 
-  def redirect_subdomain
-    return unless request.subdomain.present?
-    return unless Artist.pluck(:reference).include?(request.subdomain)
-    url = "#{request.protocol}www"
-    url << request.host_with_port.gsub("#{request.subdomain}", '')
-    url << "/#{request.subdomains.first}"
-    url << request.fullpath unless request.fullpath == '/'
-    redirect_to url, status: 301
+private
+
+  def locale_from_params
+    if params.key?(:l)
+      l = params[:l].to_s.downcase.strip.to_sym
+      if I18n.available_locales.include?(l)
+        cookies.permanent[:karoryfer_locale] = l
+      end
+    end
+  end
+
+  def locale_from_cookies
+    if cookies[:karoryfer_locale]
+      l = cookies[:karoryfer_locale].to_sym
+      l if I18n.available_locales.include?(l)
+    end
+  end
+
+  def locale_from_header
+    http_accept_language.compatible_language_from(I18n.available_locales)
   end
 
   def set_current_artist
