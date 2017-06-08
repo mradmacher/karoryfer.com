@@ -12,49 +12,6 @@ module ApplicationHelper
     end
   end
 
-  def event_details(event)
-    loc = []
-    loc << event_date(event)
-    loc << event.location unless event.location.blank?
-    loc.join(', ')
-  end
-
-  def event_date(event)
-    return if event.event_date.blank?
-    if event.duration > 0
-      last_date = event.event_date + event.duration.days
-      if last_date.year == event.event_date.year && last_date.month == event.event_date.month
-        "#{event.event_date.strftime('%d')}-#{last_date.strftime('%d')}#{event.event_date.strftime('.%m.%Y')}"
-      else
-        "#{event.event_date.strftime('%d.%m.%Y')}-#{last_date.strftime('%d.%m.%Y')}"
-      end
-    else
-      event.event_date.strftime('%d.%m.%Y')
-    end
-  end
-
-  def post_date(post)
-    post.date.strftime('%d.%m.%Y')
-  end
-
-  def post_icon
-    image_tag 'tags/note.png',
-      alt: t('activerecord.models.post'),
-      title: t('activerecord.models.post')
-  end
-
-  def event_icon(expired = false)
-    image_tag "tags/#{expired ? 'expired_' : ''}event.png",
-      alt: t('activerecord.models.event'),
-      title: t('activerecord.models.event')
-  end
-
-  def video_icon
-    image_tag 'tags/video.png',
-              alt: t('activerecord.models.video'),
-              title: t('activerecord.models.video')
-  end
-
   def link_to_action(title, link, options = {})
     link_to title, link, options.merge(class: 'btn btn-warning btn-xs')
   end
@@ -75,5 +32,17 @@ module ApplicationHelper
     items << [t('title.about'), artist_url('karoryfer-lecolds'), active == 'karoryfer-lecolds']
     items << [t('title.drafts'), drafts_url, active == 'drafts'] if AlbumPolicy.new(current_user.resource).write_access?
     items
+  end
+
+  def youtube_url
+    'http://www.youtube.com/user/KaroryferLecolds'
+  end
+
+  def facebook_url
+    'http://www.facebook.com/karoryfer'
+  end
+
+  def twitter_url
+    'http://www.twitter.com/karoryfer'
   end
 end

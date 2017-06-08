@@ -1,9 +1,7 @@
 module Uploader
   class Release < CarrierWave::Uploader::Base
-    cattr_accessor :store_dir
-
     def store_dir
-      File.join(@@store_dir, model.album.artist.reference)
+      File.join(Rails.root, 'public', 'downloads', 'wydawnictwa', model.album.artist.reference)
     end
 
     def filename

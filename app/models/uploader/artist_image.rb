@@ -1,8 +1,6 @@
 module Uploader
   class ArtistImage < CarrierWave::Uploader::Base
     include CarrierWave::MiniMagick
-    cattr_accessor :store_dir
-
     process resize_to_limit: [800, 800]
 
     def filename
@@ -28,7 +26,7 @@ module Uploader
     end
 
     def store_dir
-      @@store_dir
+      File.join(Rails.root, 'public', 'uploads', 'obrazki', 'artysci')
     end
 
     def extension_white_list
