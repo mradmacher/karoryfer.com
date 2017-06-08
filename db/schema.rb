@@ -11,21 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216102651) do
+ActiveRecord::Schema.define(version: 20170608152341) do
 
   create_table "albums", force: true do |t|
-    t.string   "title",       limit: 80,                 null: false
-    t.integer  "year",                                   null: false
-    t.integer  "artist_id",                              null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "title",          limit: 80,                 null: false
+    t.integer  "year",                                      null: false
+    t.integer  "artist_id",                                 null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "license_id"
-    t.string   "reference",   limit: 80,                 null: false
+    t.string   "reference",      limit: 80,                 null: false
     t.text     "donation"
     t.text     "description"
-    t.boolean  "published",              default: false, null: false
+    t.boolean  "published",                 default: false, null: false
     t.string   "image"
-    t.boolean  "shared",                 default: true,  null: false
+    t.boolean  "shared",                    default: true,  null: false
+    t.string   "license_symbol"
   end
 
   add_index "albums", ["artist_id"], name: "albums_artist_id_index"

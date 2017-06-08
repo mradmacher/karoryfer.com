@@ -1,8 +1,13 @@
 pl:
   license:
+    cc: Licencja Creative Commons
     cc-by-3-0: Creative Commons Uznanie autorstwa 3.0 Unported
     cc-by-sa-3-0: Creative Commons Uznanie autorstwa-Na tych samych warunkach 3.0 Unported
     cc-by-nc-sa-3-0: Creative Commons Uznanie autorstwa-Użycie niekomercyjne-Na tych samych warunkach 3.0 Unported
+    cc-by-4-0: Creative Commons Uznanie autorstwa 4.0 Międzynarodowe
+    cc-by-sa-4-0: Creative Commons Uznanie autorstwa-Na tych samych warunkach 4.0 Międzynarodowe
+    cc-by-nc-sa-4-0: Creative Commons Uznanie autorstwa-Użycie niekomercyjne-Na tych samych warunkach 4.0 Międzynarodowe
+    text: Ten utwór jest dostępny na licencji %{license}.
   datetime:
     formats:
       default: "%Y-%m-%d"
@@ -30,6 +35,123 @@ pl:
       extension_white_list_error: "^Nie możesz przesłać pliku typu %{extension}. Poprawne typy plików: %{allowed_types}."
       #extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
 
+  title:
+    about: O nas
+    artists: Artyści
+    new_artist: <Nowy artysta>
+    albums: Wydawnictwa
+    new_album: <Nowe wydawnictwo>
+    samples: Sample
+    drafts: Szkice
+    new_user_session: Logowanie
+    users: Użytkownicy
+    new_user: <Nowy użytkownik>
+    edit_user: Zmiana danych
+    edit_password: Zmiana hasła
+    account: Moje konto
+    pages: Strony
+    new_page: <Nowa informacja>
+    tracks: Utwory
+    new_track: <Nowy utwór>
+    attachments: Załączniki
+    new_attachment: <Nowy załącznik>
+    releases: Formaty
+    new_release: <Nowe wydanie>
+    memberships: Artyści
+
+  action:
+    add_artist: Dodaj artystę
+    track:
+      index: Utwory
+    attachment:
+      index: Załączniki
+    release:
+      index: Wydania
+    artist:
+      new: Dodaj artystę
+      edit: Zmień artystę
+      destroy: Usuń artystę
+    user:
+      new: Dodaj użytkownika
+      edit: Zmień dane
+      edit_password: Zmień hasło
+      destroy: Usuń konto
+    new: Dodaj
+    edit: Zmień
+    delete: Usuń
+    save: Zapisz
+    cancel_edit: Zostaw jak było
+    cancel_new: Odpuść sobie
+    remove_image: Usuń obrazek
+    remove_file: Usuń plik
+    destroy_confirmation: Czy na pewno to usunąć?
+
+  label:
+    release_message: Wydawnictwo jest przygotowywane do pobrania i będzie gotowe za kilka minut. Możesz w tym czasie spokojnie poklikać po stronie. (Your download is being processed. It will be ready in a few minutes. Feel free to use the website in the meantime.)
+    nothing_here_yet: Nic tu jeszcze nie ma.
+    nothing_here: Brak
+    defaults_to: domyślnie
+    unpublished: Szkice
+    true_value: tak
+    false_value: nie
+    download: Pobierz
+    user_session:
+      login: Użytkownik
+      password: Hasło
+      submit: Wpuść mnie
+    artist:
+      name: Nazwa
+      image: Obrazek
+      reference: Identyfikator
+      summary: W skrócie
+      description: Dokładniej
+    page:
+      title: Tytuł
+      reference: Identyfikator
+      content: Opis
+    album:
+      title: Tytuł
+      reference: Indentyfikator
+      artist_id: Artysta
+      unpublished: Szkic
+      published: Opublikowany
+      year: Rok
+      media: Media
+      image: Okładka
+      license_symbol: Licencja
+      player: Lista utworów
+      description: Opis
+    release:
+      downloads: Ilość pobrań
+      format: Format
+      file: Plik
+      bandcamp_url: Bandcamp URL
+    attachment:
+      file: Plik
+    track:
+      file: Plik
+      title: Tytuł
+      comment: Dodatkowe informacje
+      artist_name: Artysta
+      rank: Kolejność
+    site:
+      name: Karoryfer Lecolds
+      desc: Wirtualna wytwórnia płytowa
+    user:
+      login: Login
+      email: E-mail
+      password: Hasło
+      password_confirmation: Potwierdzenie hasła
+      admin: Administrator
+      publisher: Wydawca
+      created_at: Utworzono
+      updated_at: Zmodyfikowano
+      last_login_at: Ostatnie logowanie
+      login_count: Ilość logowań
+      failed_login_count: Ilość nieudanych logowań
+    membership:
+      artist_id: Artysta
+
   activerecord:
     models:
       album: Album
@@ -48,14 +170,6 @@ pl:
           other: Nie można zapisać danych z powodu %{count} błędów.
         body: "Proszę poprawić następujące pola:"
       models:
-        license:
-          attributes:
-            name:
-              blank: ^proszę podać nazwę
-            symbol:
-              blank: ^proszę podać symbol
-            version:
-              blank: ^proszę określić wersję
         album:
           attributes:
             reference:
@@ -118,42 +232,6 @@ pl:
               exclusion: ^podana nazwa identyfikatora jest zastrzeżona
               invalid: ^proszę podać poprawny identyfikator (wyrazy rozdzielone "-" lub "_"  bez polskich znaków)
               taken: ^proszę podać unikalny identyfikator
-        post:
-          attributes:
-            title:
-              blank: ^proszę podać tytuł
-              too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
-            artist_id:
-              blank: ^proszę wybrać artystę
-        event:
-          attributes:
-            poster_url:
-              invalid: ^proszę podać poprawny adres URL
-            event_date:
-              blank: ^proszę podać datę wydarzenia
-            title:
-              blank: ^proszę podać tytuł
-              too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
-            artist_id:
-              blank: ^proszę wybrać artystę
-            free_entrance:
-              inclusion: ^proszę zaznaczyć czy wstęp jest wolny
-        video:
-          attributes:
-            title:
-              blank: ^proszę podać tytuł
-              too_long: ^podany tytuł jest za długi (dopuszczalne jest 60 znaków)
-            url:
-              blank: ^proszę podać URL
-            artist_id:
-              blank: ^proszę wybrać artystę
-        article:
-          attributes:
-            title:
-              blank: ^proszę podać tytuł
-              too_long: ^podany tytuł jest za długi (dopuszczalne jest 50 znaków)
-            artist_id:
-              blank: ^proszę wybrać artystę
         page:
           attributes:
             artist_id:
@@ -191,186 +269,3 @@ pl:
               blank: ^proszę wybrać artystę
             user_id:
               blank: ^proszę wybrać użytkownika
-
-  action:
-    track:
-      index: Utwory
-    attachment:
-      index: Załączniki
-    release:
-      index: Wydania
-    artist:
-      new: Dodaj artystę
-      edit: Zmień artystę
-      destroy: Usuń artystę
-    user:
-      new: Dodaj użytkownika
-      edit: Zmień dane
-      edit_password: Zmień hasło
-      destroy: Usuń konto
-    membership:
-      destroy: Usuń
-    new: Dodaj
-    edit: Zmień
-    delete: Usuń
-    save: Zapisz
-    cancel_edit: Zostaw jak było
-    cancel_new: Odpuść sobie
-    remove_image: Usuń obrazek
-    remove_file: Usuń plik
-    destroy_confirmation: Czy na pewno to usunąć?
-
-  title:
-    user_session:
-      new: Logowanie
-    album:
-      index: Wydawnictwa
-      new: <Nowe wydawnictwo>
-    artist:
-      index: Artyści
-      new: <Nowy artysta>
-    page:
-      index: Informacje
-      new: <Nowa informacja>
-    post:
-      index: Wiadomości
-      new: <Nowa wiadomość>
-    event:
-      index: Wydarzenia
-      new: <Nowe wydarzenie>
-    video:
-      index: Filmy
-      new: <Nowy film>
-    user:
-      index: Użytkownicy
-      new: <Nowy użytkownik>
-      edit: Zmiana danych
-      edit_password: Zmiana hasła
-    membership:
-      index: Artyści
-    site:
-      home: Karoryfer Lecolds
-    track:
-      new: <Nowa ścieżka>
-      index: Utwory
-    attachment:
-      new: <Nowy załącznik>
-      index: Załączniki
-    release:
-      new: <Nowe wydanie>
-      index: Wydania
-
-  label:
-    release_message: Wydawnictwo jest przygotowywane do pobrania i będzie gotowe za kilka minut. Możesz w tym czasie spokojnie poklikać po stronie. (Your download is being processed. It will be ready in a few minutes. Feel free to use the website in the meantime.)
-    nothing_here_yet: Nic tu jeszcze nie ma.
-    nothing_here: Brak
-    defaults_to: domyślnie
-    unpublished: Szkice
-    true_value: tak
-    false_value: nie
-    download: Pobierz
-    artist: Artysta
-    album: Wydawnictwo
-    post: Wiadomość
-    event: Wydarzenie
-    albums: Wydawnictwa
-    posts: Wiadomości
-    events: Wydarzenia
-    drafts: Szkice
-    pages: Strony
-    posts: Wiadomości
-    events: Wydarzenia
-    videos: Filmy
-    user_session:
-      login: Użytkownik
-      password: Hasło
-      submit: Wpuść mnie
-    artist:
-      name: Nazwa
-      image: Obrazek
-      reference: Identyfikator
-      summary: W skrócie
-      description: Dokładniej
-    page:
-      title: Tytuł
-      reference: Identyfikator
-      content: Opis
-    event:
-      all: ...
-      drafts: Szkice wydarzeń
-      title: Tytuł
-      poster: Plakat
-      poster_url: URL plakatu
-      status: Status
-      artist_id: Artysta
-      location: Miejsce wydarzenia
-      address: Adres
-      event_date: Data wydarzenia
-      event_time: Godzina
-      duration: Dni ważności
-      free_entrance: Wstęp wolny
-      price: Cena
-      body: Treść
-      external_urls: URL stron zewnętrznych
-    post:
-      all: ...
-      drafts: Szkice wiadomości
-      tags: Tagi
-      title: Tytuł
-      status: Status
-      artist_id: Artysta
-      location: Miejsce wydarzenia
-      event_date: Data wydarzenia
-      event_duration: Dni ważności
-      body: Treść
-    video:
-      all: ...
-      title: Tytuł
-      url: URL
-      artist_id: Artysta
-      body: Opis
-    article:
-      title: Tytuł
-      body: Treść
-    album:
-      title: Tytuł
-      reference: Indentyfikator
-      artist_id: Artysta
-      unpublished: Szkic
-      published: Opublikowany
-      year: Rok
-      media: Media
-      image: Okładka
-      license_id: Licencja
-      donation: Darowizny
-      description: Opis
-    release:
-      downloads: Ilość pobrań
-      format: Format
-      file: Plik
-      bandcamp_url: Bandcamp URL
-    attachment:
-      file: Plik
-    track:
-      file: Plik
-      title: Tytuł
-      comment: Dodatkowe informacje
-      artist_name: Artysta
-      rank: Kolejność
-    site:
-      name: Karoryfer Lecolds
-      desc: Wirtualna wytwórnia płytowa
-    user:
-      login: Login
-      email: E-mail
-      password: Hasło
-      password_confirmation: Potwierdzenie hasła
-      admin: Administrator
-      publisher: Wydawca
-      created_at: Utworzono
-      updated_at: Zmodyfikowano
-      last_login_at: Ostatnie logowanie
-      login_count: Ilość logowań
-      failed_login_count: Ilość nieudanych logowań
-    membership:
-      artist_id: Artysta

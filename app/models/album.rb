@@ -5,7 +5,6 @@ class Album < ActiveRecord::Base
   SOME_LIMIT = 4
 
   belongs_to :artist
-  belongs_to :license
   has_many :tracks, dependent: :destroy
   has_many :attachments, dependent: :destroy
   has_many :releases
@@ -43,6 +42,10 @@ class Album < ActiveRecord::Base
 
   def related
     artist.albums.published.delete_if { |a| a == self }
+  end
+
+  def license
+    License.find(license_symbol)
   end
 end
 

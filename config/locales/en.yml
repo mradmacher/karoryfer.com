@@ -1,5 +1,272 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  license:
+    cc: Creative Commons License
+    cc-by-3-0: Creative Commons Attribution 3.0 Unported
+    cc-by-sa-3-0: Creative Commons Attribution-ShareAlike 3.0 Unported
+    cc-by-nc-sa-3-0: Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
+    cc-by-4-0: Creative Commons Attribution 4.0 International
+    cc-by-sa-4-0: Creative Commons Attribution-ShareAlike 4.0 International
+    cc-by-nc-sa-4-0: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+    text: This work is licensed under a %{license} License.
+  datetime:
+    formats:
+      default: "%Y-%m-%d"
+    prompts:
+      day: Dzień
+      month: Miesiąc
+      year: Rok
+      hour: Godzina
+      minute: Minuta
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M"
+      date: "%Y-%m-%d"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+    month_names: [styczeń, luty, marzec, kwiecień, maj, czerwiec, lipiec, sierpień, wrzesień, październik, listopad, grudzień]
+    order: [day, month, year]
+
+  errors:
+    messages:
+      #carrierwave_processing_error: "Cannot resize image."
+      #carrierwave_integrity_error: "Not an image."
+      #carrierwave_download_error: "Couldn't download image."
+      extension_white_list_error: "^Nie możesz przesłać pliku typu %{extension}. Poprawne typy plików: %{allowed_types}."
+      #extension_black_list_error: "You are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
+
+  title:
+    about: About
+    artists: Artists
+    new_artist: <New Artist>
+    albums: Releases
+    new_album: New release
+    samples: Samples
+    drafts: Drafts
+    new_user_session: Log in
+    users: Users
+    new_user: <New user>
+    edit_user: Edit user
+    edit_password: Change password
+    account: My account
+    pages: Pages
+    new_page: <New page>
+    tracks: Tracks
+    new_track: <New track>
+    attachments: Attachments
+    new_attachment: <New attachment>
+    releases: Formats
+    new_release: <New format>
+    memberships: Artists
+
+  action:
+    login: Log in
+    logout: Log out
+    add_artist: Add artist
+    track:
+      index: Utwory
+    attachment:
+      index: Załączniki
+    release:
+      index: Wydania
+    artist:
+      edit: Zmień artystę
+      destroy: Usuń artystę
+    user:
+      new: Dodaj użytkownika
+      edit: Zmień dane
+      edit_password: Zmień hasło
+      destroy: Usuń konto
+    add: Add
+    edit: Modify
+    delete: Delete
+    save: Save
+    cancel_edit: Leave it alone
+    cancel_new: Go away
+    remove_image: Remove picture
+    remove_file: Remove file
+    destroy_confirmation: Are you sure you want to remove it?
+
+  label:
+    release_message: Wydawnictwo jest przygotowywane do pobrania i będzie gotowe za kilka minut. Możesz w tym czasie spokojnie poklikać po stronie. (Your download is being processed. It will be ready in a few minutes. Feel free to use the website in the meantime.)
+    nothing_here_yet: Nic tu jeszcze nie ma.
+    nothing_here: Brak
+    defaults_to: defaults to
+    unpublished: Szkice
+    true_value: yes
+    false_value: no
+    download: Pobierz
+    user_session:
+      login: User
+      password: Password
+      submit: Let me in
+    artist:
+      name: Name
+      image: Picture
+      reference: Identifier
+      summary: Summary
+      description: Description
+    page:
+      title: Title
+      reference: Identifier
+      content: Content
+    album:
+      title: Title
+      reference: Identifier
+      artist_id: Artist
+      unpublished: Draft
+      published: Published
+      year: Year
+      media: Media
+      image: Cover
+      license_symbol: License
+      player: Player
+      description: Description
+    release:
+      downloads: Downloads
+      format: Format
+      file: File
+      bandcamp_url: Bandcamp URL
+    attachment:
+      file: File
+    track:
+      file: File
+      title: Title
+      comment: Comment
+      artist_name: Artist
+      rank: Rank
+    site:
+      name: Karoryfer Lecolds
+      desc: Netlabel
+    user:
+      login: Login
+      email: E-mail
+      password: Password
+      password_confirmation: Password Confirmation
+      admin: Administrator
+      publisher: Publisher
+      created_at: Created
+      updated_at: Updated
+      last_login_at: Last login
+      login_count: Number of logins
+      failed_login_count: Failed logins
+    membership:
+      artist_id: Artist
+
+  activerecord:
+    models:
+      album: Album
+      artist: Artysta
+      post: Wiadomość
+      event: Wydarzenie
+      page: Informacja
+      video: Film
+    errors:
+      messages:
+        record_invalid: Nieprawidłowy wpis
+      template:
+        header:
+          one: Nie można zapisać danych z powodu błędu.
+          few: Nie można zapisać danych z powodu %{count} błędów.
+          other: Nie można zapisać danych z powodu %{count} błędów.
+        body: "Proszę poprawić następujące pola:"
+      models:
+        album:
+          attributes:
+            reference:
+              blank: ^proszę podać identyfikator
+              too_long: ^podany identyfikator jest za długi (dopuszczalne jest 40 znaków)
+              exclusion: ^podana nazwa identyfikatora jest zastrzeżona
+              invalid: ^proszę podać poprawny identyfikator (wyrazy rozdzielone "-" bez polskich znaków)
+              taken: ^proszę podać unikalny identyfikator
+            title:
+              blank: ^proszę podać tytuł
+              taken: ^proszę podać niepowtarzalny tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne są 32 znaki)
+            artist_id:
+              blank: ^proszę wybrać artystę
+            year:
+              wrong_length: ^rok wydania powinien być czterocyfrowy
+              not_a_number: ^rok wydania powinien zawierać tylko cyfry
+            license:
+              inclusion: ^podana licencja nie jest akceptowana
+            published:
+              inclusion: ^proszę zaznaczyć czy opublikować album
+        attachment:
+          attributes:
+            album_id:
+              blank: ^proszę wybrać album
+            file:
+              blank: ^proszę załączyć plik
+              taken: ^nazwa pliku powinna być unikalna dla albumu
+        track:
+          attributes:
+            album_id:
+              blank: ^proszę wybrać album
+            title:
+              blank: ^proszę podać tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne jest 30 znaków)
+            rank:
+              blank: ^proszę podać numer utworu
+              taken: ^numer utworu powinien być unikalny dla albumu
+            comment:
+              too_long: ^podany komentarz jest za długi (dopuszczalne jest 255 znaków)
+        release:
+          attributes:
+            album_id:
+              blank: ^proszę wybrać album
+            format:
+              blank: ^proszę wybrać format
+              inclusion: ^dopuszczalne formaty to ogg, mp3 i flac
+            file:
+              blank: ^proszę załączyć plik
+            bandcamp_url:
+              invalid: ^proszę podać poprawne URL
+        artist:
+          attributes:
+            name:
+              blank: ^proszę podać nazwę
+              too_long: ^długość nazwy nie może przekroczyć 32 znaków
+            reference:
+              blank: ^proszę podać identyfikator
+              too_long: ^podany identyfikator jest za długi (dopuszczalne jest 16 znaków)
+              exclusion: ^podana nazwa identyfikatora jest zastrzeżona
+              invalid: ^proszę podać poprawny identyfikator (wyrazy rozdzielone "-" lub "_"  bez polskich znaków)
+              taken: ^proszę podać unikalny identyfikator
+        page:
+          attributes:
+            artist_id:
+              blank: ^proszę wybrać artystę
+            title:
+              blank: ^proszę podać tytuł
+              too_long: ^podany tytuł jest za długi (dopuszczalne jest 40 znaków)
+            reference:
+              blank: ^proszę podać identyfikator
+              taken: ^proszę podać unikalny identyfikator
+              invalid: ^proszę podać poprawny identyfikator (wyrazy rozdzielone "-" bez polskich znaków)
+        user:
+          attributes:
+            login:
+              too_short: ^podany login jest za krótki
+              taken: ^podany login jest już zajęty
+            password:
+              too_short: ^podane hasło jest za krótkie
+              confirmation: ^podane hasło i jego potwierdzenie są różne
+            password_confirmation:
+              too_short: ^podane potwierdzenie hasła jest za krótkie
+            admin:
+              inclusion: ^proszę określić, czy użytkownik jest administratorem
+            publisher:
+              inclusion: ^proszę określić, czy użytkownik jest wydawcą
+        setting:
+          attributes:
+            name:
+              blank: ^proszę podać nazwę
+              taken: ^proszę podać unikalną nazwę
+              invalid: ^proszę podać poprawną nazwę
+        membership:
+          attributes:
+            artist_id:
+              blank: ^proszę wybrać artystę
+            user_id:
+              blank: ^proszę wybrać użytkownika

@@ -11,6 +11,7 @@ gem 'carrierwave'
 gem 'dynamic_form'
 gem 'taglib-ruby'
 gem 'authlogic'
+gem 'http_accept_language'
 
 gem 'newrelic_rpm', '>=3.8.0'
 gem 'skylight'

@@ -69,16 +69,11 @@ module ApplicationHelper
              end
 
     items = []
-    items << ['Artyści', artists_url, active == 'artists']
-    items << ['Wydawnictwa', albums_url, active == 'albums']
-    Settings.highlighted.each do |hc|
-      items << [
-        hc['title'],
-        artist_url(hc['reference']),
-        active == hc['reference']
-      ]
-    end
-    items << ['Szkice', drafts_url, active == 'drafts'] if AlbumPolicy.new(current_user.resource).write_access?
+    items << [t('title.artists'), artists_url, active == 'artists']
+    items << [t('title.albums'), albums_url, active == 'albums']
+    items << [t('title.samples'), artist_url('karoryfer-samples'), active == 'karoryfer-samples']
+    items << [t('title.about'), artist_url('karoryfer-lecolds'), active == 'karoryfer-lecolds']
+    items << [t('title.drafts'), drafts_url, active == 'drafts'] if AlbumPolicy.new(current_user.resource).write_access?
     items
   end
 end

@@ -25,17 +25,5 @@ class Settings
     def twitter_url
       'http://www.twitter.com/karoryfer'
     end
-
-    def highlighted
-      [
-        {
-          'title' => 'Sample',
-          'reference' => 'karoryfer-samples'
-        }, {
-          'title' => 'O nas',
-          'reference' => 'karoryfer-lecolds'
-        }
-      ]
-    end
   end
 end

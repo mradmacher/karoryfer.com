@@ -5,7 +5,7 @@
     <small><%= t('label.album.unpublished') %></span>
   <% end %>
 </h2>
-<h3><%= t 'title.attachment.index' %></h3>
+<h3><%= t 'title.attachments' %></h3>
 <p>
   <a href="<%= album.path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
 </p>
@@ -23,7 +23,7 @@
   <% end %>
 </ul>
 
-<h3><%=t 'title.attachment.new' %></h3>
+<h3><%=t 'title.new_attachment' %></h3>
 <%= form_for [artist.resource, album.resource, @presenter.resource], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
   <div class="form-group">
