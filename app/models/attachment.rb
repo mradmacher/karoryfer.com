@@ -6,10 +6,8 @@ class Attachment < ActiveRecord::Base
   before_destroy :remove_file!
 
   class Uploader < CarrierWave::Uploader::Base
-    cattr_accessor :store_dir
-
     def store_dir
-      File.join(@@store_dir, model.album.id.to_s)
+      File.join(Rails.root, 'public', 'uploads', 'attachments', model.album.id.to_s)
     end
   end
 

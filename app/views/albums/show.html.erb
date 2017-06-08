@@ -87,7 +87,7 @@
 <% end %>
 
 <% unless @presenter.donation.blank? %>
-<%=raw @presenter.donation %>
+<p><%=raw @presenter.donation %></p>
 <% end %>
 
 <%= render_text @presenter.description %>
@@ -196,49 +196,6 @@ $(document).ready(function(){
   });
 
   $( '#tracklist' ).remove();
-
-  var progress_id;
-  $('#download-message').on('hidden.bs.modal', function (e) {
-    if( typeof progress_id !== 'undefined' ) {
-      clearInterval(progress_id);
-    }
-  })
-
-  function set_release_url() {
-
-  }
-
-  $('.create-release-button').click(function(e){
-     e.preventDefault();
-     a = $(this).parent('a');
-     release_url = a.attr('href');
-     format = a.attr('data-format');
-     $.get(release_url, {}, function(data) {
-       $('#download-message').find('.format').html(format);
-       $('#download-message').find('.waiting-message').show();
-       $('#download-message').find('.progress-indicator').html('*');
-       $('#download-message').find('.progress-indicator').show();
-       $('#download-message').find('.ready-message').hide();
-       $('#download-message').modal('show');
-
-       progress_id = setInterval(function() {
-         $('#download-message').find('.progress-indicator').append('*');
-         $.get(release_url, {}, function(data) {
-           if( data.success ) {
-             clearInterval(progress_id);
-             $('#download-message').find('.download-link').attr('href', data.url);
-             $('#download-message').find('.progress-indicator').hide();
-             $('#download-message').find('.waiting-message').hide();
-             $('#download-message').find('.ready-message').show();
-           }
-         });
-       }, 3000);
-     });
-  });
-
-  $('#download-message').find('.download-link').click(function() {
-     $('#download-message').modal('hide');
-  });
 });
 
 //]]>

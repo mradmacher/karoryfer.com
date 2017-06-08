@@ -1,7 +1,5 @@
 module Uploader
   class TrackSource < CarrierWave::Uploader::Base
-    cattr_accessor :store_dir
-
     def extension_white_list
       %w(wav)
     end
@@ -11,7 +9,7 @@ module Uploader
     end
 
     def store_dir
-      File.join(@@store_dir, (model.id / 1000).to_s)
+      File.join(Rails.root, 'db', 'tracks', (model.id / 1000).to_s)
     end
 
     protected
