@@ -8,13 +8,13 @@
 <p>
   <div class="btn-group">
     <% if current_user.can_manage_tracks?(@presenter.resource) %>
-      <a href="<%= artist_album_tracks_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.tracks' %></a>
+      <a href="<%= artist_album_tracks_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'title.tracks' %></a>
     <% end %>
     <% if current_user.can_manage_attachments?(@presenter.resource) %>
-      <a href="<%= artist_album_attachments_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.attachments' %></a>
+      <a href="<%= artist_album_attachments_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'title.attachments' %></a>
     <% end %>
     <% if current_user.can_manage_releases?(@presenter.resource) %>
-      <a href="<%= artist_album_releases_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'action.releases' %></a>
+      <a href="<%= artist_album_releases_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'title.releases' %></a>
     <% end %>
   </div>
   &nbsp;

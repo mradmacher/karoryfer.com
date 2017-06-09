@@ -76,7 +76,7 @@ pl:
       edit: Zmień dane
       edit_password: Zmień hasło
       destroy: Usuń konto
-    new: Dodaj
+    add: Dodaj
     edit: Zmień
     delete: Usuń
     save: Zapisz
