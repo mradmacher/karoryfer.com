@@ -1,7 +1,6 @@
 class Artist < ActiveRecord::Base
-  has_many :posts
-  has_many :events
-  has_many :videos
+  translates :summary, :description, fallback: :any
+
   has_many :albums
   has_many :pages
   has_many :memberships
@@ -15,7 +14,7 @@ class Artist < ActiveRecord::Base
   validates :reference, length: { maximum: REFERENCE_MAX_LENGTH }
   validates :reference, format: { with: /\A[a-z0-9]+([-_]?[a-z0-9]+)*\z/ }
   validates :reference, uniqueness: { case_sensitive: false }
-  validates :reference, exclusion: { in: %w(aktualnosci wydarzenia wiadomosci filmy wydawnictwa informacje artysci) }
+  validates :reference, exclusion: { in: %w(wydawnictwa artysci) }
 
   mount_uploader :image, Uploader::ArtistImage
 

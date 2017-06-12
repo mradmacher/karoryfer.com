@@ -1,4 +1,6 @@
 class Page < ActiveRecord::Base
+  translates :title, :content, fallback: :any
+
   belongs_to :artist
 
   TITLE_MAX_LENGTH = 40

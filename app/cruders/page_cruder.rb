@@ -16,9 +16,11 @@ class PageCruder < SimpleCruder
 
   def permitted_params
     strong_parameters.require(:page).permit(
-      :title,
       :reference,
-      :content
+      :title_pl,
+      :title_en,
+      :content_pl,
+      :content_en
     )
   end
 end

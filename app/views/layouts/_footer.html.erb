@@ -1,8 +1,16 @@
-<hr />
 <div class="container">
   <div class="row">
+    <hr />
+    <div class="col-md-8">
+      <a href="<%= facebook_url %>" target="_blank">
+        <%= image_tag('social/facebook.png', alt: 'Facebook', title: 'Facebook') %></a>
+      <a href="<%= twitter_url %>" target="_blank">
+        <%= image_tag('social/twitter.png', alt: 'Twitter', title: 'Twitter') %></a>
+      <a href="<%= youtube_url %>" target="_blank">
+        <%= image_tag('social/youtube.png', alt: 'YouTube', title: 'YouTube') %></a>
+    </div>
     <div class="col-md-4">
-      <ul class="list-inline">
+      <ul class="list-inline pull-right">
         <% if current_user.can_manage_account? -%>
           <li><a href="<%= current_user.logout_path %>" class="btn btn-default btn-xs"><%= t('action.logout') %></a></li>
           <li><a href="<%= current_user.account_path %>" class="btn btn-default btn-xs"><%= t('title.account') %></a></li>

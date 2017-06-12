@@ -41,7 +41,7 @@ private
   end
 
   def locale_from_header
-    # http_accept_language.compatible_language_from(I18n.available_locales)
+    http_accept_language.compatible_language_from(I18n.available_locales)
   end
 
   def set_current_artist
