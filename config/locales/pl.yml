@@ -104,11 +104,19 @@ pl:
       image: Obrazek
       reference: Identyfikator
       summary: W skrócie
+      summary_pl: W skrócie (po polsku)
+      summary_en: W skrócie (po angielsku)
       description: Dokładniej
+      description_pl: Dokładniej (po polsku)
+      description_en: Dokładniej (po angielsku)
     page:
-      title: Tytuł
       reference: Identyfikator
+      title: Tytuł
+      title_pl: Tytuł (po polsku)
+      title_en: Tytuł (po angielsku)
       content: Opis
+      content_pl: Opis (po polsku)
+      content_en: Opis (po angielsku)
     album:
       title: Tytuł
       reference: Indentyfikator

@@ -21,8 +21,6 @@ Uploader::Release.store_dir = '/tmp'
 Attachment::Uploader.store_dir = '/tmp'
 Uploader::TrackSource.store_dir = '/tmp'
 Uploader::TrackPreview.store_dir = '/tmp'
-Publisher.instance.name = 'Lecolds'
-Publisher.instance.url = 'http://www.lecolds.com'
 
 class ActiveSupport::TestCase
   class AllowAllPolicy < BasePolicy

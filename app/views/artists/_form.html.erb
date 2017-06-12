@@ -9,8 +9,12 @@
     <%= f.text_field :reference, :disabled => (resource.new_record?? false : true ), class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :summary, t( 'label.artist.summary' ) %>
-    <%= f.text_field :summary, class: 'form-control' %>
+    <%= f.label :summary_pl, t( 'label.artist.summary_pl' ) %>
+    <%= f.text_field :summary_pl, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :summary_en, t( 'label.artist.summary_en' ) %>
+    <%= f.text_field :summary_en, class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :image, t( 'label.artist.image' ) %>
@@ -26,8 +30,12 @@
     <%= f.file_field :image %>
   </div>
   <div class="form-group">
-    <%= f.label :description, t( 'label.artist.description' ) %>
-    <%= f.text_area :description, class: 'form-control', rows: 20 %>
+    <%= f.label :description_pl, t( 'label.artist.description_pl' ) %>
+    <%= f.text_area :description_pl, class: 'form-control', rows: 20 %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description_en, t( 'label.artist.description_en' ) %>
+    <%= f.text_area :description_en, class: 'form-control', rows: 20 %>
   </div>
   <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
 <% end %>

@@ -16,10 +16,12 @@ class ArtistCruder < SimpleCruder
     strong_parameters.require(:artist).permit(
       :name,
       :reference,
-      :summary,
+      :summary_pl,
+      :summary_en,
       :image,
       :remove_image,
-      :description
+      :description_pl,
+      :description_en
     )
   end
 end
