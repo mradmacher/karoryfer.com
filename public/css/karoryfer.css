@@ -16,18 +16,6 @@
   padding: 5px;
 }
 
-.event-list {
-  list-style-image: url('/images/tags/event.png');
-}
-
-.post-list {
-  list-style-image: url('/images/tags/note.png');
-}
-
-.video-list {
-  list-style-image: url('/images/tags/video.png');
-}
-
 .album-list {
   list-style-image: url('/images/tags/album.png');
 }

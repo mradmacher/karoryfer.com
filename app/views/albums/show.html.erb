@@ -34,7 +34,7 @@
     <p>
     <% if @presenter.license.present? %>
       <%= render :partial => 'licenses/cc',
-        :locals => { :author => @presenter.artist, :license => @presenter.license } %>
+        locals: { author: @presenter.artist, license: @presenter.license } %>
     <% end %>
     </p>
     <% if current_user.can_manage_album?(@presenter.resource) %>
@@ -61,27 +61,6 @@
           </button>
         </a>
       <% end %>
-      <div class="modal fade" id="download-message" tabindex="-1" role="dialog" aria-labelledby="download-message-label" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="download-message-label"><%= @presenter.artist.name %> - <%= @presenter.title %></h4>
-              <h5 class="modal-title format"></h5>
-            </div>
-            <div class="modal-body">
-              <p class="waiting-message">
-                <%=t 'label.release_message' %>
-              </p>
-              <p class="progress-indicator"></p>
-              <p class="ready-message">
-                <a href="#" class="download-link" title="<%= t('label.download') %>">
-                  <button class="download-button img-circle"><strong><%= t('label.download') %></strong></button></a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 <% end %>
@@ -93,7 +72,7 @@
 <%= render_text @presenter.description %>
 
 <% if !@presenter.tracks.empty? && @presenter.tracks.any?(&:preview?) %>
-  <h4><%= t 'title.track.index' %></h4>
+  <h4><%= t 'title.tracks' %></h4>
   <ol id="tracklist">
     <% @presenter.tracks.select(&:preview?).each do |track| %>
       <li data-track-id="<%= track.id %>">
@@ -110,37 +89,53 @@
     <% end %>
   </ol>
 
-  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-  <div id="jp_container_1" class="jp-audio">
+  <div id="jp_container_1" class="jp-video jp-video-270p" role="application" aria-label="media player">
     <div class="jp-type-playlist">
-      <div class="jp-gui jp-interface">
-        <ul class="jp-controls">
-        </ul>
-        <div class="jp-progress">
-          <div class="jp-seek-bar">
-            <div class="jp-play-bar"></div>
+      <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+      <div class="jp-gui">
+        <div class="jp-interface">
+          <div class="jp-progress">
+            <div class="jp-seek-bar">
+              <div class="jp-play-bar"></div>
+            </div>
+          </div>
+          <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+          <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+          <div class="jp-details">
+            <div class="jp-title" aria-label="title">&nbsp;</div>
+          </div>
+          <div class="jp-controls-holder">
+            <div class="jp-volume-controls">
+              <button class="jp-mute" role="button" tabindex="0">mute</button>
+              <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+              <div class="jp-volume-bar">
+                <div class="jp-volume-bar-value"></div>
+              </div>
+            </div>
+            <div class="jp-controls">
+              <button class="jp-previous" role="button" tabindex="0">previous</button>
+              <button class="jp-play" role="button" tabindex="0">play</button>
+              <button class="jp-next" role="button" tabindex="0">next</button>
+              <button class="jp-stop" role="button" tabindex="0">stop</button>
+            </div>
+            <div class="jp-toggles">
+              <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+              <button class="jp-shuffle" role="button" tabindex="0">shuffle</button>
+              <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+            </div>
           </div>
         </div>
-        <div class="jp-volume-bar">
-          <div class="jp-volume-bar-value"></div>
-        </div>
-        <div class="jp-time-holder">
-          <div class="jp-current-time"></div>
-          <div class="jp-duration"></div>
-        </div>
-        <ul class="jp-toggles">
-        </ul>
       </div>
       <div class="jp-playlist">
-        <ul>
-        </ul>
+        <ul></ul>
       </div>
       <div class="jp-no-solution">
-        <span>Update Required</span>
-        To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+      <span>Update Required</span>
+      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
       </div>
     </div>
   </div>
+
 <% end %>
 
 <% if !@presenter.attachments.empty? %>
@@ -158,26 +153,12 @@
 <script type="text/javascript">
 //<![CDATA[
 $(document).ready(function(){
-  $('.jp-controls').append('<li><a href="#" class="jp-previous" tabindex="1">previous</a></li>');
-  $('.jp-controls').append('<li><a href="#" class="jp-play" tabindex="1">play</a></li>');
-  $('.jp-controls').append('<li><a href="#" class="jp-pause" tabindex="1">pause</a></li>');
-  $('.jp-controls').append('<li><a href="#" class="jp-next" tabindex="1">next</a></li>');
-  $('.jp-controls').append('<li><a href="#" class="jp-stop" tabindex="1">stop</a></li>');
-  $('.jp-controls').append('<li><a href="#" class="jp-mute" tabindex="1">mute</a></li>');
-  $('.jp-controls').append('<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>');
-  $('.jp-controls').append('<li><a href="#" class="jp-volume-max" tabindex="1">max volume</a></li>');
-
-  $('.jp-toggles').append('<li><a href="#" class="jp-shuffle" tabindex="1" title="shuffle">shuffle</a></li>');
-  $('.jp-toggles').append('<li><a href="#" class="jp-shuffle-off" tabindex="1" title="shuffle off">shuffle off</a></li>');
-  $('.jp-toggles').append('<li><a href="#" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>');
-  $('.jp-toggles').append('<li><a href="#" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>');
-
 	var playlist = new jPlayerPlaylist({
 		jPlayer: "#jquery_jplayer_1",
 		cssSelectorAncestor: "#jp_container_1"
 	}, [
 	], {
-		swfPath: '/js/jQuery.jPlayer.2.5.0',
+    swfPath: 'https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.swf',
 		supplied: 'oga, mp4'
 	});
 

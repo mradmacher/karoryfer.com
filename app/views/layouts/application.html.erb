@@ -7,24 +7,24 @@
   <meta name="presenterport" content="width=device-width, initial-scale=1">
 
 	<%= favicon_link_tag %>
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
   <%= javascript_include_tag '/js/rails.js' %>
-  <%= javascript_include_tag '/js/jQuery.jPlayer.2.5.0/jquery.jplayer.min.js' %>
-  <%= javascript_include_tag '/js/jQuery.jPlayer.2.5.0/add-on/jplayer.playlist.min.js' %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/add-on/jplayer.playlist.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/skin/blue.monday/css/jplayer.blue.monday.min.css" />
   <%= javascript_include_tag '/js/karoryfer.js' %>
   <%= stylesheet_link_tag '/css/karoryfer.css'%>
-  <%= stylesheet_link_tag '/css/blue.monday/jplayer.blue.monday.css' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-    <%= render partial: 'embeds/facebook_sdk' %>
-    <%= render 'layouts/header' %>
-    <%= render 'layouts/content' %>
-    <%= render 'layouts/footer' %>
+  <%= render partial: 'embeds/facebook_sdk' %>
+  <%= render 'layouts/header' %>
+  <%= render 'layouts/content' %>
+  <%= render 'layouts/footer' %>
 </body>
 </html>
