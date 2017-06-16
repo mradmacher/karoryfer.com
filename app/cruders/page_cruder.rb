@@ -2,6 +2,11 @@
 class PageCruder < SimpleCruder
   alias_method :artist, :context
 
+  def index
+    authorize policy.write_access?
+    super
+  end
+
   def list
     artist.pages
   end

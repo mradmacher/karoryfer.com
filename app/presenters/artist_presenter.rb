@@ -47,4 +47,8 @@ class ArtistPresenter < Presenter
   def show_albums?
     !recent_albums.empty?
   end
+
+  def show_pages?
+    !recent_pages.empty?
+  end
 end
