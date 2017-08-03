@@ -14,6 +14,10 @@ gem 'authlogic'
 gem 'http_accept_language'
 gem 'traco'
 
+group :assets do
+end
+gem 'jquery-rails'
+
 gem 'newrelic_rpm', '>=3.8.0'
 gem 'skylight'
 gem 'rubocop', require: false
