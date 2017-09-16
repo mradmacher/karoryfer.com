@@ -2,37 +2,46 @@ class TracksController < CurrentAlbumController
   layout :set_layout
 
   def index
-    @presenter = decorate(cruder.new)
-    super
+    @presenter = TrackPresenter.new(cruder.new)
+    @presenters = TrackPresenter.presenters_for(cruder.index)
   end
 
   def show
     redirect_to cruder.show.file.url
   end
 
-  protected
-
-  def new_view
-    'index'
+  def edit
+    @presenter = TrackPresenter.new(cruder.edit)
+    render :edit
   end
 
-  def edit_view
-    'edit'
+  def new
+    @presenter = TrackPresenter.new(cruder.new)
+    render :index
   end
 
-  def create_redirect_path(_)
-    artist_album_tracks_url(current_artist, current_album)
+  def update
+    cruder.update
+    redirect_to artist_album_tracks_url(current_artist, current_album)
+  rescue Crudable::InvalidResource => e
+    @presenter = TrackPresenter.new(e.resource)
+    render :edit
   end
 
-  def update_redirect_path(_)
-    artist_album_tracks_url(current_artist, current_album)
+  def create
+    cruder.create
+    redirect_to artist_album_tracks_url(current_artist, current_album)
+  rescue Crudable::InvalidResource => e
+    @presenter = TrackPresenter.new(e.resource)
+    render :index
   end
 
-  def destroy_redirect_path(_)
-    artist_album_tracks_url(current_artist, current_album)
+  def destroy
+    cruder.destroy
+    redirect_to artist_album_tracks_url(current_artist, current_album)
   end
 
   def cruder
-    TrackCruder.new(policy, params, current_album)
+    TrackCruder.new(TrackPolicy.new(current_user.resource), params, current_album)
   end
 end

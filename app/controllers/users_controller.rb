@@ -1,14 +1,44 @@
 class UsersController < ApplicationController
-  include CrudableController
+  def index
+    @presenters = UserPresenter.presenters_for(cruder.index)
+  end
 
   def show
-    @presenter = decorate(cruder.show)
+    @presenter = UserPresenter.new(cruder.show)
     @membership = Membership.new
     @membership.user = @presenter.resource
   end
 
   def edit_password
-    @presenter = decorate(cruder.edit)
+    @presenter = UserPresenter.new(cruder.edit)
+  end
+
+  def edit
+    @presenter = UserPresenter.new(cruder.edit)
+    render edit_view
+  end
+
+  def new
+    @presenter = UserPresenter.new(cruder.new)
+    render :new
+  end
+
+  def update
+    redirect_to UserPresenter.new(cruder.update).path
+  rescue Crudable::InvalidResource => e
+    @presenter = UserPresenter.new(e.resource)
+    render :edit
+  end
+
+  def create
+    redirect_to UserPresenter.new(cruder.create).path
+  rescue Crudable::InvalidResource => e
+    @presenter = UserPresenter.new(e.resource)
+    render :new
+  end
+
+  def destroy
+    redirect_to UserPresenter.new(cruder.destroy) == current_user ? root_url : admin_users_url
   end
 
   private
@@ -21,11 +51,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy_redirect_path(obj)
-    obj == current_user ? root_url : admin_users_url
-  end
-
   def cruder
-    UserCruder.new(policy, params)
+    UserCruder.new(UserPolicy.new(current_user.resource), params)
   end
 end
