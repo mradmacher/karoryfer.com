@@ -82,4 +82,12 @@ private
   def set_layout
     current_artist? ? 'current_artist' : 'application'
   end
+
+  def decorate_all(objs)
+    presenter_class.nil? ? objs : presenter_class.presenters_for(objs)
+  end
+
+  def decorate(obj)
+    presenter_class.nil? ? obj : presenter_class.new(obj)
+  end
 end
