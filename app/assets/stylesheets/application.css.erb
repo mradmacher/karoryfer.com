@@ -1,5 +1,5 @@
 .jumbotron {
-  background: url("/images/splash.jpg") no-repeat left;
+  background: url(<%= asset_path('splash.jpg') %>) no-repeat left;
   color: white;
   height: 360px
 }
@@ -17,7 +17,7 @@
 }
 
 .album-list {
-  list-style-image: url('/images/tags/album.png');
+  list-style-image: url(<%= asset_path('tags/album.png') %>);
 }
 
 .menu-link {
@@ -47,7 +47,7 @@
 .download-button {
   text-transform: uppercase;
   font-weight: bold;
-  background: url("/images/download.png") no-repeat bottom;
+  background: url(<%= asset_path('download.png') %>) no-repeat bottom;
   width: 90px;
   height: 50px;
   margin: 10px;

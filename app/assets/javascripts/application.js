@@ -1,3 +1,6 @@
+//= require jquery
+//= require jquery_ujs
+
 $(window).load(function() {
   $(".row").each(function() {
     var height = 0;
@@ -22,4 +25,3 @@ $(window).load(function() {
 	}
   });
 });
-
