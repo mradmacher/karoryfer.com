@@ -35,7 +35,11 @@ class AttachmentsController < CurrentAlbumController
 
   private
 
+  def policy_class
+    AttachmentPolicy
+  end
+
   def cruder
-    AttachmentCruder.new(AttachmentPolicy.new(current_user.resource), params, current_album)
+    AttachmentCruder.new(policy_class.new(current_user.resource), params, current_album)
   end
 end

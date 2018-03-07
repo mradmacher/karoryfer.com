@@ -2,7 +2,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :album
 
   validates :album_id, presence: true
-  validate :validate_file, presence: true, uniqueness: { scope: :album_id }
+  validate :validate_file
   before_destroy :remove_file!
 
   class Uploader < CarrierWave::Uploader::Base
@@ -14,6 +14,7 @@ class Attachment < ActiveRecord::Base
   mount_uploader :file, Uploader
 
   private
+
   def validate_file
     if file.identifier.nil?
       errors.add(:file, I18n.t('activerecord.errors.models.attachment.attributes.file.blank'))

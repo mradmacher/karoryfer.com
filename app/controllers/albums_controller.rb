@@ -55,7 +55,11 @@ class AlbumsController < CurrentArtistController
     AlbumPresenter
   end
 
+  def policy_class
+    AlbumPolicy
+  end
+
   def cruder
-    AlbumCruder.new(AlbumPolicy.new(current_user.resource), params, current_artist)
+    AlbumCruder.new(policy_class.new(current_user.resource), params, current_artist)
   end
 end
