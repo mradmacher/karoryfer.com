@@ -41,7 +41,13 @@ class TracksController < CurrentAlbumController
     redirect_to artist_album_tracks_url(current_artist, current_album)
   end
 
+  private
+
+  def policy_class
+    TrackPolicy
+  end
+
   def cruder
-    TrackCruder.new(TrackPolicy.new(current_user.resource), params, current_album)
+    TrackCruder.new(policy_class.new(current_user.resource), params, current_album)
   end
 end

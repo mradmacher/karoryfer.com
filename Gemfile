@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.7.1'
 
 gem 'thin'
 gem 'unicorn'
@@ -20,7 +20,7 @@ gem 'jquery-rails'
 
 gem 'newrelic_rpm', '>=3.8.0'
 gem 'skylight'
-gem 'rubocop', require: false
+gem 'rubocop', '0.49.0', require: false
 
 group :test do
   gem 'sham'

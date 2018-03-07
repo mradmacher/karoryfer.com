@@ -37,7 +37,11 @@ class MembershipsController < CurrentUserController
 
   private
 
+  def policy_class
+    MembershipPolicy
+  end
+
   def cruder
-    MembershipCruder.new(MembershipPolicy.new(current_user.resource), params, @user_presenter.resource)
+    MembershipCruder.new(policy_class.new(current_user.resource), params, @user_presenter.resource)
   end
 end

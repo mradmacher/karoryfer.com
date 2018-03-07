@@ -83,14 +83,14 @@ class AlbumsControllerTest < ActionController::TestCase
       assert_select 'input[type=number][name=?][value=?]', 'album[year]', album.year
       assert_select 'label', I18n.t('label.album.image')
       assert_select 'input[type=file][name=?]', 'album[image]'
-      assert_select 'select[name=?]', 'album[license_id]' do
+      assert_select 'select[name=?]', 'album[license_symbol]' do
         assert_select 'option[value=?]', ''
         License.all.each do |license|
           if album.license == license
-            assert_select 'option[value=?][selected=selected]', license.id, license.name
+            assert_select 'option[value=?][selected=selected]', license.symbol, license.name
           else
-            assert_select 'option[value=?][selected=selected]', license.id, 0
-            assert_select 'option[value=?]', license.id, license.name
+            assert_select 'option[value=?][selected=selected]', license.symbol, 0
+            assert_select 'option[value=?]', license.symbol, license.name
           end
         end
       end
@@ -184,10 +184,10 @@ class AlbumsControllerTest < ActionController::TestCase
     assert_authorized do
       get :new, artist_id: artist.to_param
     end
-    title = CGI.escape_html(build_title(I18n.t('title.album.new'), artist.name))
+    title = CGI.escape_html(build_title(I18n.t('title.new_album'), artist.name))
     assert_select 'title', title, artist.name
     assert_select 'h1', artist.name
-    assert_select 'h2', CGI.escape_html(I18n.t('title.album.new'))
+    assert_select 'h2', CGI.escape_html(I18n.t('title.new_album'))
   end
 
   def test_authorized_get_new_displays_form
@@ -203,10 +203,10 @@ class AlbumsControllerTest < ActionController::TestCase
       assert_select 'input[type=number][name=?]', 'album[year]'
       assert_select 'label', I18n.t('label.album.image')
       assert_select 'input[type=file][name=?]', 'album[image]'
-      assert_select 'select[name=?]', 'album[license_id]' do
+      assert_select 'select[name=?]', 'album[license_symbol]' do
         assert_select 'option[value=?]', ''
         License.all.each do |license|
-          assert_select 'option[value=?]', license.id, license.name
+          assert_select 'option[value=?]', license.symbol, license.name
         end
       end
       assert_select 'label', I18n.t('label.album.donation')

@@ -39,7 +39,11 @@ class ArtistsController < CurrentArtistController
     ArtistPresenter
   end
 
+  def policy_class
+    ArtistPolicy
+  end
+
   def cruder
-    ArtistCruder.new(ArtistPolicy.new(current_user.resource), params)
+    ArtistCruder.new(policy_class.new(current_user.resource), params)
   end
 end

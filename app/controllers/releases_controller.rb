@@ -42,7 +42,11 @@ class ReleasesController < CurrentAlbumController
 
   private
 
+  def policy_class
+    ReleasePolicy
+  end
+
   def cruder
-    ReleaseCruder.new(ReleasePolicy.new(current_user.resource), params, current_album)
+    ReleaseCruder.new(policy_class.new(current_user.resource), params, current_album)
   end
 end

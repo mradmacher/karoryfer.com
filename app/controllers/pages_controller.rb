@@ -40,7 +40,11 @@ class PagesController < CurrentArtistController
 
   private
 
+  def policy_class
+    PagePolicy
+  end
+
   def cruder
-    PageCruder.new(PagePolicy.new(current_user.resource), params, current_artist)
+    PageCruder.new(policy_class.new(current_user.resource), params, current_artist)
   end
 end

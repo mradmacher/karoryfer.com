@@ -18,6 +18,9 @@ Metrics/PerceivedComplexity:
   Exclude:
     - test/**/*.rb
 
+Style/Documentation:
+  Enabled: false
+
 # these are not particularly helpful
 Metrics/ClassLength:
   Enabled: false
