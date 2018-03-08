@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrackPresenter < Presenter
   def_delegators(:resource, :title, :file, :file?)
 

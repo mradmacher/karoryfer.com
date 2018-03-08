@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class License
   attr_reader :symbol
 
@@ -6,7 +8,7 @@ class License
   end
 
   def self.find(symbol)
-    all.find{ |l| l.symbol == symbol }
+    all.find { |l| l.symbol == symbol }
   end
 
   CC_BY_30 = License.new('cc by 3.0')

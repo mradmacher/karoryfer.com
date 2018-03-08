@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Provides access to user resource.
 class UserCruder < SimpleCruder
   def list
@@ -13,8 +15,8 @@ class UserCruder < SimpleCruder
   end
 
   def permitted_params
-    fields = [:login, :email, :password, :password_confirmation]
-    fields.concat([:admin, :publisher]) if policy.write_access?
+    fields = %i[login email password password_confirmation]
+    fields.concat(%i[admin publisher]) if policy.write_access?
     strong_parameters.require(:user).permit(fields)
   end
 end

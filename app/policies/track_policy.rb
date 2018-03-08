@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrackPolicy < ApplicationPolicy
   def read_access_to?(track)
     album_policy.read_access_to?(track.album)

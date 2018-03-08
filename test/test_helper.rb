@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -5,14 +7,13 @@ require 'authlogic/test_case'
 require 'shams'
 require 'minitest/mock'
 
-dbconfig = Rails.configuration.database_configuration['test']
 FIXTURES_DIR = File.expand_path('../fixtures', __FILE__)
 
 module I18n
   def self.raise_missing_translation(*args)
     puts args.first
     puts args.first.class
-    fail args.first.to_exception
+    raise args.first.to_exception
   end
 end
 I18n.exception_handler = :raise_missing_translation
@@ -22,22 +23,24 @@ Attachment::Uploader.store_dir = '/tmp'
 Uploader::TrackSource.store_dir = '/tmp'
 Uploader::TrackPreview.store_dir = '/tmp'
 
-class ActiveSupport::TestCase
-  class AllowAllPolicy < BasePolicy
-    def write_access_to?(_)
-      true
-    end
+module ActiveSupport
+  class TestCase
+    class AllowAllPolicy < BasePolicy
+      def write_access_to?(_)
+        true
+      end
 
-    def read_access_to?(_)
-      true
-    end
+      def read_access_to?(_)
+        true
+      end
 
-    def write_access?
-      true
-    end
+      def write_access?
+        true
+      end
 
-    def read_access?
-      true
+      def read_access?
+        true
+      end
     end
   end
 

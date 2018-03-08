@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # Provides access to attachment resource.
 class AttachmentCruder < SimpleCruder
-  alias_method :album, :context
+  alias album context
 
   def list
     album.attachments

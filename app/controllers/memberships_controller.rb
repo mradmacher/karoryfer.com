@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MembershipsController < CurrentUserController
   def index
     @presenters = MembershipPresenter.presenters_for(cruder.index)

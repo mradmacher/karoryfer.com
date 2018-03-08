@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ResourcesController
   def test_delete_destroy_without_artist_is_not_routable
     assert_raises ActionController::UrlGenerationError do
@@ -75,7 +77,8 @@ module ResourcesController
     membership = login_artist_user
     get :new, artist_id: membership.artist.to_param
     assert_select 'title', CGI.escape_html(
-      build_title(I18n.t("title.new_#{resource_name}"), membership.artist.name))
+      build_title(I18n.t("title.new_#{resource_name}"), membership.artist.name)
+    )
     assert_select 'h1', membership.artist.name
     assert_select 'h2', CGI.escape_html(I18n.t("title.new_#{resource_name}"))
   end

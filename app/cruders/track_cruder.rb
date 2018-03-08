@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # Provides access to track resource.
 class TrackCruder < SimpleCruder
-  alias_method :album, :context
+  alias album context
 
   def list
     album.tracks

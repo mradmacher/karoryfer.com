@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ArtistsController < CurrentArtistController
-  layout 'current_artist', except: [:index, :new, :create]
+  layout 'current_artist', except: %i[index new create]
 
   def index
     @presenters = decorate_all(cruder.index)

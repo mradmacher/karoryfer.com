@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 fixtures_dir = File.expand_path('../fixtures', __FILE__)
 
 def fake_string(klass, method, min, max)

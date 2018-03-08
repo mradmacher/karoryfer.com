@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AttachmentPolicy < ApplicationPolicy
   def read_access_to?(attachment)
     album_policy.read_access_to?(attachment.album)

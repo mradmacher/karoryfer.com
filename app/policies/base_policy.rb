@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BasePolicy
   attr_reader :current_user
 
@@ -21,4 +23,3 @@ class BasePolicy
     false
   end
 end
-

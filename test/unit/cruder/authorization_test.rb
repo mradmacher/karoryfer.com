@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class TestCruder
@@ -16,17 +18,13 @@ class TestCruder
     true
   end
 
-  def list
-  end
+  def list; end
 
-  def find
-  end
+  def find; end
 
-  def build
-  end
+  def build; end
 
-  def assign(_)
-  end
+  def assign(_); end
 end
 
 class AccessOnlyTest < BasePolicy

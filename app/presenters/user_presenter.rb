@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 class UserPresenter < Presenter
   def_delegators(:resource,
-    :login, :email, :admin?, :publisher?,
-    :created_at, :updated_at,
-    :login_count, :failed_login_count, :last_login_at,
-    :memberships, :other_artists
-  )
+                 :login, :email, :admin?, :publisher?,
+                 :created_at, :updated_at,
+                 :login_count, :failed_login_count, :last_login_at,
+                 :memberships, :other_artists)
 
-  alias_method :user, :resource
+  alias user resource
 
   def path
     admin_user_path(user)

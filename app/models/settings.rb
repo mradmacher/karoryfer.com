@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Settings
   class << self
     attr_writer :filer_root

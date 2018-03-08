@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ReleaseTest < ActiveSupport::TestCase
@@ -6,7 +8,8 @@ class ReleaseTest < ActiveSupport::TestCase
     release.album = nil
     refute release.valid?
     assert release.errors[:album_id].include? I18n.t(
-      'activerecord.errors.models.release.attributes.album_id.blank')
+      'activerecord.errors.models.release.attributes.album_id.blank'
+    )
 
     release.album = Album.sham!
     assert release.valid?
@@ -18,17 +21,19 @@ class ReleaseTest < ActiveSupport::TestCase
       release.format = format
       refute release.valid?
       assert release.errors[:format].include? I18n.t(
-        'activerecord.errors.models.release.attributes.format.blank')
+        'activerecord.errors.models.release.attributes.format.blank'
+      )
     end
   end
 
   def test_validates_format_inclusion
     release = Release.sham! :build
-    %w(oga mp floc).each do |format|
+    %w[oga mp floc].each do |format|
       release.format = format
       refute release.valid?
       assert release.errors[:format].include? I18n.t(
-        'activerecord.errors.models.release.attributes.format.inclusion')
+        'activerecord.errors.models.release.attributes.format.inclusion'
+      )
     end
 
     Release::FORMATS.each do |format|
@@ -43,7 +48,8 @@ class ReleaseTest < ActiveSupport::TestCase
     release.bandcamp_url = 'https://not.bandcamp.com'
     refute release.valid?
     assert release.errors[:bandcamp_url].include? I18n.t(
-      'activerecord.errors.models.release.attributes.bandcamp_url.invalid')
+      'activerecord.errors.models.release.attributes.bandcamp_url.invalid'
+    )
     release.bandcamp_url = 'https://bumtralala.bandcamp.com/album/krowka'
     assert release.valid?
   end

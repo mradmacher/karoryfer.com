@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class AlbumPolicyTest < ActiveSupport::TestCase
@@ -40,7 +42,7 @@ class AlbumPolicyTest < ActiveSupport::TestCase
 
   def test_managing_account_album_resources_is_denied
     membership = Membership.sham!
-    album  = Album.sham!(artist: membership.artist)
+    album = Album.sham!(artist: membership.artist)
     user = membership.user
     refute AlbumPolicy.new(user).write?(album)
     refute AttachmentPolicy.new(user).write?(Attachment.new(album: album))

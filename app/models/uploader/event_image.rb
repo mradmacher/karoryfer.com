@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Uploader
   class EventImage < CarrierWave::Uploader::Base
     include CarrierWave::MiniMagick
     cattr_accessor :store_dir
 
     def extension_white_list
-      %w(jpg jpeg png gif)
+      %w[jpg jpeg png gif]
     end
 
     process resize_to_limit: [1200, 1200]
@@ -41,14 +43,14 @@ module Uploader
     end
 
     protected
+
     def version_file_basename(for_file)
       File.basename(for_file, File.extname(for_file))
     end
 
     def secure_token
       var = :"@#{mounted_as}_secure_token"
-      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+      model.instance_variable_get(var) || model.instance_variable_set(var, SecureRandom.uuid)
     end
   end
 end
-

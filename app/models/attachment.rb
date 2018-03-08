@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Attachment < ActiveRecord::Base
   belongs_to :album
 
@@ -16,17 +18,11 @@ class Attachment < ActiveRecord::Base
   private
 
   def validate_file
-    if file.identifier.nil?
-      errors.add(:file, I18n.t('activerecord.errors.models.attachment.attributes.file.blank'))
-    end
-    if album_id
-      similar = Attachment.where(album_id: self.album_id, file: self.file.identifier)
-      similar = similar.where('id <> ?', self.id) if self.id
+    errors.add(:file, I18n.t('activerecord.errors.models.attachment.attributes.file.blank')) if file.identifier.nil?
+    return unless album_id
+    similar = Attachment.where(album_id: album_id, file: file.identifier)
+    similar = similar.where('id <> ?', id) if id
 
-      if similar.exists?
-        errors.add(:file, I18n.t('activerecord.errors.models.attachment.attributes.file.taken'))
-      end
-    end
+    errors.add(:file, I18n.t('activerecord.errors.models.attachment.attributes.file.taken')) if similar.exists?
   end
 end
-

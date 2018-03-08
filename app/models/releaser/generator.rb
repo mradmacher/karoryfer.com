@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Releaser
   class Generator
     attr_accessor :input
