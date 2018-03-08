@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountPresenter < Presenter
   def_delegators(:resource,
                  :login,

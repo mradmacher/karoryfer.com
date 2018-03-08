@@ -1,0 +1,7 @@
+<%= render_title @presenter.title %>
+<h2><%= @presenter.title %></h2>
+<p>
+  <a href="<%= artist_path(current_artist) %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_edit' %></a>
+</p>
+<%= render partial: 'form', locals: { resource: @presenter.resource } %>
+

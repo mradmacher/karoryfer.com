@@ -1,32 +1,54 @@
+# frozen_string_literal: true
+
 class ReleasesController < CurrentAlbumController
   layout :set_layout
 
   def index
-    @presenter = decorate(cruder.new)
-    super
+    @presenter = ReleasePresenter.new(cruder.new)
+    @presenters = ReleasePresenter.presenters_for(cruder.index)
   end
 
-  protected
-
-  def new_view
-    'index'
+  def show
+    @presenter = ReleasePresenter.new(cruder.show)
   end
 
-  def edit_view
-    'edit'
+  def edit
+    @presenter = ReleasePresenter.new(cruder.edit)
+    render :edit
+  end
+
+  def new
+    @presenter = ReleasePresenter.new(cruder.new)
+    render :index
+  end
+
+  def update
+    redirect_to ReleasePresenter.new(cruder.update).path
+  rescue Crudable::InvalidResource => e
+    @presenter = ReleasePresenter.new(e.resource)
+    render :edit
+  end
+
+  def create
+    cruder.create
+    redirect_to artist_album_releases_url(current_artist, current_album)
+  rescue Crudable::InvalidResource => e
+    @presenter = ReleasePresenter.new(e.resource)
+    render :index
+  end
+
+  def destroy
+    cruder.destroy
+    redirect_to artist_album_releases_url(current_artist, current_album)
   end
 
   private
 
-  def create_redirect_path(_)
-    artist_album_releases_url(current_artist, current_album)
-  end
-
-  def destroy_redirect_path(_)
-    artist_album_releases_url(current_artist, current_album)
+  def policy_class
+    ReleasePolicy
   end
 
   def cruder
-    ReleaseCruder.new(policy, params, current_album)
+    ReleaseCruder.new(policy_class.new(current_user.resource), params, current_album)
   end
 end

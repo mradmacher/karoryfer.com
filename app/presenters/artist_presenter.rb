@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class ArtistPresenter < Presenter
   def_delegators(:resource, :name, :summary, :description, :image?, :image)
 
-  alias_method :artist, :resource
-  alias_method :title, :name
+  alias artist resource
+  alias title name
 
   def path
     artist_path(resource)

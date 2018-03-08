@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 class CurrentUserPresenter < Presenter
   def_delegators(:resource,
-    :admin?, :publisher?,
-    :memberships,
-  )
+                 :admin?, :publisher?,
+                 :memberships)
 
-  alias_method :current_user, :resource
+  alias current_user resource
 
   def unpublished_albums
     Album.joins(:artist).joins(artist: :memberships)
-      .where('memberships.user_id' => current_user.id)
-      .where('albums.published' => false)
+         .where('memberships.user_id' => current_user.id)
+         .where('albums.published' => false)
   end
 
   def account_path

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'taglib'
 
 module Releaser
@@ -77,10 +79,9 @@ module Releaser
     def apply_xiph_specific(tag)
       tag.add_field('CONTACT', @contact_url, true)
       tag.add_field('ORGANIZATION', @organization_name, true)
-      unless @license_name.nil?
-        tag.add_field('LICENSE', @license_name, true)
-        tag.add_field('COPYRIGHT', copyright, true)
-      end
+      return if @license_name.nil?
+      tag.add_field('LICENSE', @license_name, true)
+      tag.add_field('COPYRIGHT', copyright, true)
     end
 
     def apply_id3v2_specific(tag)
@@ -94,19 +95,19 @@ module Releaser
       frame.text = @organization_name
       tag.add_frame(frame)
 
-      unless @license_name.nil?
-        frame = TagLib::ID3v2::UrlLinkFrame.new('WCOP')
-        frame.url = @license_name
-        tag.add_frame(frame)
+      return if @license_name.nil?
 
-        frame = TagLib::ID3v2::UrlLinkFrame.new('WOAF')
-        frame.url = @contact_url
-        tag.add_frame(frame)
+      frame = TagLib::ID3v2::UrlLinkFrame.new('WCOP')
+      frame.url = @license_name
+      tag.add_frame(frame)
 
-        frame = TagLib::ID3v2::TextIdentificationFrame.new('TCOP', TagLib::String::UTF8)
-        frame.text = copyright + '. ' + copyright_description
-        tag.add_frame(frame)
-      end
+      frame = TagLib::ID3v2::UrlLinkFrame.new('WOAF')
+      frame.url = @contact_url
+      tag.add_frame(frame)
+
+      frame = TagLib::ID3v2::TextIdentificationFrame.new('TCOP', TagLib::String::UTF8)
+      frame.text = copyright + '. ' + copyright_description
+      tag.add_frame(frame)
     end
   end
 end

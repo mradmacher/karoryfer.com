@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class TagTest < ActiveSupport::TestCase
@@ -63,7 +65,7 @@ class TagTest < ActiveSupport::TestCase
         yield file.xiph_comment
       end
     else
-      fail
+      raise
     end
   end
 

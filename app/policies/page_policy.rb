@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PagePolicy < ApplicationPolicy
   def read_access_to?(page)
     artist_policy.read_access_to?(page.artist)

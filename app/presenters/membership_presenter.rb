@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MembershipPresenter < Presenter
   def_delegators(:resource, :artist, :user)
 

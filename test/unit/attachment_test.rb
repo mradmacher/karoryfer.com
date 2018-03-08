@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase
@@ -9,7 +11,8 @@ class AttachmentTest < ActiveSupport::TestCase
     tested = Attachment.sham! album: existing.album, file: existing_file
     refute tested.valid?
     assert tested.errors[:file].include? I18n.t(
-      'activerecord.errors.models.attachment.attributes.file.taken')
+      'activerecord.errors.models.attachment.attributes.file.taken'
+    )
   end
 
   def test_validates_album_presence
@@ -17,7 +20,8 @@ class AttachmentTest < ActiveSupport::TestCase
     attachment.album_id = nil
     refute attachment.valid?
     assert attachment.errors[:album_id].include? I18n.t(
-      'activerecord.errors.models.attachment.attributes.album_id.blank')
+      'activerecord.errors.models.attachment.attributes.album_id.blank'
+    )
   end
 
   def test_validates_file_presence
@@ -25,7 +29,8 @@ class AttachmentTest < ActiveSupport::TestCase
 
     refute attachment.valid?
     assert attachment.errors[:file].include? I18n.t(
-      'activerecord.errors.models.attachment.attributes.file.blank')
+      'activerecord.errors.models.attachment.attributes.file.blank'
+    )
   end
 
   def test_on_save_places_file_in_proper_dir

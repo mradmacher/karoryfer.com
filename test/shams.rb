@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 fixtures_dir = File.expand_path('../fixtures', __FILE__)
 
 def fake_string(klass, method, min, max)
@@ -29,16 +31,6 @@ Sham.config(Artist) do |c|
   end
 end
 
-Sham.config(License) do |c|
-  c.attributes do
-    {
-      symbol: ['by', 'by-sa', 'by-nc-sa'].sample,
-      version: '3.0',
-      name: Faker::Lorem.word
-    }
-  end
-end
-
 Sham.config(Album) do |c|
   c.attributes do
     title = Faker::Name.name
@@ -48,7 +40,7 @@ Sham.config(Album) do |c|
       year: (2000..2020).to_a.sample,
       reference: title.parameterize,
       title: title,
-      license: Sham::Nested.new(License)
+      license_symbol: License.all.sample.symbol
     }
   end
 end
@@ -62,7 +54,7 @@ Sham.config(Album, :published) do |c|
       year: (2000..2020).to_a.sample,
       reference: title.parameterize,
       title: title,
-      license: Sham::Nested.new(License)
+      license_symbol: License.all.sample.symbol
     }
   end
 end
@@ -76,7 +68,7 @@ Sham.config(Album, :unpublished) do |c|
       year: (2000..2020).to_a.sample,
       reference: title.parameterize,
       title: title,
-      license: Sham::Nested.new(License)
+      license_symbol: License.all.sample.symbol
     }
   end
 end

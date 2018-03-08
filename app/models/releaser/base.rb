@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Releaser
   class Base
     attr_reader :publisher, :releaseable, :format
@@ -36,13 +38,13 @@ module Releaser
       output = File.join(output_path, track_file_basename(track))
 
       generator = ::Releaser::Generator.new(input)
-      case self.format
+      case format
       when 'flac'
         generator.gen_flac(output)
         tag_for(track).apply_to("#{output}.flac")
       when 'ogg'
         generator.gen_ogg(output, ogg_quality)
-        tag_for(track).apply_to( "#{output}.ogg")
+        tag_for(track).apply_to("#{output}.ogg")
       when 'mp3'
         generator.gen_mp3(output, mp3_quality)
         tag_for(track).apply_to("#{output}.mp3")
@@ -56,10 +58,10 @@ module Releaser
     def tag_for(track)
       tag = ::Releaser::Tag.new
       tag.artist = if track.artist_name.blank?
-        track.artist.name
-      else
-        track.artist_name
-      end
+                     track.artist.name
+                   else
+                     track.artist_name
+                   end
       tag.album = track.album.title
       tag.year = track.album.year
       tag.title = track.title

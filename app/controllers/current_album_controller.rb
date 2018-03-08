@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CurrentAlbumController < CurrentArtistController
   helper_method :album
 

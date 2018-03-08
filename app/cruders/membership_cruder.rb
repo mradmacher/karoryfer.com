@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # Provides access to membership resource.
 class MembershipCruder < SimpleCruder
-  alias_method :user, :context
+  alias user context
 
   def list
     user.memberships

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CustomReleaseTest < ActiveSupport::TestCase
@@ -26,7 +28,8 @@ class CustomReleaseTest < ActiveSupport::TestCase
       @tmp_dir,
       'albums',
       'jeczace-brzekodzwieki',
-      'jeczace-brzekodzwieki-najwieksze-przeboje.zip')
+      'jeczace-brzekodzwieki-najwieksze-przeboje.zip'
+    )
     assert_equal release_file_path, release.file.path
     assert File.exist? release_file_path
   end

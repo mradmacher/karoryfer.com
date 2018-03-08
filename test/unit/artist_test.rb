@@ -1,4 +1,6 @@
 # encoding: utf-8
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ArtistTest < ActiveSupport::TestCase
@@ -11,7 +13,8 @@ class ArtistTest < ActiveSupport::TestCase
     artist.name = nil
     refute artist.valid?
     assert artist.errors[:name].include? I18n.t(
-      'activerecord.errors.models.artist.attributes.name.blank')
+      'activerecord.errors.models.artist.attributes.name.blank'
+    )
   end
 
   def test_validates_name_length
@@ -19,9 +22,10 @@ class ArtistTest < ActiveSupport::TestCase
     artist.name = 'a' * (Artist::NAME_MAX_LENGTH + 1)
     refute artist.valid?
     assert artist.errors[:name].include? I18n.t(
-      'activerecord.errors.models.artist.attributes.name.too_long')
+      'activerecord.errors.models.artist.attributes.name.too_long'
+    )
 
-    artist.name = 'a' * (Artist::NAME_MAX_LENGTH)
+    artist.name = 'a' * Artist::NAME_MAX_LENGTH
     assert artist.valid?
   end
 
@@ -30,7 +34,8 @@ class ArtistTest < ActiveSupport::TestCase
     artist.reference = nil
     refute artist.valid?
     assert artist.errors[:reference].include? I18n.t(
-      'activerecord.errors.models.artist.attributes.reference.blank')
+      'activerecord.errors.models.artist.attributes.reference.blank'
+    )
   end
 
   def test_rejects_invalid_reference_formats
@@ -48,7 +53,8 @@ class ArtistTest < ActiveSupport::TestCase
       artist.reference = reference
       refute artist.valid?, reference
       assert artist.errors[:reference].include? I18n.t(
-        'activerecord.errors.models.artist.attributes.reference.invalid')
+        'activerecord.errors.models.artist.attributes.reference.invalid'
+      )
     end
   end
 
@@ -71,7 +77,8 @@ class ArtistTest < ActiveSupport::TestCase
     artist.reference = 'a' * (Artist::REFERENCE_MAX_LENGTH + 1)
     refute artist.valid?
     assert artist.errors[:reference].include? I18n.t(
-      'activerecord.errors.models.artist.attributes.reference.too_long')
+      'activerecord.errors.models.artist.attributes.reference.too_long'
+    )
 
     artist.reference = 'a' * Artist::REFERENCE_MAX_LENGTH
     assert artist.valid?
@@ -79,19 +86,15 @@ class ArtistTest < ActiveSupport::TestCase
 
   def test_validates_reference_exclusion
     artist = Artist.sham! :build
-    %w(
-      aktualnosci
-      wydarzenia
-      wiadomosci
-      filmy
-      informacje
+    %w[
       artysci
       wydawnictwa
-    ).each do |reserved|
+    ].each do |reserved|
       artist.reference = reserved
       refute artist.valid?, reserved
       assert artist.errors[:reference].include? I18n.t(
-        'activerecord.errors.models.artist.attributes.reference.exclusion')
+        'activerecord.errors.models.artist.attributes.reference.exclusion'
+      )
     end
   end
 
@@ -107,7 +110,8 @@ class ArtistTest < ActiveSupport::TestCase
       artist.reference = ref
       refute artist.valid?
       assert artist.errors[:reference].include? I18n.t(
-        'activerecord.errors.models.artist.attributes.reference.taken')
+        'activerecord.errors.models.artist.attributes.reference.taken'
+      )
     end
   end
 
