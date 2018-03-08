@@ -53,7 +53,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def policy_class
+    UserPolicy
+  end
+
   def cruder
-    UserCruder.new(UserPolicy.new(current_user.resource), params)
+    UserCruder.new(policy_class.new(current_user.resource), params)
   end
 end

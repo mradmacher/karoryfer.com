@@ -47,7 +47,7 @@ class AlbumsController < CurrentArtistController
       release.increment!(:downloads)
       redirect_to release.url
     else
-      redirect_to artist_album_url(@artist, @album)
+      redirect_to artist_album_url(artist, album)
     end
   end
 
