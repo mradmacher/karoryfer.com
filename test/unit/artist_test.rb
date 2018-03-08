@@ -87,11 +87,6 @@ class ArtistTest < ActiveSupport::TestCase
   def test_validates_reference_exclusion
     artist = Artist.sham! :build
     %w[
-      aktualnosci
-      wydarzenia
-      wiadomosci
-      filmy
-      informacje
       artysci
       wydawnictwa
     ].each do |reserved|
