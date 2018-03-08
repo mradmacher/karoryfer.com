@@ -53,7 +53,7 @@ module Releaser
     end
 
     def track_file_basename(track)
-      "#{format('%02d', track.rank)}-#{underscore(track.title)}"
+      "#{Kernel.format('%02d', track.rank)}-#{underscore(track.title)}"
     end
   end
 end
