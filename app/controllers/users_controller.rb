@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   def index
     @presenters = UserPresenter.presenters_for(cruder.index)

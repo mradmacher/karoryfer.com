@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Uploader
   class TrackSource < CarrierWave::Uploader::Base
     def extension_white_list
-      %w(wav)
+      %w[wav]
     end
 
     def filename

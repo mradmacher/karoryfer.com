@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Release < ActiveRecord::Base
-  OGG = 'ogg'.freeze
-  FLAC = 'flac'.freeze
-  MP3 = 'mp3'.freeze
-  ZIP = 'zip'.freeze
-  BANDCAMP = 'bandcamp'.freeze
+  OGG = 'ogg'
+  FLAC = 'flac'
+  MP3 = 'mp3'
+  ZIP = 'zip'
+  BANDCAMP = 'bandcamp'
   FORMATS = [MP3, OGG, FLAC, ZIP, BANDCAMP].freeze
 
   belongs_to :album
@@ -14,11 +16,11 @@ class Release < ActiveRecord::Base
   validates :format, presence: true
   validates :format, inclusion: { in: FORMATS }
   validates :file, presence: true, if: :zip_release?
-  validates :bandcamp_url, format: %r(\Ahttps://\w+\.bandcamp\.com/album), if: :bandcamp_release?
+  validates :bandcamp_url, format: %r{\Ahttps://\w+\.bandcamp\.com/album}, if: :bandcamp_release?
 
   mount_uploader :file, Uploader::Release
 
-  scope :in_format, -> (format) { where(format: format) }
+  scope :in_format, ->(format) { where(format: format) }
 
   def url
     format == BANDCAMP ? bandcamp_url : file&.url

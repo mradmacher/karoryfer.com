@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AttachmentPresenter < Presenter
   def_delegators(:resource, :file, :file?)
 

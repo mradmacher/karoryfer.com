@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Track < ActiveRecord::Base
   TITLE_MAX_LENGTH = 80
   COMMENT_MAX_LENGTH = 255
@@ -29,11 +31,11 @@ class Track < ActiveRecord::Base
   end
 
   def artist
-    album.artist unless album.nil?
+    album&.artist
   end
 
   def license
-    album.license unless album.nil?
+    album&.license
   end
 
   def generate_preview!

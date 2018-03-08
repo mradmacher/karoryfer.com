@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Page < ActiveRecord::Base
   translates :title, :content, fallback: :any
 
@@ -16,7 +18,7 @@ class Page < ActiveRecord::Base
     super(ref.downcase)
   end
 
-  def self.get ref
+  def self.get(ref)
     Page.find_or_initialize_by_reference(ref)
   end
 

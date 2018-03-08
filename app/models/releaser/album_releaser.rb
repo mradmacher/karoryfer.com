@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Releaser
   class AlbumReleaser < Releaser::Base
     def ogg_quality
@@ -11,7 +13,8 @@ module Releaser
     def release_url
       return if releaseable.nil?
       Rails.application.routes.url_helpers.artist_album_url(
-        releaseable.artist, releaseable, host: publisher.host)
+        releaseable.artist, releaseable, host: publisher.host
+      )
     end
 
     def prepare_release(working_dir)
@@ -50,7 +53,7 @@ module Releaser
     end
 
     def track_file_basename(track)
-      "#{sprintf('%02d', track.rank)}-#{underscore(track.title)}"
+      "#{format('%02d', track.rank)}-#{underscore(track.title)}"
     end
   end
 end

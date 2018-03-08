@@ -1,29 +1,31 @@
+# frozen_string_literal: true
+
 source 'http://rubygems.org'
 
 gem 'rails', '4.2.7.1'
 
-gem 'thin'
-gem 'unicorn'
-gem 'pg'
-gem 'rdiscount'
-gem 'mini_magick'
+gem 'authlogic'
 gem 'carrierwave'
 gem 'dynamic_form'
-gem 'taglib-ruby'
-gem 'authlogic'
 gem 'http_accept_language'
+gem 'mini_magick'
+gem 'pg'
+gem 'rdiscount'
+gem 'taglib-ruby'
+gem 'thin'
 gem 'traco'
+gem 'unicorn'
 
 group :assets do
 end
 gem 'jquery-rails'
 
 gem 'newrelic_rpm', '>=3.8.0'
-gem 'skylight'
 gem 'rubocop', '0.49.0', require: false
+gem 'skylight'
 
 group :test do
-  gem 'sham'
   gem 'faker'
+  gem 'sham'
   gem 'sqlite3'
 end

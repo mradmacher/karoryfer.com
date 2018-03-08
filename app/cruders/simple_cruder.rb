@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SimpleCruder
   include Crudable
   attr_reader :params, :policy, :context

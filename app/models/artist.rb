@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Artist < ActiveRecord::Base
   translates :summary, :description, fallback: :any
 
@@ -14,7 +16,7 @@ class Artist < ActiveRecord::Base
   validates :reference, length: { maximum: REFERENCE_MAX_LENGTH }
   validates :reference, format: { with: /\A[a-z0-9]+([-_]?[a-z0-9]+)*\z/ }
   validates :reference, uniqueness: { case_sensitive: false }
-  validates :reference, exclusion: { in: %w(wydawnictwa artysci) }
+  validates :reference, exclusion: { in: %w[wydawnictwa artysci] }
 
   mount_uploader :image, Uploader::ArtistImage
 

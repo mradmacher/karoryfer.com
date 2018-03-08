@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def render_text(text)
     text = '' unless text
@@ -16,7 +18,7 @@ module ApplicationHelper
     link_to title, link, options.merge(class: 'btn btn-warning btn-xs')
   end
 
-  alias_method :format_text, :render_text
+  alias format_text render_text
 
   def main_menu_items
     active = if current_artist?

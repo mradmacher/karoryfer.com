@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MembershipPolicy < ApplicationPolicy
   def read_access_to?(membership)
     user_policy.read_access_to?(membership.user)

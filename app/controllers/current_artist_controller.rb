@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CurrentArtistController < ApplicationController
   helper_method :artist
 

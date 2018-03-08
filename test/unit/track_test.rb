@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class TrackTest < ActiveSupport::TestCase
@@ -9,7 +11,8 @@ class TrackTest < ActiveSupport::TestCase
       track.title = title
       refute track.valid?
       assert track.errors[:title].include? I18n.t(
-        'activerecord.errors.models.track.attributes.title.blank')
+        'activerecord.errors.models.track.attributes.title.blank'
+      )
     end
   end
 
@@ -18,7 +21,8 @@ class TrackTest < ActiveSupport::TestCase
     track.title = 'a' * (Track::TITLE_MAX_LENGTH + 1)
     refute track.valid?
     assert track.errors[:title].include? I18n.t(
-      'activerecord.errors.models.track.attributes.title.too_long')
+      'activerecord.errors.models.track.attributes.title.too_long'
+    )
 
     track.title = 'a' * Track::TITLE_MAX_LENGTH
     assert track.valid?
@@ -29,7 +33,8 @@ class TrackTest < ActiveSupport::TestCase
     track.album_id = nil
     refute track.valid?
     assert track.errors[:album_id].include? I18n.t(
-      'activerecord.errors.models.track.attributes.album_id.blank')
+      'activerecord.errors.models.track.attributes.album_id.blank'
+    )
   end
 
   def test_validates_rank_presence
@@ -37,7 +42,8 @@ class TrackTest < ActiveSupport::TestCase
     track.rank = nil
     refute track.valid?
     assert track.errors[:rank].include? I18n.t(
-      'activerecord.errors.models.track.attributes.rank.blank')
+      'activerecord.errors.models.track.attributes.rank.blank'
+    )
   end
 
   def test_validates_rank_uniqueness_for_album
@@ -46,7 +52,8 @@ class TrackTest < ActiveSupport::TestCase
     track.rank = existing_track.rank
     refute track.valid?
     assert track.errors[:rank].include? I18n.t(
-      'activerecord.errors.models.track.attributes.rank.taken')
+      'activerecord.errors.models.track.attributes.rank.taken'
+    )
   end
 
   def test_allows_repeating_ranks_in_different_albums
@@ -70,7 +77,8 @@ class TrackTest < ActiveSupport::TestCase
     track.comment = 'a' * (Track::COMMENT_MAX_LENGTH + 1)
     refute track.valid?
     assert track.errors[:comment].include? I18n.t(
-      'activerecord.errors.models.track.attributes.comment.too_long')
+      'activerecord.errors.models.track.attributes.comment.too_long'
+    )
 
     track.comment = 'a' * Track::COMMENT_MAX_LENGTH
     assert track.valid?

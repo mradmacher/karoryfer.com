@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Karoryfer::Application.routes.draw do
   scope 'admin', as: 'admin' do
     resources :user_sessions, only: [:create]
@@ -5,7 +7,7 @@ Karoryfer::Application.routes.draw do
     get 'logout' => 'user_sessions#destroy', :as => :logout
     scope path_names: { edit: 'zmien', new: 'dodaj' } do
       resources :users, path: 'uzytkownicy' do
-        resources :memberships, only: [:create, :destroy]
+        resources :memberships, only: %i[create destroy]
       end
     end
     get 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
@@ -23,7 +25,7 @@ Karoryfer::Application.routes.draw do
   get 'szkice', to: 'site#drafts', as: 'drafts'
 
   scope path_names: { new: 'dodaj', edit: 'zmien' } do
-    resources :artists, path: '', only: [:show, :edit, :new, :update]
+    resources :artists, path: '', only: %i[show edit new update]
     resources :artists, path: 'artysci', only: [:create]
   end
 
@@ -32,9 +34,9 @@ Karoryfer::Application.routes.draw do
       member do
         get ':format', to: 'albums#download', as: 'download', constraints: { format: /mp3|ogg|flac|zip|bandcamp/ }
       end
-      resources :attachments, path: 'zalaczniki', only: [:index, :show, :create, :destroy]
+      resources :attachments, path: 'zalaczniki', only: %i[index show create destroy]
       resources :tracks, path: 'sciezki', except: [:new]
-      resources :releases, path: 'wydania', except: [:new, :edit]
+      resources :releases, path: 'wydania', except: %i[new edit]
     end
     # resources :videos, path: 'filmy'
     # resources :posts, path: 'wiadomosci'

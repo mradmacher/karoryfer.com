@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AlbumPolicy < ApplicationPolicy
   def read_access_to?(album)
     album.published? || member_of?(album.artist)

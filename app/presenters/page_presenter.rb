@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PagePresenter < Presenter
   def_delegators(:resource, :title, :content, :reference)
 

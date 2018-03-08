@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AlbumsController < CurrentArtistController
   layout :set_layout
 

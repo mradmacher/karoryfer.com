@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AlbumPresenter < Presenter
   def_delegators(:resource,
                  :title,
@@ -12,7 +14,7 @@ class AlbumPresenter < Presenter
                  :tracks,
                  :attachments)
 
-  alias_method :album, :resource
+  alias album resource
 
   def path
     artist_album_path(album.artist, album)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crudable
   class InvalidResource < StandardError
     attr_reader :resource
@@ -55,27 +57,27 @@ module Crudable
   protected
 
   def save
-    fail 'write me'
+    raise 'write me'
   end
 
   def delete
-    fail 'write me'
+    raise 'write me'
   end
 
   def list
-    fail 'write me'
+    raise 'write me'
   end
 
   def find
-    fail 'write me'
+    raise 'write me'
   end
 
   def build
-    fail 'write me'
+    raise 'write me'
   end
 
   def assign(_resource)
-    fail 'write me'
+    raise 'write me'
   end
 
   def model_name
@@ -83,7 +85,7 @@ module Crudable
   end
 
   def authorize(permitted)
-    fail User::AccessDenied unless permitted
+    raise User::AccessDenied unless permitted
   end
 
   def strong_parameters
@@ -95,6 +97,6 @@ module Crudable
   end
 
   def validate(resource)
-    fail InvalidResource, resource unless yield resource
+    raise InvalidResource, resource unless yield resource
   end
 end
