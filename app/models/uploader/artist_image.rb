@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Uploader
   class ArtistImage < CarrierWave::Uploader::Base
     include CarrierWave::MiniMagick
@@ -11,7 +13,7 @@ module Uploader
       process resize_to_limit: [110, 110]
       process convert: 'png'
 
-      def full_filename(for_file)
+      def full_filename(_)
         "#{model.reference}_icon.png"
       end
     end
@@ -20,7 +22,7 @@ module Uploader
       process resize_to_limit: [300, 400]
       process convert: 'png'
 
-      def full_filename(for_file)
+      def full_filename(_)
         "#{model.reference}_thumb.png"
       end
     end
@@ -30,7 +32,7 @@ module Uploader
     end
 
     def extension_white_list
-      %w(jpg jpeg png gif)
+      %w[jpg jpeg png gif]
     end
   end
 end

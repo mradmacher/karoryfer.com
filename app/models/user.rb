@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class User < ActiveRecord::Base
-  class AccessDenied < Exception
+  class AccessDenied < StandardError
   end
 
   acts_as_authentic do |c|
@@ -13,11 +15,11 @@ class User < ActiveRecord::Base
   validates :publisher, inclusion: { in: [true, false] }
 
   def artists
-    Artist.joins(:memberships).where('memberships.user_id' => self.id)
+    Artist.joins(:memberships).where('memberships.user_id' => id)
   end
 
   def other_artists
-    artist_ids = self.artists.pluck(:id)
+    artist_ids = artists.pluck(:id)
     if artist_ids.empty?
       Artist.all
     else

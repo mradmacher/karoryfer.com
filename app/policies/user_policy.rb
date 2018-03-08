@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserPolicy < ApplicationPolicy
   def read_access_to?(user)
     current_user.admin? || current_user == user

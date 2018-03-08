@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # Provides access to page resource.
 class PageCruder < SimpleCruder
-  alias_method :artist, :context
+  alias artist context
 
   def index
     authorize policy.write_access?

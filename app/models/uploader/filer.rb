@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Uploader
   class Filer
     attr_reader :root
@@ -8,8 +10,8 @@ module Uploader
 
     def list(filter = '*')
       Dir.glob(File.join(root, '**', filter))
-        .reject { |e| Dir.exist?(e) }
-        .map { |e| e.sub!(%r{^#{root}\/}, '') }
+         .reject { |e| Dir.exist?(e) }
+         .map { |e| e.sub!(%r{^#{root}\/}, '') }
     end
 
     def path_to(file)

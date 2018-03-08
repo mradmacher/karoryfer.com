@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class SiteControllerTest < ActionController::TestCase
@@ -5,17 +7,6 @@ class SiteControllerTest < ActionController::TestCase
     3.times { Artist.sham! }
     get :artists
     assert_response :success
-  end
-
-  def test_get_artists_displays_headers
-    get :artists
-    assert_select 'title', build_title(I18n.t('title.artist.index'))
-    assert_select 'h1', I18n.t('title.artist.index')
-  end
-
-  def test_get_artists_does_not_display_actions_when_not_authorized
-    get :artists
-    assert_select 'a[href=?]', new_artist_path, 0
   end
 
   def test_get_home_succeeds

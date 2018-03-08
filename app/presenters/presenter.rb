@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 
 class Presenter
@@ -14,9 +16,7 @@ class Presenter
     collection.map { |resource| new(resource) }
   end
 
-  def path
-  end
+  def path; end
 
-  def edit_path
-  end
+  def edit_path; end
 end

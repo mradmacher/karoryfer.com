@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Provides access to artist resource.
 class ArtistCruder < SimpleCruder
   def list

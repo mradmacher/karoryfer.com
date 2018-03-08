@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Album < ActiveRecord::Base
   TITLE_MAX_LENGTH = 40
   REFERENCE_MAX_LENGTH = 40
@@ -48,4 +50,3 @@ class Album < ActiveRecord::Base
     License.find(license_symbol)
   end
 end
-

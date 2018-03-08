@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReleasePresenter < Presenter
   def_delegators(:resource, :album, :downloads, :format, :url, :file?)
 

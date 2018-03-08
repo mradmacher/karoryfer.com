@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Uploader
   class TrackPreview < CarrierWave::Uploader::Base
     def store_dir
@@ -9,4 +11,3 @@ module Uploader
     end
   end
 end
-
