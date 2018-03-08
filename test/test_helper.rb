@@ -42,52 +42,52 @@ module ActiveSupport
         true
       end
     end
-  end
 
-  DEFAULT_TITLE = 'Karoryfer Lecolds'
-  TITLE_SEPARATOR = ' - '
+    DEFAULT_TITLE = 'Karoryfer Lecolds'
+    TITLE_SEPARATOR = ' - '
 
-  def build_title(*args)
-    args << DEFAULT_TITLE
-    args.join TITLE_SEPARATOR
-  end
+    def build_title(*args)
+      args << DEFAULT_TITLE
+      args.join TITLE_SEPARATOR
+    end
 
-  def assert_headers(h1, h2 = nil, h3 = nil)
-    assert_select 'h1', h1
-    assert_select 'h2', h2 unless h2.nil?
-    assert_select 'h3', h3 unless h3.nil?
-  end
+    def assert_headers(h1, h2 = nil, h3 = nil)
+      assert_select 'h1', h1
+      assert_select 'h2', h2 unless h2.nil?
+      assert_select 'h3', h3 unless h3.nil?
+    end
 
-  def assert_title(*args)
-    assert_select 'title', build_title(args)
-  end
+    def assert_title(*args)
+      assert_select 'title', build_title(args)
+    end
 
-  def login(user)
-    activate_authlogic
-    UserSession.create user
-  end
+    def login(user)
+      activate_authlogic
+      UserSession.create user
+    end
 
-  def login_user
-    user = User.sham!
-    login(user)
-    user
-  end
+    def login_user
+      user = User.sham!
+      login(user)
+      user
+    end
 
-  def login_admin
-    user = User.sham!(:admin)
-    login(user)
-    user
-  end
+    def login_admin
+      user = User.sham!(:admin)
+      login(user)
+      user
+    end
 
-  def login_artist_user
-    membership = Membership.sham!
-    login(membership.user)
-    membership
-  end
+    def login_artist_user
+      membership = Membership.sham!
+      login(membership.user)
+      membership
+    end
 
-  def assert_authorized
-    @controller.stub(:policy_class, AllowAllPolicy) do
-      yield
+    def assert_authorized
+      @controller.stub(:policy_class, AllowAllPolicy) do
+        yield
+      end
     end
   end
 end
