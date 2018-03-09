@@ -32,23 +32,3 @@
 	<dt><%=t 'label.user.updated_at' %></dt>
 		<dd><%=l @presenter.updated_at %></dd>
 </dl>
-<h3><%=t 'title.memberships' %></h3>
-<ul class="user-memberships">
-  <% @presenter.memberships.each do |membership| %>
-    <li><%= membership.artist.name %>
-      <% if current_user.can_manage_memberships? %>
-        <%= link_to t('action.delete'), admin_user_membership_path(@presenter.resource, membership), :method => :delete, :class => 'btn btn-warning btn-xs' %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-<% if current_user.can_manage_memberships? %>
-  <%= form_for [:admin, @presenter.resource, @membership] do |f| %>
-    <%= f.hidden_field :user_id %>
-    <div class="form-group">
-      <%= f.label :artist_id, t('label.membership.artist_id') %>
-      <%= f.collection_select :artist_id, @presenter.other_artists, :id, :name %>
-    </div>
-    <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
-  <% end %>
-<% end %>

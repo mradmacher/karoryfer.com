@@ -5,7 +5,6 @@ class Artist < ActiveRecord::Base
 
   has_many :albums
   has_many :pages
-  has_many :memberships
 
   NAME_MAX_LENGTH = 32
   REFERENCE_MAX_LENGTH = 24

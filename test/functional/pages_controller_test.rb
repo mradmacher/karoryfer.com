@@ -15,8 +15,9 @@ class PagesControllerTest < ActionController::TestCase
   end
 
   def test_delete_destroy_for_artist_user_properly_redirects
-    membership = login_artist_user
-    resource = resource_class.sham!(artist: membership.artist)
+    login_user
+    artist = Artist.sham!
+    resource = resource_class.sham!(artist: artist)
     delete :destroy, artist_id: resource.artist.to_param, id: resource.to_param
     assert_redirected_to send('artist_path', resource.artist)
   end
