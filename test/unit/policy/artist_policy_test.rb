@@ -17,19 +17,10 @@ class ArtistPolicyTest < ActiveSupport::TestCase
     refute PagePolicy.new(user).write?(Page.new(artist: artist))
   end
 
-  def test_managing_artist_resources_as_admin_is_denied
-    user = User.new(admin: true)
-    artist = Artist.new
-    refute ArtistPolicy.new(user).write?(artist)
-    refute PagePolicy.new(user).write?(Page.new(artist: artist))
-  end
-
-  def test_managing_artist_resources_as_artist_member_is_allowed
-    membership = Membership.sham!
-    user = membership.user
-    artist = membership.artist
-    assert ArtistPolicy.new(user).write?(artist)
-    assert PagePolicy.new(user).write?(Page.new(artist: artist))
+  def test_managing_artist_resources_as_user_is_allowed
+    user = login_user
+    assert ArtistPolicy.new(user).write?(Artist.sham!)
+    assert PagePolicy.new(user).write?(Page.sham!)
   end
 
   def test_visitor_has_read_but_not_write_access

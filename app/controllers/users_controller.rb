@@ -7,8 +7,6 @@ class UsersController < ApplicationController
 
   def show
     @presenter = UserPresenter.new(cruder.show)
-    @membership = Membership.new
-    @membership.user = @presenter.resource
   end
 
   def edit_password

@@ -31,9 +31,8 @@ class AlbumPolicyTest < ActiveSupport::TestCase
   end
 
   def test_accessing_unpublished_artist_account_album_resources_is_allowed
-    membership = Membership.sham!
-    album = Album.sham!(:unpublished, artist: membership.artist)
-    user = membership.user
+    user = login_user
+    album = Album.sham!(:unpublished)
     assert AlbumPolicy.new(user).read?(album)
     assert AttachmentPolicy.new(user).read?(Attachment.new(album: album))
     assert TrackPolicy.new(user).read?(Track.new(album: album))
@@ -41,9 +40,8 @@ class AlbumPolicyTest < ActiveSupport::TestCase
   end
 
   def test_managing_account_album_resources_is_denied
-    membership = Membership.sham!
-    album = Album.sham!(artist: membership.artist)
-    user = membership.user
+    user = login_user
+    album = Album.sham!
     refute AlbumPolicy.new(user).write?(album)
     refute AttachmentPolicy.new(user).write?(Attachment.new(album: album))
     refute TrackPolicy.new(user).write?(Track.new(album: album))
@@ -51,25 +49,13 @@ class AlbumPolicyTest < ActiveSupport::TestCase
   end
 
   def test_managing_account_album_resources_as_publisher_is_allowed
-    membership = Membership.sham!
-    membership.user.update_attributes(publisher: true)
-    album = Album.sham!(artist: membership.artist)
-    user = membership.user
+    user = login_user
+    user.update_attributes(publisher: true)
+    album = Album.sham!
     assert AlbumPolicy.new(user).write?(album)
     assert AttachmentPolicy.new(user).write?(Attachment.new(album: album))
     assert TrackPolicy.new(user).write?(Track.new(album: album))
     assert ReleasePolicy.new(user).write?(Release.new(album: album))
-  end
-
-  def test_managing_other_artist_albums_as_publisher_is_denied
-    membership = Membership.sham!
-    membership.user.update_attributes(publisher: true)
-    album = Album.sham!(artist: Artist.sham!)
-    user = membership.user
-    refute AlbumPolicy.new(user).write?(album)
-    refute AttachmentPolicy.new(user).write?(Attachment.new(album: album))
-    refute TrackPolicy.new(user).write?(Track.new(album: album))
-    refute ReleasePolicy.new(user).write?(Release.new(album: album))
   end
 
   def test_visitor_has_read_but_not_write_access

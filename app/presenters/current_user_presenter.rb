@@ -8,9 +8,7 @@ class CurrentUserPresenter < Presenter
   alias current_user resource
 
   def unpublished_albums
-    Album.joins(:artist).joins(artist: :memberships)
-         .where('memberships.user_id' => current_user.id)
-         .where('albums.published' => false)
+    resource.persisted? ? Album.unpublished : []
   end
 
   def account_path

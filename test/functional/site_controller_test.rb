@@ -28,41 +28,15 @@ class SiteControllerTest < ActionController::TestCase
     end
   end
 
-  def test_get_drafts_for_user_displays_nothing
+  def test_get_drafts_for_user_displays_drafts
     login_user
-    albums = 3.times.to_a.map { Album.sham!(published: false) }
-    get :drafts
-
-    albums.each do |r|
-      assert_select 'a', text: r.title, count: 0
-    end
-  end
-
-  def test_get_drafts_for_artist_user_displays_drafts
-    membership = login_artist_user
     albums = 3.times.to_a.map do
-      Album.sham!(published: false, artist: membership.artist)
+      Album.sham!(published: false)
     end
     get :drafts
 
     albums.each do |r|
       assert_select 'a', r.title
-    end
-  end
-
-  def test_get_drafts_for_artist_user_display_unpublished_albums_only_for_this_user
-    membership = login_artist_user
-    artist = membership.artist
-    for_artist = []
-    not_for_artist = []
-    5.times { for_artist << Album.sham!(:unpublished, artist: artist) }
-    5.times { not_for_artist << Album.sham!(:unpublished) }
-    get :drafts
-    for_artist.each do |a|
-      assert_select 'a', a.title
-    end
-    not_for_artist.each do |a|
-      assert_select '*', text: a.title, count: 0
     end
   end
 end

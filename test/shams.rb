@@ -153,12 +153,3 @@ Sham.config(User, :admin) do |c|
     }
   end
 end
-
-Sham.config(Membership) do |c|
-  c.assign do
-    {
-      artist: Sham::Nested.new(Artist),
-      user: Sham::Nested.new(User)
-    }
-  end
-end
