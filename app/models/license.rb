@@ -30,11 +30,11 @@ class License
   end
 
   def url
-    "http://creativecommons.org/licenses/#{shortcut}/#{version}/#{I18n.locale == :en ? '' : "deed.#{I18n.locale}"}"
+    "https://creativecommons.org/licenses/#{shortcut}/#{version}/#{I18n.locale == :en ? '' : "deed.#{I18n.locale}"}"
   end
 
   def icon_url
-    "http://i.creativecommons.org/l/#{shortcut}/#{version}/88x31.png"
+    "https://i.creativecommons.org/l/#{shortcut}/#{version}/88x31.png"
   end
 
   def name
