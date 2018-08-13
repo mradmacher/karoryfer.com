@@ -28,6 +28,14 @@ class AlbumPresenter < Presenter
     resource.releases.sum(:downloads)
   end
 
+  def free_releases
+    resource.releases.where(for_sale: false).map { |r| ReleasePresenter.new(r) }
+  end
+
+  def paid_releases
+    resource.releases.where(for_sale: true).map { |r| ReleasePresenter.new(r) }
+  end
+
   def releases
     resource.releases.map { |r| ReleasePresenter.new(r) }
   end
