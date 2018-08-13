@@ -1,4 +1,5 @@
 en:
+  locale: en_US
   license:
     cc: Creative Commons License
     cc-by-3-0: Creative Commons Attribution 3.0 Unported
@@ -89,13 +90,14 @@ en:
 
   label:
     release_message: Wydawnictwo jest przygotowywane do pobrania i będzie gotowe za kilka minut. Możesz w tym czasie spokojnie poklikać po stronie. (Your download is being processed. It will be ready in a few minutes. Feel free to use the website in the meantime.)
+    payment_completed: We've received your payment. Thank you for your order.
     nothing_here_yet: Nic tu jeszcze nie ma.
     nothing_here: Brak
     defaults_to: defaults to
     unpublished: Szkice
     true_value: yes
     false_value: no
-    download: Pobierz
+    download: Download
     user_session:
       login: User
       password: Password
@@ -135,6 +137,9 @@ en:
       format: Format
       file: File
       bandcamp_url: Bandcamp URL
+      for_sale: For sale?
+      price: Price
+      currency: Currency
     attachment:
       file: File
     track:
@@ -230,6 +235,10 @@ en:
               blank: ^proszę załączyć plik
             bandcamp_url:
               invalid: ^proszę podać poprawne URL
+            whole_price:
+              blank: ^proszę podać cenę
+            currency:
+              blank: ^proszę wybrać walutę
         artist:
           attributes:
             name:

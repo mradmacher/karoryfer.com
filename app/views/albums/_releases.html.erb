@@ -1,0 +1,26 @@
+<% if !@presenter.releases.empty? %>
+  <div class="panel panel-default">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading"><%= t('label.download') %></h4>
+        <p class="list-group-item-text">
+        <% @presenter.free_releases.each do |release| %>
+          <a href="<%= release.download_path %>" class="btn btn-default">
+              <span class="text-uppercase"><%= release.format %></span>
+          </a>
+        <% end %>
+        </p>
+      </li>
+      <% @presenter.paid_releases.each do |release| %>
+        <li class="list-group-item">
+          <h4 class="list-group-item-heading text-uppercase"><%= release.format %>
+          (<%= release.price %>&nbsp;<%= release.currency %>)
+          </h4>
+          <p class="list-group-item-text">
+            <%= render 'embeds/paypal', release_id: release.id, payment_url: release.paypal_url %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

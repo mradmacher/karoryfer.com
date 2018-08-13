@@ -1,10 +1,22 @@
 # frozen_string_literal: true
 
 class ReleasePresenter < Presenter
-  def_delegators(:resource, :album, :downloads, :format, :url, :file?)
+  def_delegators(:resource, :id, :album, :format, :url, :file?, :price, :currency)
 
   def available_files
     Settings.filer.list('*.zip')
+  end
+
+  def downloads
+    if resource.format == Release::CD
+      Purchase.where(release_id: resource.id).count
+    else
+      resource.downloads
+    end
+  end
+
+  def paypal_url
+    release_paypal_path(resource)
   end
 
   def download_path
