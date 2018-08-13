@@ -1,4 +1,5 @@
 pl:
+  locale: pl_PL
   license:
     cc: Licencja Creative Commons
     cc-by-3-0: Creative Commons Uznanie autorstwa 3.0 Unported
@@ -88,6 +89,7 @@ pl:
 
   label:
     release_message: Wydawnictwo jest przygotowywane do pobrania i będzie gotowe za kilka minut. Możesz w tym czasie spokojnie poklikać po stronie. (Your download is being processed. It will be ready in a few minutes. Feel free to use the website in the meantime.)
+    payment_completed: Dziękujemy bardzo. Otrzymaliśmy pieniążki i wkrótce wyślemy paczuszkę.
     nothing_here_yet: Nic tu jeszcze nie ma.
     nothing_here: Brak
     defaults_to: domyślnie
@@ -134,6 +136,9 @@ pl:
       format: Format
       file: Plik
       bandcamp_url: Bandcamp URL
+      for_sale: Na sprzedaż?
+      price: Cena
+      currency: Waluta
     attachment:
       file: Plik
     track:
@@ -229,6 +234,10 @@ pl:
               blank: ^proszę załączyć plik
             bandcamp_url:
               invalid: ^proszę podać poprawne URL
+            whole_price:
+              blank: ^proszę podać cenę
+            currency:
+              blank: ^proszę wybrać walutę
         artist:
           attributes:
             name:

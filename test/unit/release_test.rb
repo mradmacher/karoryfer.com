@@ -64,4 +64,45 @@ class ReleaseTest < ActiveSupport::TestCase
     release.format = Release::ZIP
     refute release.valid?
   end
+
+  def test_does_not_require_price_and_currency_presence_when_not_for_sale
+    release = Release.sham! :build
+    release.format = Release::CD
+    release.for_sale = false
+    release.whole_price = nil
+    release.currency = nil
+    assert release.valid?
+  end
+
+  def test_requires_price_and_currency_presence_when_for_sale
+    release = Release.sham! :build
+    release.format = Release::CD
+    release.for_sale = true
+    release.whole_price = nil
+    release.currency = nil
+    refute release.valid?
+
+    release.whole_price = 100
+    refute release.valid?
+
+    release.whole_price = nil
+    release.currency = 'USD'
+    refute release.valid?
+
+    release.whole_price = 100
+    release.currency = 'USD'
+    assert release.valid?
+  end
+
+  def test_price_returns_whole_price_by_100
+    release = Release.sham! :build
+    release.whole_price = 199
+    assert_equal 1.99, release.price
+  end
+
+  def test_price_sets_whole_price_by_100
+    release = Release.sham! :build
+    release.price = 1.99
+    assert_equal 199, release.whole_price
+  end
 end

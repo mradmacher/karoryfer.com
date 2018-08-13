@@ -6,7 +6,8 @@ class Release < ActiveRecord::Base
   MP3 = 'mp3'
   ZIP = 'zip'
   BANDCAMP = 'bandcamp'
-  FORMATS = [MP3, OGG, FLAC, ZIP, BANDCAMP].freeze
+  CD = 'cd'
+  FORMATS = [MP3, OGG, FLAC, ZIP, BANDCAMP, CD].freeze
 
   belongs_to :album
 
@@ -17,6 +18,8 @@ class Release < ActiveRecord::Base
   validates :format, inclusion: { in: FORMATS }
   validates :file, presence: true, if: :zip_release?
   validates :bandcamp_url, format: %r{\Ahttps://\w+\.bandcamp\.com/album}, if: :bandcamp_release?
+  validates :whole_price, presence: true, if: :for_sale?
+  validates :currency, presence: true, if: :for_sale?
 
   mount_uploader :file, Uploader::Release
 
@@ -40,6 +43,15 @@ class Release < ActiveRecord::Base
       value = File.open(path) if path
     end
     super
+  end
+
+  def price=(value)
+    self.whole_price = value.nil? ? nil : (value.to_f*100.0).round(0)
+  end
+
+  def price
+    return nil if whole_price.nil?
+    (whole_price/100.0).round(2)
   end
 
   private

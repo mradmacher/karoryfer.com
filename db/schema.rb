@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180308232433) do
+ActiveRecord::Schema.define(version: 20180813203815) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "title",          limit: 80,                  null: false
@@ -33,16 +33,19 @@ ActiveRecord::Schema.define(version: 20180308232433) do
   add_index "albums", ["reference"], name: "albums_reference_key", unique: true
 
   create_table "artists", force: :cascade do |t|
-    t.string   "name",           limit: 80,                 null: false
-    t.string   "reference",      limit: 80,                 null: false
-    t.string   "summary_pl",     limit: 255
+    t.string   "name",                       limit: 80,                 null: false
+    t.string   "reference",                  limit: 80,                 null: false
+    t.string   "summary_pl",                 limit: 255
     t.text     "description_pl"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.string   "image",          limit: 255
-    t.boolean  "shared",                     default: true, null: false
-    t.string   "summary_en",     limit: 255
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.string   "image",                      limit: 255
+    t.boolean  "shared",                                 default: true, null: false
+    t.string   "summary_en",                 limit: 255
     t.text     "description_en"
+    t.string   "paypal_id"
+    t.string   "encrypted_paypal_secret"
+    t.string   "encrypted_paypal_secret_iv"
   end
 
   add_index "artists", ["reference"], name: "artists_reference_key", unique: true
@@ -105,6 +108,16 @@ ActiveRecord::Schema.define(version: 20180308232433) do
 
   add_index "posts", ["artist_id"], name: "posts_artist_id_index"
 
+  create_table "purchases", force: :cascade do |t|
+    t.string   "ip"
+    t.integer  "release_id"
+    t.string   "payment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "purchases", ["release_id"], name: "index_purchases_on_release_id"
+
   create_table "releases", force: :cascade do |t|
     t.integer  "album_id",                             null: false
     t.string   "format",       limit: 10,              null: false
@@ -113,6 +126,9 @@ ActiveRecord::Schema.define(version: 20180308232433) do
     t.datetime "updated_at",                           null: false
     t.integer  "downloads",                default: 0, null: false
     t.string   "bandcamp_url", limit: 255
+    t.boolean  "for_sale"
+    t.string   "currency"
+    t.integer  "whole_price"
   end
 
   add_index "releases", ["album_id", "format"], name: "releases_album_format_key", unique: true

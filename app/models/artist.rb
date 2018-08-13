@@ -2,6 +2,7 @@
 
 class Artist < ActiveRecord::Base
   translates :summary, :description, fallback: :any
+  attr_encrypted :paypal_secret, key: proc { ENV['KARORYFER_ENCRYPTION_KEY'] }
 
   has_many :albums
   has_many :pages
