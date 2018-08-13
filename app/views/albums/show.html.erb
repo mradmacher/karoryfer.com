@@ -29,114 +29,37 @@
       :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
-    <p class="lead"><%= @presenter.year.to_s %></p>
-
+    <p><%= @presenter.year.to_s %></p>
     <p>
-    <% if @presenter.license.present? %>
-      <%= render :partial => 'licenses/cc',
-        locals: { author: @presenter.artist, license: @presenter.license } %>
-    <% end %>
+      <% if @presenter.license.present? %>
+        <%= render :partial => 'licenses/cc',
+          locals: { author: @presenter.artist, license: @presenter.license } %>
+      <% end %>
     </p>
-    <% if current_user.can_manage_album?(@presenter.resource) %>
-      <%=t 'label.release.downloads' %>: <%= @presenter.downloads %>
-      <ul>
-        <% @presenter.releases.each do |release| %>
-          <li><%= release.format %>: <%= release.downloads %></li>
-        <% end %>
-      </ul>
-    <% end %>
+    <%= render 'releases' %>
   </div>
 </div>
 
 <br />
 
-<% if !@presenter.releases.empty? %>
-  <div class="row">
-    <div class="span12">
-      <div class="text-info"><%= flash[:notice] %></div>
-      <% @presenter.releases.each do |release| %>
-        <a href="<%= release.download_path %>">
-          <button class="pull-left download-button img-circle">
-            <%= release.format %>
-          </button>
-        </a>
-      <% end %>
-    </div>
-  </div>
+<div class="text-info"><%= flash[:notice] %></div>
+
+<% if current_user.can_manage_album?(@presenter.resource) %>
+  <%=t 'label.release.downloads' %>: <%= @presenter.downloads %>
+  <ul>
+    <% @presenter.releases.each do |release| %>
+      <li><%= release.format %>: <%= release.downloads %></li>
+    <% end %>
+  </ul>
 <% end %>
 
 <% unless @presenter.donation.blank? %>
-<p><%=raw @presenter.donation %></p>
+  <p><%=raw @presenter.donation %></p>
 <% end %>
 
 <%= render_text @presenter.description %>
 
-<% if !@presenter.tracks.empty? && @presenter.tracks.any?(&:preview?) %>
-  <h4><%= t 'title.tracks' %></h4>
-  <ol id="tracklist">
-    <% @presenter.tracks.select(&:preview?).each do |track| %>
-      <li data-track-id="<%= track.id %>">
-      <span class="title">
-        <%= track.rank %>.
-        <%= track.title %>
-        <% if !track.artist_name.blank? or !track.comment.blank? -%>
-          <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
-        <% end -%>
-      </span>
-      <span data-url="<%= track.ogg_preview.url %>" data-format="ogg" />
-      <span data-url="<%= track.mp3_preview.url %>" data-format="mp3" />
-      </li>
-    <% end %>
-  </ol>
-
-  <div id="jp_container_1" class="jp-video jp-video-270p" role="application" aria-label="media player">
-    <div class="jp-type-playlist">
-      <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-      <div class="jp-gui">
-        <div class="jp-interface">
-          <div class="jp-progress">
-            <div class="jp-seek-bar">
-              <div class="jp-play-bar"></div>
-            </div>
-          </div>
-          <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-          <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-          <div class="jp-details">
-            <div class="jp-title" aria-label="title">&nbsp;</div>
-          </div>
-          <div class="jp-controls-holder">
-            <div class="jp-volume-controls">
-              <button class="jp-mute" role="button" tabindex="0">mute</button>
-              <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
-              <div class="jp-volume-bar">
-                <div class="jp-volume-bar-value"></div>
-              </div>
-            </div>
-            <div class="jp-controls">
-              <button class="jp-previous" role="button" tabindex="0">previous</button>
-              <button class="jp-play" role="button" tabindex="0">play</button>
-              <button class="jp-next" role="button" tabindex="0">next</button>
-              <button class="jp-stop" role="button" tabindex="0">stop</button>
-            </div>
-            <div class="jp-toggles">
-              <button class="jp-repeat" role="button" tabindex="0">repeat</button>
-              <button class="jp-shuffle" role="button" tabindex="0">shuffle</button>
-              <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="jp-playlist">
-        <ul></ul>
-      </div>
-      <div class="jp-no-solution">
-      <span>Update Required</span>
-      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-      </div>
-    </div>
-  </div>
-
-<% end %>
+<%= render 'tracks' %>
 
 <% if !@presenter.attachments.empty? %>
   <h4><%= t 'title.attachments' %></h4>

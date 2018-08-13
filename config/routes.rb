@@ -6,20 +6,17 @@ Karoryfer::Application.routes.draw do
     get 'login' => 'user_sessions#new', :as => :login
     get 'logout' => 'user_sessions#destroy', :as => :logout
     scope path_names: { edit: 'zmien', new: 'dodaj' } do
-      resources :users, path: 'uzytkownicy' do
-        resources :memberships, only: %i[create destroy]
-      end
+      resources :users, path: 'uzytkownicy'
     end
     get 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
   end
 
   root to: 'site#home'
 
-  # get 'wydarzenia/z/:year(/:month(/:day))', to: 'site#events', as: 'events_from'
-  # get 'wiadomosci/z/:year', to: 'site#posts', as: :posts_from
-  # get 'wydarzenia', to: 'site#events', as: 'events'
-  # get 'wiadomosci', to: 'site#posts', as: 'posts'
-  # get 'filmy', to: 'site#videos', as: 'videos'
+  resources :releases, path: 'wydania', only: %i[show] do
+    resource :paypal, path: 'paypal', only: %i[show create]
+  end
+
   get 'wydawnictwa', to: 'site#albums', as: 'albums'
   get 'artysci', to: 'site#artists', as: 'artists'
   get 'szkice', to: 'site#drafts', as: 'drafts'
@@ -38,9 +35,6 @@ Karoryfer::Application.routes.draw do
       resources :tracks, path: 'sciezki', except: [:new]
       resources :releases, path: 'wydania', except: %i[new edit]
     end
-    # resources :videos, path: 'filmy'
-    # resources :posts, path: 'wiadomosci'
-    # resources :events, path: 'wydarzenia'
     resources :pages, path: '-'
   end
 end
