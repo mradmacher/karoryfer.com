@@ -15,13 +15,14 @@
     <li>
       <%= track.rank %>.
       <%= track.title %>
+      <%= render partial: 'lyrics', locals: { track: track } %>
       <% if !track.artist_name.blank? or !track.comment.blank? -%>
         <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
       <% end -%>
       <br />
       <% if current_user.can_manage_tracks?(album.resource) %>
         <div class="btn-group">
-          <a href="<%= edit_artist_album_track_path(album.artist, album.resource, track) %>" class="btn btn-default btn-xs">
+          <a href="<%= track.edit_path %>" class="btn btn-default btn-xs">
             <%=t 'action.edit' %>
           </a>
           <a href="<%= artist_album_track_path(album.artist, album.resource, track) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">

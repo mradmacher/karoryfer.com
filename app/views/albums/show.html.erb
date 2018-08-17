@@ -85,21 +85,22 @@ $(document).ready(function(){
 		supplied: 'oga, mp4'
 	});
 
-  $( '#tracklist > li' ).each( function(index){
+  $( '#tracklist > li' ).each(function(index){
     track = $(this);
     media = {
-      title: track.find( '.title' ).html(),
+      title: track.find('.title').html(),
     }
-    if( track.has( '[data-format=ogg]' ).size() > 0 ) {
-      media['oga'] = track.find( '[data-format=ogg]' ).attr( 'data-url' );
+    if(track.has('[data-format=ogg]').size() > 0 ) {
+      media['oga'] = track.find('[data-format=ogg]').attr('data-url');
     }
-    if( track.has( '[data-format=mp4]' ).size() > 0 ) {
-      media['mp3'] = track.find( '[data-format=mp3]' ).attr( 'data-url' );
+    if(track.has('[data-format=mp4]').size() > 0 ) {
+      media['mp3'] = track.find('[data-format=mp3]').attr('data-url');
     }
-    playlist.add( media );
+    playlist.add(media);
   });
 
   $( '#tracklist' ).remove();
+  $('.collapse').collapse('hide');
 });
 
 //]]>
