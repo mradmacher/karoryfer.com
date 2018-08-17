@@ -38,7 +38,7 @@ class Purchase < ActiveRecord::Base
 
   def self.execute_payment(release, payment_id, payer_id, ip)
     config_paypal(release.album.artist)
-    paypal_payment = PayPal::SDK::REST::Payment.find(params[:paymentID])
+    paypal_payment = PayPal::SDK::REST::Payment.find(payment_id)
     paypal_payment.execute(payer_id: payer_id)
     Purchase.create(payment_id: payment_id, ip: ip, release_id: release.id)
   end

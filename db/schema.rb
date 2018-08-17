@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180813203815) do
+ActiveRecord::Schema.define(version: 20180816042423) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "title",          limit: 80,                  null: false
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20180813203815) do
     t.string   "artist_name", limit: 255
     t.string   "ogg_preview", limit: 255
     t.string   "mp3_preview", limit: 255
+    t.text     "lyrics"
   end
 
   add_index "tracks", ["album_id"], name: "tracks_album_id_index"
