@@ -22,6 +22,7 @@ class TrackCruder < SimpleCruder
       :title,
       :rank,
       :comment,
+      :lyrics,
       :file,
       :remove_file
     )

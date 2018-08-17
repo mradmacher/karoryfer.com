@@ -11,7 +11,6 @@ class AlbumPresenter < Presenter
                  :donation,
                  :description,
                  :artist,
-                 :tracks,
                  :attachments)
 
   alias album resource
@@ -38,5 +37,9 @@ class AlbumPresenter < Presenter
 
   def releases
     resource.releases.map { |r| ReleasePresenter.new(r) }
+  end
+
+  def tracks
+    @tracks = TrackPresenter.presenters_for(resource.tracks)
   end
 end

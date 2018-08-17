@@ -1,10 +1,25 @@
 # frozen_string_literal: true
 
 class TrackPresenter < Presenter
-  def_delegators(:resource, :title, :file, :file?)
+  def_delegators(:resource,
+                 :id,
+                 :title,
+                 :rank,
+                 :artist_name,
+                 :comment,
+                 :lyrics,
+                 :preview?,
+                 :ogg_preview,
+                 :mp3_preview,
+                 :file,
+                 :file?)
 
   def available_files
     Settings.filer.list('*.wav')
+  end
+
+  def html_lyrics
+    lyrics.gsub("\n", "<br />").html_safe
   end
 
   def path
@@ -12,6 +27,6 @@ class TrackPresenter < Presenter
   end
 
   def edit_path
-    artist_album_track_path(resource.album.artist, resource.album, resource)
+    edit_artist_album_track_path(resource.album.artist, resource.album, resource)
   end
 end

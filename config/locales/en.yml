@@ -148,6 +148,7 @@ en:
       comment: Comment
       artist_name: Artist
       rank: Rank
+      lyrics: Lyrics
     site:
       name: Karoryfer Lecolds
       desc: Netlabel

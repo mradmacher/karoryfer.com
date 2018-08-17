@@ -147,6 +147,7 @@ pl:
       comment: Dodatkowe informacje
       artist_name: Artysta
       rank: Kolejność
+      lyrics: Słowa
     site:
       name: Karoryfer Lecolds
       desc: Wirtualna wytwórnia płytowa
