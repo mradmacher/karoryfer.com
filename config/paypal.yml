@@ -1,0 +1,10 @@
+development: &default
+  mode: sandbox
+  client_id: xyz
+  client_secret: xyz
+test:
+  <<: *default
+production:
+  mode: live
+  client_id: xyz
+  client_secret: xyz
