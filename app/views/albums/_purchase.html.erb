@@ -1,0 +1,9 @@
+<% if flash[:purchased] %>
+  <% if flash[:purchase_url] %>
+    <div class="alert alert-success" role="alert"><%= t('label.digital_payment_completed') %>&nbsp;<a href="<%= flash[:purchase_url] %>" class="alert-link"><%= flash[:purchase_url] %></a></div>
+  <% else %>
+    <div class="alert alert-success" role="alert"><%= t('label.physical_payment_completed') %></a></div>
+  <% end %>
+<% elsif flash[:downloads_exceeded] %>
+  <div class="alert alert-warning" role="alert"><%= t('label.downloads_exceeded') %></a></div>
+<% end %>

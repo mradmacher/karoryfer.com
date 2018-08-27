@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class ReleasePresenter < Presenter
-  def_delegators(:resource, :id, :album, :format, :url, :file?, :price, :currency)
+  def_delegators(:resource, :id, :album, :format, :url, :file?, :for_sale?, :price, :currency, :digital?, :physical?)
 
   def available_files
     Settings.filer.list('*.zip')
   end
 
   def downloads
-    if resource.format == Release::CD
+    @downloads ||= if resource.for_sale?
       Purchase.where(release_id: resource.id).count
     else
       resource.downloads
@@ -20,7 +20,9 @@ class ReleasePresenter < Presenter
   end
 
   def download_path
-    download_artist_album_path(resource.album.artist, resource.album, resource.format)
+    if resource.format != Release::CD
+      download_artist_album_path(resource.album.artist, resource.album, resource.format, pid: purchase_reference_id)
+    end
   end
 
   def path
@@ -31,5 +33,15 @@ class ReleasePresenter < Presenter
     edit_artist_album_release_path(resource.album.artist,
                                    resource.album,
                                    resource)
+  end
+
+  attr_accessor :purchase_reference_id
+
+  def purchased?
+    !purchase_reference_id.nil?
+  end
+
+  def can_be_removed?
+    !for_sale? || physical? || downloads == 0
   end
 end

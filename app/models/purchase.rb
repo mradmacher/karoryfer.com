@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class Purchase < ActiveRecord::Base
+  MAX_DOWNLOADS = 3
+
+  belongs_to :release
+
+  after_initialize :generate_reference_id
+
   class PaymentError < StandardError
   end
 
@@ -49,5 +55,15 @@ class Purchase < ActiveRecord::Base
       client_id: artist.paypal_id,
       client_secret: artist.paypal_secret
     )
+  end
+
+  def downloads_exceeded?
+    downloads >= MAX_DOWNLOADS
+  end
+
+  private
+
+  def generate_reference_id
+    self.reference_id = SecureRandom.hex if reference_id.nil?
   end
 end

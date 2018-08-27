@@ -15,6 +15,7 @@ capybara-*.html
 /db/ftp/
 /public/uploads/*
 /public/downloads/*
+/downloads/*
 /coverage/
 /spec/tmp/*
 /config/database.yml

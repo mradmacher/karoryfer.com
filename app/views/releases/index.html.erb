@@ -17,7 +17,7 @@
       <br />
       <%=t 'label.release.downloads' %>: <%= release.downloads %>
       <br />
-      <% if current_user.can_manage_releases?(album.resource) %>
+      <% if current_user.can_manage_releases?(album.resource) && release.can_be_removed? %>
         <a href="<%= artist_album_release_path(album.artist, album.resource, release.resource) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
           <%=t 'action.delete' %>
         </a>

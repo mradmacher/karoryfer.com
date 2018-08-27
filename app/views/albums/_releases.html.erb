@@ -5,7 +5,7 @@
         <h4 class="list-group-item-heading"><%= t('label.download') %></h4>
         <p class="list-group-item-text">
         <% @presenter.free_releases.each do |release| %>
-          <a href="<%= release.download_path %>" class="btn btn-default">
+          <a href="<%= release.download_path %>" class="btn btn-info">
               <span class="text-uppercase"><%= release.format %></span>
           </a>
         <% end %>
@@ -16,9 +16,15 @@
           <h4 class="list-group-item-heading text-uppercase"><%= release.format %>
           (<%= release.price %>&nbsp;<%= release.currency %>)
           </h4>
-          <p class="list-group-item-text">
-            <%= render 'embeds/paypal', release_id: release.id, payment_url: release.paypal_url %>
-          </p>
+          <% if release.purchased? && release.digital? %>
+            <a href="<%= release.download_path %>" class="btn btn-info">
+                <span class="text-uppercase"><%= release.format %></span>
+            </a>
+          <% else %>
+            <p class="list-group-item-text">
+              <%= render 'embeds/paypal', release_id: release.id, payment_url: release.paypal_url %>
+            </p>
+          <% end %>
         </li>
       <% end %>
     </ul>

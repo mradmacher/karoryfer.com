@@ -10,6 +10,7 @@ class Release < ActiveRecord::Base
   FORMATS = [MP3, OGG, FLAC, ZIP, BANDCAMP, CD].freeze
 
   belongs_to :album
+  has_many :purchases
 
   after_destroy :remove_file!
 
@@ -24,6 +25,14 @@ class Release < ActiveRecord::Base
   mount_uploader :file, Uploader::Release
 
   scope :in_format, ->(format) { where(format: format) }
+
+  def physical?
+    format == CD
+  end
+
+  def digital?
+    !physical?
+  end
 
   def url
     format == BANDCAMP ? bandcamp_url : file&.url
@@ -52,6 +61,10 @@ class Release < ActiveRecord::Base
   def price
     return nil if whole_price.nil?
     (whole_price/100.0).round(2)
+  end
+
+  def purchased?(purchase)
+    id == purchase&.release_id
   end
 
   private

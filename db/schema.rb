@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180816042423) do
+ActiveRecord::Schema.define(version: 20180827210202) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "title",          limit: 80,                  null: false
@@ -114,8 +114,11 @@ ActiveRecord::Schema.define(version: 20180816042423) do
     t.string   "payment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "downloads",    default: 0
+    t.string   "reference_id"
   end
 
+  add_index "purchases", ["reference_id"], name: "index_purchases_on_reference_id"
   add_index "purchases", ["release_id"], name: "index_purchases_on_release_id"
 
   create_table "releases", force: :cascade do |t|
