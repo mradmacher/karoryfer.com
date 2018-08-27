@@ -90,7 +90,9 @@ en:
 
   label:
     release_message: Wydawnictwo jest przygotowywane do pobrania i będzie gotowe za kilka minut. Możesz w tym czasie spokojnie poklikać po stronie. (Your download is being processed. It will be ready in a few minutes. Feel free to use the website in the meantime.)
-    payment_completed: We've received your payment. Thank you for your order.
+    physical_payment_completed: Thank you for your purchase. The items will be sent to you as soon as possible.
+    digital_payment_completed: "Thank you for your purchase. Here is your download link:"
+    downloads_exceeded: You have exceeded the download limit. If you think something is not right here, please contact our support at admin@karoryfer.com.
     nothing_here_yet: Nic tu jeszcze nie ma.
     nothing_here: Brak
     defaults_to: defaults to

@@ -27,9 +27,8 @@ function render_paypal(element_id, payment_url, locale, environment) {
         {
           headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
         }
-      ).then(function() {
-        // You can now show a confirmation message to the customer
-        $('.paypal-confirmation').removeClass('hidden');
+      ).then(function(e) {
+        window.location.replace(e.redirect_url);
       });
     }
 

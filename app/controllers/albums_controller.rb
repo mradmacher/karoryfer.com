@@ -9,6 +9,7 @@ class AlbumsController < CurrentArtistController
 
   def show
     @presenter = decorate(cruder.show)
+    @presenter.purchase = Purchase.where(reference_id: params[:pid]).first if params[:pid]
   end
 
   def edit
@@ -43,9 +44,19 @@ class AlbumsController < CurrentArtistController
     artist = Artist.find_by_reference(params[:artist_id])
     album = artist.albums.find_by_reference(params[:id])
     release = album.releases.in_format(params[:format]).first!
-    if release.url
-      release.increment!(:downloads)
-      redirect_to release.url
+    purchase = Purchase.where(reference_id: params[:pid]).first if params[:pid]
+    if !release.for_sale? || release.purchased?(purchase)
+      if purchase&.downloads_exceeded?
+        flash[:downloads_exceeded] = true
+        redirect_to artist_album_url(artist, album)
+      elsif release.file?
+        purchase&.increment!(:downloads) || release.increment!(:downloads)
+        send_file release.file.path, disposition: 'attachment', type: 'application/zip'
+      elsif release.url
+        redirect_to release.url
+      else
+        redirect_to artist_album_url(artist, album)
+      end
     else
       redirect_to artist_album_url(artist, album)
     end

@@ -28,18 +28,25 @@ class AlbumPresenter < Presenter
   end
 
   def free_releases
-    resource.releases.where(for_sale: false).map { |r| ReleasePresenter.new(r) }
+    releases.reject(&:for_sale?)
   end
 
   def paid_releases
-    resource.releases.where(for_sale: true).map { |r| ReleasePresenter.new(r) }
+    releases.select(&:for_sale?).map do |release_presenter|
+      release_presenter.tap do |rp|
+        rp.purchase_reference_id = purchase.reference_id if rp.id == purchase&.release_id
+      end
+    end
   end
 
   def releases
-    resource.releases.map { |r| ReleasePresenter.new(r) }
+    @releases = resource.releases.map { |r| ReleasePresenter.new(r) }
   end
 
   def tracks
     @tracks = TrackPresenter.presenters_for(resource.tracks)
   end
+
+  attr_accessor :purchase
+
 end

@@ -5,6 +5,7 @@
     <small><%= t('label.album.unpublished') %></small>
   <% end %>
 </h2>
+<%= render 'purchase' %>
 <p>
   <div class="btn-group">
     <% if current_user.can_manage_tracks?(@presenter.resource) %>
