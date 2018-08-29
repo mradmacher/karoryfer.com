@@ -1,6 +1,12 @@
 <% if flash[:purchased] %>
   <% if flash[:purchase_url] %>
-    <div class="alert alert-success" role="alert"><%= t('label.digital_payment_completed') %>&nbsp;<a href="<%= flash[:purchase_url] %>" class="alert-link"><%= flash[:purchase_url] %></a></div>
+    <div class="alert alert-success" role="alert">
+      <%= t('label.digital_payment_completed') %>&nbsp;<a href="<%= flash[:purchase_url] %>" class="alert-link"><%= flash[:purchase_url] %></a>
+      <br />
+      <% if current_artist.reference == 'samples' %>
+        If you have any questions or comments, contact us at samples@karoryfer.com
+      <% end %>
+    </div>
   <% else %>
     <div class="alert alert-success" role="alert"><%= t('label.physical_payment_completed') %></a></div>
   <% end %>

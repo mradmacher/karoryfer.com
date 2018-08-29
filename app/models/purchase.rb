@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Purchase < ActiveRecord::Base
-  MAX_DOWNLOADS = 3
+  MAX_DOWNLOADS = 7
 
   belongs_to :release
 

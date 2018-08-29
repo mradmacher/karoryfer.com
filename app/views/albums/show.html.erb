@@ -6,6 +6,7 @@
   <% end %>
 </h2>
 <%= render 'purchase' %>
+<% if current_user.can_manage_any_album_resource?(@presenter.resource) %>
 <p>
   <div class="btn-group">
     <% if current_user.can_manage_tracks?(@presenter.resource) %>
@@ -23,6 +24,7 @@
     <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
   <% end %>
 </p>
+<% end %>
 
 <div class="media">
   <% if @presenter.image? %>
@@ -31,22 +33,18 @@
   <% end %>
   <div class="media-body">
     <p><%= @presenter.year.to_s %></p>
-    <p>
-      <% if @presenter.license.present? %>
-        <%= render :partial => 'licenses/cc',
-          locals: { author: @presenter.artist, license: @presenter.license } %>
-      <% end %>
-    </p>
     <%= render 'releases' %>
   </div>
 </div>
+<% if @presenter.license.present? %>
+<p><%= render :partial => 'licenses/cc', locals: { author: @presenter.artist, license: @presenter.license } %></p>
+<% end %>
 
 <br />
-
 <div class="text-info"><%= flash[:notice] %></div>
 
 <% if current_user.can_manage_album?(@presenter.resource) %>
-  <%=t 'label.release.downloads' %>: <%= @presenter.downloads %>
+  <%=t 'label.release.downloads' %>:
   <ul>
     <% @presenter.releases.each do |release| %>
       <li><%= release.format %>: <%= release.downloads %></li>

@@ -1,28 +1,30 @@
 <%= form_for [artist.resource, album.resource, resource], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
   <div class="form-group">
-    <div class="form-group">
-      <%= f.label :format, t('label.release.format') %>
-      <%= f.select :format, [Release::ZIP, Release::BANDCAMP, Release::CD], class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :file, t('label.release.file') %>
-      <% if resource.file? %>
-        <p class="help-block"><%= File.basename(resource.file.path) %></p>
-        <div class="checkbox">
-          <%= f.label :remove_file do %>
-            <%= f.check_box :remove_file %>
-            <%= t('action.remove_file') %>
-          <% end %>
-        </div>
-      <% end %>
-      <%= f.collection_select :file, @presenter.available_files, :to_s, :to_s, { include_blank: true } %>
-    </div>
-    <div class="form-group">
-      <%= f.label :bandcamp_url, t('label.release.bandcamp_url') %>
-      <%= f.text_field :bandcamp_url, class: 'form-control' %>
-    </div>
-    <hr />
+    <% unless resource.persisted? %>
+      <div class="form-group">
+        <%= f.label :format, t('label.release.format') %>
+        <%= f.select :format, [Release::ZIP, Release::BANDCAMP, Release::CD], class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :file, t('label.release.file') %>
+        <% if resource.file? %>
+          <p class="help-block"><%= File.basename(resource.file.path) %></p>
+          <div class="checkbox">
+            <%= f.label :remove_file do %>
+              <%= f.check_box :remove_file %>
+              <%= t('action.remove_file') %>
+            <% end %>
+          </div>
+        <% end %>
+        <%= f.collection_select :file, @presenter.available_files, :to_s, :to_s, { include_blank: true } %>
+      </div>
+      <div class="form-group">
+        <%= f.label :bandcamp_url, t('label.release.bandcamp_url') %>
+        <%= f.text_field :bandcamp_url, class: 'form-control' %>
+      </div>
+      <hr />
+    <% end %>
     <div class="form-group">
       <div class="checkbox">
         <%= f.label :for_sale do %>

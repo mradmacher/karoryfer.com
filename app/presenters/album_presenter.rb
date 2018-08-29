@@ -23,10 +23,6 @@ class AlbumPresenter < Presenter
     edit_artist_album_path(album.artist, album)
   end
 
-  def downloads
-    resource.releases.sum(:downloads)
-  end
-
   def free_releases
     releases.reject(&:for_sale?)
   end

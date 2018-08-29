@@ -23,6 +23,10 @@ class CurrentUserPresenter < Presenter
     admin_login_path
   end
 
+  def can_manage_any_album_resource?(album)
+    can_manage_album?(album) || can_manage_tracks?(album) || can_manage_attachments?(album) || can_manage_releases?(album)
+  end
+
   def can_manage_album?(album)
     album_policy.write?(album)
   end

@@ -23,7 +23,8 @@ class ReleasesController < CurrentAlbumController
   end
 
   def update
-    redirect_to ReleasePresenter.new(cruder.update).path
+    cruder.update
+    redirect_to artist_album_releases_url(current_artist, current_album)
   rescue Crudable::InvalidResource => e
     @presenter = ReleasePresenter.new(e.resource)
     render :edit
