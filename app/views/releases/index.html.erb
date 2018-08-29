@@ -17,10 +17,15 @@
       <br />
       <%=t 'label.release.downloads' %>: <%= release.downloads %>
       <br />
-      <% if current_user.can_manage_releases?(album.resource) && release.can_be_removed? %>
-        <a href="<%= artist_album_release_path(album.artist, album.resource, release.resource) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
-          <%=t 'action.delete' %>
-        </a>
+      <% if current_user.can_manage_releases?(album.resource) %>
+        <div class="btn-group">
+          <a href="<%= release.edit_path %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
+          <% if release.can_be_removed? %>
+            <a href="<%= artist_album_release_path(album.artist, album.resource, release.resource) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+              <%=t 'action.delete' %>
+            </a>
+          <% end %>
+        </div>
       <% end %>
     </li>
   <% end %>

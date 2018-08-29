@@ -3,6 +3,10 @@
 class ReleasePresenter < Presenter
   def_delegators(:resource, :id, :album, :format, :url, :file?, :for_sale?, :price, :currency, :digital?, :physical?)
 
+  def title
+    format
+  end
+
   def available_files
     Settings.filer.list('*.zip')
   end

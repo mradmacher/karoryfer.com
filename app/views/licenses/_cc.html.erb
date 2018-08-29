@@ -1,4 +1,4 @@
+<a rel="license" href="<%= license.url %>"><img alt="<%= license.type %>" style="border-width:0" src="<%= license.icon_url %>" /></a>
 <small>
-  <a rel="license" href="<%= license.url %>"><img alt="<%= license.type %>" style="border-width:0" src="<%= license.icon_url %>" /></a>
   <%= t('license.text', license: license.name ).sub(license.name, %{<a rel="license" href="#{license.url}">#{license.name}</a>}).html_safe %>
 </small>

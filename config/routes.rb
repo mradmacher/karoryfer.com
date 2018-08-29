@@ -33,7 +33,7 @@ Karoryfer::Application.routes.draw do
       end
       resources :attachments, path: 'zalaczniki', only: %i[index show create destroy]
       resources :tracks, path: 'sciezki', except: [:new]
-      resources :releases, path: 'wydania', except: %i[new edit]
+      resources :releases, path: 'wydania', except: %i[new]
     end
     resources :pages, path: '-'
   end

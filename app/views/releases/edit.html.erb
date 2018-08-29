@@ -1,0 +1,12 @@
+<%= render_title album.title %>
+<h2>
+  <%= album.title %>
+  <% unless album.published? %>
+    <small><%= t('label.album.unpublished') %></span>
+  <% end %>
+</h2>
+<h3><%= @presenter.title %></h3>
+<p>
+  <a href="<%= album.path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+</p>
+<%= render :partial => 'form', locals: { resource: @presenter.resource } %>
