@@ -26,17 +26,19 @@
 </p>
 <% end %>
 
+<p><%= @presenter.year.to_s %></p>
 <div class="media">
   <% if @presenter.image? %>
     <%= link_to image_tag( @presenter.image.thumb.url, :alt => @presenter.title, :class => 'media-object' ), @presenter.image.url,
       :class => 'pull-left' %>
   <% end %>
   <div class="media-body">
-    <p><%= @presenter.year.to_s %></p>
     <%= render 'releases' %>
   </div>
 </div>
+
 <% if @presenter.license.present? %>
+<br />
 <p><%= render :partial => 'licenses/cc', locals: { author: @presenter.artist, license: @presenter.license } %></p>
 <% end %>
 

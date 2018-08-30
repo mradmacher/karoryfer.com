@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
 class ReleasePresenter < Presenter
-  def_delegators(:resource, :id, :album, :format, :url, :file?, :for_sale?, :price, :currency, :digital?, :physical?)
+  def_delegators(:resource, :id, :album, :format, :url, :file?, :for_sale?, :currency, :digital?, :physical?)
 
   def title
     format
+  end
+
+  def price
+    return nil if resource.whole_price.nil?
+    "#{resource.whole_price/100}.#{Kernel.format('%02d', resource.whole_price%100)}"
   end
 
   def available_files
