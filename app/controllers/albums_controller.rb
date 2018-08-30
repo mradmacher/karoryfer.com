@@ -51,6 +51,7 @@ class AlbumsController < CurrentArtistController
         redirect_to artist_album_url(artist, album)
       elsif release.file?
         purchase&.increment!(:downloads) || release.increment!(:downloads)
+        response.headers['Content-Length'] = release.file.size.to_s
         send_file release.file.path, disposition: 'attachment', type: 'application/zip'
       elsif release.url
         redirect_to release.url
