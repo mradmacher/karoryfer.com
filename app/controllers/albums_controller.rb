@@ -10,6 +10,7 @@ class AlbumsController < CurrentArtistController
   def show
     @presenter = decorate(cruder.show)
     @presenter.purchase = Purchase.where(reference_id: params[:pid]).first if params[:pid]
+    @presenter.discount = Discount.where(reference_id: params[:did]).first if params[:did]
   end
 
   def edit

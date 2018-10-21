@@ -29,5 +29,8 @@ group :test do
   gem 'faker'
   gem 'sham'
   gem 'capybara'
+  # gem 'puma'
+  # gem 'selenium-webdriver'
+  # gem 'database_cleaner' # remove after migrating to Rails 5.1+; https://github.com/teamcapybara/capybara#transactions-and-database-setup
   gem 'sqlite3'
 end

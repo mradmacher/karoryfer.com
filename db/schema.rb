@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180827210202) do
+ActiveRecord::Schema.define(version: 20180922132806) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "title",          limit: 80,                  null: false
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(version: 20180827210202) do
   end
 
   add_index "attachments", ["album_id"], name: "attachments_album_id_index"
+
+  create_table "discounts", force: :cascade do |t|
+    t.integer  "whole_price"
+    t.string   "currency"
+    t.string   "reference_id"
+    t.integer  "release_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "discounts", ["reference_id"], name: "index_discounts_on_reference_id"
+  add_index "discounts", ["release_id"], name: "index_discounts_on_release_id"
 
   create_table "events", force: :cascade do |t|
     t.integer  "artist_id",                                 null: false

@@ -3,8 +3,9 @@
 class PaypalsController < ApplicationController
   def show
     release = Release.find(params[:release_id])
+    discount = Discount.where(reference_id: params[:did]).first if params.key?(:did)
     begin
-      payment_id = Purchase.create_payment(release)
+      payment_id = Purchase.create_payment(release, discount)
       render json: { id: payment_id }
     rescue Purchase::PaymentError => e
       render json: { error: e.message }
