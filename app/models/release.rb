@@ -9,6 +9,8 @@ class Release < ActiveRecord::Base
   CD = 'cd'
   FORMATS = [MP3, OGG, FLAC, ZIP, BANDCAMP, CD].freeze
 
+  include Priceable
+
   belongs_to :album
   has_many :purchases
 
@@ -25,6 +27,11 @@ class Release < ActiveRecord::Base
   mount_uploader :file, Uploader::Release
 
   scope :in_format, ->(format) { where(format: format) }
+
+  def price_and_currency(discount)
+    return [price, currency] if discount.nil?
+    [discount.price, discount.currency]
+  end
 
   def physical?
     format == CD
@@ -52,15 +59,6 @@ class Release < ActiveRecord::Base
       value = File.open(path) if path
     end
     super
-  end
-
-  def price=(value)
-    self.whole_price = value.nil? ? nil : (value.to_f*100.0).round(0)
-  end
-
-  def price
-    return nil if whole_price.nil?
-    (whole_price/100.0).round(2)
   end
 
   def purchased?(purchase)

@@ -31,6 +31,7 @@ class AlbumPresenter < Presenter
     releases.select(&:for_sale?).map do |release_presenter|
       release_presenter.tap do |rp|
         rp.purchase_reference_id = purchase.reference_id if rp.id == purchase&.release_id
+        rp.discount = discount if rp.id == discount&.release_id
       end
     end
   end
@@ -43,6 +44,6 @@ class AlbumPresenter < Presenter
     @tracks = TrackPresenter.presenters_for(resource.tracks)
   end
 
-  attr_accessor :purchase
+  attr_accessor :purchase, :discount
 
 end

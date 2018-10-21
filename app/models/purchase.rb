@@ -10,8 +10,9 @@ class Purchase < ActiveRecord::Base
   class PaymentError < StandardError
   end
 
-  def self.create_payment(release)
+  def self.create_payment(release, discount = nil)
     config_paypal(release.album.artist)
+    price, currency = release.price_and_currency(discount)
     paypal_payment = PayPal::SDK::REST::Payment.new({
       intent: 'sale',
       payer: { payment_method: 'paypal' },
@@ -23,14 +24,14 @@ class Purchase < ActiveRecord::Base
         item_list: {
           items: [{
             name: release.album.title,
-            price: release.price,
-            currency: release.currency,
+            price: price,
+            currency: currency,
             quantity: 1
           }]
         },
         amount: {
-          total: release.price,
-          currency: release.currency
+          total: price,
+          currency: currency
         },
         description: release.album.artist.name
       }]
