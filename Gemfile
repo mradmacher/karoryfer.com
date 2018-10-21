@@ -2,7 +2,7 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.10'
 
 gem 'attr_encrypted', '~> 3.0.0'
 gem 'authlogic'
@@ -18,8 +18,6 @@ gem 'thin'
 gem 'traco'
 gem 'unicorn'
 
-group :assets do
-end
 gem 'jquery-rails'
 
 gem 'newrelic_rpm', '>=3.8.0'
@@ -30,5 +28,9 @@ gem 'bugsnag'
 group :test do
   gem 'faker'
   gem 'sham'
+  gem 'capybara'
+  # gem 'puma'
+  # gem 'selenium-webdriver'
+  # gem 'database_cleaner' # remove after migrating to Rails 5.1+; https://github.com/teamcapybara/capybara#transactions-and-database-setup
   gem 'sqlite3'
 end
