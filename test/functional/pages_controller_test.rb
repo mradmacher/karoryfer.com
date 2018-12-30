@@ -1,24 +1,23 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require_relative 'resources_controller'
 
 class PagesControllerTest < ActionController::TestCase
-  include ResourcesController
-
-  def resource_name
-    'page'
+  def test_get_index_without_artist_is_not_routable
+    assert_raises ActionController::UrlGenerationError do
+      get :index
+    end
   end
 
-  def resource_class
-    Page
+  def test_get_show_without_artist_is_not_routable
+    assert_raises ActionController::UrlGenerationError do
+      get :show, id: Page.sham!.to_param
+    end
   end
 
-  def test_delete_destroy_for_artist_user_properly_redirects
-    login_user
-    artist = Artist.sham!
-    resource = resource_class.sham!(artist: artist)
-    delete :destroy, artist_id: resource.artist.to_param, id: resource.to_param
-    assert_redirected_to send('artist_path', resource.artist)
+  def test_get_show_succeeds
+    page = Page.sham!
+    get :show, artist_id: page.artist.to_param, id: page.to_param
+    assert_response :success
   end
 end

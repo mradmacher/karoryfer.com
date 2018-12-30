@@ -32,7 +32,7 @@ module ApplicationHelper
     items << [t('title.albums'), albums_url, active == 'albums']
     items << [t('title.samples'), artist_url('karoryfer-samples'), active == 'karoryfer-samples']
     items << [t('title.about'), artist_url('karoryfer-lecolds'), active == 'karoryfer-lecolds']
-    items << [t('title.drafts'), drafts_url, active == 'drafts'] if AlbumPolicy.new(current_user.resource).write_access?
+    items << [t('title.drafts'), admin_drafts_url, active == 'drafts'] if current_user
     items
   end
 

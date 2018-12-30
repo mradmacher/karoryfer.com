@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return @current_user if defined?(@current_user)
-    current_user = current_user_session && current_user_session.user || User.new
-    @current_user = CurrentUserPresenter.new(current_user)
+    current_user = current_user_session && current_user_session.user
+    @current_user = CurrentUserPresenter.new(current_user) if current_user
   end
 
   def change_locale
@@ -65,25 +65,17 @@ class ApplicationController < ActionController::Base
     !current_user.nil?
   end
 
-  def require_user
-    raise User::AccessDenied unless current_user.resource.persisted?
+  def authorize(permitted)
+    raise User::AccessDenied unless permitted
   end
 
-  def require_no_user
-    !current_user.resource.persisted?
+  def validate(resource)
+    raise InvalidResource, resource unless yield resource
   end
 
   protected
 
   def set_layout
     current_artist? ? 'current_artist' : 'application'
-  end
-
-  def decorate_all(objs)
-    presenter_class.nil? ? objs : presenter_class.presenters_for(objs)
-  end
-
-  def decorate(obj)
-    presenter_class.nil? ? obj : presenter_class.new(obj)
   end
 end

@@ -23,10 +23,10 @@ class TrackPresenter < Presenter
   end
 
   def path
-    artist_album_track_path(resource.album.artist, resource.album, resource)
+    admin_artist_album_track_path(resource.album.artist, resource.album, resource)
   end
 
   def edit_path
-    edit_artist_album_track_path(resource.album.artist, resource.album, resource)
+    edit_admin_artist_album_track_path(resource.album.artist, resource.album, resource)
   end
 end

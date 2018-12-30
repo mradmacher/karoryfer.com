@@ -1,6 +1,6 @@
 <%= render_title @presenter.title %>
 <h2><%= @presenter.title %></h2>
-<% if current_user.can_manage_pages?(artist.resource) %>
+<% if current_user %>
   <p><%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %></p>
 <% end %>
 <div class="long-text">

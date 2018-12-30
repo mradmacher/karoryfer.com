@@ -3,53 +3,13 @@
 class TracksController < CurrentAlbumController
   layout :set_layout
 
-  def index
-    @presenter = TrackPresenter.new(cruder.new)
-    @presenters = TrackPresenter.presenters_for(cruder.index)
-  end
-
   def show
-    redirect_to cruder.show.file.url
-  end
-
-  def edit
-    @presenter = TrackPresenter.new(cruder.edit)
-    render :edit
-  end
-
-  def new
-    @presenter = TrackPresenter.new(cruder.new)
-    render :index
-  end
-
-  def update
-    cruder.update
-    redirect_to artist_album_tracks_url(current_artist, current_album)
-  rescue Crudable::InvalidResource => e
-    @presenter = TrackPresenter.new(e.resource)
-    render :edit
-  end
-
-  def create
-    cruder.create
-    redirect_to artist_album_tracks_url(current_artist, current_album)
-  rescue Crudable::InvalidResource => e
-    @presenter = TrackPresenter.new(e.resource)
-    render :index
-  end
-
-  def destroy
-    cruder.destroy
-    redirect_to artist_album_tracks_url(current_artist, current_album)
+    redirect_to find.file.url
   end
 
   private
 
-  def policy_class
-    TrackPolicy
-  end
-
-  def cruder
-    TrackCruder.new(policy_class.new(current_user.resource), params, current_album)
+  def find
+    current_album.tracks.find(params[:id])
   end
 end

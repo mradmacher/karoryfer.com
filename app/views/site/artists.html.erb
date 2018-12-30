@@ -1,8 +1,8 @@
 <%= render_title t('title.artists') %>
 <h1 class="hidden"><%=t 'title.artists' %></h1>
-<% if current_user.can_create_artist? %>
+<% if current_user %>
   <% content_for :actions do %>
-		<%= link_to_action t('action.add_artist'), new_artist_path %>
+		<%= link_to_action t('action.add_artist'), new_admin_artist_path %>
 	<% end %>
 <% end %>
 <ul class="row list-unstyled">

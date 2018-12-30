@@ -1,0 +1,37 @@
+<%= render_title album.title %>
+<h2>
+  <%= album.title %>
+  <% unless album.published? %>
+    <small><%= t('label.album.unpublished') %></span>
+  <% end %>
+</h2>
+<h3><%= t 'title.releases' %></h3>
+<p>
+  <a href="<%= album.path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+</p>
+
+<ul>
+  <% album.releases.each do |release| %>
+    <li>
+      <%= release.format %>&nbsp;(<%= release.url %>)
+      <br />
+      <%=t 'label.release.downloads' %>: <%= release.downloads %>
+      <br />
+      <% if current_user %>
+        <div class="btn-group">
+          <a href="<%= release.edit_path %>" class="btn btn-default btn-xs"><%=t 'action.edit' %></a>
+          <% if release.can_be_removed? %>
+            <a href="<%= admin_artist_album_release_path(album.artist, album.resource, release.resource) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+              <%=t 'action.delete' %>
+            </a>
+          <% end %>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<% if current_user %>
+  <h3><%=t 'title.new_release' %></h3>
+  <%= render :partial => 'form', locals: { resource: @presenter.resource } %>
+<% end %>

@@ -1,0 +1,32 @@
+<%= render_title @presenter.login, t('title.users') %>
+<h1><%= t 'title.users' %></h1>
+<h2><%= @presenter.login %></h2>
+<p>
+  <div class="btn-group">
+    <a href="<%= @presenter.edit_password_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit_password' %></a>
+    <a href="<%= @presenter.edit_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit' %></a>
+    <a href="<%= @presenter.path %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.user.destroy' %></a>
+  </div>
+</p>
+<dl class="dl-horizontal">
+	<dt><%=t 'label.user.login' %></dt>
+		<dd><%= @presenter.login %></dd>
+  <% unless @presenter.email.blank? %>
+    <dt><%=t 'label.user.email' %></dt>
+      <dd><%= @presenter.email %></dd>
+  <% end %>
+	<dt><%=t 'label.user.admin' %></dt>
+		<dd><%= @presenter.admin? ? t('label.true_value') : t('label.false_value')%></dd>
+	<dt><%=t 'label.user.publisher' %></dt>
+		<dd><%= @presenter.publisher? ? t('label.true_value') : t('label.false_value')%></dd>
+	<dt><%=t 'label.user.login_count' %></dt>
+		<dd><%= @presenter.login_count %></dd>
+	<dt><%=t 'label.user.failed_login_count' %></dt>
+		<dd><%= @presenter.failed_login_count %></dd>
+	<dt><%=t 'label.user.last_login_at' %></dt>
+		<dd><%=l( @presenter.last_login_at ) if @presenter.last_login_at %></dd>
+	<dt><%=t 'label.user.created_at' %></dt>
+		<dd><%=l @presenter.created_at %></dd>
+	<dt><%=t 'label.user.updated_at' %></dt>
+		<dd><%=l @presenter.updated_at %></dd>
+</dl>

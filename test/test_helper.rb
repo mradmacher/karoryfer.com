@@ -25,6 +25,21 @@ Attachment::Uploader.store_dir = '/tmp'
 Uploader::TrackSource.store_dir = '/tmp'
 Uploader::TrackPreview.store_dir = '/tmp'
 
+module ActiveSupport
+  class TestCase
+    def login(user)
+      activate_authlogic
+      UserSession.create user
+    end
+
+    def login_user
+      user = User.sham!
+      login(user)
+      user
+    end
+  end
+end
+
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
@@ -36,50 +51,5 @@ class ActionDispatch::IntegrationTest
   def teardown
     Capybara.reset_sessions!
     Capybara.use_default_driver
-  end
-end
-
-module ActiveSupport
-  class TestCase
-    class AllowAllPolicy < BasePolicy
-      def write_access_to?(_)
-        true
-      end
-
-      def read_access_to?(_)
-        true
-      end
-
-      def write_access?
-        true
-      end
-
-      def read_access?
-        true
-      end
-    end
-
-    def login(user)
-      activate_authlogic
-      UserSession.create user
-    end
-
-    def login_user
-      user = User.sham!
-      login(user)
-      user
-    end
-
-    def login_admin
-      user = User.sham!(:admin)
-      login(user)
-      user
-    end
-
-    def assert_authorized
-      @controller.stub(:policy_class, AllowAllPolicy) do
-        yield
-      end
-    end
   end
 end

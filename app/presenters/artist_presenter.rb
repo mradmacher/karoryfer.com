@@ -10,16 +10,20 @@ class ArtistPresenter < Presenter
     artist_path(resource)
   end
 
+  def delete_path
+    admin_artist_path(resource)
+  end
+
   def edit_path
-    edit_artist_path(resource)
+    edit_admin_artist_path(resource)
   end
 
   def new_page_path
-    new_artist_page_path(artist)
+    new_admin_artist_page_path(artist)
   end
 
   def new_album_path
-    new_artist_album_path(artist)
+    new_admin_artist_album_path(artist)
   end
 
   def albums_path
@@ -27,7 +31,7 @@ class ArtistPresenter < Presenter
   end
 
   def pages_path
-    artist_pages_path(artist)
+    admin_artist_pages_path(artist)
   end
 
   def recent_pages
