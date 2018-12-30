@@ -11,13 +11,13 @@
     </div>
     <div class="col-md-4">
       <ul class="list-inline pull-right">
-        <% if current_user.can_manage_account? -%>
+        <% if current_user -%>
           <li><a href="<%= current_user.logout_path %>" class="btn btn-default btn-xs"><%= t('action.logout') %></a></li>
           <li><a href="<%= current_user.account_path %>" class="btn btn-default btn-xs"><%= t('title.account') %></a></li>
         <% else -%>
-          <li><a href="<%= current_user.login_path %>" class="btn btn-default btn-xs"><%= t('action.login') %></a></li>
+          <li><a href="<%= admin_login_path %>" class="btn btn-default btn-xs">&nbsp;</a></li>
         <% end %>
-        <% if current_user.can_manage_users? %>
+        <% if current_user %>
           <li><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t('title.users') %></a></li>
         <% end %>
       </ul>

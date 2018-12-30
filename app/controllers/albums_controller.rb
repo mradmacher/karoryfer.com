@@ -4,47 +4,19 @@ class AlbumsController < CurrentArtistController
   layout :set_layout
 
   def index
-    @presenters = decorate_all(cruder.index)
+    @presenters = AlbumPresenter.presenters_for(current_artist.albums.published)
   end
 
   def show
-    @presenter = decorate(cruder.show)
+    @presenter = AlbumPresenter.new(find)
     @presenter.purchase = Purchase.where(reference_id: params[:pid]).first if params[:pid]
     @presenter.discount = Discount.where(reference_id: params[:did]).first if params[:did]
-  end
-
-  def edit
-    @presenter = decorate(cruder.edit)
-    render :edit
-  end
-
-  def new
-    @presenter = decorate(cruder.new)
-    render :new
-  end
-
-  def update
-    redirect_to decorate(cruder.update).path
-  rescue Crudable::InvalidResource => e
-    @presenter = decorate(e.resource)
-    render :edit
-  end
-
-  def create
-    redirect_to decorate(cruder.create).path
-  rescue Crudable::InvalidResource => e
-    @presenter = decorate(e.resource)
-    render :new
-  end
-
-  def destroy
-    redirect_to artist_albums_url(current_artist)
   end
 
   def download
     artist = Artist.find_by_reference(params[:artist_id])
     album = artist.albums.find_by_reference(params[:id])
-    release = album.releases.in_format(params[:format]).first!
+    release = album.releases.in_format(params[:download]).first!
     purchase = Purchase.where(reference_id: params[:pid]).first if params[:pid]
     if !release.for_sale? || release.purchased?(purchase)
       if purchase&.downloads_exceeded?
@@ -66,15 +38,7 @@ class AlbumsController < CurrentArtistController
 
   private
 
-  def presenter_class
-    AlbumPresenter
-  end
-
-  def policy_class
-    AlbumPolicy
-  end
-
-  def cruder
-    AlbumCruder.new(policy_class.new(current_user.resource), params, current_artist)
+  def find
+    current_artist.albums.find_by_reference(params[:id])
   end
 end

@@ -20,7 +20,11 @@ class AlbumPresenter < Presenter
   end
 
   def edit_path
-    edit_artist_album_path(album.artist, album)
+    edit_admin_artist_album_path(album.artist, album)
+  end
+
+  def delete_path
+    admin_artist_album_path(album.artist, album)
   end
 
   def free_releases

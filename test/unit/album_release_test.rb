@@ -8,8 +8,9 @@ class AlbumReleaseTest < ActiveSupport::TestCase
     @tmp_dir = Dir.mktmpdir
     Uploader::Release.store_dir = @tmp_dir
 
-    @artist = Artist.sham! name: 'Jęczące Brzękodźwięki'
+    @artist = Artist.sham!(name: 'Jęczące Brzękodźwięki')
     @album = Album.sham!(
+      artist: @artist,
       title: 'Tłuczące pokrowce jeżozwierza',
       image: File.open(File.join(FIXTURES_DIR, 'okladka.jpg'))
     )

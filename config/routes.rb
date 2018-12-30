@@ -1,16 +1,6 @@
 # frozen_string_literal: true
 
 Karoryfer::Application.routes.draw do
-  scope 'admin', as: 'admin' do
-    resources :user_sessions, only: [:create]
-    get 'login' => 'user_sessions#new', :as => :login
-    get 'logout' => 'user_sessions#destroy', :as => :logout
-    scope path_names: { edit: 'zmien', new: 'dodaj' } do
-      resources :users, path: 'uzytkownicy'
-    end
-    get 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
-  end
-
   root to: 'site#home'
 
   resources :releases, path: 'wydania', only: %i[show] do
@@ -19,22 +9,34 @@ Karoryfer::Application.routes.draw do
 
   get 'wydawnictwa', to: 'site#albums', as: 'albums'
   get 'artysci', to: 'site#artists', as: 'artists'
-  get 'szkice', to: 'site#drafts', as: 'drafts'
 
-  scope path_names: { new: 'dodaj', edit: 'zmien' } do
-    resources :artists, path: '', only: %i[show edit new update]
-    resources :artists, path: 'artysci', only: [:create]
+  resources :artists, path: '', only: %i[show]
+  scope ':artist_id', as: 'artist' do
+    resources :albums, path: 'wydawnictwa', only: %i[index show] do
+      member do
+        get ':download', to: 'albums#download', as: 'download', constraints: { download: /mp3|ogg|flac|zip|bandcamp/ }
+      end
+    end
+    resources :pages, path: '-', only: %i[show]
   end
 
-  scope ':artist_id', as: 'artist', path_names: { new: 'dodaj', edit: 'zmien' } do
-    resources :albums, path: 'wydawnictwa' do
-      member do
-        get ':format', to: 'albums#download', as: 'download', constraints: { format: /mp3|ogg|flac|zip|bandcamp/ }
+  scope 'admin', as: 'admin' do
+    resources :user_sessions, only: [:create]
+    get 'login' => 'user_sessions#new', :as => :login
+    get 'logout' => 'user_sessions#destroy', :as => :logout
+  end
+
+  namespace :admin, path_names: { new: 'dodaj', edit: 'zmien' } do
+    resources :users, path: 'uzytkownicy'
+    get 'users/:id/haslo/zmien' => 'users#edit_password', :as => :edit_password
+    resources :drafts, path: 'szkice', only: %i[index]
+    resources :artists, path: 'artysci', except: %i[index show] do
+      resources :pages, path: 'strony', except: %i[show]
+      resources :albums, path: 'wydawnictwa', except: %i[index show] do
+        resources :attachments, path: 'zalaczniki', only: %i[index show create destroy]
+        resources :tracks, path: 'sciezki', except: [:new]
+        resources :releases, path: 'wydania', except: %i[new]
       end
-      resources :attachments, path: 'zalaczniki', only: %i[index show create destroy]
-      resources :tracks, path: 'sciezki', except: [:new]
-      resources :releases, path: 'wydania', except: %i[new]
     end
-    resources :pages, path: '-'
   end
 end

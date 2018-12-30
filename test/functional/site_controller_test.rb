@@ -21,22 +21,4 @@ class SiteControllerTest < ActionController::TestCase
     get :albums
     assert_response :success
   end
-
-  def test_get_drafts_for_guest_is_denied
-    assert_raises User::AccessDenied do
-      get :drafts
-    end
-  end
-
-  def test_get_drafts_for_user_displays_drafts
-    login_user
-    albums = 3.times.to_a.map do
-      Album.sham!(published: false)
-    end
-    get :drafts
-
-    albums.each do |r|
-      assert_select 'a', r.title
-    end
-  end
 end

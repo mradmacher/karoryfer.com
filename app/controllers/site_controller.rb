@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class SiteController < ApplicationController
-  before_action :require_user, only: [:drafts]
-
   def home
     @artist_presenters = ArtistPresenter.presenters_for(Artist.shared.shuffle)
   end
@@ -13,9 +11,5 @@ class SiteController < ApplicationController
 
   def artists
     @artist_presenters = ArtistPresenter.presenters_for(Artist.order(:name))
-  end
-
-  def drafts
-    @album_presenters = AlbumPresenter.presenters_for(current_user.unpublished_albums)
   end
 end

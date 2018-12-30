@@ -40,13 +40,13 @@ class ReleasePresenter < Presenter
   end
 
   def path
-    artist_album_release_path(resource.album.artist, resource.album, resource)
+    admin_artist_album_release_path(resource.album.artist, resource.album, resource)
   end
 
   def edit_path
-    edit_artist_album_release_path(resource.album.artist,
-                                   resource.album,
-                                   resource)
+    edit_admin_artist_album_release_path(resource.album.artist,
+                                         resource.album,
+                                         resource)
   end
 
   attr_accessor :purchase_reference_id, :discount

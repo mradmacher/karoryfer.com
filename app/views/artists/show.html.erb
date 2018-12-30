@@ -1,5 +1,5 @@
 <%= render_title %>
-<% if current_user.can_manage_artist?(@presenter.resource) %>
+<% if current_user %>
   <p><%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %></p>
 <% end %>
 <div class="media">

@@ -7,7 +7,11 @@ class PagePresenter < Presenter
     artist_page_path(resource.artist, resource)
   end
 
+  def delete_path
+    admin_artist_page_path(resource.artist, resource)
+  end
+
   def edit_path
-    edit_artist_page_path(resource.artist, resource)
+    edit_admin_artist_page_path(resource.artist, resource)
   end
 end

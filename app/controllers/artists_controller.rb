@@ -4,48 +4,16 @@ class ArtistsController < CurrentArtistController
   layout 'current_artist', except: %i[index new create]
 
   def index
-    @presenters = decorate_all(cruder.index)
+    @presenters = ArtistPresenter.presenters_for(Artist.all)
   end
 
   def show
-    @presenter = decorate(cruder.show)
-  end
-
-  def edit
-    @presenter = decorate(cruder.edit)
-    render :edit
-  end
-
-  def new
-    @presenter = decorate(cruder.new)
-    render :new
-  end
-
-  def update
-    redirect_to decorate(cruder.update).path
-  rescue Crudable::InvalidResource => e
-    @presenter = decorate(e.resource)
-    render :edit
-  end
-
-  def create
-    redirect_to decorate(cruder.create).path
-  rescue Crudable::InvalidResource => e
-    @presenter = decorate(e.resource)
-    render new_view
+    @presenter = ArtistPresenter.new(find)
   end
 
   private
 
-  def presenter_class
-    ArtistPresenter
-  end
-
-  def policy_class
-    ArtistPolicy
-  end
-
-  def cruder
-    ArtistCruder.new(policy_class.new(current_user.resource), params)
+  def find
+    Artist.find_by_reference(params[:id])
   end
 end
