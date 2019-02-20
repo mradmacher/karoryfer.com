@@ -3,8 +3,8 @@
     <div class="alert alert-success" role="alert">
       <%= t('label.digital_payment_completed') %>&nbsp;<a href="<%= flash[:purchase_url] %>" class="alert-link"><%= flash[:purchase_url] %></a>
       <br />
-      <% if current_artist.reference == 'samples' %>
-        If you have any questions or comments, contact us at samples@karoryfer.com
+      <% if current_artist.contact_email.present? %>
+        <%= t('label.contact_us', email: current_artist.contact_email) %>
       <% end %>
     </div>
   <% else %>

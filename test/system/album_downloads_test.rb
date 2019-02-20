@@ -25,9 +25,6 @@ class AlbumDownloadsTest < ApplicationSystemTestCase
 
     visit('/big-star/wydawnictwa/the-best-of')
     click_on('flac')
-    assert_equal 'application/zip', page.response_headers['Content-Type']
-    assert_match(/attachment/, page.response_headers['Content-Disposition'])
-    assert_match(/big-star-the-best-of-flac\.zip/, page.response_headers['Content-Disposition'])
     assert_equal 1, @release.reload.downloads
   end
 
@@ -37,9 +34,6 @@ class AlbumDownloadsTest < ApplicationSystemTestCase
     assert_equal 0, purchase.downloads
 
     visit('/big-star/wydawnictwa/the-best-of/flac?pid=xyz')
-    assert_equal 'application/zip', page.response_headers['Content-Type']
-    assert_match(/attachment/, page.response_headers['Content-Disposition'])
-    assert_match(/big-star-the-best-of-flac\.zip/, page.response_headers['Content-Disposition'])
     assert_equal 0, @release.reload.downloads
     assert_equal 1, purchase.reload.downloads
   end

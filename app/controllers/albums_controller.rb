@@ -19,7 +19,7 @@ class AlbumsController < CurrentArtistController
     artist = Artist.find_by_reference(params[:artist_id])
     album = artist.albums.find_by_reference(params[:id])
     release = album.releases.in_format(params[:download]).first!
-    purchase = Purchase.where(reference_id: params[:pid]).first if params[:pid]
+    purchase = Purchase.where(release: release, reference_id: params[:pid]).first if params[:pid]
     if !release.for_sale? || release.purchased?(purchase)
       if purchase&.downloads_exceeded?
         flash[:downloads_exceeded] = true
