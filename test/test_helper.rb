@@ -6,6 +6,7 @@ require 'rails/test_help'
 require 'authlogic/test_case'
 require 'shams'
 require 'minitest/mock'
+require 'minitest/autorun'
 
 FIXTURES_DIR = File.expand_path('fixtures', __dir__)
 

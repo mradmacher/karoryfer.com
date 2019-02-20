@@ -1,0 +1,41 @@
+<p>
+  <%- if I18n.locale == :pl %>
+    Cześć <%= @name.present? ? @name : @email %>!
+  <%- else %>
+    Dear <%= @name.present? ? @name : @email %>,
+  <%- end %>
+</p>
+
+<p>
+<%- if @download_url.present? %>
+<%- if I18n.locale == :pl %>
+Dzięki wielkie za wsparcie. Korzystając z <a href="<%= @download_url %>">tego linku</a> możesz pobrać swoje pliki.
+<%- else %>
+Thank you for your purchase. You can download your files using <a href="<%= @download_url %>">this link</a>.
+<%- end %>
+<%- else %>
+<%- if I18n.locale == :pl %>
+Dzięki wielkie za wsparcie. Otrzymaliśmy pieniądze i wkrótce wyślemy paczkę.
+<%- else %>
+Thank you for your purchase. The item will be sent to you as soon as possible.
+  <%- end %>
+<%- end %>
+</p>
+
+<%- if @contact_email.present? %>
+<p>
+  <%- if I18n.locale == :pl %>
+  W przypadku pytań lub komentarzy, prosimy o kontakt z <a href="mailto:<%= @contact_email %>"><%= @contact_email %></a>.
+  <%- else %>
+  If you have any questions or comments, contact us at <a href="mailto:<%= @contact_email %>"><%= @contact_email %></a>.
+  <%- end %>
+</p>
+<%- end %>
+
+<%- if I18n.locale == :pl %>
+Pozdrowienia
+<%- else %>
+Regards
+<%- end %>
+<br />
+Karoryfer Lecolds

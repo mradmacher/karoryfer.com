@@ -92,6 +92,7 @@ pl:
     physical_payment_completed: Dziękujemy bardzo. Otrzymaliśmy pieniążki i wkrótce wyślemy paczuszkę.
     digital_payment_completed: "Dzięki wielkie za wsparcie. Korzystając z tego linku możesz pobrać swoje pliki:"
     downloads_exceeded: Limit pobrań został przekroczony. W razie wątpliwości prosimy o kontakt z admin@karoryfer.com.
+    contact_us: "W przypadku pytań lub uwag, prosimy o kontakt z %{email}."
     nothing_here_yet: Nic tu jeszcze nie ma.
     nothing_here: Brak
     defaults_to: domyślnie

@@ -91,6 +91,14 @@ Sham.config(Release) do |c|
   end
 end
 
+Sham.config(Purchase) do |c|
+  c.attributes do
+    {
+      release: Sham::Nested.new(Release)
+    }
+  end
+end
+
 Sham.config(Track) do |c|
   c.attributes do
     {

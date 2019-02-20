@@ -46,4 +46,13 @@ Karoryfer::Application.configure do
   config.assets.allow_debugging = true
 
   config.eager_load = false
+  config.action_mailer.default_url_options = { host: 'www.example.com', protocol: :https }
+  config.action_mailer.default_options = { from: 'lecolds@karoryfer.com' }
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.example.com',
+    domain: 'example.com',
+    authentication: 'plain',
+    user_name: 'ex',
+    password: 'ample',
+  }
 end
