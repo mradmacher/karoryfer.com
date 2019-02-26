@@ -20,10 +20,8 @@ gem 'unicorn'
 
 gem 'jquery-rails'
 
-gem 'bugsnag'
 gem 'newrelic_rpm', '>=3.8.0'
 gem 'rubocop', require: false
-gem 'skylight'
 
 group :test do
   gem 'faker'
