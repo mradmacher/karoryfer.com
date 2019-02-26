@@ -12,6 +12,7 @@ module Releaser
 
     def release_url
       return if releaseable.nil?
+
       Rails.application.routes.url_helpers.artist_album_url(
         releaseable.artist, releaseable.album, host: publisher.host
       )

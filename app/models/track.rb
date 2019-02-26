@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Track < ActiveRecord::Base
+class Track < ApplicationRecord
   TITLE_MAX_LENGTH = 80
   COMMENT_MAX_LENGTH = 255
 

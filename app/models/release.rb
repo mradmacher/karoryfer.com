@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Release < ActiveRecord::Base
+class Release < ApplicationRecord
   OGG = 'ogg'
   FLAC = 'flac'
   MP3 = 'mp3'
@@ -30,6 +30,7 @@ class Release < ActiveRecord::Base
 
   def price_and_currency(discount)
     return [price, currency] if discount.nil?
+
     [discount.price, discount.currency]
   end
 

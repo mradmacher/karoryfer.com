@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require 'application_system_test_case'
 
-class AlbumDownloadTest < ActionDispatch::IntegrationTest
+class AlbumDownloadsTest < ApplicationSystemTestCase
   def setup
-    # Capybara.current_driver = :selenium_chrome_headless
     @artist = Artist.sham!(reference: 'big-star')
     @album = Album.sham!(:published, artist: @artist, reference: 'the-best-of')
     @release = Release.sham!(album: @album, format: Release::FLAC)
@@ -27,8 +26,8 @@ class AlbumDownloadTest < ActionDispatch::IntegrationTest
     visit('/big-star/wydawnictwa/the-best-of')
     click_on('flac')
     assert_equal 'application/zip', page.response_headers['Content-Type']
-    assert_match /attachment/, page.response_headers['Content-Disposition']
-    assert_match /big-star-the-best-of-flac\.zip/, page.response_headers['Content-Disposition']
+    assert_match(/attachment/, page.response_headers['Content-Disposition'])
+    assert_match(/big-star-the-best-of-flac\.zip/, page.response_headers['Content-Disposition'])
     assert_equal 1, @release.reload.downloads
   end
 
@@ -39,8 +38,8 @@ class AlbumDownloadTest < ActionDispatch::IntegrationTest
 
     visit('/big-star/wydawnictwa/the-best-of/flac?pid=xyz')
     assert_equal 'application/zip', page.response_headers['Content-Type']
-    assert_match /attachment/, page.response_headers['Content-Disposition']
-    assert_match /big-star-the-best-of-flac\.zip/, page.response_headers['Content-Disposition']
+    assert_match(/attachment/, page.response_headers['Content-Disposition'])
+    assert_match(/big-star-the-best-of-flac\.zip/, page.response_headers['Content-Disposition'])
     assert_equal 0, @release.reload.downloads
     assert_equal 1, purchase.reload.downloads
   end

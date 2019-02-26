@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def render_text(text)
-    text = '' unless text
+    text ||= ''
     raw RDiscount.new(text).to_html
   end
 

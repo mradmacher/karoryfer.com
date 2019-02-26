@@ -13,6 +13,8 @@ class AlbumsController < CurrentArtistController
     @presenter.discount = Discount.where(reference_id: params[:did]).first if params[:did]
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def download
     artist = Artist.find_by_reference(params[:artist_id])
     album = artist.albums.find_by_reference(params[:id])
@@ -35,6 +37,8 @@ class AlbumsController < CurrentArtistController
       redirect_to artist_album_url(artist, album)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 

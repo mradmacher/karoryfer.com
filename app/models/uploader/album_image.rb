@@ -13,7 +13,7 @@ module Uploader
       process resize_to_limit: [110, 110]
       process convert: 'png'
 
-      def full_filename(_)
+      def full_filename(_something)
         "#{base_filename}_icon.png"
       end
     end
@@ -22,7 +22,7 @@ module Uploader
       process resize_to_limit: [300, 400]
       process convert: 'png'
 
-      def full_filename(_)
+      def full_filename(_something)
         "#{base_filename}_thumb.png"
       end
     end

@@ -69,4 +69,3 @@ class Admin::ReleasesController < AdminController
     )
   end
 end
-

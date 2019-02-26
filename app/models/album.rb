@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Album < ActiveRecord::Base
+class Album < ApplicationRecord
   TITLE_MAX_LENGTH = 40
   REFERENCE_MAX_LENGTH = 40
 
@@ -12,7 +12,7 @@ class Album < ActiveRecord::Base
   has_many :releases
 
   before_destroy do
-    return false unless releases.empty?
+    throw(:abort) unless releases.empty?
   end
 
   validates :artist_id, :title, presence: true

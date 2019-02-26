@@ -10,7 +10,8 @@ class ReleasePresenter < Presenter
   def price
     whole_price = discount ? discount.whole_price : resource.whole_price
     return nil if whole_price.nil?
-    "#{whole_price/100}.#{Kernel.format('%02d', whole_price%100)}"
+
+    "#{whole_price / 100}.#{Kernel.format('%02d', whole_price % 100)}"
   end
 
   def currency
@@ -23,10 +24,10 @@ class ReleasePresenter < Presenter
 
   def downloads
     @downloads ||= if resource.for_sale?
-      Purchase.where(release_id: resource.id).count
-    else
-      resource.downloads
-    end
+                     Purchase.where(release_id: resource.id).count
+                   else
+                     resource.downloads
+                   end
   end
 
   def paypal_url
@@ -34,9 +35,7 @@ class ReleasePresenter < Presenter
   end
 
   def download_path
-    if resource.format != Release::CD
-      download_artist_album_path(resource.album.artist, resource.album, resource.format, pid: purchase_reference_id)
-    end
+    download_artist_album_path(resource.album.artist, resource.album, resource.format, pid: purchase_reference_id) if resource.format != Release::CD
   end
 
   def path
@@ -56,6 +55,6 @@ class ReleasePresenter < Presenter
   end
 
   def can_be_removed?
-    !for_sale? || physical? || downloads == 0
+    !for_sale? || physical? || downloads.zero?
   end
 end
