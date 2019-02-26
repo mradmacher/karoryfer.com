@@ -19,7 +19,7 @@ class TrackPresenter < Presenter
   end
 
   def html_lyrics
-    lyrics.gsub("\n", "<br />").html_safe
+    lyrics.gsub("\n", '<br />').html_safe
   end
 
   def path

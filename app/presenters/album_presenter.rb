@@ -49,5 +49,4 @@ class AlbumPresenter < Presenter
   end
 
   attr_accessor :purchase, :discount
-
 end

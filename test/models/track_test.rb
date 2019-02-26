@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class TrackTest < ActiveSupport::TestCase
-  FIXTURES_DIR = File.expand_path('../../fixtures/tracks', __FILE__)
+  FIXTURES_DIR = File.expand_path('../fixtures/tracks', __dir__)
 
   def test_validates_title_presence
     track = Track.sham! :build

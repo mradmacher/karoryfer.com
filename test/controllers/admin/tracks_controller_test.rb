@@ -10,9 +10,11 @@ class Admin::TracksControllerTest < ActionController::TestCase
   def test_get_edit_succeeds
     track = Track.sham!
     get :edit,
-        artist_id: track.album.artist.to_param,
-        album_id: track.album.to_param,
-        id: track.to_param
+        params: {
+          artist_id: track.album.artist.to_param,
+          album_id: track.album.to_param,
+          id: track.to_param
+        }
     assert_response :success
   end
 
@@ -20,9 +22,11 @@ class Admin::TracksControllerTest < ActionController::TestCase
     track = Track.sham!
     assert_equal 1, Track.count
     delete :destroy,
-           artist_id: track.album.artist.to_param,
-           album_id: track.album.to_param,
-           id: track.to_param
+           params: {
+             artist_id: track.album.artist.to_param,
+             album_id: track.album.to_param,
+             id: track.to_param
+           }
     assert_equal 0, Track.count
     assert_response :redirect
   end
@@ -32,9 +36,11 @@ class Admin::TracksControllerTest < ActionController::TestCase
     track = Track.sham!(:build)
     assert_equal 0, Track.count
     post :create,
-         artist_id: album.artist.to_param,
-         album_id: album.to_param,
-         track: track.attributes
+         params: {
+           artist_id: album.artist.to_param,
+           album_id: album.to_param,
+           track: track.attributes
+         }
     assert_equal 1, Track.count
     assert_response :redirect
   end
@@ -42,10 +48,12 @@ class Admin::TracksControllerTest < ActionController::TestCase
   def test_put_update_succeeds
     track = Track.sham!
     put :update,
-        artist_id: track.album.artist.to_param,
-        album_id: track.album.to_param,
-        id: track.to_param,
-        track: track.attributes
+        params: {
+          artist_id: track.album.artist.to_param,
+          album_id: track.album.to_param,
+          id: track.to_param,
+          track: track.attributes
+        }
     assert_response :redirect
   end
 end

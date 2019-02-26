@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-fixtures_dir = File.expand_path('../fixtures', __FILE__)
+fixtures_dir = File.expand_path('fixtures', __dir__)
 
 def fake_string(klass, method, min, max)
   name = nil
@@ -12,13 +12,11 @@ def fake_string(klass, method, min, max)
 end
 
 def next_integer
-  unless @counter
-    @counter = Fiber.new do
-      i = 1
-      loop do
-        Fiber.yield i
-        i += 1
-      end
+  @counter ||= Fiber.new do
+    i = 1
+    loop do
+      Fiber.yield i
+      i += 1
     end
   end
   @counter.resume

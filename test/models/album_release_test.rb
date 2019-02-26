@@ -1,4 +1,3 @@
-# encoding: utf-8
 # frozen_string_literal: true
 
 require 'test_helper'
@@ -83,7 +82,7 @@ class AlbumReleaseTest < ActiveSupport::TestCase
       assert File.exist? File.join(album_path, 'att2.pdf')
       assert File.exist? File.join(album_path, 'att3.txt')
       album.tracks.each do |track|
-        track_reference = track.title.parameterize('_')
+        track_reference = track.title.parameterize(separator: '_')
 
         filename = "#{format('%02d', track.rank)}-#{track_reference}.#{release.format}"
         track_path = File.join(album_path, filename)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Discount < ActiveRecord::Base
+class Discount < ApplicationRecord
   include Priceable
 
   after_initialize :generate_reference_id

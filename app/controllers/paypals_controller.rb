@@ -16,9 +16,7 @@ class PaypalsController < ApplicationController
     release = Release.find(params[:release_id])
     purchase = Purchase.execute_payment(release, params[:paymentID], params[:payerID], request.remote_ip)
     flash[:purchased] = true
-    if release.digital?
-      flash[:purchase_url] = download_artist_album_url(release.album.artist, release.album, release.format, pid: purchase.reference_id)
-    end
+    flash[:purchase_url] = download_artist_album_url(release.album.artist, release.album, release.format, pid: purchase.reference_id) if release.digital?
     render json: {
       success: true,
       redirect_url: artist_album_path(release.album.artist, release.album, pid: purchase.reference_id)

@@ -2,9 +2,9 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.11'
+gem 'rails', '~> 5.2'
 
-gem 'attr_encrypted', '~> 3.0.0'
+gem 'attr_encrypted'
 gem 'authlogic'
 gem 'carrierwave'
 gem 'dynamic_form'
@@ -20,17 +20,16 @@ gem 'unicorn'
 
 gem 'jquery-rails'
 
-gem 'newrelic_rpm', '>=3.8.0'
-gem 'rubocop', '0.49.0', require: false
-gem 'skylight'
 gem 'bugsnag'
+gem 'newrelic_rpm', '>=3.8.0'
+gem 'rubocop', require: false
+gem 'skylight'
 
 group :test do
   gem 'faker'
   gem 'sham'
   gem 'capybara'
-  # gem 'puma'
-  # gem 'selenium-webdriver'
-  # gem 'database_cleaner' # remove after migrating to Rails 5.1+; https://github.com/teamcapybara/capybara#transactions-and-database-setup
-  gem 'sqlite3'
+  gem 'selenium-webdriver'
+  gem 'puma'
+  gem 'sqlite3', '~> 1.3.0'
 end

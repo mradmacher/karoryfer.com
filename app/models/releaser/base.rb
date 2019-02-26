@@ -52,7 +52,7 @@ module Releaser
     end
 
     def underscore(name)
-      name.parameterize '_'
+      name.parameterize(separator: '_')
     end
 
     def tag_for(track)

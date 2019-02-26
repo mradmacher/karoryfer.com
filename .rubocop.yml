@@ -10,11 +10,6 @@ Metrics/AbcSize:
     - test/**/*.rb
     - config/**/*.rb
 
-Metrics/LineLength:
-  Exclude:
-    - test/**/*.rb
-    - config/**/*.rb
-
 Metrics/PerceivedComplexity:
   Exclude:
     - test/**/*.rb
@@ -32,6 +27,10 @@ Metrics/MethodLength:
 Metrics/LineLength:
   Enabled: false
 Metrics/BlockLength:
+  Enabled: false
+
+# let's disable them for now
+Style/ClassAndModuleChildren:
   Enabled: false
 # Metrics/ParameterLists:
 #   Enabled: false

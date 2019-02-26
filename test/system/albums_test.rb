@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require 'application_system_test_case'
 
-class AlbumViewTest < ActionDispatch::IntegrationTest
+class AlbumViewTest < ApplicationSystemTestCase
   def setup
     # Capybara.current_driver = :selenium_chrome_headless
     @artist = Artist.sham!(reference: 'big-star')

@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase
-  FIXTURES_DIR = File.expand_path('../../fixtures/attachments', __FILE__)
+  FIXTURES_DIR = File.expand_path('../fixtures/attachments', __dir__)
 
   def test_validates_filename_uniqueness_for_album
     existing_file = File.open(File.join(FIXTURES_DIR, 'att1.jpg'))

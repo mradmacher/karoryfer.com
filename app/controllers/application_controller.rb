@@ -10,13 +10,12 @@ class ApplicationController < ActionController::Base
   before_action :set_current_artist
   protect_from_forgery
 
-  unless %w[test development].include?(Rails.env)
-    rescue_from User::AccessDenied, with: proc { redirect_to admin_login_url }
-  end
+  rescue_from User::AccessDenied, with: proc { redirect_to admin_login_url } unless %w[test development].include?(Rails.env)
 
   def current_user
     return @current_user if defined?(@current_user)
-    current_user = current_user_session && current_user_session.user
+
+    current_user = current_user_session&.user
     @current_user = CurrentUserPresenter.new(current_user) if current_user
   end
 
@@ -30,12 +29,14 @@ class ApplicationController < ActionController::Base
 
   def locale_from_params
     return unless params.key?(:l)
+
     l = params[:l].to_s.downcase.strip.to_sym
     cookies.permanent[:karoryfer_locale] = l if I18n.available_locales.include?(l)
   end
 
   def locale_from_cookies
     return unless cookies[:karoryfer_locale]
+
     l = cookies[:karoryfer_locale].to_sym
     l if I18n.available_locales.include?(l)
   end
@@ -54,6 +55,7 @@ class ApplicationController < ActionController::Base
 
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
+
     @current_user_session = UserSession.find
   end
 

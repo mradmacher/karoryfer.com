@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Artist < ActiveRecord::Base
+class Artist < ApplicationRecord
   translates :summary, :description, fallback: :any
   attr_encrypted :paypal_secret, key: proc { ENV['KARORYFER_ENCRYPTION_KEY'] }
 

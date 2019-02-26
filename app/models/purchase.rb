@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Purchase < ActiveRecord::Base
+class Purchase < ApplicationRecord
   MAX_DOWNLOADS = 7
 
   belongs_to :release
@@ -13,7 +13,7 @@ class Purchase < ActiveRecord::Base
   def self.create_payment(release, discount = nil)
     config_paypal(release.album.artist)
     price, currency = release.price_and_currency(discount)
-    paypal_payment = PayPal::SDK::REST::Payment.new({
+    paypal_payment = PayPal::SDK::REST::Payment.new(
       intent: 'sale',
       payer: { payment_method: 'paypal' },
       redirect_urls: {
@@ -35,12 +35,10 @@ class Purchase < ActiveRecord::Base
         },
         description: release.album.artist.name
       }]
-    })
-    if paypal_payment.create
-      paypal_payment.id
-    else
-      raise PaymentError, paypal_payment.error
-    end
+    )
+    raise PaymentError, paypal_payment.error unless paypal_payment.create
+
+    paypal_payment.id
   end
 
   def self.execute_payment(release, payment_id, payer_id, ip)

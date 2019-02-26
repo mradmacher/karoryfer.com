@@ -13,6 +13,7 @@ module Uploader
 
     def filename
       return unless original_filename
+
       if model && model.read_attribute(mounted_as).present?
         model.read_attribute(mounted_as)
       else

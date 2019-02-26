@@ -2,22 +2,16 @@
 
 require 'test_helper'
 
-class PagesControllerTest < ActionController::TestCase
+class AlbumsControllerTest < ActionController::TestCase
   def test_get_index_without_artist_is_not_routable
     assert_raises ActionController::UrlGenerationError do
-      get :index
+      get :index, params: { id: '1' }
     end
   end
 
   def test_get_show_without_artist_is_not_routable
     assert_raises ActionController::UrlGenerationError do
-      get :show, id: Page.sham!.to_param
+      get :show, params: { id: 'album' }
     end
-  end
-
-  def test_get_show_succeeds
-    page = Page.sham!
-    get :show, artist_id: page.artist.to_param, id: page.to_param
-    assert_response :success
   end
 end

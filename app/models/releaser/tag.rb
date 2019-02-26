@@ -80,6 +80,7 @@ module Releaser
       tag.add_field('CONTACT', @contact_url, true)
       tag.add_field('ORGANIZATION', @organization_name, true)
       return if @license_name.nil?
+
       tag.add_field('LICENSE', @license_name, true)
       tag.add_field('COPYRIGHT', copyright, true)
     end

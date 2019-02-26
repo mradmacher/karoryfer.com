@@ -56,4 +56,3 @@ class Admin::ArtistsController < AdminController
     Artist.new
   end
 end
-

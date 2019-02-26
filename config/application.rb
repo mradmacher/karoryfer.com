@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path('../boot', __FILE__)
+require File.expand_path('boot', __dir__)
 
 require 'rails/all'
 
@@ -28,7 +28,6 @@ module Karoryfer
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-    config.active_record.raise_in_transactional_callbacks = true
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -54,5 +53,7 @@ module Karoryfer
     config.assets.version = '1.0'
 
     # config.assets.js_compressor = :uglifier
+
+    Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
   end
 end
