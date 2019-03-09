@@ -65,36 +65,3 @@
 
 <br />
 <%= render partial: 'embeds/all' %>
-
-<script type="text/javascript">
-//<![CDATA[
-$(document).ready(function(){
-	var playlist = new jPlayerPlaylist({
-		jPlayer: "#jquery_jplayer_1",
-		cssSelectorAncestor: "#jp_container_1"
-	}, [
-	], {
-    swfPath: 'https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.swf',
-		supplied: 'oga, mp4'
-	});
-
-  $( '#tracklist > li' ).each(function(index){
-    track = $(this);
-    media = {
-      title: track.find('.title').html(),
-    }
-    if(track.has('[data-format=ogg]').size() > 0 ) {
-      media['oga'] = track.find('[data-format=ogg]').attr('data-url');
-    }
-    if(track.has('[data-format=mp4]').size() > 0 ) {
-      media['mp3'] = track.find('[data-format=mp3]').attr('data-url');
-    }
-    playlist.add(media);
-  });
-
-  $( '#tracklist' ).remove();
-  $('.collapse').collapse('hide');
-});
-
-//]]>
-</script>
