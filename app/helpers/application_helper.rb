@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def link_to_action(title, link, options = {})
-    link_to title, link, options.merge(class: 'btn btn-warning btn-xs')
+    link_to title, link, options.merge(class: 'small button')
   end
 
   alias format_text render_text
@@ -32,7 +32,6 @@ module ApplicationHelper
     items << [t('title.albums'), albums_url, active == 'albums']
     items << [t('title.samples'), artist_url('karoryfer-samples'), active == 'karoryfer-samples']
     items << [t('title.about'), artist_url('karoryfer-lecolds'), active == 'karoryfer-lecolds']
-    items << [t('title.drafts'), admin_drafts_url, active == 'drafts'] if current_user
     items
   end
 

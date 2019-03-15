@@ -3,9 +3,9 @@
 <h2><%= @presenter.login %></h2>
 <p>
   <div class="btn-group">
-    <a href="<%= @presenter.edit_password_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit_password' %></a>
-    <a href="<%= @presenter.edit_path %>" class="btn btn-default btn-xs"><%=t 'action.user.edit' %></a>
-    <a href="<%= @presenter.path %>" class="btn btn-danger btn-xs" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.user.destroy' %></a>
+    <a href="<%= @presenter.edit_password_path %>" class="small button"><%=t 'action.user.edit_password' %></a>
+    <a href="<%= @presenter.edit_path %>" class="small button"><%=t 'action.user.edit' %></a>
+    <a href="<%= @presenter.path %>" class="small secondary button" data-confirm="<%=t 'action.destroy_confirmation' %>" data-method="delete"><%=t 'action.user.destroy' %></a>
   </div>
 </p>
 <dl class="dl-horizontal">

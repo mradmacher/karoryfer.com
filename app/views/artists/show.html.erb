@@ -1,17 +1,26 @@
 <%= render_title %>
 <% if current_user %>
-  <p><%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %></p>
+<p>
+  <a href="<%= artist.new_album_path %>" class="small button"><%= t('action.add_album') %></a>
+  <a href="<%= artist.new_page_path %>" class="small button"><%= t('action.add_page') %></a>
+  &nbsp;
+  <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
+</p>
 <% end %>
-<div class="media">
+<div class="row">
+  <div class="six columns">
   <% if current_artist.image? %>
-    <%= link_to image_tag(@presenter.image.thumb.url, :alt => @presenter.name, :class => 'media-object' ),
-      artist_path( current_artist ), :class => 'pull-left' %>
+    <%= link_to image_tag(@presenter.image.thumb.url, alt: @presenter.name), artist_path( current_artist ) %>
   <% end %>
-  <div class="media-body">
-    <p class="lead"><%= @presenter.summary %></p>
+  </div>
+  <div class="six columns">
+    <p><%= @presenter.summary %></p>
   </div>
 </div>
-<br />
-<div class="long-text">
-  <%= render_text @presenter.description %>
+<div class="row">
+  <div class="twelve columns">
+    <div class="long-text">
+      <%= render_text @presenter.description %>
+    </div>
+  </div>
 </div>

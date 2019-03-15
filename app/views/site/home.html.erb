@@ -1,11 +1,24 @@
 <% content_for :sidebar do %>
-  <% @artist_presenters.each do |artist_presenter| %>
-    <a href="<%= artist_presenter.path %>">
-      <%= image_tag(artist_presenter.image.icon.url, alt: artist_presenter.name, title: artist_presenter.name, class: 'img-rounded img-polaroid') %>
-    </a>
-  <% end %>
+<% @artist_presenters.each do |artist_presenter| %>
+  <a href="<%= artist_presenter.path %>">
+    <%= image_tag(artist_presenter.image.icon.url, alt: artist_presenter.name, title: artist_presenter.name, class: 'rounded') %>
+  </a>
 <% end %>
-<div class="jumbotron">
-  <h1><%=t 'label.site.name' %></h1>
-  <p><%=t 'label.site.desc' %></p>
+<% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="jumbotron">
+      <h1><%= t('label.site.name') %></h1>
+      <p><%= t('label.site.desc') %></p>
+      <br />
+      <p>
+        <a href="<%= facebook_url %>" target="_blank">
+          <%= image_tag('social/facebook.png', alt: 'Facebook', title: 'Facebook') %></a>
+        <a href="<%= twitter_url %>" target="_blank">
+          <%= image_tag('social/twitter.png', alt: 'Twitter', title: 'Twitter') %></a>
+        <a href="<%= youtube_url %>" target="_blank">
+          <%= image_tag('social/youtube.png', alt: 'YouTube', title: 'YouTube') %></a>
+      </p>
+    </div>
+  </div>
 </div>
