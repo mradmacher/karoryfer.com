@@ -49,7 +49,7 @@ pl:
     new_user: <Nowy użytkownik>
     edit_user: Zmiana danych
     edit_password: Zmiana hasła
-    account: Moje konto
+    account: Ja
     pages: Strony
     new_page: <Nowa informacja>
     tracks: Utwory
@@ -61,7 +61,11 @@ pl:
     memberships: Artyści
 
   action:
+    login: Wejście
+    logout: Wyjście
     add_artist: Dodaj artystę
+    add_album: Dodaj wydawnictwo
+    add_page: Dodaj stronę
     track:
       index: Utwory
     attachment:

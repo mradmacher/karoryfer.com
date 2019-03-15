@@ -7,6 +7,6 @@
 </h2>
 <h3><%= @presenter.title %></h3>
 <p>
-  <a href="<%= album.path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+  <a href="<%= album.path %>" class="tertiary small button"><%=t 'action.cancel_new' %></a>
 </p>
 <%= render :partial => 'form', locals: { resource: @presenter.resource } %>

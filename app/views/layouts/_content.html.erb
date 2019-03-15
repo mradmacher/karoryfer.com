@@ -1,12 +1,27 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-<%= content_for?(:sidebar) ? '8' : '12' %>">
-      <%= content_for?(:current_artist) ? yield(:current_artist) : yield %>
-    </div>
-  <% if content_for?(:sidebar) %>
-    <div class="col-md-4">
-      <%= yield :sidebar %>
-    </div>
-  <% end %>
+<div class="row">
+  <div class="col-sm-12">
+    <% if content_for? :actions %>
+      <%= yield :actions %>
+    <% end %>
   </div>
+</div>
+
+<% if content_for?(:header) %>
+<div class="row">
+  <div class="col-sm-12 title">
+  <%= yield(:header) %>
+  </div>
+</div>
+<% end %>
+<div class="row">
+  <div class="col-sm-12 col-md-<%= content_for?(:sidebar) ? '8' : '12' %> col-lg-<%= content_for?(:sidebar) ? '7' : '12' %>">
+    <%= content_for?(:current_artist) ? yield(:current_artist) : yield %>
+  </div>
+<% if content_for?(:sidebar) %>
+  <div class="col-sm-12 col-md-4 col-lg-5">
+    <div class="row">
+    <%= yield :sidebar %>
+    </div>
+  </div>
+<% end %>
 </div>

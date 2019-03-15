@@ -1,9 +1,17 @@
 <%= render_title t('title.albums') %>
-<h1 class="hidden"><%= t 'title.albums' %></h1>
-<ul class="row list-unstyled">
-<% @album_presenters.each do |presenter| %>
-  <li class="col-sm-2 col-md-2 col-lg-2">
-    <div class="thumbnail text-center"><%= render partial: 'albums/album', locals: { album_presenter: presenter } %></div>
-  </li>
+<% content_for(:header) do %>
+  <h1><%= t('title.albums') %></h1>
 <% end %>
-</ul>
+
+<div class="row">
+<% @album_presenters.each do |album_presenter| %>
+<div class="col-sm-6 col-md-4 col-lg-2">
+  <h5><a href="<%= album_presenter.path %>"><%= album_presenter.title %></a> <small><%= album_presenter.artist.name %></small></h5>
+  <% if album_presenter.image? %>
+    <a href="<%= album_presenter.path %>">
+      <%= image_tag(album_presenter.image.icon.url, alt: album_presenter.title, class: 'rounded') %>
+    </a>
+  <% end %>
+</div>
+<% end %>
+</div>

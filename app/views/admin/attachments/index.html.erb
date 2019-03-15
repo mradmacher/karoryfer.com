@@ -7,7 +7,7 @@
 </h2>
 <h3><%= t 'title.attachments' %></h3>
 <p>
-  <a href="<%= album.path %>" class="btn btn-warning btn-xs"><%=t 'action.cancel_new' %></a>
+  <a href="<%= album.path %>" class="small tertiary button"><%=t 'action.cancel_new' %></a>
 </p>
 
 <ul>
@@ -15,7 +15,7 @@
     <li>
       <a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a>
       <% if current_user %>
-        <a href="<%= admin_artist_album_attachment_path(album.artist, album.resource, attachment) %>" class="btn btn-danger btn-xs" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
+        <a href="<%= admin_artist_album_attachment_path(album.artist, album.resource, attachment) %>" class="small secondary button" data-method="delete" data-confirm="<%=t 'action.destroy_confirmation' %>">
           <%=t 'action.delete' %>
         </a>
       <% end %>
