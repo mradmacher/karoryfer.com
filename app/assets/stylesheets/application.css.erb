@@ -1,54 +1,43 @@
 .jumbotron {
-  background: url(<%= asset_path('splash.jpg') %>) no-repeat left;
+  background-image: url(<%= asset_path('splash.jpg') %>);
+  background-repeat: no-repeat;
+  background-position: left top;
   color: white;
-  height: 360px
+  padding: 2% 0% 15% 2%;
+  margin: 0%;
 }
 
-.thumbnail {
-  border: none;
+.jumbotron a, .jumbotron a:link, .jumbotron a:visited {
+  color: white;
 }
 
-.thumbnail a:link, .thumbnail a:visited {
-  color: #000;
+.menu a, .menu a:link, .menu a:visited {
+  text-decoration: none;
+  color: black;
+  margin: 2%;
 }
-
-.media-list .media {
-  padding: 5px;
-}
-
-.album-list {
-  list-style-image: url(<%= asset_path('tags/album.png') %>);
-}
-
-.menu-link {
-  color: #000;
-}
-.main-menu-link {
-  color: #000;
+.main-menu a {
   text-transform: uppercase;
-}
-.nav img {
-  height: 25px;
-  margin-top: 10px;
+  font-size: large;
 }
 
-.hidden {
-  display: none;
+h5 a, h5 a:link, h5 a:visited, h1 a, h1 a:link, h1 a:visited, h2 a, h2 a:link, h2 a:visited  {
+  color: black;
 }
+
+ol {
+  list-style-type: decimal;
+}
+
+.list-unstyled {
+  list-style: none;
+}
+
 .long-text {
   text-align: justify;
   text-justify: newspaper;
 }
 
-.donations a, .donations iframe, .donations form {
-  display: inline;
-}
-
-.download-button {
-  text-transform: uppercase;
-  font-weight: bold;
-  background: url(<%= asset_path('download.png') %>) no-repeat bottom;
-  width: 90px;
-  height: 50px;
-  margin: 10px;
+.title {
+  text-align: center;
 }

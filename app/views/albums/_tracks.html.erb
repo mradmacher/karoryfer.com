@@ -1,25 +1,23 @@
 <% if !@presenter.tracks.empty? %>
-  <h4><%= t 'title.tracks' %></h4>
-  <ol>
-    <% @presenter.tracks.each do |track| %>
-      <li>
-        <% if track.lyrics.present? %>
-          <a data-toggle="collapse" href="#lyrics-<%= track.id %>"><%= track.title %></a>
-          <div class="collapse" id="lyrics-<%= track.id %>"><%= track.html_lyrics %></div>
-        <% else %>
-          <%= track.title %>
-        <% end %>
-        <% if !track.artist_name.blank? or !track.comment.blank? -%>
-          <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
-        <% end -%>
-        <% if track.preview? %>
-          <br />
-          <audio controls>
-            <source src="<%= track.ogg_preview.url %>" type="audio/ogg">
-            <source src="<%= track.mp3_preview.url %>" type="audio/mpeg">
-          </audio>
-        <% end %>
-      </li>
-    <% end %>
-  </ol>
+<h4><%= t 'title.tracks' %></h4>
+<ol>
+<% @presenter.tracks.each do |track| %>
+  <li>
+    <strong><%= track.title %></strong>
+  <% if track.lyrics.present? %>
+    <p class="hidden-sm"><%= track.html_lyrics %></p>
+  <% end %>
+  <% if !track.artist_name.blank? or !track.comment.blank? -%>
+    <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
+  <% end -%>
+  <% if track.preview? %>
+    <br />
+    <audio controls>
+      <source src="<%= track.ogg_preview.url %>" type="audio/ogg">
+      <source src="<%= track.mp3_preview.url %>" type="audio/mpeg">
+    </audio>
+  <% end %>
+  </li>
+<% end %>
+</ol>
 <% end %>

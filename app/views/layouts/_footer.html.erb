@@ -1,26 +1,11 @@
-<div class="container">
-  <div class="row">
+<div class="row">
+  <div class="col-sm-12 menu">
+<% if current_user -%>
     <hr />
-    <div class="col-md-8">
-      <a href="<%= facebook_url %>" target="_blank">
-        <%= image_tag('social/facebook.png', alt: 'Facebook', title: 'Facebook') %></a>
-      <a href="<%= twitter_url %>" target="_blank">
-        <%= image_tag('social/twitter.png', alt: 'Twitter', title: 'Twitter') %></a>
-      <a href="<%= youtube_url %>" target="_blank">
-        <%= image_tag('social/youtube.png', alt: 'YouTube', title: 'YouTube') %></a>
-    </div>
-    <div class="col-md-4">
-      <ul class="list-inline pull-right">
-        <% if current_user -%>
-          <li><a href="<%= current_user.logout_path %>" class="btn btn-default btn-xs"><%= t('action.logout') %></a></li>
-          <li><a href="<%= current_user.account_path %>" class="btn btn-default btn-xs"><%= t('title.account') %></a></li>
-        <% else -%>
-          <li><a href="<%= admin_login_path %>" class="btn btn-default btn-xs">&nbsp;</a></li>
-        <% end %>
-        <% if current_user %>
-          <li><a  href="<%= admin_users_path %>" class="btn btn-default btn-xs"><%= t('title.users') %></a></li>
-        <% end %>
-      </ul>
-    </div>
+    <a href="<%= admin_drafts_url %>"><%= t('title.drafts') %></a>
+    <a href="<%= admin_users_path %>"><%= t('title.users') %></a>
+    <a href="<%= current_user.account_path %>"><%= t('title.account') %></a>
+    <a href="<%= current_user.logout_path %>"><%= t('action.logout') %></a>
+<% end %>
   </div>
 </div>

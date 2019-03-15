@@ -49,7 +49,7 @@ en:
     new_user: <New user>
     edit_user: Edit user
     edit_password: Change password
-    account: My account
+    account: Me
     pages: Pages
     new_page: <New page>
     tracks: Tracks
@@ -61,9 +61,11 @@ en:
     memberships: Artists
 
   action:
-    login: Log in
-    logout: Log out
+    login: Entry
+    logout: Exit
     add_artist: Add artist
+    add_album: Add release
+    add_page: Add page
     track:
       index: Utwory
     attachment:

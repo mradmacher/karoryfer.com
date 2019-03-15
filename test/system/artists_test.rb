@@ -7,6 +7,6 @@ class ArtistViewTest < ApplicationSystemTestCase
     artist = Artist.sham!(reference: 'a-real-star', name: 'A Real Star')
     visit('/a-real-star')
     assert_equal artist_path(artist), current_path
-    assert page.has_content?('A REAL STAR')
+    assert page.has_content?('A Real Star')
   end
 end

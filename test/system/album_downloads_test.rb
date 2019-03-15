@@ -57,14 +57,11 @@ class AlbumDownloadsTest < ApplicationSystemTestCase
 
   def test_download_fails_when_download_limit_exceeded
     @release.update(for_sale: true, price: 20.0, currency: 'USD')
-    purchase = Purchase.create(release: @release, reference_id: 'xyz', downloads: 6)
+    purchase = Purchase.create(release: @release, reference_id: 'xyz', downloads: 7)
 
-    visit('/big-star/wydawnictwa/the-best-of/flac?pid=xyz')
-    assert_equal 7, purchase.reload.downloads
-
-    visit('/big-star/wydawnictwa/the-best-of/flac?pid=xyz')
+    visit('/big-star/wydawnictwa/the-best-of/flac?pid=xyz?l=pl')
     assert_equal artist_album_path(@artist, @album), current_path
-    assert page.has_content?('Limit pobrań został przekroczony.')
     assert_equal 7, purchase.reload.downloads
+    assert page.has_content?('Limit pobrań został przekroczony.')
   end
 end

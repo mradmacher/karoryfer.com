@@ -5,63 +5,71 @@
     <small><%= t('label.album.unpublished') %></small>
   <% end %>
 </h2>
-<%= render 'purchase' %>
 <% if current_user %>
 <p>
-  <div class="btn-group">
-    <a href="<%= admin_artist_album_tracks_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'title.tracks' %></a>
-    <a href="<%= admin_artist_album_attachments_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'title.attachments' %></a>
-    <a href="<%= admin_artist_album_releases_path(@presenter.artist, @presenter.resource) %>" class="btn btn-default btn-xs"><%=t 'title.releases' %></a>
-  </div>
+  <a href="<%= admin_artist_album_tracks_path(@presenter.artist, @presenter.resource) %>" class="small button"><%=t 'title.tracks' %></a>
+  <a href="<%= admin_artist_album_attachments_path(@presenter.artist, @presenter.resource) %>" class="small button"><%=t 'title.attachments' %></a>
+  <a href="<%= admin_artist_album_releases_path(@presenter.artist, @presenter.resource) %>" class="small button"><%=t 'title.releases' %></a>
   &nbsp;
   <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
 </p>
 <% end %>
+<p class="ms-text-right"><%= @presenter.year.to_s %></p>
 
-<p><%= @presenter.year.to_s %></p>
-<div class="media">
+<div class="row">
+  <div class="col-sm-12">
+  <%= render 'purchase' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-6">
   <% if @presenter.image? %>
-    <%= link_to image_tag( @presenter.image.thumb.url, :alt => @presenter.title, :class => 'media-object' ), @presenter.image.url,
-      :class => 'pull-left' %>
+    <%= link_to image_tag( @presenter.image.thumb.url, alt: @presenter.title), @presenter.image.url %>
+    <% if @presenter.license %>
+    <p class="license-wrapper"><%= render :partial => 'licenses/cc', locals: { author: @presenter.artist, license: @presenter.license } %></p>
+    <% end %>
   <% end %>
-  <div class="media-body">
+  </div>
+  <div class="col-sm-12 col-md-6">
     <%= render 'releases' %>
   </div>
 </div>
 
-<% if @presenter.license.present? %>
-<br />
-<p><%= render :partial => 'licenses/cc', locals: { author: @presenter.artist, license: @presenter.license } %></p>
-<% end %>
+<div class="col-sm-12">
+  <div class="text-info"><%= flash[:notice] %></div>
+</div>
 
-<br />
-<div class="text-info"><%= flash[:notice] %></div>
-
+<div class="col-sm-12">
 <% if current_user %>
-  <%=t 'label.release.downloads' %>:
+  <%= t('label.release.downloads') %>:
   <ul>
     <% @presenter.releases.each do |release| %>
       <li><%= release.format %>: <%= release.downloads %></li>
     <% end %>
   </ul>
 <% end %>
+</div>
 
 <% unless @presenter.donation.blank? %>
-  <p><%=raw @presenter.donation %></p>
+<div class="col-sm-12">
+  <p class="description-wrapper"><%=raw @presenter.donation %></p>
+</div>
 <% end %>
 
-<%= render_text @presenter.description %>
+<div class="col-sm-12">
+  <p class="description-wrapper"><%= render_text @presenter.description %></p>
+</div>
 
 <%= render 'tracks' %>
 
 <% if !@presenter.attachments.empty? %>
-  <h4><%= t 'title.attachments' %></h4>
-  <ul>
-    <% @presenter.attachments.each do |attachment| %>
-      <li><a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a></li>
-    <% end %>
-  </ul>
+<h4><%= t 'title.attachments' %></h4>
+<ul>
+  <% @presenter.attachments.each do |attachment| %>
+    <li><a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a></li>
+  <% end %>
+</ul>
 <% end %>
 
-<br />
-<%= render partial: 'embeds/all' %>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
