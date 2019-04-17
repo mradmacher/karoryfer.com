@@ -37,6 +37,7 @@ en:
       #extension_black_list_error: "You are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
 
   title:
+    shop: Shop
     about: About
     artists: Artists
     new_artist: <New Artist>
