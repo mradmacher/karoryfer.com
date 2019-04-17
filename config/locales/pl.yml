@@ -37,6 +37,7 @@ pl:
       #extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
 
   title:
+    shop: Sklep
     about: O nas
     artists: Artyści
     new_artist: <Nowy artysta>
