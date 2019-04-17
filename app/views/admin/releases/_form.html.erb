@@ -4,7 +4,7 @@
     <% unless resource.persisted? %>
       <div class="form-group">
         <%= f.label :format, t('label.release.format') %>
-        <%= f.select :format, [Release::ZIP, Release::BANDCAMP, Release::CD], class: 'form-control' %>
+        <%= f.select :format, [Release::ZIP, Release::EXTERNAL, Release::CD], class: 'form-control' %>
       </div>
       <div class="form-group">
         <%= f.label :file, t('label.release.file') %>
@@ -20,8 +20,8 @@
         <%= f.collection_select :file, @presenter.available_files, :to_s, :to_s, { include_blank: true } %>
       </div>
       <div class="form-group">
-        <%= f.label :bandcamp_url, t('label.release.bandcamp_url') %>
-        <%= f.text_field :bandcamp_url, class: 'form-control' %>
+        <%= f.label :external_url, t('label.release.external_url') %>
+        <%= f.text_field :external_url, class: 'form-control' %>
       </div>
       <hr />
     <% end %>
@@ -39,6 +39,10 @@
       <div class="form-group">
         <%= f.label :currency, t('label.release.currency') %>
         <%= f.select :currency, ['PLN', 'USD'], class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :external_url, t('label.release.external_url') %>
+        <%= f.text_field :external_url, class: 'form-control' %>
       </div>
     </div>
   </div>

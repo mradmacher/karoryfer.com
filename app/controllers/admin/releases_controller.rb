@@ -62,7 +62,7 @@ class Admin::ReleasesController < AdminController
       :album_id,
       :format,
       :file,
-      :bandcamp_url,
+      :external_url,
       :for_sale,
       :price,
       :currency

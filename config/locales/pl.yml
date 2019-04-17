@@ -142,10 +142,17 @@ pl:
       downloads: Ilość pobrań
       format: Format
       file: Plik
-      bandcamp_url: Bandcamp URL
+      external_url: Zewnętrzne URL
       for_sale: Na sprzedaż?
       price: Cena
       currency: Waluta
+    release_format:
+      flac: flac
+      mp3: mp3
+      ogg: ogg
+      zip: zip
+      cd: cd
+      external: Sklep
     attachment:
       file: Plik
     track:
@@ -240,7 +247,7 @@ pl:
               inclusion: ^dopuszczalne formaty to ogg, mp3 i flac
             file:
               blank: ^proszę załączyć plik
-            bandcamp_url:
+            external_url:
               invalid: ^proszę podać poprawne URL
             whole_price:
               blank: ^proszę podać cenę

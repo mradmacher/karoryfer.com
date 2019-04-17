@@ -14,7 +14,7 @@ Karoryfer::Application.routes.draw do
   scope ':artist_id', as: 'artist' do
     resources :albums, path: 'wydawnictwa', only: %i[show] do
       member do
-        get ':download', to: 'albums#download', as: 'download', constraints: { download: /mp3|ogg|flac|zip|bandcamp/ }
+        get ':download', to: 'albums#download', as: 'download', constraints: { download: /mp3|ogg|flac|zip|external/ }
       end
     end
     resources :pages, path: '-', only: %i[show]
