@@ -5,9 +5,9 @@ class Release < ApplicationRecord
   FLAC = 'flac'
   MP3 = 'mp3'
   ZIP = 'zip'
-  BANDCAMP = 'bandcamp'
+  EXTERNAL = 'external'
   CD = 'cd'
-  FORMATS = [MP3, OGG, FLAC, ZIP, BANDCAMP, CD].freeze
+  FORMATS = [MP3, OGG, FLAC, ZIP, EXTERNAL, CD].freeze
 
   include Priceable
 
@@ -20,7 +20,7 @@ class Release < ApplicationRecord
   validates :format, presence: true
   validates :format, inclusion: { in: FORMATS }
   validates :file, presence: true, if: :zip_release?
-  validates :bandcamp_url, format: %r{\Ahttps://\w+\.bandcamp\.com/album}, if: :bandcamp_release?
+  validates :external_url, format: %r{\Ahttps?://\w+}, if: :external_release?
   validates :whole_price, presence: true, if: :for_sale?
   validates :currency, presence: true, if: :for_sale?
 
@@ -43,7 +43,7 @@ class Release < ApplicationRecord
   end
 
   def url
-    format == BANDCAMP ? bandcamp_url : file&.url
+    format == EXTERNAL ? external_url : file&.url
   end
 
   def generate!
@@ -72,7 +72,7 @@ class Release < ApplicationRecord
     format == ZIP
   end
 
-  def bandcamp_release?
-    format == BANDCAMP
+  def external_release?
+    format == EXTERNAL
   end
 end

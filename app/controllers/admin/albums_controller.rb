@@ -35,7 +35,7 @@ class Admin::AlbumsController < AdminController
 
   def destroy
     find.destroy
-    redirect_to artist_albums_url(current_artist)
+    redirect_to artist_url(current_artist)
   end
 
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_163857) do
+ActiveRecord::Schema.define(version: 2019_04_17_074255) do
 
   create_table "albums", force: :cascade do |t|
     t.string "title", limit: 80, null: false
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_163857) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "downloads", default: 0, null: false
-    t.string "bandcamp_url", limit: 255
+    t.string "external_url", limit: 255
     t.boolean "for_sale"
     t.string "currency"
     t.integer "whole_price"
