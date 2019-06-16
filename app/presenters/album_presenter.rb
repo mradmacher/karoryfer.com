@@ -45,7 +45,7 @@ class AlbumPresenter < Presenter
   end
 
   def releases
-    @releases = resource.releases.map { |r| ReleasePresenter.new(r) }
+    @releases = resource.releases.where(published: true).map { |r| ReleasePresenter.new(r) }
   end
 
   def tracks
