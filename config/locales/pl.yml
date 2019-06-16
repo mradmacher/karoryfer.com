@@ -153,7 +153,7 @@ pl:
       ogg: ogg
       zip: zip
       cd: cd
-      external: Sklep
+      external: Kup w naszym sklepie
     attachment:
       file: Plik
     track:

@@ -66,6 +66,10 @@ class Release < ApplicationRecord
     id == purchase&.release_id
   end
 
+  def external?
+    external_release?
+  end
+
   private
 
   def zip_release?

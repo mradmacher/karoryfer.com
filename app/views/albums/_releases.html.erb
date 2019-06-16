@@ -1,5 +1,14 @@
 <% if !@presenter.releases.empty? %>
 <div class="row">
+  <% if @presenter.external_releases.any? %>
+  <div class="col-sm-12">
+    <% @presenter.external_releases.each do |release| %>
+      <a href="<%= release.download_path %>">
+        <%= image_tag("external_download_#{I18n.locale}.png", title: t("label.release_format.#{release.format}"), alt: t("label.release_format.#{release.format}")) %>
+      </a>
+    <% end %>
+  </div>
+  <% end %>
   <% if @presenter.free_releases.any? %>
   <div class="col-sm-12">
     <% @presenter.free_releases.each do |release| %>
