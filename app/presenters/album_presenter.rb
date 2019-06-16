@@ -28,7 +28,11 @@ class AlbumPresenter < Presenter
   end
 
   def free_releases
-    releases.reject(&:for_sale?)
+    releases.reject(&:for_sale?).reject(&:external?)
+  end
+
+  def external_releases
+    releases.select(&:external?)
   end
 
   def paid_releases
