@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_17_074255) do
+ActiveRecord::Schema.define(version: 2019_06_16_200913) do
 
   create_table "albums", force: :cascade do |t|
     t.string "title", limit: 80, null: false
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 2019_04_17_074255) do
     t.boolean "for_sale"
     t.string "currency"
     t.integer "whole_price"
+    t.boolean "published", default: true
     t.index ["album_id", "format"], name: "releases_album_format_key", unique: true
     t.index ["album_id"], name: "releases_album_id_index"
   end

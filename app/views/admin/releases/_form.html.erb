@@ -40,10 +40,6 @@
         <%= f.label :currency, t('label.release.currency') %>
         <%= f.select :currency, ['PLN', 'USD'], class: 'form-control' %>
       </div>
-      <div class="form-group">
-        <%= f.label :external_url, t('label.release.external_url') %>
-        <%= f.text_field :external_url, class: 'form-control' %>
-      </div>
     </div>
   </div>
   <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
