@@ -140,7 +140,7 @@ pl:
       player: Lista utworów
       description: Opis
     release:
-      downloads: Ilość pobrań
+      downloads: Pobrania
       format: Format
       file: Plik
       external_url: Zewnętrzne URL

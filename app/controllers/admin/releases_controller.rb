@@ -65,6 +65,7 @@ class Admin::ReleasesController < AdminController
       :external_url,
       :for_sale,
       :price,
+      :remove_file,
       :currency
     )
   end

@@ -24,12 +24,13 @@ class AlbumsController < CurrentArtistController
       if purchase&.downloads_exceeded?
         flash[:downloads_exceeded] = true
         redirect_to artist_album_url(artist, album)
+      elsif release.external_url.present?
+        purchase&.increment!(:downloads) || release.increment!(:downloads)
+        redirect_to release.external_url
       elsif release.file?
         purchase&.increment!(:downloads) || release.increment!(:downloads)
         response.headers['Content-Length'] = release.file.size.to_s
         send_file release.file.path, disposition: 'attachment', type: 'application/zip'
-      elsif release.url
-        redirect_to release.url
       else
         redirect_to artist_album_url(artist, album)
       end

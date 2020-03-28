@@ -46,6 +46,10 @@ class Release < ApplicationRecord
     format == EXTERNAL ? external_url : file&.url
   end
 
+  def file_name
+    File.basename(file.path) if file?
+  end
+
   def generate!
     releaser = Releaser::AlbumReleaser.new(Publisher.instance, album, format)
     releaser.generate do |release_file_path|
