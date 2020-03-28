@@ -13,9 +13,11 @@
 <ul>
   <% album.releases.each do |release| %>
     <li>
-      <%= release.format %>&nbsp;(<%= release.url %>)
+      <%= release.format %>&nbsp;(<%=t 'label.release.downloads' %>: <%= release.downloads %>)
       <br />
-      <%=t 'label.release.downloads' %>: <%= release.downloads %>
+      <%= release.file_name %>
+      <br />
+      <%= release.external_url %>
       <br />
       <% if current_user %>
         <div class="btn-group">

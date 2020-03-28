@@ -6,25 +6,26 @@
         <%= f.label :format, t('label.release.format') %>
         <%= f.select :format, [Release::ZIP, Release::EXTERNAL, Release::CD], class: 'form-control' %>
       </div>
-      <div class="form-group">
-        <%= f.label :file, t('label.release.file') %>
-        <% if resource.file? %>
-          <p class="help-block"><%= File.basename(resource.file.path) %></p>
-          <div class="checkbox">
-            <%= f.label :remove_file do %>
-              <%= f.check_box :remove_file %>
-              <%= t('action.remove_file') %>
-            <% end %>
-          </div>
-        <% end %>
-        <%= f.collection_select :file, @presenter.available_files, :to_s, :to_s, { include_blank: true } %>
-      </div>
-      <div class="form-group">
-        <%= f.label :external_url, t('label.release.external_url') %>
-        <%= f.text_field :external_url, class: 'form-control' %>
-      </div>
-      <hr />
     <% end %>
+    <div class="form-group">
+      <%= f.label :file, t('label.release.file') %>
+      <% if resource.file? %>
+        <p class="help-block"><%= File.basename(resource.file.path) %></p>
+        <div class="checkbox">
+          <%= f.label :remove_file do %>
+            <%= f.check_box :remove_file %>
+            <%= t('action.remove_file') %>
+          <% end %>
+        </div>
+      <% else %>
+        <%= f.collection_select :file, @presenter.available_files, :to_s, :to_s, { include_blank: true } %>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.label :external_url, t('label.release.external_url') %>
+      <%= f.text_field :external_url, class: 'form-control' %>
+    </div>
+    <hr />
     <div class="form-group">
       <div class="checkbox">
         <%= f.label :for_sale do %>

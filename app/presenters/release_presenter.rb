@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReleasePresenter < Presenter
-  def_delegators(:resource, :id, :album, :format, :url, :file?, :for_sale?, :digital?, :physical?, :external?)
+  def_delegators(:resource, :id, :album, :format, :external_url, :file_name, :url, :file?, :for_sale?, :digital?, :physical?, :external?)
 
   def title
     format
