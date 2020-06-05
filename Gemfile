@@ -2,7 +2,7 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 5.2.4'
 
 gem 'attr_encrypted'
 gem 'authlogic'
