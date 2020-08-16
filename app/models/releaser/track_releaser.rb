@@ -1,33 +1,46 @@
 # frozen_string_literal: true
 
 module Releaser
-  class TrackReleaser < Releaser::Base
-    def ogg_quality
-      3
+  class TrackReleaser
+    QUALITY = {
+      Release::OGG => 3,
+      Release::MP3 => 6
+    }.freeze
+    attr_reader :track, :publisher
+
+    def initialize(track, publisher:)
+      @track = track
+      @publisher = publisher
     end
 
-    def mp3_quality
-      6
-    end
-
-    def release_url
-      return if releaseable.nil?
-
-      Rails.application.routes.url_helpers.artist_album_url(
-        releaseable.artist, releaseable.album, host: publisher.host
-      )
-    end
-
-    def prepare_release(working_dir)
-      output_dir = working_dir
-      generate_files(output_dir)
-      "#{track_file_basename(releaseable)}.#{format}"
+    def with_release(format)
+      generator.within_tmp_dir do |tmp_dir|
+        filename = prepare_release(tmp_dir, format)
+        yield File.join(tmp_dir, filename)
+      end
     end
 
     private
 
-    def generate_files(output_dir)
-      generate_track(releaseable, output_dir)
+    def prepare_release(working_dir, format)
+      output_dir = working_dir
+      generate_files(output_dir, format)
+      "#{track_file_basename(track)}.#{format}"
+    end
+
+    def generator
+      @generator ||= ::Releaser::Generator.new
+    end
+
+    def generate_files(output_dir, format)
+      generator.generate_track(
+        track.file.path,
+        output_dir,
+        track.id.to_s,
+        tags: ::Releaser::Tags.build_for(track, publisher: publisher),
+        format: format,
+        quality: QUALITY[format]
+      )
     end
 
     def track_file_basename(track)

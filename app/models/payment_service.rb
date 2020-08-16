@@ -37,7 +37,7 @@ class PaymentService
   def send_confirmation(purchase, payer_info)
     PurchaseMailer.with(
       email: payer_info.email,
-      name: payer_info.first_name,
+      name: payer_info.first_name
     ).confirmation(purchase.release, purchase.reference_id).deliver_later
   end
 end

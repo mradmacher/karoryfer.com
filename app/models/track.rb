@@ -19,8 +19,7 @@ class Track < ApplicationRecord
   default_scope -> { order('rank asc') }
 
   before_destroy :remove_file!
-  before_destroy :remove_ogg_preview!
-  before_destroy :remove_mp3_preview!
+  before_destroy :remove_preview!
 
   def file=(value)
     if value.is_a? String
@@ -39,8 +38,9 @@ class Track < ApplicationRecord
   end
 
   def generate_preview!
-    releaser('ogg').generate { |path| self.ogg_preview = File.open(path) }
-    releaser('mp3').generate { |path| self.mp3_preview = File.open(path) }
+    releaser = Releaser::TrackReleaser.new(self, publisher: Publisher.instance)
+    releaser.with_release(Release::OGG) { |path| self.ogg_preview = File.open(path) }
+    releaser.with_release(Release::MP3) { |path| self.mp3_preview = File.open(path) }
     save
   end
 
@@ -52,11 +52,5 @@ class Track < ApplicationRecord
     self.remove_ogg_preview = true
     self.remove_mp3_preview = true
     save
-  end
-
-  private
-
-  def releaser(format)
-    Releaser::TrackReleaser.new(Publisher.instance, self, format)
   end
 end

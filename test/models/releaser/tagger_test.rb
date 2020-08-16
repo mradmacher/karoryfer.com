@@ -2,24 +2,25 @@
 
 require 'test_helper'
 
-class TagTest < ActiveSupport::TestCase
+class TaggerTest < ActiveSupport::TestCase
   def setup
     @tmp_dir = Dir.mktmpdir
     FileUtils.cp(File.join(FIXTURES_DIR, 'test.flac'), @tmp_dir)
     FileUtils.cp(File.join(FIXTURES_DIR, 'test.ogg'), @tmp_dir)
     FileUtils.cp(File.join(FIXTURES_DIR, 'test.mp3'), @tmp_dir)
-    @tag = Releaser::Tag.new
-    @tag.artist = 'Jęczące Brzękodźwięki'
-    @tag.album = 'Tłuczące pokrowce jeżozwierza'
-    @tag.year = (1933..2020).to_a.sample
-    @tag.title = Faker::Lorem.words.join(' ')
-    @tag.track = (1..20).to_a.sample
-    @tag.comment = Faker::Lorem.sentence
-    @tag.contact_url = Faker::Internet.url
-    @tag.organization_name = Faker::Name.name
-    @tag.organization_url = Faker::Internet.url
-    @tag.license_name = Faker::Lorem.word
-    @tag.copyright = Faker::Lorem.sentence
+    @tagger = Releaser::Tagger.new
+    @tags = Releaser::Tags.new
+    @tags.artist = 'Jęczące Brzękodźwięki'
+    @tags.album = 'Tłuczące pokrowce jeżozwierza'
+    @tags.year = (1933..2020).to_a.sample
+    @tags.title = Faker::Lorem.words.join(' ')
+    @tags.track = (1..20).to_a.sample
+    @tags.comment = Faker::Lorem.sentence
+    @tags.contact_url = Faker::Internet.url
+    @tags.organization_name = Faker::Name.name
+    @tags.organization_url = Faker::Internet.url
+    @tags.license_name = Faker::Lorem.word
+    @tags.copyright = Faker::Lorem.sentence
   end
 
   def teardown
@@ -28,25 +29,25 @@ class TagTest < ActiveSupport::TestCase
 
   def test_applies_tags_to_flac_file
     path = File.join(@tmp_dir, 'test.flac')
-    @tag.apply_to(path)
+    @tagger.apply_to(path, @tags)
     fetch_tags(path) do |found|
-      assert_vorbis_tags(@tag, found)
+      assert_vorbis_tags(@tags, found)
     end
   end
 
   def test_applies_tags_to_ogg_file
     path = File.join(@tmp_dir, 'test.ogg')
-    @tag.apply_to(path)
+    @tagger.apply_to(path, @tags)
     fetch_tags(path) do |found|
-      assert_vorbis_tags(@tag, found)
+      assert_vorbis_tags(@tags, found)
     end
   end
 
   def test_applies_tags_to_mp3_file
     path = File.join(@tmp_dir, 'test.mp3')
-    @tag.apply_to(path)
+    @tagger.apply_to(path, @tags)
     fetch_tags(path) do |found|
-      assert_mp3_tags(@tag, found)
+      assert_mp3_tags(@tags, found)
     end
   end
 
@@ -116,10 +117,10 @@ class TagTest < ActiveSupport::TestCase
   end
 
   def test_copyright_description
-    @tag = Releaser::Tag.new
-    @tag.contact_url = 'http://www.example.com.pl'
-    @tag.license_name = 'CC-BY-SA'
+    @tags = Releaser::Tags.new
+    @tags.contact_url = 'http://www.example.com.pl'
+    @tags.license_name = 'CC-BY-SA'
     expected = 'Licensed to the public under CC-BY-SA verify at http://www.example.com.pl'
-    assert_equal expected, @tag.copyright_description
+    assert_equal expected, @tags.copyright_description
   end
 end

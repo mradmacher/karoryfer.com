@@ -18,7 +18,7 @@ class AlbumsControllerTest < ActionController::TestCase
   def test_download_succeeds_if_release_in_provided_format_exists
     artist = Artist.sham!(reference: 'big-star')
     album = Album.sham!(:published, artist: artist, reference: 'the-best-of')
-    release = Release.sham!(album: album, format: Release::FLAC)
+    Release.sham!(album: album, format: Release::FLAC)
 
     get :download, params: { artist_id: 'big-star', id: 'the-best-of', download: 'flac' }
     assert_equal 'application/zip', response.headers['Content-Type']

@@ -53,6 +53,6 @@ Karoryfer::Application.configure do
     domain: 'example.com',
     authentication: 'plain',
     user_name: 'ex',
-    password: 'ample',
+    password: 'ample'
   }
 end

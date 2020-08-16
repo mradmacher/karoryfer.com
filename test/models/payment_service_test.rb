@@ -40,6 +40,7 @@ class PaymentServiceTest < ActiveSupport::TestCase
     def payer_info.email
       'test@karoryfer.com'
     end
+
     def payer_info.first_name
       'Test'
     end
@@ -58,6 +59,7 @@ class PaymentServiceTest < ActiveSupport::TestCase
       def payer_info.email
         'test@karoryfer.com'
       end
+
       def payer_info.first_name
         'Test'
       end

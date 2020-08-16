@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PurchaseMailer < ApplicationMailer
   def confirmation(release, reference_id)
     @name = params[:name]

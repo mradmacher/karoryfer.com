@@ -29,8 +29,4 @@ class TrackReleaseTest < ActiveSupport::TestCase
     assert_equal "#{@track.id}.mp3", File.basename(mp3_file_path)
     assert `file #{mp3_file_path}` =~ /MPEG/
   end
-
-  def expected_release_url(track)
-    "#{Publisher.instance.url}/#{track.artist.reference}/wydawnictwa/#{track.album.reference}"
-  end
 end
