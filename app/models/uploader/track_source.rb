@@ -2,7 +2,7 @@
 
 module Uploader
   class TrackSource < CarrierWave::Uploader::Base
-    def extension_white_list
+    def extension_whitelist
       %w[wav]
     end
 

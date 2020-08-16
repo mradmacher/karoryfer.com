@@ -1,47 +1,63 @@
 # frozen_string_literal: true
 
 module Releaser
-  class AlbumReleaser < Releaser::Base
-    def ogg_quality
-      6
+  class AlbumReleaser
+    QUALITY = {
+      Release::OGG => 10,
+      Release::MP3 => 0
+    }.freeze
+    attr_reader :album, :publisher
+
+    def initialize(album, publisher:)
+      @album = album
+      @publisher = publisher
     end
 
-    def mp3_quality
-      1
+    def with_release(format)
+      generator.within_tmp_dir do |working_dir|
+        filename = prepare_release(working_dir, format)
+        yield File.join(working_dir, filename)
+      end
     end
 
-    def release_url
-      return if releaseable.nil?
+    private
 
-      Rails.application.routes.url_helpers.artist_album_url(
-        releaseable.artist, releaseable, host: publisher.host
-      )
+    def generator
+      @generator ||= ::Releaser::Generator.new
     end
 
-    def prepare_release(working_dir)
-      album_dir = File.join(releaseable.artist.reference, releaseable.reference)
+    def prepare_release(working_dir, format)
+      album_dir = File.join(album.artist.reference, album.reference)
       output_dir = File.join(working_dir, album_dir)
 
-      generate_files(output_dir)
-
+      generate_files(output_dir, format)
       copy_attachments(output_dir)
 
-      archive_name = "#{releaseable.artist.reference}-#{releaseable.reference}-#{format}.zip"
+      archive_name = "#{album.artist.reference}-#{album.reference}-#{format}.zip"
       make_archive(working_dir, archive_name)
 
       archive_name
     end
 
-    private
+    def underscore(name)
+      name.parameterize(separator: '_')
+    end
 
-    def generate_files(output_dir)
-      releaseable.tracks.each do |track|
-        generate_track(track, output_dir)
+    def generate_files(output_dir, format)
+      album.tracks.each do |track|
+        generator.generate_track(
+          track.file.path,
+          output_dir,
+          track_file_basename(track),
+          tags: ::Releaser::Tags.build_for(track, publisher: publisher),
+          format: format,
+          quality: QUALITY[format]
+        )
       end
     end
 
     def copy_attachments(output_dir)
-      releaseable.attachments.each do |attachment|
+      album.attachments.each do |attachment|
         FileUtils.cp(attachment.file.current_path, output_dir)
       end
     end

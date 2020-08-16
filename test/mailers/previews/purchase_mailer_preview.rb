@@ -1,4 +1,3 @@
-# encoding: utf-8
 # frozen_string_literal: true
 
 # Preview all emails at http://localhost:3000/rails/mailers/purchase_mailer
@@ -8,7 +7,7 @@ class PurchaseMailerPreview < ActionMailer::Preview
     purchase = Purchase.where(release: release).first
     PurchaseMailer.with(
       email: 'test@example.com',
-      name: 'Tonny',
+      name: 'Tonny'
     ).confirmation(purchase.release, purchase.reference_id)
   end
 end

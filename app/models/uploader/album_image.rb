@@ -31,7 +31,7 @@ module Uploader
       File.join(Rails.root, 'public', 'uploads', 'obrazki', 'wydawnictwa')
     end
 
-    def extension_white_list
+    def extension_whitelist
       %w[jpg jpeg png gif]
     end
 

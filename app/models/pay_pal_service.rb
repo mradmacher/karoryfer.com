@@ -2,7 +2,7 @@
 
 class PayPalService
   def self.build_for(artist)
-    self.new(artist.paypal_id, artist.paypal_secret, live: Rails.env.production?)
+    new(artist.paypal_id, artist.paypal_secret, live: Rails.env.production?)
   end
 
   def initialize(service_id, service_secret, live: true)
@@ -37,6 +37,7 @@ class PayPalService
       }]
     )
     raise PaymentService::PaymentError, paypal_payment.error unless paypal_payment.create
+
     paypal_payment.id
   end
 

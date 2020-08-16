@@ -51,8 +51,8 @@ class Release < ApplicationRecord
   end
 
   def generate!
-    releaser = Releaser::AlbumReleaser.new(Publisher.instance, album, format)
-    releaser.generate do |release_file_path|
+    releaser = Releaser::AlbumReleaser.new(album, publisher: Publisher.instance)
+    releaser.with_release(format) do |release_file_path|
       self.file = File.open(release_file_path)
     end
     save

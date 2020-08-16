@@ -33,7 +33,7 @@ en:
       #carrierwave_processing_error: "Cannot resize image."
       #carrierwave_integrity_error: "Not an image."
       #carrierwave_download_error: "Couldn't download image."
-      extension_white_list_error: "^Nie możesz przesłać pliku typu %{extension}. Poprawne typy plików: %{allowed_types}."
+      extension_whitelist_error: "^You can't send %{extension} files. Only %{allowed_types} files are allowed."
       #extension_black_list_error: "You are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
 
   title:

@@ -77,6 +77,6 @@ Karoryfer::Application.configure do
     domain: 'karoryfer.com',
     authentication: 'plain',
     user_name: ENV['MAILER_USER_NAME'],
-    password: ENV['MAILER_PASSWORD'],
+    password: ENV['MAILER_PASSWORD']
   }
 end

@@ -32,7 +32,7 @@ Metrics/BlockLength:
 # let's disable them for now
 Style/ClassAndModuleChildren:
   Enabled: false
-# Metrics/ParameterLists:
-#   Enabled: false
+Metrics/ParameterLists:
+  Enabled: false
 # Metrics/CyclomaticComplexity:
 #   Enabled: false
