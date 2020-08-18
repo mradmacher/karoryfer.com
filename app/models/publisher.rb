@@ -20,4 +20,14 @@ class Publisher
   def album_url(album)
     Rails.application.routes.url_helpers.artist_album_url(album.artist, album, host: host)
   end
+
+  def purchase_url(purchase)
+    Rails.application.routes.url_helpers.download_artist_album_url(
+      purchase.release.album.artist,
+      purchase.release.album,
+      purchase.release.format,
+      pid: purchase.reference_id,
+      host: host
+    )
+  end
 end
