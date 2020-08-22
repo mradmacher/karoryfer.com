@@ -13,16 +13,17 @@ class Release < ApplicationRecord
 
   belongs_to :album
   has_many :purchases
+  has_many :download_events
 
   after_destroy :remove_file!
 
   validates :album_id, presence: true
   validates :format, presence: true
   validates :format, inclusion: { in: FORMATS }
-  validates :file, presence: true, if: :zip_release?
-  validates :external_url, format: %r{\Ahttps?://\w+}, if: :external_release?
-  validates :whole_price, presence: true, if: :for_sale?
-  validates :currency, presence: true, if: :for_sale?
+  validates :external_url, format: %r{\Ahttps?://\w+}, allow_blank: true
+  validates :whole_price, presence: true, if: :saleable?
+  validates :currency, presence: true, if: :saleable?
+  validate :validate_source
 
   mount_uploader :file, Uploader::Release
 
@@ -40,10 +41,6 @@ class Release < ApplicationRecord
 
   def digital?
     !physical?
-  end
-
-  def url
-    format == EXTERNAL ? external_url : file&.url
   end
 
   def file_name
@@ -75,6 +72,17 @@ class Release < ApplicationRecord
   end
 
   private
+
+  def saleable?
+    for_sale? && published?
+  end
+
+  def validate_source
+    return true unless file.blank? && external_url.blank?
+
+    errors.add(:file, I18n.t('activerecord.errors.models.release.attributes.file.blank'))
+    errors.add(:external_url, I18n.t('activerecord.errors.models.release.attributes.external_url.blank'))
+  end
 
   def zip_release?
     format == ZIP

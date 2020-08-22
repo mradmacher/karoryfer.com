@@ -24,11 +24,14 @@ class AlbumsController < CurrentArtistController
       if purchase&.downloads_exceeded?
         flash[:downloads_exceeded] = true
         redirect_to artist_album_url(artist, album)
+      elsif purchase&.presigned_url!
+        DownloadEvent.create(remote_ip: request.remote_ip, release_id: release.id, purchase_id: purchase&.id)
+        redirect_to purchase.presigned_url
       elsif release.external_url.present?
-        purchase&.increment!(:downloads) || release.increment!(:downloads)
+        DownloadEvent.create(remote_ip: request.remote_ip, release_id: release.id, purchase_id: purchase&.id)
         redirect_to release.external_url
       elsif release.file?
-        purchase&.increment!(:downloads) || release.increment!(:downloads)
+        DownloadEvent.create(remote_ip: request.remote_ip, release_id: release.id, purchase_id: purchase&.id)
         response.headers['Content-Length'] = release.file.size.to_s
         send_file release.file.path, disposition: 'attachment', type: 'application/zip'
       else

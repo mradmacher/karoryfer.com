@@ -26,7 +26,7 @@ class ReleasePresenter < Presenter
     @downloads ||= if resource.for_sale?
                      Purchase.where(release_id: resource.id).count
                    else
-                     resource.downloads
+                     resource.downloads + resource.download_events.count
                    end
   end
 

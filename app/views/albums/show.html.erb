@@ -44,7 +44,7 @@
 <% if current_user %>
   <%= t('label.release.downloads') %>:
   <ul>
-    <% @presenter.releases.each do |release| %>
+    <% @presenter.downloadable_releases.each do |release| %>
       <li><%= release.format %>: <%= release.downloads %></li>
     <% end %>
   </ul>

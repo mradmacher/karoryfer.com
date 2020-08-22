@@ -17,6 +17,7 @@ gem 'taglib-ruby'
 gem 'thin'
 gem 'traco'
 gem 'unicorn'
+gem 'aws-sdk-s3', '~> 1'
 
 gem 'jquery-rails'
 

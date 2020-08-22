@@ -247,8 +247,9 @@ pl:
               blank: ^proszę wybrać format
               inclusion: ^dopuszczalne formaty to ogg, mp3 i flac
             file:
-              blank: ^proszę załączyć plik
+              blank: ^proszę załączyć plik lub podać zewnętrzne URL
             external_url:
+              blank: ^proszę załączyć plik lub podać zewnętrzne URL
               invalid: ^proszę podać poprawne URL
             whole_price:
               blank: ^proszę podać cenę
