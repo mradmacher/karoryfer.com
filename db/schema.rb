@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_084227) do
+ActiveRecord::Schema.define(version: 2020_08_24_093357) do
 
   create_table "albums", force: :cascade do |t|
     t.string "title", limit: 80, null: false
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2020_08_24_084227) do
     t.string "remote_ip"
     t.integer "release_id"
     t.integer "purchase_id"
-    t.datetime "created_at"
+    t.datetime "created_at", null: false
     t.index ["purchase_id"], name: "index_download_events_on_purchase_id"
     t.index ["release_id"], name: "index_download_events_on_release_id"
   end
@@ -128,7 +128,6 @@ ActiveRecord::Schema.define(version: 2020_08_24_084227) do
     t.string "payment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "downloads", default: 0
     t.string "reference_id"
     t.string "presigned_url"
     t.boolean "generate_presigned_url", default: false
@@ -143,7 +142,6 @@ ActiveRecord::Schema.define(version: 2020_08_24_084227) do
     t.string "file", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "downloads", default: 0, null: false
     t.string "external_url", limit: 255
     t.boolean "for_sale"
     t.string "currency"
