@@ -3,7 +3,7 @@
   <% if @presenter.external_releases.any? %>
   <div class="col-sm-12">
     <% @presenter.external_releases.each do |release| %>
-      <a href="<%= release.download_path %>">
+      <a href="<%= release.download_path %>" rel="nofollow">
         <%= image_tag("external_download_#{I18n.locale}.png", title: t("label.release_format.#{release.format}"), alt: t("label.release_format.#{release.format}")) %>
       </a>
     <% end %>
@@ -12,7 +12,7 @@
   <% if @presenter.free_releases.any? %>
   <div class="col-sm-12">
     <% @presenter.free_releases.each do |release| %>
-      <a href="<%= release.download_path %>" class="primary circular button"><%= t("label.release_format.#{release.format}") %></a>
+      <a href="<%= release.download_path %>" class="primary circular button" rel="nofollow"><%= t("label.release_format.#{release.format}") %></a>
     <% end %>
   </div>
   <% end %>
@@ -20,7 +20,7 @@
   <div class="col-sm-12 col-md-12 col-lg-6">
     <h5><%= t("label.release_format.#{release.format}") %> <small>(<%= release.price %>&nbsp;<%= release.currency %>)</small></h5>
     <% if release.purchased? && release.digital? %>
-      <a href="<%= release.download_path %>" class="primary circular button"><%= t("label.release_format.#{release.format}") %></a>
+      <a href="<%= release.download_path %>" class="primary circular button" rel="nofollow"><%= t("label.release_format.#{release.format}") %></a>
     <% else %>
       <%= render 'embeds/paypal', release_id: release.id, payment_url: release.paypal_url %>
     <% end %>
