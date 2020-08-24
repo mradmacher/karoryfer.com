@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_22_082802) do
+ActiveRecord::Schema.define(version: 2020_08_24_084227) do
 
   create_table "albums", force: :cascade do |t|
     t.string "title", limit: 80, null: false
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_08_22_082802) do
     t.string "remote_ip"
     t.integer "release_id"
     t.integer "purchase_id"
+    t.datetime "created_at"
     t.index ["purchase_id"], name: "index_download_events_on_purchase_id"
     t.index ["release_id"], name: "index_download_events_on_release_id"
   end
