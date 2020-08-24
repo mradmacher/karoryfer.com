@@ -9,7 +9,7 @@ class Purchase < ApplicationRecord
   after_initialize :generate_reference_id
 
   def downloads_exceeded?
-    downloads >= MAX_DOWNLOADS || download_events.count >= MAX_DOWNLOADS
+    download_events.count >= MAX_DOWNLOADS
   end
 
   def presigned_url!(signer = AwsPresigner.new)
