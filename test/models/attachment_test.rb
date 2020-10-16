@@ -5,54 +5,60 @@ require 'test_helper'
 class AttachmentTest < ActiveSupport::TestCase
   FIXTURES_DIR = File.expand_path('../fixtures/attachments', __dir__)
 
-  def test_validates_filename_uniqueness_for_album
-    existing_file = File.open(File.join(FIXTURES_DIR, 'att1.jpg'))
-    existing = Attachment.sham! file: existing_file
-    tested = Attachment.sham! album: existing.album, file: existing_file
-    refute tested.valid?
-    assert tested.errors[:file].include? I18n.t(
-      'activerecord.errors.models.attachment.attributes.file.taken'
-    )
-  end
+  describe Attachment do
+    it 'validates filename uniqueness for album' do
+      existing_file = File.open(File.join(FIXTURES_DIR, 'att1.jpg'))
+      existing = Attachment.sham! file: existing_file
+      tested = Attachment.sham! album: existing.album, file: existing_file
+      refute tested.valid?
+      assert tested.errors[:file].include? I18n.t(
+        'activerecord.errors.models.attachment.attributes.file.taken'
+      )
+    end
 
-  def test_validates_album_presence
-    attachment = Attachment.sham! :build
-    attachment.album_id = nil
-    refute attachment.valid?
-    assert attachment.errors[:album_id].include? I18n.t(
-      'activerecord.errors.models.attachment.attributes.album_id.blank'
-    )
-  end
+    it 'validates album presence' do
+      attachment = Attachment.sham! :build
+      attachment.album_id = nil
+      refute attachment.valid?
+      assert attachment.errors[:album_id].include? I18n.t(
+        'activerecord.errors.models.attachment.attributes.album_id.blank'
+      )
+    end
 
-  def test_validates_file_presence
-    attachment = Attachment.sham! :build, file: nil
+    it 'validates file presence' do
+      attachment = Attachment.sham! :build, file: nil
 
-    refute attachment.valid?
-    assert attachment.errors[:file].include? I18n.t(
-      'activerecord.errors.models.attachment.attributes.file.blank'
-    )
-  end
+      refute attachment.valid?
+      assert attachment.errors[:file].include? I18n.t(
+        'activerecord.errors.models.attachment.attributes.file.blank'
+      )
+    end
 
-  def test_on_save_places_file_in_proper_dir
-    attachment = Attachment.sham! file: File.open(File.join(FIXTURES_DIR, 'att1.jpg'))
-    assert File.exist? File.join(Attachment::Uploader.store_dir, attachment.album.id.to_s, 'att1.jpg')
-  end
+    describe 'on save' do
+      it 'places file in proper dir' do
+        attachment = Attachment.sham! file: File.open(File.join(FIXTURES_DIR, 'att1.jpg'))
+        assert File.exist? File.join(Rails.root, 'public', 'uploads', 'attachments', attachment.album.id.to_s, 'att1.jpg')
+      end
 
-  def test_on_save_replaces_old_file_with_new_one
-    attachment = Attachment.sham! file: File.open(File.join(FIXTURES_DIR, 'att1.jpg'))
-    assert File.exist? File.join(Attachment::Uploader.store_dir, attachment.album.id.to_s, 'att1.jpg')
+      it 'replaces old file with new' do
+        attachment = Attachment.sham! file: File.open(File.join(FIXTURES_DIR, 'att1.jpg'))
+        assert File.exist? File.join(Rails.root, 'public', 'uploads', 'attachments', attachment.album.id.to_s, 'att1.jpg')
 
-    attachment.file = File.open(File.join(FIXTURES_DIR, 'att2.pdf'))
-    attachment.save
-    refute File.exist? File.join(Attachment::Uploader.store_dir, attachment.album.id.to_s, 'att1.jpg')
-    assert File.exist? File.join(Attachment::Uploader.store_dir, attachment.album.id.to_s, 'att2.pdf')
-  end
+        attachment.file = File.open(File.join(FIXTURES_DIR, 'att2.pdf'))
+        attachment.save
+        refute File.exist? File.join(Rails.root, 'public', 'uploads', 'attachments', attachment.album.id.to_s, 'att1.jpg')
+        assert File.exist? File.join(Rails.root, 'public', 'uploads', 'attachments', attachment.album.id.to_s, 'att2.pdf')
+      end
+    end
 
-  def test_on_destroy_removes_file_from_storage
-    attachment = Attachment.sham! file: File.open(File.join(FIXTURES_DIR, 'att1.jpg'))
-    assert File.exist? File.join(Attachment::Uploader.store_dir, attachment.album.id.to_s, 'att1.jpg')
+    describe 'on destroy' do
+      it 'removes file from storage' do
+        attachment = Attachment.sham! file: File.open(File.join(FIXTURES_DIR, 'att1.jpg'))
+        assert File.exist? File.join(Rails.root, 'public', 'uploads', 'attachments', attachment.album.id.to_s, 'att1.jpg')
 
-    attachment.destroy
-    refute File.exist? File.join(Attachment::Uploader.store_dir, attachment.album.id.to_s, 'att1.jpg')
+        attachment.destroy
+        refute File.exist? File.join(Rails.root, 'public', 'uploads', 'attachments', attachment.album.id.to_s, 'att1.jpg')
+      end
+    end
   end
 end

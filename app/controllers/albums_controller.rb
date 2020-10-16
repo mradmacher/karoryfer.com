@@ -13,36 +13,28 @@ class AlbumsController < CurrentArtistController
     @presenter.discount = Discount.where(reference_id: params[:did]).first if params[:did]
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def download
     artist = Artist.find_by_reference(params[:artist_id])
     album = artist.albums.find_by_reference(params[:id])
-    release = album.releases.in_format(params[:download]).first!
-    purchase = Purchase.where(release: release, reference_id: params[:pid]).first if params[:pid]
-    if !release.for_sale? || release.purchased?(purchase)
-      if purchase&.downloads_exceeded?
-        flash[:downloads_exceeded] = true
-        redirect_to artist_album_url(artist, album)
-      elsif purchase&.presigned_url!
-        DownloadEvent.create(remote_ip: request.remote_ip, release_id: release.id, purchase_id: purchase&.id, created_at: Time.now)
-        redirect_to purchase.presigned_url
-      elsif release.external_url.present?
-        DownloadEvent.create(remote_ip: request.remote_ip, release_id: release.id, purchase_id: purchase&.id, created_at: Time.now)
-        redirect_to release.external_url
-      elsif release.file?
-        DownloadEvent.create(remote_ip: request.remote_ip, release_id: release.id, purchase_id: purchase&.id, created_at: Time.now)
-        response.headers['Content-Length'] = release.file.size.to_s
-        send_file release.file.path, disposition: 'attachment', type: 'application/zip'
-      else
-        redirect_to artist_album_url(artist, album)
-      end
-    else
+    downloadable = Downloader.new(album).download(
+      release_format: params[:download],
+      purchase_reference: params[:pid],
+      remote_ip: request.remote_ip
+    )
+    if downloadable.nil?
       redirect_to artist_album_url(artist, album)
+    elsif downloadable.is_a?(String)
+      redirect_to downloadable
+    else
+      response.headers['Content-Length'] = downloadable.file.size.to_s
+      send_file downloadable.file.path, disposition: 'attachment', type: 'application/zip'
     end
+  rescue Downloader::DownloadsExceededError
+    flash[:downloads_exceeded] = true
+    redirect_to artist_album_url(artist, album)
+  rescue Downloader::NotPurchasedError
+    redirect_to artist_album_url(artist, album)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 

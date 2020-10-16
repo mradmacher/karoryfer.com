@@ -15,7 +15,7 @@ class Release < ApplicationRecord
   has_many :purchases
   has_many :download_events
 
-  after_destroy :remove_file!
+  before_destroy :remove_file!
 
   validates :album_id, presence: true
   validates :format, presence: true

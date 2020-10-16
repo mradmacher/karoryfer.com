@@ -10,6 +10,13 @@ require 'minitest/autorun'
 
 FIXTURES_DIR = File.expand_path('fixtures', __dir__)
 
+DatabaseCleaner.strategy = :transaction
+class Minitest::Spec
+  around do |tests|
+    DatabaseCleaner.cleaning(&tests)
+  end
+end
+
 module I18n
   def self.raise_missing_translation(*args)
     puts args.first
@@ -18,11 +25,6 @@ module I18n
   end
 end
 I18n.exception_handler = :raise_missing_translation
-
-Uploader::Release.store_dir = '/tmp'
-Attachment::Uploader.store_dir = '/tmp'
-Uploader::TrackSource.store_dir = '/tmp'
-Uploader::TrackPreview.store_dir = '/tmp'
 
 module ActiveSupport
   class TestCase
