@@ -1,7 +1,11 @@
 <% content_for :sidebar do %>
 <% @artist_presenters.each do |artist_presenter| %>
   <a href="<%= artist_presenter.path %>">
-    <%= image_tag(artist_presenter.image.icon.url, alt: artist_presenter.name, title: artist_presenter.name, class: 'rounded') %>
+    <% if artist_presenter.image? %>
+      <%= image_tag(artist_presenter.image.icon.url, alt: artist_presenter.name, title: artist_presenter.name, class: 'rounded') %>
+    <% else %>
+      <%= artist_presenter.name %>
+    <% end %>
   </a>
 <% end %>
 <% end %>

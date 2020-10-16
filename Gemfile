@@ -25,6 +25,8 @@ gem 'newrelic_rpm', '>=3.8.0'
 gem 'rubocop', require: false
 
 group :test do
+  gem 'minitest-around'
+  gem 'database_cleaner-active_record'
   gem 'faker'
   gem 'sham'
   gem 'capybara'
