@@ -15,11 +15,11 @@
   <% end %>
 
   <% if track.lyrics.present? %>
-    <label for="modal-control"><%= t 'label.track.lyrics' %></label>
-    <input type="checkbox" id="modal-control" class="modal">
+    <label for="lyrics-<%= track.id %>"><%= t 'label.track.lyrics' %></label>
+    <input type="checkbox" id="lyrics-<%= track.id %>" class="modal">
     <div>
       <div class="card">
-        <label for="modal-control" class="modal-close" ></label>
+        <label for="lyrics-<%= track.id %>" class="modal-close" ></label>
         <h3 class="section"><%= track.title %></h3>
         <p class="section"><%= track.html_lyrics %></p>
       </div>
