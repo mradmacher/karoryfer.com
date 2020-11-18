@@ -10,7 +10,6 @@ class Track < ApplicationRecord
   validates :title, presence: true, length: { maximum: TITLE_MAX_LENGTH }
   validates :album_id, presence: true
   validates :rank, presence: true, uniqueness: { scope: :album_id }
-  validates :comment, length: { maximum: COMMENT_MAX_LENGTH }
 
   mount_uploader :ogg_preview, Uploader::TrackPreview
   mount_uploader :mp3_preview, Uploader::TrackPreview
