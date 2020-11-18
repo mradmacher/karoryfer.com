@@ -6,10 +6,7 @@ class SiteController < ApplicationController
   end
 
   def albums
-    @album_presenters = AlbumPresenter.presenters_for(Album.published.shared)
-  end
-
-  def artists
-    @artist_presenters = ArtistPresenter.presenters_for(Artist.order(:name))
+    @artist_presenters = ArtistPresenter.presenters_for(Artist.shared.order(:name))
+    @album_presenters = AlbumPresenter.presenters_for(Album.by_shared_artist.order(:year))
   end
 end

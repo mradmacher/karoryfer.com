@@ -7,18 +7,9 @@
   <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
 </p>
 <% end %>
+<%= render 'artists/artist' %>
 <div class="row">
-  <div class="six columns">
-  <% if current_artist.image? %>
-    <%= link_to image_tag(@presenter.image.thumb.url, alt: @presenter.name), artist_path( current_artist ) %>
-  <% end %>
-  </div>
-  <div class="six columns">
-    <p><%= @presenter.summary %></p>
-  </div>
-</div>
-<div class="row">
-  <div class="twelve columns">
+  <div class="col-md-12">
     <div class="long-text">
       <%= render_text @presenter.description %>
     </div>

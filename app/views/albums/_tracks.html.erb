@@ -4,19 +4,31 @@
 <% @presenter.tracks.each do |track| %>
   <li>
     <strong><%= track.title %></strong>
-  <% if track.lyrics.present? %>
-    <p class="hidden-sm"><%= track.html_lyrics %></p>
-  <% end %>
-  <% if !track.artist_name.blank? or !track.comment.blank? -%>
-    <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
-  <% end -%>
+
+  <% if !track.artist_name.blank? || !track.comment.blank? -%>
+    <p><small><%= track.artist_name %></small></p>
+
   <% if track.preview? %>
-    <br />
     <audio controls>
       <source src="<%= track.ogg_preview.url %>" type="audio/ogg">
       <source src="<%= track.mp3_preview.url %>" type="audio/mpeg">
     </audio>
   <% end %>
+
+  <% if track.lyrics.present? %>
+    <label for="modal-control"><%= t 'label.track.lyrics' %></label>
+    <input type="checkbox" id="modal-control" class="modal">
+    <div>
+      <div class="card">
+        <label for="modal-control" class="modal-close" ></label>
+        <h3 class="section"><%= track.title %></h3>
+        <p class="section"><%= track.html_lyrics %></p>
+      </div>
+    </div>
+  <% end %>
+
+    <p><small><%= track.html_comment %></small></p>
+  <% end -%>
   </li>
 <% end %>
 </ol>

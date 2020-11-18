@@ -1,4 +1,5 @@
 <%= render_title @presenter.title %>
+<%= render 'artists/artist' %>
 <h2><%= @presenter.title %></h2>
 <% if current_user %>
   <p><%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %></p>

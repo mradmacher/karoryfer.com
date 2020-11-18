@@ -3,16 +3,16 @@
   <h4><%=t 'title.albums' %></h4>
 </div>
 <% artist.recent_albums.each do |album_presenter| %>
-<div class="col-sm-6">
+<div class="col-sm-12 col-md-12 col-lg-6">
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
     <% if album_presenter.image? %>
       <a href="<%= album_presenter.path %>">
         <%= image_tag(album_presenter.image.icon.url, alt: album_presenter.title) %>
       </a>
     <% end %>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <h5><%= link_to album_presenter.title, album_presenter.path %> <small><%= album_presenter.year %></small></h5>
     </div>
   </div>

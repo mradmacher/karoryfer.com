@@ -1,6 +1,3 @@
 <% if track.lyrics.present? %>
-  <a data-toggle="collapse" href="#lyrics-<%= track.id %>"><%= t('label.track.lyrics') %></a>
-  <div class="collapse" id="lyrics-<%= track.id %>">
-    <%= track.html_lyrics %>
-  </div>
+<p><%= track.html_lyrics %></p>
 <% end %>

@@ -1,40 +1,36 @@
 <%= form_for [:admin, artist.resource, album.resource, resource], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
-  <div class="form-group">
-    <div class="form-group">
-      <%= f.label :title, t('label.track.title') %>
-      <%= f.text_field :title, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :rank, t('label.track.rank') %>
-      <%= f.text_field :rank, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :comment, t('label.track.comment') %>
-      <%= f.text_field :comment, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :artist_name, t('label.track.artist_name') %>
-      <p class="help-block">(<%= t('label.defaults_to') %> <%= resource.artist.name %>)</p>
-      <%= f.text_field :artist_name, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :file, t( "label.track.file" ) %>
-      <% if resource.file? %>
-        <p class="help-block"><%= File.basename(resource.file.path) %></p>
-        <div class="checkbox">
-          <%= f.label :remove_file do %>
-            <%= f.check_box :remove_file %>
-            <%= t( "action.remove_file" ) %>
-          <% end %>
-        </div>
+  <fieldset class="input-group vertical">
+    <%= f.label :title, t('label.track.title') %>
+    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.label :rank, t('label.track.rank') %>
+    <%= f.text_field :rank, class: 'form-control' %>
+  </fieldset>
+
+  <fieldset class="input-group vertical">
+    <%= f.label :file, t( "label.track.file" ) %>
+    <% if resource.file? %>
+      <p><%= File.basename(resource.file.path) %></p>
+      <%= f.label :remove_file do %>
+        <%= f.check_box :remove_file %>
+        <%= t( "action.remove_file" ) %>
       <% end %>
-      <%= f.collection_select :file, @presenter.available_files, :to_s, :to_s, { include_blank: true } %>
-    </div>
-    <div class="form-group">
-      <%= f.label :lyrics, t('label.track.lyrics') %>
-      <%= f.text_area :lyrics, class: 'form-control' %>
-    </div>
-  </div>
+    <% end %>
+    <%= f.collection_select :file, @presenter.available_files, :to_s, :to_s, { include_blank: true } %>
+  </fieldset>
+
+  <fieldset class="input-group vertical">
+    <%= f.label :artist_name, t('label.track.artist_name') %>
+    <p class="help-block">(<%= t('label.defaults_to') %> <%= resource.artist.name %>)</p>
+    <%= f.text_field :artist_name, class: 'form-control' %>
+  </fieldset>
+
+  <fieldset class="input-group vertical">
+    <%= f.label :comment, t('label.track.comment') %>
+    <%= f.text_area :comment, class: 'form-control' %>
+
+    <%= f.label :lyrics, t('label.track.lyrics') %>
+    <%= f.text_area :lyrics, class: 'form-control' %>
+  </fieldset>
   <button type="submit"><%=t 'action.save' %></button>
 <% end %>
