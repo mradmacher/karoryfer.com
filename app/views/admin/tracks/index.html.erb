@@ -16,8 +16,13 @@
       <%= track.rank %>.
       <%= track.title %>
       <%= render partial: 'lyrics', locals: { track: track } %>
-      <% if !track.artist_name.blank? or !track.comment.blank? -%>
-        <br /><small><%= [track.artist_name, track.comment].select{ |s| !s.blank? }.join(' - ') %></small>
+      <% if !track.artist_name.blank? -%>
+        <br />
+        <small><%= track.artist_name %></small>
+      <% end -%>
+      <% if !track.comment.blank? -%>
+        <br />
+        <small><%= track.html_comment %></small>
       <% end -%>
       <br />
       <% if current_user %>

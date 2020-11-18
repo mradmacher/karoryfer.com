@@ -5,14 +5,13 @@
   <li>
     <strong><%= track.title %></strong>
 
-  <% if !track.artist_name.blank? || !track.comment.blank? -%>
-    <p><small><%= track.artist_name %></small></p>
-
   <% if track.preview? %>
-    <audio controls>
-      <source src="<%= track.ogg_preview.url %>" type="audio/ogg">
-      <source src="<%= track.mp3_preview.url %>" type="audio/mpeg">
-    </audio>
+    <p>
+      <audio controls>
+        <source src="<%= track.ogg_preview.url %>" type="audio/ogg">
+        <source src="<%= track.mp3_preview.url %>" type="audio/mpeg">
+      </audio>
+    </p>
   <% end %>
 
   <% if track.lyrics.present? %>
@@ -27,6 +26,11 @@
     </div>
   <% end %>
 
+  <% if !track.artist_name.blank? -%>
+    <p><small><%= track.artist_name %></small></p>
+  <% end %>
+
+  <% if !track.comment.blank? -%>
     <p><small><%= track.html_comment %></small></p>
   <% end -%>
   </li>
