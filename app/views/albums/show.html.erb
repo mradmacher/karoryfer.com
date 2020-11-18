@@ -1,9 +1,12 @@
 <%= render_title @presenter.title %>
+<%= render 'artists/artist' %>
+
 <h2>
   <%= @presenter.title %>
   <% unless @presenter.published? %>
     <small><%= t('label.album.unpublished') %></small>
   <% end %>
+  <small><%= @presenter.year.to_s %></small>
 </h2>
 <% if current_user %>
 <p>
@@ -14,7 +17,6 @@
   <%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %>
 </p>
 <% end %>
-<p class="ms-text-right"><%= @presenter.year.to_s %></p>
 
 <div class="row">
   <div class="col-sm-12">
@@ -23,7 +25,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-12 col-md-6">
+  <div class="col-sm-12 col-md-5">
   <% if @presenter.image? %>
     <%= link_to image_tag( @presenter.image.thumb.url, alt: @presenter.title), @presenter.image.url %>
     <% if @presenter.license %>
@@ -31,7 +33,7 @@
     <% end %>
   <% end %>
   </div>
-  <div class="col-sm-12 col-md-6">
+  <div class="col-sm-12 col-md-7">
     <%= render 'releases' %>
   </div>
 </div>

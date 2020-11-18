@@ -22,6 +22,10 @@ class TrackPresenter < Presenter
     lyrics.gsub("\n", '<br />').html_safe
   end
 
+  def html_comment
+    comment.gsub("\n", '<br />').html_safe
+  end
+
   def path
     admin_artist_album_track_path(resource.album.artist, resource.album, resource)
   end

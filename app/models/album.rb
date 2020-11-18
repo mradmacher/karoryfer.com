@@ -33,6 +33,7 @@ class Album < ApplicationRecord
   scope :unpublished, -> { where(published: false) }
   scope :shared, -> { where(shared: true) }
   scope :some, -> { limit(SOME_LIMIT) }
+  scope :by_shared_artist, -> { joins(:artist).where('artists.shared' => true) }
 
   def self.find_by_reference(ref)
     super ref.downcase

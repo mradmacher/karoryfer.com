@@ -89,7 +89,6 @@ class TaggerTest < ActiveSupport::TestCase
 
   def assert_mp3_tags(expected, found)
     assert_common_tags(expected, found)
-    assert_equal 'Other', found.genre
     assert_nil found.frame_list('WOAR').first
 
     wpub = found.frame_list('WPUB').first

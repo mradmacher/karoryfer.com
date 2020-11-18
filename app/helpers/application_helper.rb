@@ -28,7 +28,6 @@ module ApplicationHelper
              end
 
     [].tap do |items|
-      items << [t('title.artists'), artists_url, active == 'artists']
       items << [t('title.albums'), albums_url, active == 'albums']
       items << [t('title.samples'), artist_url('karoryfer-samples'), active == 'karoryfer-samples']
       items << [t('title.about'), artist_url('karoryfer-lecolds'), active == 'karoryfer-lecolds']

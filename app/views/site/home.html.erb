@@ -1,16 +1,5 @@
-<% content_for :sidebar do %>
-<% @artist_presenters.each do |artist_presenter| %>
-  <a href="<%= artist_presenter.path %>">
-    <% if artist_presenter.image? %>
-      <%= image_tag(artist_presenter.image.icon.url, alt: artist_presenter.name, title: artist_presenter.name, class: 'rounded') %>
-    <% else %>
-      <%= artist_presenter.name %>
-    <% end %>
-  </a>
-<% end %>
-<% end %>
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="jumbotron">
       <h1><%= t('label.site.name') %></h1>
       <p><%= t('label.site.desc') %></p>
@@ -24,5 +13,17 @@
           <%= image_tag('social/youtube.png', alt: 'YouTube', title: 'YouTube') %></a>
       </p>
     </div>
+  </div>
+
+  <div class="col-sm-12 col-md-6 col-lg-6">
+  <% @artist_presenters.each do |artist_presenter| %>
+    <a href="<%= artist_presenter.path %>">
+      <% if artist_presenter.image? %>
+        <%= image_tag(artist_presenter.image.icon.url, alt: artist_presenter.name, title: artist_presenter.name, class: 'rounded') %>
+      <% else %>
+        <%= artist_presenter.name %>
+      <% end %>
+    </a>
+  <% end %>
   </div>
 </div>

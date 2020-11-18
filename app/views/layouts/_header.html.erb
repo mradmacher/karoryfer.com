@@ -2,7 +2,7 @@
   <div class="col-sm-3">
     <%= link_to image_tag('logo.png', alt: 'Karoryfer Lecolds', title: 'Karoryfer Lecolds' ), root_url, class: 'pagename' %>
   </div>
-  <div class="col-sm-8">
+  <div class="col-sm-7">
     <header>
     <% main_menu_items.each do |title, url, is_active| %>
       <%= link_to title, url, class: is_active ? 'current button' : 'button' %>
@@ -12,7 +12,7 @@
     <% end %>
     </header>
   </div>
-  <div class="col-sm-1 menu">
+  <div class="col-sm-2 menu">
     <a href="?l=en">en</a>|<a href="?l=pl">pl</a>
   </div>
 </div>

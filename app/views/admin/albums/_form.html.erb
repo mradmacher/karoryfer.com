@@ -1,48 +1,61 @@
 <%= form_for [:admin, current_artist, resource], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
-    <div class="checkbox">
-      <%= f.label :published do %>
-        <%= f.check_box :published %>
-        <%= t( "label.album.published" ) %>
-      <% end %>
+  <fieldset>
+  <%= f.label :published do %>
+    <%= f.check_box :published %>
+    <%= t('label.album.published') %>
+  <% end %>
+  </fieldset>
+
+  <%= f.hidden_field :artist_id %>
+
+  <fieldset>
+    <div class="input-group fluid">
+      <%= f.label :title, t('label.album.title') %>
+      <%= f.text_field :title %>
     </div>
-    <%= f.hidden_field :artist_id %>
-    <div class="form-group">
-      <%= f.label :title, t( "label.album.title" ) %>
-      <%= f.text_field :title, class: 'form-control' %>
-    </div>
-    <div class="form-group">
+
+    <div class="input-group fluid">
       <%= f.label :reference %>
-      <%= f.text_field :reference, :disabled => (resource.new_record?? false : true ), class: 'form-control' %>
+      <%= f.text_field :reference, :disabled => (resource.new_record?? false : true ) %>
     </div>
-    <div class="form-group">
-      <%= f.label :year, t( "label.album.year" ) %>
-      <%= f.number_field :year, class: 'form-control' %>
+
+    <div class="input-group fluid">
+      <%= f.label :year, t('label.album.year') %>
+      <%= f.number_field :year %>
     </div>
-    <div class="form-group">
-      <%= f.label :image, t( "label.album.image" ) %>
-      <% if resource.image? %>
-        <p class="help-block"><%= image_tag(resource.image.icon.url, :alt => resource.title) %></p>
-        <div class="checkbox">
-          <%= f.label :remove_image do %>
-            <%= f.check_box :remove_image %>
-            <%= t( "action.album.remove_image" ) %>
-          <% end %>
-        </div>
-      <% end %>
-      <%= f.file_field :image %>
-    </div>
-    <div class="form-group">
+  </fieldset>
+
+  <fieldset>
+    <div class="input-group fluid">
       <%= f.label :license_symbol, t('label.album.license_symbol') %>
       <%= f.collection_select :license_symbol, License.all, :symbol, :name, { include_blank: true } %>
     </div>
-    <div class="form-group">
+  </fieldset>
+
+  <fieldset>
+    <%= f.label :image, t('label.album.image') %>
+    <% if resource.image? %>
+      <p><%= image_tag(resource.image.icon.url, alt: resource.title) %></p>
+      <%= f.label :remove_image do %>
+        <%= f.check_box :remove_image %>
+        <%= t('action.album.remove_image') %>
+      <% end %>
+    <% end %>
+    <%= f.file_field :image %>
+  </fieldset>
+
+  <fieldset>
+    <div class="input-group vertical">
       <%= f.label :donation , t( "label.album.player" )%>
       <%= f.text_area :donation, class: 'form-control' %>
     </div>
-    <div class="form-group">
+
+    <div class="input-group vertical">
       <%= f.label :description, t( "label.album.description" ) %>
       <%= f.text_area :description, class: 'form-control', rows: 20 %>
     </div>
-  <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
+  </fieldset>
+
+  <button type="submit"><%=t 'action.save' %></button>
 <% end %>

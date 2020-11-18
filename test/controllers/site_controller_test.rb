@@ -3,12 +3,6 @@
 require 'test_helper'
 
 class SiteControllerTest < ActionController::TestCase
-  def test_get_artists_succeeds
-    3.times { Artist.sham! }
-    get :artists
-    assert_response :success
-  end
-
   def test_get_home_succeeds
     3.times { Artist.sham! }
     3.times { Album.sham! }

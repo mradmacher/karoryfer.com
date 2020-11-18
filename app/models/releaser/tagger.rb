@@ -70,8 +70,6 @@ module Releaser
     end
 
     def apply_id3v2_specific(file_tags, tags)
-      file_tags.genre = 'Other'
-
       frame = TagLib::ID3v2::UrlLinkFrame.new('WPUB')
       frame.url = tags.organization_url
       file_tags.add_frame(frame)

@@ -8,7 +8,7 @@ Karoryfer::Application.routes.draw do
   end
 
   get 'wydawnictwa', to: 'site#albums', as: 'albums'
-  get 'artysci', to: 'site#artists', as: 'artists'
+  get 'artysci', to: redirect('wydawnictwa')
 
   resources :artists, path: '', only: %i[show]
   scope ':artist_id', as: 'artist' do

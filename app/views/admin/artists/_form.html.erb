@@ -1,41 +1,48 @@
 <%= form_for [:admin, resource], :html => {:multipart => true} do |f| %>
 	<%= f.error_messages %>
-  <div class="form-group">
-    <%= f.label :name, t( 'label.artist.name' ) %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :reference, t( 'label.artist.reference' ) %>
-    <%= f.text_field :reference, :disabled => (resource.new_record?? false : true ), class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :summary_pl, t( 'label.artist.summary_pl' ) %>
-    <%= f.text_field :summary_pl, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :summary_en, t( 'label.artist.summary_en' ) %>
-    <%= f.text_field :summary_en, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :image, t( 'label.artist.image' ) %>
+  <fieldset>
+    <div class="input-group fluid">
+      <%= f.label :name, t( 'label.artist.name' ) %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="input-group fluid">
+      <%= f.label :reference, t( 'label.artist.reference' ) %>
+      <%= f.text_field :reference, :disabled => (resource.new_record?? false : true ), class: 'form-control' %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div class="input-group vertical">
+      <%= f.label :summary_pl, t( 'label.artist.summary_pl' ) %>
+      <%= f.text_field :summary_pl, class: 'form-control' %>
+    </div>
+
+    <div class="input-group vertical">
+      <%= f.label :summary_en, t( 'label.artist.summary_en' ) %>
+      <%= f.text_field :summary_en, class: 'form-control' %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :image, t('label.artist.image') %>
     <% if resource.image? %>
-      <p class="help-block"><%= image_tag(resource.image.icon.url, :alt => resource.name) %></p>
-      <div class="checkbox">
-        <%= f.label :remove_image do %>
-          <%= f.check_box :remove_image %>
-          <%= t( "action.artist.remove_image" ) %>
-        <% end %>
-      </div>
+      <p><%= image_tag(resource.image.icon.url, alt: resource.name) %></p>
+      <%= f.label :remove_image do %>
+        <%= f.check_box :remove_image %>
+        <%= t( "action.artist.remove_image" ) %>
+      <% end %>
     <% end %>
     <%= f.file_field :image %>
-  </div>
-  <div class="form-group">
-    <%= f.label :description_pl, t( 'label.artist.description_pl' ) %>
-    <%= f.text_area :description_pl, class: 'form-control', rows: 20 %>
-  </div>
-  <div class="form-group">
-    <%= f.label :description_en, t( 'label.artist.description_en' ) %>
-    <%= f.text_area :description_en, class: 'form-control', rows: 20 %>
-  </div>
-  <button type="submit" class="btn btn-default"><%=t 'action.save' %></button>
+  </fieldset>
+
+  <fieldset>
+    <div class="input-group vertical">
+      <%= f.label :description_pl, t( 'label.artist.description_pl' ) %>
+      <%= f.text_area :description_pl, class: 'form-control', rows: 20 %>
+    </div>
+    <div class="input-group vertical">
+      <%= f.label :description_en, t( 'label.artist.description_en' ) %>
+      <%= f.text_area :description_en, class: 'form-control', rows: 20 %>
+    </div>
+  </fieldset>
+  <button type="submit"><%=t 'action.save' %></button>
 <% end %>
