@@ -75,12 +75,14 @@
       </div>
 
       <% if !@presenter.attachments.empty? %>
-      <h4><%= t 'title.attachments' %></h4>
-      <ul>
-        <% @presenter.attachments.each do |attachment| %>
-          <li><a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a></li>
-        <% end %>
-      </ul>
+      <div class="col-sm-12">
+        <h4><%= t 'title.attachments' %></h4>
+        <ul>
+          <% @presenter.attachments.each do |attachment| %>
+            <li><a href="<%= attachment.file.url %>"><%= File.basename(attachment.file.path) %></a></li>
+          <% end %>
+        </ul>
+      </div>
       <% end %>
     </div>
 
