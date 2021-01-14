@@ -2,7 +2,6 @@
 
 class Track < ApplicationRecord
   TITLE_MAX_LENGTH = 80
-  COMMENT_MAX_LENGTH = 255
 
   belongs_to :album
   has_many :releases

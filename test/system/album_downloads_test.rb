@@ -13,7 +13,7 @@ class AlbumDownloadsTest < ApplicationSystemTestCase
     refute @release.external_url.blank?
     assert_equal 0, @release.download_events.count
 
-    visit('/big-star/wydawnictwa/the-best-of/flac')
+    visit('/big-star/the-best-of/zip?f=flac')
     assert_equal 1, @release.reload.download_events.count
   end
 
@@ -23,15 +23,15 @@ class AlbumDownloadsTest < ApplicationSystemTestCase
     assert @release.file?
     assert_equal 0, @release.download_events.count
 
-    visit('/big-star/wydawnictwa/the-best-of/flac')
+    visit('/big-star/the-best-of/zip?f=flac')
     assert_equal 1, @release.reload.download_events.count
   end
 
   def test_download_succeeds_when_clicking_on_release_button
     assert_equal 0, @release.download_events.count
 
-    visit('/big-star/wydawnictwa/the-best-of')
-    click_on('flac')
+    visit('/big-star/the-best-of')
+    click_on('Pobierz')
     assert_equal 1, @release.reload.download_events.count
   end
 
@@ -40,7 +40,7 @@ class AlbumDownloadsTest < ApplicationSystemTestCase
     purchase = Purchase.create(release: @release, reference_id: 'xyz')
     assert_equal 0, purchase.download_events.count
 
-    visit('/big-star/wydawnictwa/the-best-of/flac?pid=xyz')
+    visit('/big-star/the-best-of/zip?pid=xyz')
     assert_equal 1, @release.reload.download_events.count
     assert_equal 1, purchase.reload.download_events.count
   end
@@ -48,7 +48,7 @@ class AlbumDownloadsTest < ApplicationSystemTestCase
   def test_download_fails_without_purchase_if_release_for_sale
     @release.update(for_sale: true, price: 20.0, currency: 'USD')
 
-    visit('/big-star/wydawnictwa/the-best-of/flac')
+    visit('/big-star/the-best-of/zip?f=flac')
     assert_equal artist_album_path(@artist, @album), current_path
     assert_equal 0, @release.download_events.count
   end
@@ -57,7 +57,7 @@ class AlbumDownloadsTest < ApplicationSystemTestCase
     @release.update(for_sale: true, price: 20.0, currency: 'USD')
     Purchase.create(release: @release, reference_id: 'xyz')
 
-    visit('/big-star/wydawnictwa/the-best-of/flac')
+    visit('/big-star/the-best-of/zip?f=flac')
     assert_equal artist_album_path(@artist, @album), current_path
     assert_equal 0, @release.reload.download_events.count
   end
@@ -67,7 +67,7 @@ class AlbumDownloadsTest < ApplicationSystemTestCase
     purchase = Purchase.create(release: @release, reference_id: 'xyz')
     20.times { DownloadEvent.create(purchase: purchase, release: @release, created_at: Time.now) }
 
-    visit('/big-star/wydawnictwa/the-best-of/flac?pid=xyz&l=pl')
+    visit('/big-star/the-best-of/zip?pid=xyz&l=pl')
     assert_equal artist_album_path(@artist, @album), current_path
     assert_equal 20, purchase.reload.download_events.count
     assert page.has_content?('Limit pobrań został przekroczony.')

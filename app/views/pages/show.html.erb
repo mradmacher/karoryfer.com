@@ -1,9 +1,19 @@
 <%= render_title @presenter.title %>
 <%= render 'artists/artist' %>
-<h2><%= @presenter.title %></h2>
+
 <% if current_user %>
   <p><%= render partial: 'shared/show_actions', locals: { presenter: @presenter } %></p>
 <% end %>
-<div class="long-text">
-  <%= render_text @presenter.content %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h2><%= @presenter.title %></h2>
+  </div>
+  <div class="col-sm-12 col-lg-3">
+  </div>
+  <div class="col-sm-12 col-lg-9">
+    <div class="long-text">
+      <%= render_text @presenter.content %>
+    </div>
+  </div>
 </div>

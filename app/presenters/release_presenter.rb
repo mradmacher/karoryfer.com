@@ -35,7 +35,7 @@ class ReleasePresenter < Presenter
   end
 
   def download_path
-    download_artist_album_path(resource.album.artist, resource.album, resource.format, pid: purchase_reference_id) if resource.format != Release::CD
+    download_artist_album_path(resource.album.artist, resource.album, f: resource.format, pid: purchase_reference_id) if resource.format != Release::CD
   end
 
   def path

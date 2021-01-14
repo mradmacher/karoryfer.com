@@ -16,11 +16,14 @@ class AlbumsController < CurrentArtistController
   def download
     artist = Artist.find_by_reference(params[:artist_id])
     album = artist.albums.find_by_reference(params[:id])
-    downloadable = Downloader.new(album).download(
-      release_format: params[:download],
-      purchase_reference: params[:pid],
-      remote_ip: request.remote_ip
-    )
+    downloader = Downloader.new(album, remote_ip: request.remote_ip)
+    downloadable =
+      if params[:pid]
+        downloader.purchased_download(params[:pid])
+      else
+        downloader.free_download(params[:f])
+      end
+
     if downloadable.nil?
       redirect_to artist_album_url(artist, album)
     elsif downloadable.is_a?(String)

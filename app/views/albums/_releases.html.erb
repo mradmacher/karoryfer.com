@@ -3,24 +3,37 @@
   <% if @presenter.external_releases.any? %>
   <div class="col-sm-12">
     <% @presenter.external_releases.each do |release| %>
-      <a href="<%= release.download_path %>" rel="nofollow">
-        <%= image_tag("external_download_#{I18n.locale}.png", title: t("label.release_format.#{release.format}"), alt: t("label.release_format.#{release.format}")) %>
+      <a href="<%= release.download_path %>" rel="nofollow" class="inverse large button">
+        <%= t("label.release_format.#{release.format}") %>
+        <% image_tag("external_download_#{I18n.locale}.png", title: t("label.release_format.#{release.format}"), alt: t("label.release_format.#{release.format}")) %>
       </a>
     <% end %>
   </div>
   <% end %>
+
   <% if @presenter.free_releases.any? %>
   <div class="col-sm-12">
-    <% @presenter.free_releases.each do |release| %>
-      <a href="<%= release.download_path %>" class="primary circular button" rel="nofollow"><%= t("label.release_format.#{release.format}") %></a>
-    <% end %>
+    <form action="<%= @presenter.download_path %>" method="get" class="responsive-padding">
+      <button type="submit" class="inverse large button" rel="nofollow"><%=t 'label.download' %></button>
+      <label for="f" class="hidden"><%= t('label.release.format') %></label>
+      <% if @presenter.free_releases.size == 1 %>
+        <input type="hidden" name="f" value="<%= @presenter.free_releases.first.format %>" />
+      <% else %>
+        <select name="f">
+        <% @presenter.free_releases.each do |release| %>
+          <option value="<%= release.format %>"><%= release.format %></option>
+        <% end %>
+        </select>
+      <% end %>
+    </form>
   </div>
   <% end %>
+
   <% @presenter.paid_releases.each do |release| %>
   <div class="col-sm-12 col-md-12 col-lg-6">
     <h5><%= t("label.release_format.#{release.format}") %> <small>(<%= release.price %>&nbsp;<%= release.currency %>)</small></h5>
     <% if release.purchased? && release.digital? %>
-      <a href="<%= release.download_path %>" class="primary circular button" rel="nofollow"><%= t("label.release_format.#{release.format}") %></a>
+      <a href="<%= release.download_path %>" class="inverse large button" rel="nofollow"><%= t('label.download') %></a>
     <% else %>
       <%= render 'embeds/paypal', release_id: release.id, payment_url: release.paypal_url %>
     <% end %>

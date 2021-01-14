@@ -27,6 +27,6 @@ class Purchase < ApplicationRecord
   private
 
   def generate_reference_id
-    self.reference_id = SecureRandom.hex if reference_id.nil?
+    self.reference_id = SecureRandom.uuid if reference_id.nil?
   end
 end
