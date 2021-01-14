@@ -34,7 +34,7 @@ class TagsTest < ActiveSupport::TestCase
     assert_equal('Przebój', tags.title)
     assert_equal(1, tags.track)
 
-    assert_equal('http://www.karoryfer.com/jeczace-brzekodzwieki/wydawnictwa/tluczace-pokrowce-jezozwierza', tags.contact_url)
+    assert_equal('http://www.karoryfer.com/jeczace-brzekodzwieki/tluczace-pokrowce-jezozwierza', tags.contact_url)
     assert_equal('Karoryfer Lecolds', tags.organization_name)
     assert_equal('http://www.karoryfer.com', tags.organization_url)
   end

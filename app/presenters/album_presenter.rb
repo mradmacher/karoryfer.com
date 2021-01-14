@@ -48,6 +48,10 @@ class AlbumPresenter < Presenter
     @downloadable_releases = resource.releases.map { |r| ReleasePresenter.new(r) }
   end
 
+  def download_path
+    download_artist_album_path(album.artist, album)
+  end
+
   def releases
     @releases = resource.releases.where(published: true).map { |r| ReleasePresenter.new(r) }
   end

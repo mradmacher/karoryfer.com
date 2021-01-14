@@ -73,18 +73,6 @@ class TrackTest < ActiveSupport::TestCase
       assert track.valid?
     end
 
-    it 'validates comment length' do
-      track = Track.sham! :build
-      track.comment = 'a' * (Track::COMMENT_MAX_LENGTH + 1)
-      refute track.valid?
-      assert track.errors[:comment].include? I18n.t(
-        'activerecord.errors.models.track.attributes.comment.too_long'
-      )
-
-      track.comment = 'a' * Track::COMMENT_MAX_LENGTH
-      assert track.valid?
-    end
-
     it 'defaults order by rank' do
       album = Album.sham!
       5.times { Track.sham! album: album }

@@ -9,16 +9,7 @@ Karoryfer::Application.routes.draw do
 
   get 'wydawnictwa', to: 'site#albums', as: 'albums'
   get 'artysci', to: redirect('wydawnictwa')
-
-  resources :artists, path: '', only: %i[show]
-  scope ':artist_id', as: 'artist' do
-    resources :albums, path: 'wydawnictwa', only: %i[show] do
-      member do
-        get ':download', to: 'albums#download', as: 'download', constraints: { download: /mp3|ogg|flac|zip|external/ }
-      end
-    end
-    resources :pages, path: '-', only: %i[show]
-  end
+  get ':artist_id/wydawnictwa/:album_id', to: redirect('%{artist_id}/%{album_id}')
 
   scope 'admin', as: 'admin' do
     resources :user_sessions, only: [:create]
@@ -39,4 +30,20 @@ Karoryfer::Application.routes.draw do
       end
     end
   end
+
+  resources :artists, path: '', only: %i[show]
+  scope ':artist_id', as: 'artist' do
+    resources :albums, path: '', only: %i[show] do
+      member do
+        get 'zip', to: 'albums#download', as: 'download'
+      end
+    end
+    resources :pages, path: '-', only: %i[show]
+
+    # for backward compatibility
+    resources :albums, path: 'wydawnictwa', only: [] do
+      member { get 'zip', to: 'albums#download', as: 'old_download' }
+    end
+  end
+
 end

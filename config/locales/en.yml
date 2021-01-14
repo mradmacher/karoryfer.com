@@ -152,7 +152,7 @@ en:
       ogg: ogg
       zip: zip
       cd: cd
-      external: Buy it from our shop
+      external: Buy it from our shop ->
     attachment:
       file: File
     track:
