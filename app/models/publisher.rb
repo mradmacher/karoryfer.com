@@ -25,7 +25,6 @@ class Publisher
     Rails.application.routes.url_helpers.download_artist_album_url(
       purchase.release.album.artist,
       purchase.release.album,
-      purchase.release.format,
       pid: purchase.reference_id,
       host: host
     )
