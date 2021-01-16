@@ -3,9 +3,11 @@
   <% if @presenter.external_releases.any? %>
   <div class="col-sm-12">
     <% @presenter.external_releases.each do |release| %>
+      <% if release.price %>
+      <p><b><%= t('label.release.price') %>: <%= release.price %>&nbsp;<%= release.currency %></b></p>
+      <% end %>
       <a href="<%= release.download_path %>" rel="nofollow" class="inverse large button">
         <%= t("label.release_format.#{release.format}") %>
-        <% image_tag("external_download_#{I18n.locale}.png", title: t("label.release_format.#{release.format}"), alt: t("label.release_format.#{release.format}")) %>
       </a>
     <% end %>
   </div>
