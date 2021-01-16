@@ -10,6 +10,7 @@ class ReleasePresenter < Presenter
   def price
     whole_price = discount ? discount.whole_price : resource.whole_price
     return nil if whole_price.nil?
+    return nil if whole_price.zero?
 
     "#{whole_price / 100}.#{Kernel.format('%02d', whole_price % 100)}"
   end
