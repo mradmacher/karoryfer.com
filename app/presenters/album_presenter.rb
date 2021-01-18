@@ -15,6 +15,18 @@ class AlbumPresenter < Presenter
 
   alias album resource
 
+  def price
+    min_price_with_currency&.first
+  end
+
+  def currency
+    min_price_with_currency&.last
+  end
+
+  def min_price_with_currency
+    @min_price_with_currencty ||= releases.map { |r| [r.price, r.currency] }.select { |e| e.first }.sort_by(&:first).first
+  end
+
   def path
     artist_album_path(album.artist, album)
   end

@@ -12,10 +12,14 @@ class Downloader
   end
 
   def free_download(release_format)
-    release = album.releases.in_format(release_format).first
+    available_releases = album.releases.free
+    release =
+      if release_format
+        available_releases.in_format(release_format)
+      else
+        available_releases
+      end.first
     return nil if release.nil?
-
-    raise NotPurchasedError if release.for_sale?
 
     downloadable(release, nil)
   end

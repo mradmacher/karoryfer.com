@@ -12,6 +12,14 @@ class DownloaderTest < ActiveSupport::TestCase
     end
 
     describe '#free_download' do
+      it 'retuns some release if format not provided' do
+        assert_equal 0, @release.download_events.count
+
+        result = @downloader.free_download(nil)
+        refute_nil result
+        assert_equal 1, @release.reload.download_events.count
+      end
+
       it 'return nil if release in provided format does not exist' do
         assert_equal 0, @release.download_events.count
 
@@ -44,11 +52,10 @@ class DownloaderTest < ActiveSupport::TestCase
         assert_equal 'big-star-the-best-of-flac.zip', @release.download_events.first.source
       end
 
-      it 'fails for release for sale' do
+      it 'returns nothing for release for sale' do
         @release.update(for_sale: true, price: 20.0, currency: 'USD')
-        assert_raises Downloader::NotPurchasedError do
-          @downloader.free_download(Release::FLAC)
-        end
+        result = @downloader.free_download(Release::FLAC)
+        assert_nil result
         assert_equal 0, @release.download_events.count
       end
     end
