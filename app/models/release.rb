@@ -28,6 +28,7 @@ class Release < ApplicationRecord
   mount_uploader :file, Uploader::Release
 
   scope :in_format, ->(format) { where(format: format) }
+  scope :free, -> { where(for_sale: [false, nil]) }
 
   def price_and_currency(discount)
     return [price, currency] if discount.nil?
