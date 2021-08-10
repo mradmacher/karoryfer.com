@@ -1,5 +1,0 @@
-1. Create unpublished release, format: zip, for_sale: true, external_url: aws url to private file
-release = album.releases.create(published: false, format: 'zip', for_sale: true, external_url: )
-2. Add Purchase: generate_presigned_url: true, presigned_url: nil, release: release in zip format
-publisher = Publisher.instance
-result = 20.times.map { release.purchases.create(generate_presigned_url: true) }.map { |p| publisher.purchase_url(p) }

@@ -1,6 +1,0 @@
-<%= render_title t('title.new_album') %>
-<h2><%= t 'title.new_album' %></h2>
-<p>
-  <a href="<%= artist_path(current_artist) %>" class="small button"><%=t 'action.cancel_new' %></a>
-</p>
-<%= render partial: 'form', locals: { resource: @presenter.resource } %>

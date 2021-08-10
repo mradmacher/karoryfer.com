@@ -1,7 +1,0 @@
-<%= render_title t('title.new_artist') %>
-<h1><%=t  'title.new_artist' %></h1>
-<% content_for :actions do %>
-  <%= link_to_action t('action.cancel_new'), artists_path %>
-<% end %>
-<div class="clear"></div>
-<%= render :partial => 'form', locals: { resource: @presenter.resource } %>
