@@ -1,147 +1,75 @@
 ---
+  layout: default
 ---
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Karoryfer Lecolds</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="sixteen wide column">
+  <h2 class="ui centered header">Artyści</h2>
+  <div class="ui four stackable cards">
+    {% include band_card.html name="Hańba!" img="hanba-icon.png" url="https://hanba1926.bandcamp.com/" summary="Zbuntowana orkiestra podwórkowa" %}
+    {% include band_card.html name="Czarny motyl" img="czarnymotyl-icon.png" url="https://czarnymotyl.bandcamp.com" summary="Słodko-gorzki niby folk" %}
+    {% include band_card.html name="Czereśnie" img="czeresnie-icon.png" url="https://czeresnie.bandcamp.com/" summary="Proste piosenki dla dzieci i dorosłych" %}
+    {% include band_card.html name="Lennox Row" img="lennoxrow-icon.png" url="https://lennoxrow.bandcamp.com/" summary="kosmiczny new soul fabularny" %}
+    {% include band_card.html name="BalkanArtz" img="balkanartz-icon.png" url="/balkanartz" summary="etno rock, world music" %}
+    {% include band_card.html name="D.O.M." img="dom-icon.png" url="https://dompl.bandcamp.com/" summary="" %}
+    {% include band_card.html name="Astral Balloon" img="astralballoon-icon.png" url="https://astralballoon.bandcamp.com/" summary="sci-fi, komiksy, kreskówki, gry, zabawki, obraz" %}
+    {% include band_card.html name="Ludwik Zamenhof" img="ludwikzamenhof-icon.png" url="https://ludwikzamenhof.bandcamp.com" summary="Elektroniczny i samplowany projekt Andrzeja Zagajewskiego" %}
+    {% include band_card.html name="Bagno" img="bagno-icon.png" url="https://bagno.bandcamp.com/" summary="Noise. Folk. Punk. Brak Gitar." %}
+    {% include band_card.html name="Iglika" img="iglika-icon.png" url="/iglika" summary="Tańce i Pieśni Bałkańskie" %}
+    {% include band_card.html name="Żmij" img="zmij-icon.png" url="/zmij" summary="Co by było, gdyby Prasłowianie znali muzykę alternatywną?" %}
+    {% include band_card.html name="Crowmoth" img="crowmoth-icon.png" url="/crowmoth" summary="(czyt. Krołmot) - metal, metal, metal" %}
+    {% include band_card.html name="Południca" img="poludnica-icon.png" url="https://poludnica.bandcamp.com" summary="Zespół komiksowy co to się w ramkach nie mieści" %}
+    {% include band_card.html name="UnitraProdiż" img="unitraprodiz-icon.png" url="https://unitraprodiz.bandcamp.com/" summary="avant hip hop" %}
+    {% include band_card.html name="Bumtralala" img="bumtralala-icon.png" url="/bumtralala" summary="Rodzinny zespół pink-folkowy" %}
+    {% include band_card.html name="Krass" img="krass-icon.png" url="/krass" summary="Cyberpunk music" %}
+  </div>
+</div>
 
-    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<div class="sixteen wide column">
+  <h2 class="ui centered header">O nas</h2>
+</div>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <!--
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <%= javascript_include_tag 'application' %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    -->
-  </head>
-  <body>
-    <div class="ui grid container">
-      <div class="sixteen wide column">
-        <a href="/">
-          <img src="/assets/img/logo_with_name.png" alt="Karoryfer Lecolds" title="Karoryfer Lecolds" class="ui centered image"/>
-        </a>
-        <h2 class="ui centered sub header">Wirtualna wytwórnia płytowa</h2>
-      </div>
-
-      <div class="sixteen wide column">
-        <div class="ui borderless menu">
-          <div class="item">
-            <a href="https://karoryferlecolds.bandcamp.com/" class="button">Muzyka</a>
-          </div>
-          <div class="item">
-            <a href="https://karoryfer-samples.myshopify.com/" class="button">Sample</a>
-          </div>
-          <div class="right menu item">
-            <a href="http://www.facebook.com/karoryfer" target="_blank">
-              <img src="assets/img/facebook.png" alt="Facebook" title="Facebook" />
-            </a>
-            <a href="https://www.instagram.com/karoryfer_lecolds/" target="_blank">
-              <img src="assets/img/instagram.png" alt="Instagram" title="Instagram" />
-            </a>
-            <a href="http://www.twitter.com/karoryfer" target="_blank">
-              <img src="assets/img/twitter.png" alt="Twitter" title="Twitter" />
-            </a>
-            <a href="http://www.youtube.com/user/KaroryferLecolds" target="_blank">
-              <img src="assets/img/youtube.png" alt="YouTube" title="YouTube" />
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="sixteen wide column">
-        <h2 class="ui centered header">Artyści</h2>
-        <div class="ui four stackable cards">
-          {% include band_card.html name="Hańba!" img="hanba-icon.png" url="https://hanba1926.bandcamp.com/" summary="Zbuntowana orkiestra podwórkowa" %}
-          {% include band_card.html name="Czarny motyl" img="czarny-motyl-icon.png" url="https://czarnymotyl.bandcamp.com" summary="Słodko-gorzki niby folk" %}
-          {% include band_card.html name="Czereśnie" img="czeresnie-icon.png" url="https://czeresnie.bandcamp.com/" summary="Proste piosenki dla dzieci i dorosłych" %}
-          {% include band_card.html name="Lennox Row" img="lennox-row-icon.png" url="https://lennoxrow.bandcamp.com/" summary="kosmiczny new soul fabularny" %}
-          {% include band_card.html name="BalkanArtz" img="balkanartz-icon.png" url="/balkanartz" summary="etno rock, world music" %}
-          {% include band_card.html name="D.O.M." img="dom-icon.png" url="https://dompl.bandcamp.com/" summary="" %}
-          {% include band_card.html name="Astral Balloon" img="astral-balloon-icon.png" url="https://astralballoon.bandcamp.com/" summary="sci-fi, komiksy, kreskówki, gry, zabawki, obraz" %}
-          {% include band_card.html name="Ludwik Zamenhof" img="ludwikzamenhof-icon.png" url="https://ludwikzamenhof.bandcamp.com" summary="Elektroniczny i samplowany projekt Andrzeja Zagajewskiego" %}
-          {% include band_card.html name="Bagno" img="bagno-icon.png" url="https://bagno.bandcamp.com/" summary="Noise. Folk. Punk. Brak Gitar." %}
-          {% include band_card.html name="Iglika" img="iglika-icon.png" url="/iglika" summary="Tańce i Pieśni Bałkańskie" %}
-          {% include band_card.html name="Żmij" img="zmij-icon.png" url="/zmij" summary="Co by było, gdyby Prasłowianie znali muzykę alternatywną?" %}
-          {% include band_card.html name="Crowmoth" img="crowmoth-icon.png" url="/crowmoth" summary="(czyt. Krołmot) - metal, metal, metal" %}
-          {% include band_card.html name="Południca" img="poludnica-icon.png" url="https://poludnica.bandcamp.com" summary="Zespół komiksowy co to się w ramkach nie mieści" %}
-          {% include band_card.html name="UnitraProdiż" img="unitraprodiz-icon.png" url="https://unitraprodiz.bandcamp.com/" summary="avant hip hop" %}
-          {% include band_card.html name="Bumtralala" img="bumtralala-icon.png" url="/bumtralala" summary="Rodzinny zespół pink-folkowy" %}
-          {% include band_card.html name="Krass" img="krass-icon.png" url="/krass" summary="Cyberpunk music" %}
-        </div>
-      </div>
-
-      <div class="sixteen wide column">
-        <h2 class="ui centered header">O nas</h2>
-      </div>
-
-      <div class="ui equal width stackable grid">
-        <div class="row">
-          <div class="column">
-            <h3 class="ui centered header">Manifest</h2>
-            <ol>
-              <li>Jesteśmy Karoryfer (nazwa pochodzi od urządzenia grzewczego, pisownia ujednolicona).</li>
-              <li>Zajmujemy się promocją i wydawaniem.</li>
-              <li>Z nazwy.</li>
-              <li>Stanowimy kółko wzajemnej adoracji, które pragniemy dla Was otworzyć.</li>
-              <li>Wtedy przestaniemy nim być.</li>
-              <li>Zajmujemy się głównie muzyką, ale nie gardzimy też sztukami wizualnymi.</li>
-              <li>Jesteśmy łasi na pieniądze, aczkolwiek nie mamy pomysłu na ich zdobycie.</li>
-              <li>Nic, co dotyczy naszej firmy, nie istnieje poza internetem.</li>
-              <li>Oprócz paru osób z zarządu.</li>
-              <li>Wierzymy, że świat i postmodernizm się skończył a stare dobre wartości żyją i mają się dobrze.</li>
-              <li>Wszystkie nasze wydawnictwa istnieją dzięki życzliwości globalnej sieci.</li>
-              <li>Robimy krok dalej w ewolucji człowieka i przenosimy się w wirtual.</li>
-              <li>Uważamy, że nic nie zastąpi starego dobrego .mp3 i .jpg</li>
-              <li>Nośniki fizyczne są zaledwie opcją.</li>
-            </ol>
-          </div>
-
-          <div class="column">
-            <h3 class="ui centered header">Kontakt</h2>
-            <p>Jesteśmy zainteresowani współpracą, o ile nie będzie wymagać to od nas zaangażowania.</p>
-            <p>Chętnie popromujemy i poagencujemy różne projekty z różnych dziedzin, o ile uznamy je za warte tego.</p>
-            <p>Weźmiemy w patronat każdy koncert, o jaki się nas poprosi.</p>
-            <p>Nasze logo przykleimy wszędziemu i każdzie.</p>
-            <p>Nie widzimy przeszkód, by nawiązano z nami kontakt.</p>
-            <p>Czekamy więc: <a href="mailto:lecolds@karoryfer.com">lecolds@karoryfer.com</a></p>
-          </div>
-        </div>
-
-        <div class="center aligned row">
-          <div class="column">
-            <h3 class="ui header">
-              Karoryfer Mash Up Lecolds
-              <div class="sub header">mix Ludwik Zamenhof</div>
-            </h3>
-            <audio controls>
-              <source src="/assets/audio/klmiszmasz.ogg" type="audio/ogg">
-              <source src="/assets/audio/klmiszmasz.mp3" type="audio/mpeg">
-            </audio>
-          </div>
-        </div>
-      </div>
-
-      <div class="ui inverted footer segment">
-        <div class="ui container">
-          <div class="ui grid">
-            <div class="center aligned one column row">
-              <div class="column">
-                <img src="/assets/img/karoryfer-lecolds.png" alt="Karoryfer Lecolds" title="Karoryfer Lecolds" class="ui centered image"/>
-              </div>
-              <div class="column">
-                <p>
-                  Karoryfer Lecolds<br />
-                  2012-2021
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="sixteen wide column">&nbsp;</div>
+<div class="ui equal width stackable grid">
+  <div class="row">
+    <div class="column">
+      <h3 class="ui centered header">Manifest</h2>
+      <ol>
+        <li>Jesteśmy Karoryfer (nazwa pochodzi od urządzenia grzewczego, pisownia ujednolicona).</li>
+        <li>Zajmujemy się promocją i wydawaniem.</li>
+        <li>Z nazwy.</li>
+        <li>Stanowimy kółko wzajemnej adoracji, które pragniemy dla Was otworzyć.</li>
+        <li>Wtedy przestaniemy nim być.</li>
+        <li>Zajmujemy się głównie muzyką, ale nie gardzimy też sztukami wizualnymi.</li>
+        <li>Jesteśmy łasi na pieniądze, aczkolwiek nie mamy pomysłu na ich zdobycie.</li>
+        <li>Nic, co dotyczy naszej firmy, nie istnieje poza internetem.</li>
+        <li>Oprócz paru osób z zarządu.</li>
+        <li>Wierzymy, że świat i postmodernizm się skończył a stare dobre wartości żyją i mają się dobrze.</li>
+        <li>Wszystkie nasze wydawnictwa istnieją dzięki życzliwości globalnej sieci.</li>
+        <li>Robimy krok dalej w ewolucji człowieka i przenosimy się w wirtual.</li>
+        <li>Uważamy, że nic nie zastąpi starego dobrego .mp3 i .jpg</li>
+        <li>Nośniki fizyczne są zaledwie opcją.</li>
+      </ol>
     </div>
-  </body>
-</html>
+
+    <div class="column">
+      <h3 class="ui centered header">Kontakt</h2>
+      <p>Jesteśmy zainteresowani współpracą, o ile nie będzie wymagać to od nas zaangażowania.</p>
+      <p>Chętnie popromujemy i poagencujemy różne projekty z różnych dziedzin, o ile uznamy je za warte tego.</p>
+      <p>Weźmiemy w patronat każdy koncert, o jaki się nas poprosi.</p>
+      <p>Nasze logo przykleimy wszędziemu i każdzie.</p>
+      <p>Nie widzimy przeszkód, by nawiązano z nami kontakt.</p>
+      <p>Czekamy więc: <a href="mailto:lecolds@karoryfer.com">lecolds@karoryfer.com</a></p>
+    </div>
+  </div>
+
+  <div class="center aligned row">
+    <div class="column">
+      <h3 class="ui header">
+        Karoryfer Mash Up Lecolds
+        <div class="sub header">mix Ludwik Zamenhof</div>
+      </h3>
+      <audio controls>
+        <source src="/assets/audio/klmiszmasz.ogg" type="audio/ogg">
+        <source src="/assets/audio/klmiszmasz.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+</div>
