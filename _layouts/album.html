@@ -1,0 +1,43 @@
+---
+layout: artist
+---
+{% assign artist = site.data.artists[page.artist] %}
+{% assign album = artist.albums[page.album] %}
+
+<div class="ui equal width stackable grid">
+  <div class="column">
+    <h2 class="ui header">
+      {{ album.name }}
+      <div class="sub header">{{ album.date }}</div>
+    </h2>
+    <a href="/downloads/{{ page.artist }}-{{ page.album }}-flac.zip" class="ui big black button">Pobierz</a>
+  </div>
+
+  <div class="column">
+    <img src="/assets/img/{{ page.artist }}-{{ page.album }}.jpg" alt="{{ artist.name }} - {{ album.name }}" title="{{ artist.name }} - {{ album.name }}" class="ui big rounded image" />
+  </div>
+
+  <div class="column">
+    <ol class="ui ordered list">
+    {% for track_hash in album.tracks %}
+      {% assign track_permalink = track_hash[0] %}
+      {% assign track = track_hash[1] %}
+        <li class="item">
+          <strong>{{ track.name %}}</strong>
+          <p>
+            <audio controls>
+              <source src="/assets/audio/{{ page.artist }}/{{ page.album }}/{{ track_permalink }}.ogg" type="audio/ogg" />
+              <source src="/assets/audio/{{ page.artist }}/{{ page.album }}/{{ track_permalink }}.mp3" type="audio/mpeg" />
+            </audio>
+          </p>
+        </li>
+    {% endfor %}
+    </ol>
+  </div>
+
+</div>
+<div class="sixteen wide column">
+    <p>
+      {{ album.description | markdownify }}
+    </p>
+</div>

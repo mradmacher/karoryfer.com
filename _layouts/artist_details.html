@@ -1,0 +1,16 @@
+---
+layout: artist
+---
+{% assign artist = site.data.artists[page.artist] %}
+
+<div class="sixteen wide column">
+  {{ artist.description | markdownify }}
+</div>
+
+<div class="center aligned row">
+  <div class="column">
+    {% for url in artist.videos %}
+      <iframe src="{{ url }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    {% endfor %}
+  </div>
+</div>

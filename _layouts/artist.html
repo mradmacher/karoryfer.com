@@ -1,0 +1,60 @@
+---
+layout: default
+---
+{% assign artist = site.data.artists[page.artist] %}
+
+<div class="ui equal width stackable grid">
+  <div class="column">
+    <a href="/{{ page.artist }}">
+      <img src="/assets/img/{{ page.artist }}.jpg" alt="{{ artist.name }}" title="{{ artist.name }}" class="ui big rounded image" />
+    </a>
+  </div>
+  <div class="column">
+    <a href="/{{ page.artist }}">
+    <h2 class="ui header">
+      {{ artist.name }}
+      <div class="sub header">{{ artist.meta }}</div>
+    </h2>
+    </a>
+    {% if artist.youtube %}
+      <a href="{{ artist.youtube }}" target="_blank">
+        <img src="/assets/img/youtube.png" alt="YouTube" title="YouTube" />
+      </a>
+    {% endif %}
+    {% if artist.facebook %}
+    <a href="{{ artist.facebook }}" target="_blank">
+      <img src="/assets/img/facebook.png" alt="Facebook" title="Facebook" />
+    </a>
+    {% endif %}
+    {% if artist.instagram %}
+    <a href="{{ artist.instagram }}" target="_blank">
+      <img src="/assets/img/instagram.png" alt="Instagram" title="Instagram" />
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+{{ content }}
+
+{% if artist.albums %}
+<div class="sixteen wide column">
+  <h2 class="ui centered header">Wydawnictwa</h2>
+  <div class="center aligned row">
+    <div class="ui four stackable centered cards">
+      {% for album_hash in artist.albums %}
+        {% assign album_permalink = album_hash[0] %}
+        {% assign album = album_hash[1] %}
+        <a class="ui card" href="/{{ page.artist }}/{{ album_permalink }}">
+          <div class="image">
+            <img src="/assets/img/{{ page.artist }}-{{ album_permalink }}-icon.png" alt="{{ album.name }}" title="{{ name.name }}" class="centered" />
+          </div>
+          <div class="content">
+            <div class="header">{{ album.name }}</div>
+            <div class="meta">{{ album.date }}</div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}

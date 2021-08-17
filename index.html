@@ -1,25 +1,26 @@
 ---
-  layout: default
+layout: default
 ---
 <div class="sixteen wide column">
   <h2 class="ui centered header">Artyści</h2>
   <div class="ui four stackable cards">
-    {% include band_card.html name="Hańba!" img="hanba-icon.png" url="https://hanba1926.bandcamp.com/" summary="Zbuntowana orkiestra podwórkowa" %}
-    {% include band_card.html name="Czarny motyl" img="czarnymotyl-icon.png" url="https://czarnymotyl.bandcamp.com" summary="Słodko-gorzki niby folk" %}
-    {% include band_card.html name="Czereśnie" img="czeresnie-icon.png" url="https://czeresnie.bandcamp.com/" summary="Proste piosenki dla dzieci i dorosłych" %}
-    {% include band_card.html name="Lennox Row" img="lennoxrow-icon.png" url="https://lennoxrow.bandcamp.com/" summary="kosmiczny new soul fabularny" %}
-    {% include band_card.html name="BalkanArtz" img="balkanartz-icon.png" url="/balkanartz" summary="etno rock, world music" %}
-    {% include band_card.html name="D.O.M." img="dom-icon.png" url="https://dompl.bandcamp.com/" summary="" %}
-    {% include band_card.html name="Astral Balloon" img="astralballoon-icon.png" url="https://astralballoon.bandcamp.com/" summary="sci-fi, komiksy, kreskówki, gry, zabawki, obraz" %}
-    {% include band_card.html name="Ludwik Zamenhof" img="ludwikzamenhof-icon.png" url="https://ludwikzamenhof.bandcamp.com" summary="Elektroniczny i samplowany projekt Andrzeja Zagajewskiego" %}
-    {% include band_card.html name="Bagno" img="bagno-icon.png" url="https://bagno.bandcamp.com/" summary="Noise. Folk. Punk. Brak Gitar." %}
-    {% include band_card.html name="Iglika" img="iglika-icon.png" url="/iglika" summary="Tańce i Pieśni Bałkańskie" %}
-    {% include band_card.html name="Żmij" img="zmij-icon.png" url="/zmij" summary="Co by było, gdyby Prasłowianie znali muzykę alternatywną?" %}
-    {% include band_card.html name="Crowmoth" img="crowmoth-icon.png" url="/crowmoth" summary="(czyt. Krołmot) - metal, metal, metal" %}
-    {% include band_card.html name="Południca" img="poludnica-icon.png" url="https://poludnica.bandcamp.com" summary="Zespół komiksowy co to się w ramkach nie mieści" %}
-    {% include band_card.html name="UnitraProdiż" img="unitraprodiz-icon.png" url="https://unitraprodiz.bandcamp.com/" summary="avant hip hop" %}
-    {% include band_card.html name="Bumtralala" img="bumtralala-icon.png" url="/bumtralala" summary="Rodzinny zespół pink-folkowy" %}
-    {% include band_card.html name="Krass" img="krass-icon.png" url="/krass" summary="Cyberpunk music" %}
+    {% for artist_hash in site.data.artists %}
+      {% assign permalink = artist_hash[0] %}
+      {% assign artist = artist_hash[1] %}
+      {% if artist.bandcamp %}
+      <a class="ui card" href="{{ artist.bandcamp }}">
+      {% else %}
+      <a class="ui card" href="/{{ permalink }}">
+      {% endif %}
+        <div class="image">
+          <img src="/assets/img/{{ permalink }}-icon.png" alt="{{ artist.name }}" title="{{ artist.name }}" class="centered" />
+        </div>
+        <div class="content">
+          <div class="header">{{ artist.name }}</div>
+          <div class="meta">{{ artist.meta }}</div>
+        </div>
+      </a>
+    {% endfor %}
   </div>
 </div>
 
