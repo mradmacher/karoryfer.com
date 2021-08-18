@@ -23,7 +23,7 @@ layout: artist
       {% assign track_permalink = track_hash[0] %}
       {% assign track = track_hash[1] %}
         <li class="item">
-          <strong>{{ track.name %}}</strong>
+          <strong>{{ track.name }}</strong>
           <p>
             <audio controls>
               <source src="/assets/audio/{{ page.artist }}/{{ page.album }}/{{ track_permalink }}.ogg" type="audio/ogg" />
