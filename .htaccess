@@ -1,4 +1,6 @@
 RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-RewriteRule ^/?karoryfer-samples/wydawnictwa/marie-ork/zip /downloads/karoryfer-samples-marie-ork.zip
+RewriteRule ^/?karoryfer-samples/wydawnictwa/marie-ork/zip /downloads/karoryfer-samples-marie-ork.zip [L]
+RewriteRule ^/?karoryfer-samples/wydawnictwa/?(.*)$ https://shop.karoryfer.com [L]
+RewriteRule ^/?karoryfer-samples/?(.*)$ https://shop.karoryfer.com [L]
