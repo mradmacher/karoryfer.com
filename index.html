@@ -7,8 +7,8 @@ layout: default
     {% for artist_hash in site.data.artists %}
       {% assign permalink = artist_hash[0] %}
       {% assign artist = artist_hash[1] %}
-      {% if artist.bandcamp %}
-      <a class="ui card" href="{{ artist.bandcamp }}">
+      {% if artist.webpage %}
+      <a class="ui card" href="{{ artist.webpage }}">
       {% else %}
       <a class="ui card" href="/{{ permalink }}">
       {% endif %}

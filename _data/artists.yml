@@ -1,31 +1,22 @@
 astralballoon:
   name: Astral Balloon
   meta: sci-fi, komiksy, kreskówki, gry, zabawki, obraz
-  bandcamp: https://astralballoon.bandcamp.com/
+  webpage: https://astralballoon.bandcamp.com/
 
 bagno:
   name: Bagno
   meta: Noise. Folk. Punk. Brak Gitar.
-  bandcamp: https://bagno.bandcamp.com/
+  webpage: https://bagno.bandcamp.com/
 
 balkanartz:
-  permalink: balkanartz
   name: BalkanArtz
   meta: etno rock, world music
-  youtube: https://www.youtube.com/channel/UCoWxaIzGrAIRwqc0s5bxslg
-  facebook: https://www.facebook.com/BalkanArtz/
-  instagram: https://www.instagram.com/balkanartz/
-  description: |
-    BalkanArtz to projekt muzyczny inspirowany muzyką rumuńską, bałkańską, węgierską i cygańską. Powstał w 2015 roku z połączenia fascynacji i doświadczeń muzycznych Olgi, Adama, Marcina i Nikolaya. Dzięki różnorodności ich zainteresowań, podczas koncertów BalkanArtz elementy muzyki ludowej łączą się z rock’n’rollem, darbuka wchodzi w dialog z gitarą basową, a sevdalinki wybrzmiewają obok utworów pochodzących z Rumunii.
-
-    Drugi człon nazwy zespołu nawiązuje do węgierskiego słowa „Arc”, które oznacza „twarz” – i tak właśnie BalkanArtz, łącząc tradycyjne brzmienia z nowoczesnymi aranżacjami, ukazuje słuchaczom nową twarz muzyki bałkańskiej.
-  videos:
-    - https://www.youtube.com/embed/ySJuzi9gNHk?rel=0&amp;controls=0
+  webpage: https://balkanartz.eu/
 
 bumtralala:
   name: Bumtralala
   meta: Rodzinny zespół pink-folkowy
-  bandcamp: https://bumtralala.bandcamp.com
+  webpage: https://bumtralala.bandcamp.com
 
 crowmoth:
   name: Crowmoth
@@ -73,26 +64,26 @@ crowmoth:
 czarnymotyl:
   name: Czarny motyl
   meta: Słodko-gorzki niby folk
-  bandcamp: https://czarnymotyl.bandcamp.com
+  webpage: https://czarnymotyl.bandcamp.com
 
 czeresnie:
   name: Czereśnie
   meta: Proste piosenki dla dzieci i dorosłych
-  bandcamp: https://czeresnie.bandcamp.com/
+  webpage: https://czeresnie.bandcamp.com/
 
 dom:
   name: D.O.M.
-  bandcamp: https://dompl.bandcamp.com/
+  webpage: https://dompl.bandcamp.com/
 
 hanba:
   name: Hańba!
   meta: Zbuntowana orkiestra podwórkowa
-  bandcamp: https://hanba1926.bandcamp.com/
+  webpage: https://hanba1926.bandcamp.com/
 
 iglika:
   name: Iglika
   meta: Tańce i Pieśni Bałkańskie
-  bandcamp: https://iglika.bandcamp.com
+  webpage: https://iglika.bandcamp.com
 
 krass:
   name: Krass
@@ -122,22 +113,22 @@ krass:
 lennoxrow:
   name: Lennox Row
   meta: Kosmiczny new soul fabularny
-  bandcamp: https://lennoxrow.bandcamp.com/
+  webpage: https://lennoxrow.bandcamp.com/
 
 ludwikzamenhof:
   name: Ludwik Zamenhof
   meta: Elektroniczny i samplowany projekt Andrzeja Zagajewskiego
-  bandcamp: https://ludwikzamenhof.bandcamp.com
+  webpage: https://ludwikzamenhof.bandcamp.com
 
 poludnica:
   name: Południca
   meta: Zespół komiksowy co to się w ramkach nie mieści
-  bandcamp: https://poludnica.bandcamp.com
+  webpage: https://poludnica.bandcamp.com
 
 unitraprodiz:
   name: UnitraProdiż
   meta: avant hip hop
-  bandcamp: https://unitraprodiz.bandcamp.com/
+  webpage: https://unitraprodiz.bandcamp.com/
 
 zmij:
   name: Żmij
